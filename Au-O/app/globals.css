@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .button {
+    @apply mx-auto px-4 border-0 border-backdrop-primary dark:border-backdrop-primary-dark  bg-backdrop-primary dark:bg-backdrop-primary-dark font-semibold rounded-lg shadow-md py-2;
+  }
+  .btn-highlight {
+    @apply bg-highlight border-highlight;
+  }
+  .btn-highlight-dark {
+    @apply bg-highlight-dark border-highlight-dark;
+  }
+  .btn-highlight-light {
+    @apply bg-highlight-light border-highlight-light;
+  }
+  .btn-outline {
+    @apply bg-transparent border-2;
+  }
+  .btn-transparent {
+    @apply bg-transparent border-0;
+  }
+
+
+  /* példa: className="button btn-primary btn-outline" */
+}
