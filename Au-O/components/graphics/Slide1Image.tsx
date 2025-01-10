@@ -60,14 +60,14 @@ const SvgSlide1Image = (props: SvgProps & {theme: 'light' | 'dark' | undefined})
       d="M206.535 34.886a5 5 0 0 0 1.474-4.083l-1.841-17.914a5 5 0 0 0-5.485-4.463L49.877 23.924a5 5 0 0 0-4.463 5.485l1.841 17.914a5 5 0 0 0 2.399 3.775 4.99 4.99 0 0 0-1.475 4.083L60.897 178.94a5 5 0 0 0 2.401 3.776 5 5 0 0 0-1.69 4.282l4.138 40.259a5 5 0 0 0 5.485 4.463l150.806-15.498a5 5 0 0 0 4.463-5.485l-4.137-40.259a4.99 4.99 0 0 0-2.401-3.776 5 5 0 0 0 1.689-4.282L208.933 38.661a5 5 0 0 0-2.398-3.775Z"
     />
     <Path
-      stroke={props.theme === "dark" ? Colors.highlight.dark : Colors.highlight.light}
+      stroke={props.theme === "dark" ? Colors.highlight.dark : Colors.highlight.main}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={5}
       d="m217.428 92.8 33.466 4.17m-22.4-20.784 5.906.736m15.01 7.887 8.862 1.084 1.471-11.812-3.692-2.459m-35.67 21.546 4.169-33.466c.49-3.938 3.373-5.578 6.641-5.17l15.749 1.961c3.268.407 5.661 2.704 5.17 6.642L247.942 96.6zm12.569-22.424 8.327 1.037c2.048.255 3.844-.52 4.185-3.257l.301-2.421c.341-2.737-1.21-3.93-3.257-4.185l-8.327-1.037c-2.048-.255-3.844.52-4.185 3.257l-.301 2.422c-.341 2.736 1.21 3.929 3.257 4.184"
     />
     <Path
-      stroke={props.theme === "dark" ? Colors.highlight.dark : Colors.highlight.light}
+      stroke={props.theme === "dark" ? Colors.highlight.dark : Colors.highlight.main}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={6}
@@ -75,28 +75,28 @@ const SvgSlide1Image = (props: SvgProps & {theme: 'light' | 'dark' | undefined})
 8.57 2.312 9.533 6.433z"
     />
     <Path
-      stroke={props.theme === "dark" ? Colors.highlight.dark : Colors.highlight.light}
+      stroke={props.theme === "dark" ? Colors.highlight.dark : Colors.highlight.main}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={4}
       d="M40.18 130.459c.456-3.496-2.65-6.784-6.942-7.343s-8.137 1.823-8.592 5.319m18.61 8.744-1.477-.192a5.85 5.85 0 0 0-4.337 1.153l-3.748 2.849a3.96 3.96 0 0 1-5.496-.716l-2.893-3.715a5.89 5.89 0 0 0-3.896-2.226l-1.457-.189c-3.224-.42-5.49-3.342-5.074-6.527l2.76-21.186c.415-3.185 3.354-5.429 6.577-5.009l23.304 3.037c3.223.42 5.489 3.341 5.074 6.526l-2.76 21.187c-.413 3.165-3.354 5.428-6.578 5.008M38.96 114.52a4.562 4.562 0 1 1-9.049-1.178 4.562 4.562 0 0 1 9.049 1.178"    
     />
     <Path
-      stroke={props.theme === "dark" ? Colors.highlight.dark : Colors.highlight.light}
+      stroke={props.theme === "dark" ? Colors.highlight.dark : Colors.highlight.main}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={9}
       d="m280.207 183.5-9.847-9.847m-5.167-48.198-.228 12.318c-.032 1.69 1.04 3.932 2.405 4.94l8.06 6.109c5.168 3.9 4.323 8.678-1.852 10.628l-10.498 3.282c-1.755.553-3.607 2.471-4.062 4.258l-2.503 9.555c-1.982 7.54-6.922 8.288-11.017 1.658l-5.72-9.263c-1.04-1.69-3.51-2.957-5.46-2.86l-10.855.553c-7.768.39-9.978-4.095-4.908-10.01l6.435-7.475c1.203-1.398 1.755-3.998 1.203-5.753l-3.283-10.497c-1.917-6.175 1.528-9.588 7.67-7.573l9.588 3.153c1.625.52 4.062.162 5.427-.845l10.01-7.215c5.395-3.9 9.718-1.625 9.588 5.037"
     />
     <Path
-      stroke={Colors.highlight.main}
+      stroke={props.theme === "dark" ? Colors.highlight.main : Colors.highlight.light}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={5}
       d="m217.428 94.8 33.466 4.17m-22.4-20.784 5.906.736m15.01 7.887 8.862 1.084 1.471-11.812-3.692-2.459m-35.67 21.546 4.169-33.466c.49-3.938 3.373-5.578 6.641-5.17l15.749 1.961c3.268.407 5.661 2.704 5.17 6.642L247.942 98.6zm12.569-22.424 8.327 1.037c2.048.255 3.844-.52 4.185-3.257l.301-2.421c.341-2.737-1.21-3.93-3.257-4.185l-8.327-1.037c-2.048-.255-3.844.52-4.185 3.257l-.301 2.422c-.341 2.736 1.21 3.929 3.257 4.184"
     />
     <Path
-      stroke={Colors.highlight.main}
+      stroke={props.theme === "dark" ? Colors.highlight.main : Colors.highlight.light}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={6}
@@ -104,14 +104,14 @@ const SvgSlide1Image = (props: SvgProps & {theme: 'light' | 'dark' | undefined})
 8.57 2.312 9.533 6.433z"
     />
     <Path
-      stroke={Colors.highlight.main}
+      stroke={props.theme === "dark" ? Colors.highlight.main : Colors.highlight.light}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={4}
       d="M40.18 132.459c.456-3.496-2.65-6.784-6.942-7.343s-8.137 1.823-8.592 5.319m18.61 8.744-1.477-.192a5.85 5.85 0 0 0-4.337 1.153l-3.748 2.849a3.96 3.96 0 0 1-5.496-.716l-2.893-3.715a5.89 5.89 0 0 0-3.896-2.226l-1.457-.189c-3.224-.42-5.49-3.342-5.074-6.527l2.76-21.186c.415-3.185 3.354-5.429 6.577-5.009l23.304 3.037c3.223.42 5.489 3.341 5.074 6.526l-2.76 21.187c-.413 3.165-3.354 5.428-6.578 5.008M38.96 116.52a4.562 4.562 0 1 1-9.049-1.178 4.562 4.562 0 0 1 9.049 1.178"    
     />
     <Path
-      stroke={Colors.highlight.main}
+      stroke={props.theme === "dark" ? Colors.highlight.main : Colors.highlight.light}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={9}

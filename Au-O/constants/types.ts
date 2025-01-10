@@ -18,5 +18,6 @@ export interface ButtonProps extends TouchableOpacityProps {
      "icon" //kerek, w=h
    | "fit" //tartalom szélességéhez igazodik
    | "fill"; //container szélességéhez igazodik
-  children: React.ReactNode;
+  children?: React.ReactNode;
+  hapticFeedback?: | "light" | "medium" | "heavy";
 }
