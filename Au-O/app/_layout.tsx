@@ -10,6 +10,7 @@ import './globals.css'
 import { useColorScheme } from 'nativewind';
 import { ThemedText } from '@/components/ThemedText';
 import { TouchableOpacity, View } from 'react-native';
+import { LanguageProvider } from './contexts/LanguageContext';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -31,13 +32,13 @@ export default function RootLayout() {
   }
 
   return (
+    <LanguageProvider>
+
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <View className='mx-auto flex justify-center items-center w-full h-full bg-white dark:bg-black'>
-      <ThemedText>Home</ThemedText>
-      <TouchableOpacity className='button  btn-highlight dark:btn-highlight-dark btn-outline dark:btn-outline ' onPress={() => {toggleColorScheme()}}>
-        <ThemedText>Theme</ThemedText>
-      </TouchableOpacity>
-      </View>
+    <Stack>
+      <Stack.Screen name="onboarding" options={{headerShown: false}} />
+    </Stack>
     </ThemeProvider>
+    </LanguageProvider>
   );
 }

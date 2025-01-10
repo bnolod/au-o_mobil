@@ -4,13 +4,19 @@
 
 @layer components {
   .button {
-    @apply mx-auto px-4 border-0 border-backdrop-primary dark:border-backdrop-primary-dark  bg-backdrop-primary dark:bg-backdrop-primary-dark font-semibold rounded-lg shadow-md py-2;
+    @apply mx-auto px-4 border-0 font-bold shadow-md py-2 rounded-full;
   }
   .btn-highlight {
     @apply bg-highlight border-highlight;
+    & > * {
+      @apply text-white;
+    }
   }
   .btn-highlight-dark {
     @apply bg-highlight-dark border-highlight-dark;
+    & > * {
+      @apply text-white;
+    }
   }
   .btn-highlight-light {
     @apply bg-highlight-light border-highlight-light;
@@ -22,6 +28,22 @@
     @apply bg-transparent border-0;
   }
 
+  .btn-icon {
+    @apply flex items-center justify-center p-0 rounded-full;
+    width: 4rem;
+    height: 4rem;
+    & > * {
+      @apply h-2 mx-auto text-center p-0 m-0;
+      line-height: 0;
+    }
+  }
+  
+  .btn-fill {
+    @apply flex items-center justify-center w-5/6
+  }
+  .btn-fit {
+    @apply flex items-center justify-center w-fit
+  }
 
   /* példa: className="button btn-primary btn-outline" */
 }
