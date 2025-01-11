@@ -42,6 +42,46 @@ export const AuthTexts = {
         confirmTabSwitch: {
             HU: "Jelentkezz Be!",
             EN: "Log In!",
+        },
+        placeholders: {
+            email: {
+                HU: "pelda@auo.com",
+                EN: "example@auo.com"
+            },
+            password: {
+                HU: "Jelszó",
+                EN: "Password"
+            },
+            confirmPassword: {
+                HU: "Jelszó megerősítése",
+                EN: "Confirm password"
+            },
+            username: {
+                HU: "auo-felhasznalo",
+                EN: "auo-user"
+            }
+        },
+        labels: {
+            email: {
+                HU: "E-mail cím",
+                EN: "E-mail address"
+            },
+            password: {
+                HU: "Jelszó",
+                EN: "Password"
+            },
+            confirmPassword: {
+                HU: "Jelszó megerősítése",
+                EN: "Confirm password"
+            },
+            username: {
+                HU: "Felhasználónév",
+                EN: "Username"
+            }
+        },
+        heroText: {
+            HU: "Csatlakozz hozzánk!",
+            EN: "Join us!"
         }
     },
     login: {
@@ -56,6 +96,30 @@ export const AuthTexts = {
         confirmTabSwitch: {
             HU: "Regisztrálj!",
             EN: "Create your Account!"
+        },
+        placeholders: {
+            email: {
+                HU: "pelda@auo.com",
+                EN: "example@auo.com"
+            },
+            password: {
+                HU: "Jelszó",
+                EN: "Password"
+            }
+        },
+        labels: {
+            email: {
+                HU: "E-mail cím",
+                EN: "E-mail address"
+            },
+            password: {
+                HU: "Jelszó",
+                EN: "Password"
+            }
+        },
+        heroText: {
+            HU: "Üdv újra!",
+            EN: "Welcome back!"
         }
     }
 }

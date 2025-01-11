@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dimensions, Image, View } from 'react-native';
-import { ThemedText } from '../ThemedText';
+import { ThemedText } from '../ui/ThemedText';
 import SvgHeaderDecoration from '../graphics/HeaderDecoration';
 import { useColorScheme } from 'nativewind';
 import Button from '../ui/Button';

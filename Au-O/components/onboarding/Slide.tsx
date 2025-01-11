@@ -1,6 +1,6 @@
 import React, { ReactNode, useEffect } from "react";
 import { View } from "react-native";
-import { ThemedText } from "@/components/ThemedText";
+import { ThemedText } from "@/components/ui/ThemedText";
 
 
 export default function Slide({text, image}: {text: string, image: ReactNode}) {

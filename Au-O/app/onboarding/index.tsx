@@ -5,9 +5,6 @@ import { useColorScheme } from "nativewind";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { OnboardingTexts } from "@/constants/texts";
 import OnboardingHeader from "@/components/onboarding/Header";
-import { ThemedText } from "@/components/ThemedText";
-import { OnboardingLayoutProps } from "@/constants/types";
-import { Slot, Stack } from "expo-router";
 import SvgSlide1Image from "@/components/graphics/Slide1Image";
 import {
   OnboardingProvider,

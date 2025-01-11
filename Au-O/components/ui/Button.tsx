@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
-import { ThemedText } from '../ThemedText';
+import { ThemedText } from './ThemedText';
 import { ButtonProps } from '@/constants/types';
 import * as Haptics from 'expo-haptics';
 

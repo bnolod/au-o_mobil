@@ -1,6 +1,6 @@
 import { View } from "react-native";
 import Button from "../ui/Button";
-import { ThemedText } from "../ThemedText";
+import { ThemedText } from "../ui/ThemedText";
 import { Colors } from "@/constants/Colors";
 import { CallToActionTexts } from "@/constants/texts";
 import { useLanguage } from "@/contexts/LanguageContext";

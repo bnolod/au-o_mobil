@@ -1,7 +1,10 @@
 import { View } from "react-native";
 import Button from "../ui/Button";
-import ThemedText from "../ThemedText";
+import ThemedText from "../ui/ThemedText";
 import { AuthTexts } from "@/constants/texts";
+import { useColorScheme } from "nativewind";
+import { router } from "expo-router";
+
 
 export default function AuthTouchables({
   language,
@@ -10,13 +13,16 @@ export default function AuthTouchables({
   language: "HU" | "EN";
   mode: "LOGIN" | "SIGNUP";
 }) {
+  const {toggleColorScheme} = useColorScheme();
   return (
-    <View className="w-full basis-2/12 flex flex-col justify-evenly items-center">
+    <View className="w-full basis-2/12 flex flex-col my-6 bg-transparent justify-evenly items-center">
       <Button
         variant="highlight"
         type="fill"
         hapticFeedback="heavy"
-        onPress={() => {}}
+        onPress={() => {
+          toggleColorScheme()
+        }}
       >
         <ThemedText className="text-white font-semibold text-lg">
           {mode === "LOGIN"
@@ -24,13 +30,13 @@ export default function AuthTouchables({
             : AuthTexts.signup.confirm[language]}
         </ThemedText>
       </Button>
-      <View className="flex items-center gap-4">
+      <View className="flex items-center flex-row">
         <ThemedText>
           {mode === "LOGIN"
             ? AuthTexts.login.notRegistered[language]
             : AuthTexts.signup.haveAccount[language]}
         </ThemedText>
-        <Button type="fit" variant="transparent">
+        <Button hapticFeedback="light" type="fit" variant="transparent" onPress={() => {router.replace(mode === "LOGIN" ? "/(auth)/register" : "/(auth)/login")}}>
           <ThemedText className="underline font-bold">
             {mode === "LOGIN"
               ? AuthTexts.login.confirmTabSwitch[language]
