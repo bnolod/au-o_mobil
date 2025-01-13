@@ -13,7 +13,7 @@ import {
 export default function AuthLayout() {
   const { language } = useLanguage();
   const path = usePathname();
-
+  
   return (
     <>
       <TouchableWithoutFeedback
@@ -30,14 +30,15 @@ export default function AuthLayout() {
             
           >
             <OnboardingHeader isStatic />
-
+            
             <Stack>
-              <Stack.Screen name="login" options={{ headerShown: false }} />
+              <Stack.Screen name="login"  options={{ headerShown: false }} />
               <Stack.Screen name="register" options={{ headerShown: false }} />
             </Stack>
             <AuthTouchables
               mode={path === "/login" ? "LOGIN" : "SIGNUP"}
               language={language}
+              onPress={path === "/login" ? () => {}: () => {}}
             />
           </KeyboardAvoidingView>
         </View>

@@ -9,9 +9,11 @@ import { router } from "expo-router";
 export default function AuthTouchables({
   language,
   mode,
+  onPress
 }: {
   language: "HU" | "EN";
   mode: "LOGIN" | "SIGNUP";
+  onPress: () => any;
 }) {
   const {toggleColorScheme} = useColorScheme();
   return (
@@ -20,10 +22,7 @@ export default function AuthTouchables({
         variant="highlight"
         type="fill"
         hapticFeedback="heavy"
-        onPress={() => {
-          //toggleColorScheme()
-          router.replace('/_sitemap')
-        }}
+        onPress={onPress}
       >
         <ThemedText className="text-white font-semibold text-lg">
           {mode === "LOGIN"
@@ -37,7 +36,7 @@ export default function AuthTouchables({
             ? AuthTexts.login.notRegistered[language]
             : AuthTexts.signup.haveAccount[language]}
         </ThemedText>
-        <Button hapticFeedback="light" type="fit" variant="transparent" onPress={() => {router.push(mode === "LOGIN" ? "/(auth)/register" : "/(auth)/login")}}>
+        <Button hapticFeedback="light" type="fit" variant="transparent" onPress={() => {router.push(mode === "LOGIN" ? "/_sitemap" : "/(auth)/login")}}>
           <ThemedText className="underline font-bold">
             {mode === "LOGIN"
               ? AuthTexts.login.confirmTabSwitch[language]

@@ -7,11 +7,12 @@ import { colorScheme } from "nativewind";
 import ThemedText from "@/components/ui/ThemedText";
 export default function Login() {
   const { language } = useLanguage();
+
   return (
-    <ScrollView >
-                  <ThemedText className="text-center text-4xl font-bold mb-5 pt-[50%]">
-                    {AuthTexts.login.heroText[language]}
-                  </ThemedText>
+    <ScrollView>
+      <ThemedText className="text-center text-4xl font-bold mb-5 pt-[50%]">
+        {AuthTexts.login.heroText[language]}
+      </ThemedText>
       <Input
         label={AuthTexts.login.labels.email[language]}
         TextInputProps={{

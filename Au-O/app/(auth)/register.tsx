@@ -8,13 +8,12 @@ import ThemedText from "@/components/ui/ThemedText";
 import { usePathname } from "expo-router";
 export default function Register() {
   const { language } = useLanguage();
-    const path = usePathname();
+  const path = usePathname();
   return (
-    <ScrollView
-    >
-            <ThemedText className="text-center text-4xl font-bold mb-5 pt-[50%]">
-              {AuthTexts.signup.heroText[language]}
-            </ThemedText>
+    <ScrollView>
+      <ThemedText className="text-center text-4xl font-bold mb-5 pt-[50%]">
+        {AuthTexts.signup.heroText[language]}
+      </ThemedText>
       <Input
         label={AuthTexts.signup.labels.email[language]}
         TextInputProps={{
@@ -51,19 +50,19 @@ export default function Register() {
       <Input
         label={AuthTexts.signup.labels.password[language]}
         icon={
-            <MaterialCommunityIcons
+          <MaterialCommunityIcons
             name="lock"
             size={24}
             color={colorScheme.get() === "dark" ? "white" : "black"}
-            />
+          />
         }
         secureTextEntry
         TextInputProps={{
-            placeholder: AuthTexts.signup.placeholders.password[language],
-            autoComplete: "off",
-            textContentType: "password",
+          placeholder: AuthTexts.signup.placeholders.password[language],
+          autoComplete: "off",
+          textContentType: "password",
         }}
-        />
+      />
       <Input
         label={AuthTexts.signup.labels.confirmPassword[language]}
         secureTextEntry
@@ -73,14 +72,13 @@ export default function Register() {
           placeholder: AuthTexts.signup.placeholders.confirmPassword[language],
         }}
         icon={
-            <MaterialCommunityIcons
+          <MaterialCommunityIcons
             name="lock-check"
             size={24}
             color={colorScheme.get() === "dark" ? "white" : "black"}
-            />
+          />
         }
-        />
-
+      />
     </ScrollView>
   );
 }

@@ -8,6 +8,8 @@ import {
 import ThemedText from "./ThemedText";
 import { useState } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { colorScheme } from "nativewind";
+
 
 export default function Input({
   label,
@@ -62,7 +64,7 @@ export default function Input({
                 hitSlop={40}
                 onPress={() => {setIsSecure(!isSecure)}}
               >
-                <MaterialCommunityIcons style={{right: 12, position: "absolute"}} name={isSecure ? "eye-off" : "eye"} size={24} color="black" />
+                <MaterialCommunityIcons style={{right: 12, position: "absolute"}} name={isSecure ? "eye-off" : "eye"} size={24} color={colorScheme.get() === "dark" ? "white" : "black"} />
 
               </TouchableWithoutFeedback>
             )}

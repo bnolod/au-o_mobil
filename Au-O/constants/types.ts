@@ -24,7 +24,8 @@ export interface ButtonProps extends TouchableOpacityProps {
 }
 
 export interface LoginRequest {
-  username: string;
+  username?: string;
+  email?: string;
   password: string;
 }
 export interface User {
@@ -35,6 +36,7 @@ export interface User {
 export interface LoginResponse {
   user: User;
   message: string;
+  token?: string;
 }
 export type HttpMethod = "GET" | "POST" | "PUT" | "DELETE";
 export interface IHttpError {
@@ -44,7 +46,7 @@ export interface IHttpError {
 }
 
 export class HttpError implements IHttpError {
-  constructor(public message: string | undefined, public status: number, public language: "EN" | "HU" = "EN") {
+  constructor(public status: number, public message?: string | undefined, public language: "EN" | "HU" = "EN") {
     this.message = message || HttpErrorTexts[(status) as keyof typeof HttpErrorTexts][language];
     this.status = status;
     
