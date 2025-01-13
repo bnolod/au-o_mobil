@@ -21,7 +21,8 @@ export default function AuthTouchables({
         type="fill"
         hapticFeedback="heavy"
         onPress={() => {
-          toggleColorScheme()
+          //toggleColorScheme()
+          router.replace('/_sitemap')
         }}
       >
         <ThemedText className="text-white font-semibold text-lg">

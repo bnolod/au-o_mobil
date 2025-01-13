@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Dimensions, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { useColorScheme } from "nativewind";
@@ -16,11 +16,15 @@ import Carousel, { ICarouselInstance } from "react-native-reanimated-carousel";
 import Slide from "../../components/onboarding/Slide";
 import SvgSlide2Image from "@/components/graphics/Slide2Image";
 import SvgSlide3Image from "@/components/graphics/Slide3Image";
+import { router } from "expo-router";
 export default function Onboarding() {
   const { language } = useLanguage();
   const { colorScheme } = useColorScheme();
   const carouselRef = useRef<ICarouselInstance>(null);
   const [index, setIndex ] = useState(0)
+  useEffect(() => {
+    console.log(index)
+  }, [index])
   return (
     <OnboardingProvider>
       <StatusBar style="light" />
@@ -31,6 +35,7 @@ export default function Onboarding() {
             <Carousel
               ref={carouselRef}
               enabled={false}
+              loop={false}
               data={[
                 {
                   text: OnboardingTexts.slide1[language],
@@ -46,8 +51,9 @@ export default function Onboarding() {
                 },
               ]}
               width={Dimensions.get("screen").width}
-              renderItem={({ item, index}) => {
-                setIndex(index);
+              onSnapToItem={(index) => setIndex(index)}
+              renderItem={({ item}) => {
+                
                 return(
 
                   <Slide text={item.text} image={item.image} />
@@ -55,7 +61,7 @@ export default function Onboarding() {
             }}
             />
           </View>
-          <CallToAction index={index} onPress={() => carouselRef.current?.next()} />
+          <CallToAction index={index} onPress={index !== 2 ? () => carouselRef.current?.next() : () => router.replace('/_sitemap')} />
         </View>
       </View>
     </OnboardingProvider>

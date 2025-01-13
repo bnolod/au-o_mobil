@@ -131,3 +131,55 @@ export const AuthTexts = {
         }
     }
 }
+
+
+export const HttpErrorTexts = {
+    400: {
+        HU: "Hibás kérés",
+        EN: "Bad request"
+    },
+    401: {
+        HU: "Nincs jogosultság",
+        EN: "Unauthorized"
+    },
+    403: {
+        HU: "Tiltott hozzáférés",
+        EN: "Forbidden"
+    },
+    404: {
+        HU: "Nem található",
+        EN: "Not found"
+    },
+    405: {
+        HU: "Nem megengedett metódus",
+        EN: "Method not allowed"
+    },
+    408: {
+        HU: "Kérési időtúllépés",
+        EN: "Request timeout"
+    },
+    500: {
+        HU: "Szerver hiba",
+        EN: "Internal server error"
+    },
+    501: {
+        HU: "Implementációs hiba",
+        EN: "Not implemented"
+    },
+    502: {
+        HU: "Rossz kapcsolat",
+        EN: "Bad gateway"
+    },
+    503: {
+        HU: "Szolgáltatás nem elérhető",
+        EN: "Service unavailable"
+    },
+    504: {
+        HU: "Kapcsolati időtúllépés",
+        EN: "Gateway timeout"
+    },
+    505: {
+        HU: "HTTP verzió nem támogatott",
+        EN: "HTTP version not supported"
+    }
+}
