@@ -38,7 +38,6 @@ export default function AuthLayout() {
             <AuthTouchables
               mode={path === "/login" ? "LOGIN" : "SIGNUP"}
               language={language}
-              onPress={path === "/login" ? () => {}: () => {}}
             />
           </KeyboardAvoidingView>
         </View>

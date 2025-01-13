@@ -166,14 +166,28 @@ export const UIErrorTexts = {
             EN: "Passwords do not match."
         },
     },
+    username: {
+        invalidUsername: {
+            HU: "A felhasználónévnek legalább 3 karakterből kell állnia.",
+            EN: "Username must be at least 3 characters long."
+        }
+    },
     authentication: {
         loginFailed: {
             HU: "Sikeretelen bejelentkezés. Ellenőrizd az adataidat.",
             EN: "Failed to log in. Check your credentials."
         },
+        loginSuccess: {
+            HU: "Sikeres bejelentkezés.",
+            EN: "Successfully logged in."
+        },
         registrationFailed: {
             HU: "Sikertelen regisztráció. Ellenőrizd a beviteli mezőket.",
             EN: "Failed to sign up. Check your input fields."
+        },
+        registrationSuccess: {
+            HU: "Sikeres regisztráció.",
+            EN: "Successfully signed up."
         }
     }
 

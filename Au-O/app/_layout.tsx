@@ -16,6 +16,7 @@ import { configureReanimatedLogger } from "react-native-reanimated";
 import { LanguageProvider } from "../contexts/LanguageContext";
 import { OnboardingProvider } from "@/contexts/OnboardingContext";
 import { AuthenticationProvider } from "@/contexts/AuthenticationContext";
+import { FormProvider } from "@/contexts/FormContext";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -46,13 +47,15 @@ export default function RootLayout() {
           value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
         >
           <AuthenticationProvider>
-            <Stack>
-              <Stack.Screen
-                name="onboarding"
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-            </Stack>
+            <FormProvider>
+              <Stack>
+                <Stack.Screen
+                  name="onboarding"
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+              </Stack>
+            </FormProvider>
           </AuthenticationProvider>
         </ThemeProvider>
       </OnboardingProvider>

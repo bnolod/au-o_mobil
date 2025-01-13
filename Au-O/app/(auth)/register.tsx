@@ -5,7 +5,6 @@ import { colorScheme } from "nativewind";
 import { ScrollView } from "react-native";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ThemedText from "@/components/ui/ThemedText";
-import { usePathname } from "expo-router";
 import { useFormContext } from "@/contexts/FormContext";
 import { useEffect } from "react";
 import { handleFormInputChange } from "@/lib/functions";
@@ -21,7 +20,7 @@ export default function Register() {
       password: getFormData("register")?.password || "",
       confirmPassword: getFormData("register")?.confirmPassword || "",
     })
-  }, [setFormData])
+  }, [])
   return (
     <ScrollView>
       <ThemedText className="text-center text-4xl font-bold mb-5 pt-[50%]">

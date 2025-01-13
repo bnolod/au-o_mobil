@@ -30,10 +30,10 @@ export default function Input({
       onPress={Keyboard.dismiss}
       
     >
-      <View className={`m-2  w-11/12 gap-x-2 flex justify-between  mx-auto ${isFocused ? " z-50" : ""}`}>
+      <View className={`input-container ${isFocused ? " z-50" : ""}`}>
         {label && <ThemedText className="text-lg mb-1">{label}</ThemedText>}
         <View
-          className={`flex flex-row justify-start items-center bg-backdrop-secondary dark:bg-backdrop-secondary-dark relative rounded-full border ${
+          className={`input-body ${
             isFocused
               ? "border-backdrop-primary"
               : ""
@@ -47,7 +47,7 @@ export default function Input({
             )
           }
           <TextInput
-            className="rounded-full mb-1 p-4 w-3/4 text-left font-semibold dark:text-background "
+            className="text-input "
             onFocus={() => {setIsFocused(true); setIsSecure(secureTextEntry)}}
             onBlur={() => setIsFocused(false)}
             secureTextEntry={isSecure}

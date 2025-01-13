@@ -19,13 +19,7 @@ export default function Login() {
       identifier: getFormData("login")?.identifier || "",
       password: getFormData("login")?.password || "",
     });
-  }, [setFormData])
-
-  const handleSubmit = () => {
-
-    const {identifier, password} = getFormData("login");
-    validateLogin(identifier, password)
-  }
+  }, [])
 const loginForm = getFormData("login");
 
   return (

@@ -2,27 +2,42 @@ import { View } from "react-native";
 import Button from "../ui/Button";
 import ThemedText from "../ui/ThemedText";
 import { AuthTexts } from "@/constants/texts";
-import { useColorScheme } from "nativewind";
+import { useFormContext } from "@/contexts/FormContext";
 import { router } from "expo-router";
+import { validateLogin, validateRegister } from "@/lib/functions";
 
 
 export default function AuthTouchables({
   language,
   mode,
-  onPress
+  
 }: {
   language: "HU" | "EN";
   mode: "LOGIN" | "SIGNUP";
-  onPress: () => any;
-}) {
-  const {toggleColorScheme} = useColorScheme();
+}) 
+{
+  const { getFormData, resetFormData } = useFormContext();
+  
   return (
     <View className="w-full basis-2/12 flex flex-col my-6 bg-transparent justify-evenly items-center">
       <Button
         variant="highlight"
         type="fill"
         hapticFeedback="heavy"
-        onPress={onPress}
+        onPress={mode === "LOGIN" ? () => {
+          const { identifier, password } = getFormData("login");
+          if (validateLogin(identifier, password, language).valid) {
+            resetFormData("login");
+            console.log("VALID ", identifier, password);
+          }
+        
+        } : () => {
+          const { email, username, password, confirmPassword } = getFormData("register");
+          if (validateRegister(email, username, password, confirmPassword, language).valid) {
+            resetFormData("register");
+            console.log("VALID ", email, username, password, confirmPassword);
+          }
+        }}
       >
         <ThemedText className="text-white font-semibold text-lg">
           {mode === "LOGIN"
@@ -36,7 +51,7 @@ export default function AuthTouchables({
             ? AuthTexts.login.notRegistered[language]
             : AuthTexts.signup.haveAccount[language]}
         </ThemedText>
-        <Button hapticFeedback="light" type="fit" variant="transparent" onPress={() => {router.push(mode === "LOGIN" ? "/_sitemap" : "/(auth)/login")}}>
+        <Button hapticFeedback="light" type="fit" variant="transparent" onPress={() => {router.push(mode === "LOGIN" ? "/(auth)/register" : "/(auth)/login")}}>
           <ThemedText className="underline font-bold">
             {mode === "LOGIN"
               ? AuthTexts.login.confirmTabSwitch[language]

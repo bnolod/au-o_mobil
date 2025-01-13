@@ -6,5 +6,5 @@ export default function Home() {
     if (signedIn) {
         return <Redirect href="/" />;
     }
-    else return <Redirect href="/(auth)/login" />;
+    else return <Redirect href="/onboarding" />;
 }
