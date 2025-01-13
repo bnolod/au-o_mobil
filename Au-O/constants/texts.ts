@@ -13,9 +13,17 @@ export const OnboardingTexts = {
     }
 }
 export const CallToActionTexts = {
-    slide1: {
+    1: {
         HU: "Tovább",
         EN: "Next"
+    },
+    2: {
+        HU: "Tovább",
+        EN: "Next"
+    },
+    3: {
+        HU: "Kezdjük!",
+        EN: "Let's Go!"
     }
 }
 

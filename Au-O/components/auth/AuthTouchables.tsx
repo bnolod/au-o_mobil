@@ -36,7 +36,7 @@ export default function AuthTouchables({
             ? AuthTexts.login.notRegistered[language]
             : AuthTexts.signup.haveAccount[language]}
         </ThemedText>
-        <Button hapticFeedback="light" type="fit" variant="transparent" onPress={() => {router.replace(mode === "LOGIN" ? "/(auth)/register" : "/(auth)/login")}}>
+        <Button hapticFeedback="light" type="fit" variant="transparent" onPress={() => {router.push(mode === "LOGIN" ? "/(auth)/register" : "/(auth)/login")}}>
           <ThemedText className="underline font-bold">
             {mode === "LOGIN"
               ? AuthTexts.login.confirmTabSwitch[language]

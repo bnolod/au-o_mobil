@@ -1,13 +1,17 @@
 import Input from "@/components/ui/Input";
-import { View } from "react-native";
+import { ScrollView, View } from "react-native";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { AuthTexts } from "@/constants/texts";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { colorScheme } from "nativewind";
+import ThemedText from "@/components/ui/ThemedText";
 export default function Login() {
   const { language } = useLanguage();
   return (
-    <View className="flex-1">
+    <ScrollView >
+                  <ThemedText className="text-center text-4xl font-bold mb-5 pt-[50%]">
+                    {AuthTexts.login.heroText[language]}
+                  </ThemedText>
       <Input
         label={AuthTexts.login.labels.email[language]}
         TextInputProps={{
@@ -38,6 +42,6 @@ export default function Login() {
           placeholder: AuthTexts.login.placeholders.password[language],
         }}
       />
-    </View>
+    </ScrollView>
   );
 }

@@ -10,7 +10,7 @@ export default function OnboardingHeader({isStatic} : {isStatic?: boolean}) {
     const {colorScheme} = useColorScheme()
     const {language} = useLanguage()
   return (
-    <View className="basis-3/12 w-full">
+    <View className={`basis-3/12 w-full z-40 ${isStatic ? 'absolute top-0' : ''}`} style={{zIndex: 40}}>
       <SvgHeaderDecoration theme={colorScheme} boxWidth={Dimensions.get("screen").width - 40} />
       <View className='flex flex-row-reverse w-full px-5 justify-between absolute top-[30%] items-center'>
        {!isStatic && <Button className='basis-3/12 ml-0' hapticFeedback='heavy' variant="transparent" type="fit" onPress={() => {

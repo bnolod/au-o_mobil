@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Dimensions, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { useColorScheme } from "nativewind";
@@ -16,13 +16,11 @@ import Carousel, { ICarouselInstance } from "react-native-reanimated-carousel";
 import Slide from "../../components/onboarding/Slide";
 import SvgSlide2Image from "@/components/graphics/Slide2Image";
 import SvgSlide3Image from "@/components/graphics/Slide3Image";
-import { useSharedValue } from "react-native-reanimated";
 export default function Onboarding() {
   const { language } = useLanguage();
   const { colorScheme } = useColorScheme();
   const carouselRef = useRef<ICarouselInstance>(null);
-const progress = useSharedValue<number>(0)
-
+  const [index, setIndex ] = useState(0)
   return (
     <OnboardingProvider>
       <StatusBar style="light" />
@@ -33,7 +31,6 @@ const progress = useSharedValue<number>(0)
             <Carousel
               ref={carouselRef}
               enabled={false}
-              onSnapToItem={() => console.log("snapped")}
               data={[
                 {
                   text: OnboardingTexts.slide1[language],
@@ -49,10 +46,16 @@ const progress = useSharedValue<number>(0)
                 },
               ]}
               width={Dimensions.get("screen").width}
-              renderItem={({ item }) => <Slide text={item.text} image={item.image} />}
+              renderItem={({ item, index}) => {
+                setIndex(index);
+                return(
+
+                  <Slide text={item.text} image={item.image} />
+                )
+            }}
             />
           </View>
-          <CallToAction onPress={() => carouselRef.current?.next()} />
+          <CallToAction index={index} onPress={() => carouselRef.current?.next()} />
         </View>
       </View>
     </OnboardingProvider>

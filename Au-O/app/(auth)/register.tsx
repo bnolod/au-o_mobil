@@ -2,12 +2,18 @@ import Input from "@/components/ui/Input";
 import { AuthTexts } from "@/constants/texts";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { colorScheme } from "nativewind";
-import { ScrollView, View } from "react-native";
+import { ScrollView } from "react-native";
 import { useLanguage } from "@/contexts/LanguageContext";
+import ThemedText from "@/components/ui/ThemedText";
+import { usePathname } from "expo-router";
 export default function Register() {
   const { language } = useLanguage();
+    const path = usePathname();
   return (
     <ScrollView  >
+            <ThemedText className="text-center text-4xl font-bold mb-5 pt-[50%]">
+              {AuthTexts.signup.heroText[language]}
+            </ThemedText>
       <Input
         label={AuthTexts.signup.labels.email[language]}
         TextInputProps={{
