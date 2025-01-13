@@ -26,7 +26,8 @@ export default function AuthLayout() {
           <KeyboardAvoidingView
             style={{ flex: 1 }}
             behavior="padding"
-            className=""
+            className="bg-transparent"
+            
           >
             <OnboardingHeader isStatic />
 

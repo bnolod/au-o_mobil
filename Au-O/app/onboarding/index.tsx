@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Dimensions, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { useColorScheme } from "nativewind";
@@ -8,7 +8,6 @@ import OnboardingHeader from "@/components/onboarding/Header";
 import SvgSlide1Image from "@/components/graphics/Slide1Image";
 import {
   OnboardingProvider,
-  useOnboarding,
 } from "@/contexts/OnboardingContext";
 import CallToAction from "@/components/onboarding/CallToAction";
 import Carousel, { ICarouselInstance } from "react-native-reanimated-carousel";
@@ -22,9 +21,7 @@ export default function Onboarding() {
   const { colorScheme } = useColorScheme();
   const carouselRef = useRef<ICarouselInstance>(null);
   const [index, setIndex ] = useState(0)
-  useEffect(() => {
-    console.log(index)
-  }, [index])
+
   return (
     <OnboardingProvider>
       <StatusBar style="light" />

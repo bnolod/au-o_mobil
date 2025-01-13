@@ -10,7 +10,8 @@ export default function Register() {
   const { language } = useLanguage();
     const path = usePathname();
   return (
-    <ScrollView  >
+    <ScrollView
+    >
             <ThemedText className="text-center text-4xl font-bold mb-5 pt-[50%]">
               {AuthTexts.signup.heroText[language]}
             </ThemedText>

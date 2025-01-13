@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, Image, View } from 'react-native';
+import { Dimensions, Image, Platform, View } from 'react-native';
 import { ThemedText } from '../ui/ThemedText';
 import SvgHeaderDecoration from '../graphics/HeaderDecoration';
 import { useColorScheme } from 'nativewind';
@@ -12,7 +12,7 @@ export default function OnboardingHeader({isStatic} : {isStatic?: boolean}) {
   return (
     <View className={`basis-3/12 w-full z-40 ${isStatic ? 'absolute top-0' : ''}`} style={{zIndex: 40}}>
       <SvgHeaderDecoration theme={colorScheme} boxWidth={Dimensions.get("screen").width - 40} />
-      <View className='flex flex-row-reverse w-full px-5 justify-between absolute top-[30%] items-center'>
+      <View className={`flex flex-row-reverse w-full px-5 justify-between absolute  ios:top-[30%] android:top-3 items-center`}>
        {!isStatic && <Button className='basis-3/12 ml-0' hapticFeedback='heavy' variant="transparent" type="fit" onPress={() => {
        
        }}>
