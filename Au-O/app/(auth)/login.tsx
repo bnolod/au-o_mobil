@@ -5,8 +5,28 @@ import { AuthTexts } from "@/constants/texts";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { colorScheme } from "nativewind";
 import ThemedText from "@/components/ui/ThemedText";
+import { useEffect } from "react";
+import { useFormContext } from "@/contexts/FormContext";
+import { handleFormInputChange, validateLogin } from "@/lib/functions";
+
+
 export default function Login() {
   const { language } = useLanguage();
+  const {setFormData, getFormData} = useFormContext();
+
+  useEffect(() => {
+    setFormData("login", {
+      identifier: getFormData("login")?.identifier || "",
+      password: getFormData("login")?.password || "",
+    });
+  }, [setFormData])
+
+  const handleSubmit = () => {
+
+    const {identifier, password} = getFormData("login");
+    validateLogin(identifier, password)
+  }
+const loginForm = getFormData("login");
 
   return (
     <ScrollView>
@@ -20,6 +40,8 @@ export default function Login() {
           autoComplete: "email",
           textContentType: "emailAddress",
           placeholder: AuthTexts.login.placeholders.email[language],
+          value: loginForm.identifier,
+          onChangeText: (text) => handleFormInputChange("login", "identifier", text, getFormData, setFormData),
         }}
         icon={
           <MaterialCommunityIcons
@@ -33,14 +55,16 @@ export default function Login() {
         label={AuthTexts.login.labels.password[language]}
         icon={
           <MaterialCommunityIcons
-            name="lock"
-            size={24}
-            color={colorScheme.get() === "dark" ? "white" : "black"}
+          name="lock"
+          size={24}
+          color={colorScheme.get() === "dark" ? "white" : "black"}
           />
         }
         secureTextEntry
         TextInputProps={{
           placeholder: AuthTexts.login.placeholders.password[language],
+          value: loginForm.password,
+          onChangeText: (text) => handleFormInputChange("login", "password", text, getFormData, setFormData),
         }}
       />
     </ScrollView>

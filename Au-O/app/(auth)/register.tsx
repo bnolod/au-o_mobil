@@ -6,9 +6,22 @@ import { ScrollView } from "react-native";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ThemedText from "@/components/ui/ThemedText";
 import { usePathname } from "expo-router";
+import { useFormContext } from "@/contexts/FormContext";
+import { useEffect } from "react";
+import { handleFormInputChange } from "@/lib/functions";
 export default function Register() {
   const { language } = useLanguage();
-  const path = usePathname();
+  
+  const {setFormData, getFormData} = useFormContext()
+
+  useEffect(() => {
+    setFormData("register", {
+      email: getFormData("register")?.email || "",
+      username: getFormData("register")?.username || "",
+      password: getFormData("register")?.password || "",
+      confirmPassword: getFormData("register")?.confirmPassword || "",
+    })
+  }, [setFormData])
   return (
     <ScrollView>
       <ThemedText className="text-center text-4xl font-bold mb-5 pt-[50%]">
@@ -20,6 +33,7 @@ export default function Register() {
           keyboardType: "email-address",
           autoComplete: "email",
           textContentType: "emailAddress",
+          onChangeText: (text) => handleFormInputChange("register", "email", text, getFormData, setFormData),
           placeholder: AuthTexts.signup.placeholders.email[language],
         }}
         icon={
@@ -35,6 +49,7 @@ export default function Register() {
         TextInputProps={{
           keyboardType: "default",
           autoComplete: "username",
+          onChangeText: (text) => handleFormInputChange("register", "username", text, getFormData, setFormData),
           textContentType: "username",
           placeholder: AuthTexts.signup.placeholders.username[language],
         }}
@@ -58,6 +73,7 @@ export default function Register() {
         }
         secureTextEntry
         TextInputProps={{
+          onChangeText: (text) => handleFormInputChange("register", "password", text, getFormData, setFormData),
           placeholder: AuthTexts.signup.placeholders.password[language],
           autoComplete: "off",
           textContentType: "password",
@@ -67,6 +83,7 @@ export default function Register() {
         label={AuthTexts.signup.labels.confirmPassword[language]}
         secureTextEntry
         TextInputProps={{
+          onChangeText: (text) => handleFormInputChange("register", "confirmPassword", text, getFormData, setFormData),
           autoComplete: "off",
           textContentType: "password",
           placeholder: AuthTexts.signup.placeholders.confirmPassword[language],
