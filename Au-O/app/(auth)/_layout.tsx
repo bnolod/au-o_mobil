@@ -35,11 +35,21 @@ export default function AuthLayout() {
               <Stack.Screen name="login"  options={{ headerShown: false }} />
               <Stack.Screen name="register" options={{ headerShown: false }} />
             </Stack>
+            {
+            path === "/login" &&
             <AuthTouchables
-              mode={path === "/login" ? "LOGIN" : "SIGNUP"}
-              language={language}
+            mode={"LOGIN"}
+            language={language}
             />
+          }
           </KeyboardAvoidingView>
+          {
+            path === "/register" &&
+            <AuthTouchables
+            mode={"SIGNUP"}
+            language={language}
+            />
+          }
         </View>
       </TouchableWithoutFeedback>
     </>

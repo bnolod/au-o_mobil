@@ -64,6 +64,7 @@ export function validateLogin(
     username: string,
     password: string,
     confirmPassword: string,
+    dateOfBirth: string,
     language: "HU" | "EN" = "EN"
   ) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -106,8 +107,15 @@ export function validateLogin(
     if (password !== confirmPassword) {
       errors.push(UIErrorTexts.password.passwordsDoNotMatch[language]);
     }
-  
+    if (Number(dateOfBirth.split("-")[0]) > 2009) {
+        errors.push(UIErrorTexts.dateOfBirth.ageRestriction[language]);
+    }
+    
+    if (Number(dateOfBirth.split("-")[0]) < 1930) {
+        errors.push(UIErrorTexts.dateOfBirth.invalidDoB[language]);
+    }
 
+    errors.map((error) => console.log(error));
     if (errors.length > 0) {
       return { valid: false, messages: errors };
     }

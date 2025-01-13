@@ -13,6 +13,7 @@ import { colorScheme } from "nativewind";
 
 export default function Input({
   label,
+  containerClassName,
   secureTextEntry = false,
   TextInputProps,
   icon,
@@ -20,17 +21,18 @@ export default function Input({
   label?: string;
   secureTextEntry?: boolean;
   TextInputProps?: TextInputProps;
+  containerClassName?: string;
   icon?: any;
 }) {
   const [isFocused, setIsFocused] = useState(false);
   const [isSecure, setIsSecure] = useState(false);
   return (
     <TouchableWithoutFeedback
-    className=" w-full"
+    className={" w-full " + ""}
       onPress={Keyboard.dismiss}
       
     >
-      <View className={`input-container ${isFocused ? " z-50" : ""}`}>
+      <View className={`input-container ${isFocused ? " z-50" : ""} ${containerClassName}`}>
         {label && <ThemedText className="text-lg mb-1">{label}</ThemedText>}
         <View
           className={`input-body ${

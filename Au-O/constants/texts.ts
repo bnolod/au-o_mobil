@@ -172,6 +172,16 @@ export const UIErrorTexts = {
             EN: "Username must be at least 3 characters long."
         }
     },
+    dateOfBirth: {
+      ageRestriction: {
+        HU: "A felhasználónak legalább 16 évesnek kell lennie.",
+        EN: "User must be at least 16 years old."
+      },
+      invalidDoB: {
+        HU: "A megadott születési dátum nem megfelelő.",
+        EN: "Invalid date of birth."
+      }
+    },
     authentication: {
         loginFailed: {
             HU: "Sikeretelen bejelentkezés. Ellenőrizd az adataidat.",

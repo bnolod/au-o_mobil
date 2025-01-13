@@ -19,7 +19,7 @@ export default function AuthTouchables({
   const { getFormData, resetFormData } = useFormContext();
   
   return (
-    <View className="w-full basis-2/12 flex flex-col my-6 bg-transparent justify-evenly items-center">
+    <View className="w-full basis-2/12 sticky flex flex-col my-6 bg-transparent justify-evenly items-center">
       <Button
         variant="highlight"
         type="fill"
@@ -32,10 +32,10 @@ export default function AuthTouchables({
           }
         
         } : () => {
-          const { email, username, password, confirmPassword } = getFormData("register");
-          if (validateRegister(email, username, password, confirmPassword, language).valid) {
+          const { email, username, password, confirmPassword, dateOfBirth } = getFormData("register");
+          if (validateRegister(email, username, password, confirmPassword, dateOfBirth, language).valid) {
             resetFormData("register");
-            console.log("VALID ", email, username, password, confirmPassword);
+            console.log("VALID ", email, username, password, confirmPassword, dateOfBirth);
           }
         }}
       >
