@@ -55,21 +55,9 @@ export const AuthenticationProvider: React.FC<{ children: React.ReactNode }> = (
   }
 
   useEffect(() => {
-    //fetchUser()
-    async function testApi() {
-      try {
-        const response = await fetch('http://localhost:8080/api/v1/users/all', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          }
-        })
-        console.log(response);
-      } catch (error: unknown) {
-        console.error((error as Error).message);
-      }
-    }
-    testApi();
+
+     fetchUser()
+
   }, []);
 
   return (

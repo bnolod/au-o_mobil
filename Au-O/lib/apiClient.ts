@@ -5,7 +5,7 @@ import * as AuthSession from 'expo-auth-session'
 
 const apiClient: AxiosInstance = axios.create(
     {
-        baseURL: process.env.EXPO_PRIVATE_AXIOS_BASE_URL,
+        baseURL: process.env.EXPO_PUBLIC_AXIOS_BASE_URL,
         headers: {
             'Content-Type': 'application/json',
         }

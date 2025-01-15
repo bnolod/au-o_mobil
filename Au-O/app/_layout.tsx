@@ -6,14 +6,13 @@ import {
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-
 import { useEffect } from "react";
 import "react-native-reanimated";
 import "./globals.css";
 
 import { useColorScheme } from "nativewind";
 import { configureReanimatedLogger } from "react-native-reanimated";
-import { LanguageProvider } from "../contexts/LanguageContext";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 import { OnboardingProvider } from "@/contexts/OnboardingContext";
 import { AuthenticationProvider } from "@/contexts/AuthenticationContext";
 import { FormProvider } from "@/contexts/FormContext";
