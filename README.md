@@ -22,7 +22,7 @@ Szükséges a futtatáshoz
 
 - [NodeJs](https://nodejs.org/en/download)
 - [Expo Go mobil app](https://expo.dev/go)
-- A backend futtatása, ami [ebben](https://github.com/bnolod/au-o_backend) a repóban található.
+- A backend sikeres futtatása, ami [ebben](https://github.com/bnolod/au-o_backend) a repóban található.
 
 > A lépések után elindul az app
 >
