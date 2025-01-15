@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect } from "react";
+import React, { ReactNode } from "react";
 import { View } from "react-native";
 import { ThemedText } from "@/components/ui/ThemedText";
 

@@ -1,5 +1,5 @@
 import { HttpError, User, LoginRequest, LoginResponse } from "@/constants/types";
-import { apiFetch, login as apiLogin, logout as apiLogout } from "@/lib/apiClient";
+import apiClient, { apiFetch, login as apiLogin, logout as apiLogout } from "@/lib/apiClient";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import * as SecureStore from 'expo-secure-store';
 import axios from "axios";
@@ -18,7 +18,7 @@ export const AuthenticationProvider: React.FC<{ children: React.ReactNode }> = (
 
   async function fetchUser() {
     try {
-      const userData = await apiFetch<User>('users/user/60', 'GET');
+      const userData = await apiFetch<User>('/users/all', 'GET');
       if (userData) {
         setUser(userData);
       } else {
@@ -55,7 +55,21 @@ export const AuthenticationProvider: React.FC<{ children: React.ReactNode }> = (
   }
 
   useEffect(() => {
-    fetchUser()
+    //fetchUser()
+    async function testApi() {
+      try {
+        const response = await fetch('http://localhost:8080/api/v1/users/all', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        })
+        console.log(response);
+      } catch (error: unknown) {
+        console.error((error as Error).message);
+      }
+    }
+    testApi();
   }, []);
 
   return (
