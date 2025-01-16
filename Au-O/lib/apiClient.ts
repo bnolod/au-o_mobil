@@ -41,7 +41,7 @@ export const login = async (request: LoginRequest): Promise<string | null> => {
   }
 };
 
-export const logout = async (): Promise<void> => {
+export const  logout = async (): Promise<void> => {
   try {
     //await apiClient.post("/logout");
     await SecureStore.deleteItemAsync("jwtToken");

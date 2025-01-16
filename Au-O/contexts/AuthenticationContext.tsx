@@ -39,8 +39,8 @@ export const AuthenticationProvider: React.FC<{
 
   async function fetchUser() {
     try {
-      const token = SecureStore.getItemAsync("jwtToken");
-
+      const token = await SecureStore.getItemAsync("jwtToken");
+      console.log(token)
       if (!token) {
         return null;
       }
@@ -65,6 +65,7 @@ export const AuthenticationProvider: React.FC<{
       setUser(userData);
       return true;
     } else {
+      setUser(null);
       return false;
     }
   }
@@ -92,7 +93,6 @@ export const AuthenticationProvider: React.FC<{
     try {
       await apiLogout();
       setUser(null);
-      await SecureStore.deleteItemAsync("jwtToken");
 
       router.replace("/(auth)/login");
     } catch (error: unknown) {
@@ -117,9 +117,10 @@ export const AuthenticationProvider: React.FC<{
     }
   }
   useEffect(() => {
+    setIsMounted(true); 
+    console.log(SecureStore.getItem("jwtToken"));
     async function checkAuth() {
       await confirmAuth();
-      setIsMounted(true);
     }
     checkAuth();
   }, []);
