@@ -47,4 +47,14 @@
   }
 
   /* példa: className="button btn-primary btn-outline" */
+
+  .text-input {
+    @apply rounded-full mb-1 p-4 w-3/4 text-left font-semibold dark:text-background
+  }
+  .input-container {
+    @apply m-2  w-11/12 gap-x-2 flex justify-between  mx-auto
+  }
+  .input-body {
+    @apply flex flex-row justify-start items-center bg-backdrop-secondary dark:bg-backdrop-secondary-dark relative rounded-full border 
+  }
 }

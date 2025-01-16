@@ -1,6 +1,6 @@
 import AuthTouchables from "@/components/auth/AuthTouchables";
 import OnboardingHeader from "@/components/onboarding/Header";
-import { Stack, usePathname } from "expo-router";
+import { Redirect, Stack, usePathname } from "expo-router";
 import React from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import {
@@ -9,11 +9,16 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
+import { useAuthentication } from "@/contexts/AuthenticationContext";
 
 export default function AuthLayout() {
   const { language } = useLanguage();
   const path = usePathname();
-
+    const {user} = useAuthentication()
+  
+    if (user) {
+      return <Redirect href={"/(root)/home"} />;
+    }
   return (
     <>
       <TouchableWithoutFeedback
@@ -26,19 +31,30 @@ export default function AuthLayout() {
           <KeyboardAvoidingView
             style={{ flex: 1 }}
             behavior="padding"
-            className=""
+            className="bg-transparent"
+            
           >
             <OnboardingHeader isStatic />
-
+            
             <Stack>
-              <Stack.Screen name="login" options={{ headerShown: false }} />
+              <Stack.Screen name="login"  options={{ headerShown: false }} />
               <Stack.Screen name="register" options={{ headerShown: false }} />
             </Stack>
+            {
+            path === "/login" &&
             <AuthTouchables
-              mode={path === "/login" ? "LOGIN" : "SIGNUP"}
-              language={language}
+            mode={"LOGIN"}
+            language={language}
             />
+          }
           </KeyboardAvoidingView>
+          {
+            path === "/register" &&
+            <AuthTouchables
+            mode={"SIGNUP"}
+            language={language}
+            />
+          }
         </View>
       </TouchableWithoutFeedback>
     </>
