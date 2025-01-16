@@ -68,6 +68,10 @@ export const AuthTexts = {
         HU: "auo-felhasznalo",
         EN: "auo-user",
       },
+      nickname: {
+        HU: "Becenév",
+        EN: "Nickname",
+      }
     },
     labels: {
       email: {
@@ -86,6 +90,10 @@ export const AuthTexts = {
         HU: "Felhasználónév",
         EN: "Username",
       },
+      nickname: {
+        HU: "Becenév",
+        EN: "Nickname",
+      }
     },
     heroText: {
       HU: "Csatlakozz hozzánk!",

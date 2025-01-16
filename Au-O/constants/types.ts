@@ -42,6 +42,14 @@ export interface User {
 export interface LoginResponse {
   token?: string;
 }
+
+export interface RegisterRequest {
+  email: string;
+  password: string;
+  username: string;
+  nickname: string;
+  dateOfBirth: Date;
+}
 export type HttpMethod = "GET" | "POST" | "PUT" | "DELETE";
 export interface IHttpError {
   status: number;

@@ -5,39 +5,69 @@ import { AuthTexts } from "@/constants/texts";
 import { useFormContext } from "@/contexts/FormContext";
 import { router } from "expo-router";
 import { validateLogin, validateRegister } from "@/lib/functions";
-
+import { useAuthentication } from "@/contexts/AuthenticationContext";
 
 export default function AuthTouchables({
   language,
   mode,
-  
 }: {
   language: "HU" | "EN";
   mode: "LOGIN" | "SIGNUP";
-}) 
-{
+}) {
   const { getFormData, resetFormData } = useFormContext();
-  
+  const { login, register } = useAuthentication();
+  async function performLogin() {
+    const { identifier, password } = await getFormData("login");
+    /*          if (validateLogin(identifier, password, language).valid) {
+            resetFormData("login");
+            console.log("VALID ", identifier, password);
+          }*/
+    if (await login!(identifier, password)) {
+      router.replace("/(root)/home");
+    }
+  }
+  async function performRegistration() {
+    const {email, username, password, nickname, confirmPassword, dateOfBirth} = await getFormData("register");
+/*     if (
+      validateRegister(
+        email,
+        username,
+        password,
+        confirmPassword,
+        dateOfBirth,
+        language
+      ).valid
+    ) {
+      resetFormData("register");
+      console.log(
+        "VALID ",
+        email,
+        username,
+        password,
+        confirmPassword,
+        dateOfBirth
+      );
+    } */
+    if (await register!({email, password, username, nickname, dateOfBirth})) {
+      router.replace("/(root)/home");
+    }
+
+  }
   return (
     <View className="w-full basis-2/12 sticky flex flex-col my-6 bg-transparent justify-evenly items-center">
       <Button
         variant="highlight"
         type="fill"
         hapticFeedback="heavy"
-        onPress={mode === "LOGIN" ? () => {
-          const { identifier, password } = getFormData("login");
-          if (validateLogin(identifier, password, language).valid) {
-            resetFormData("login");
-            console.log("VALID ", identifier, password);
-          }
-        
-        } : () => {
-          const { email, username, password, confirmPassword, dateOfBirth } = getFormData("register");
-          if (validateRegister(email, username, password, confirmPassword, dateOfBirth, language).valid) {
-            resetFormData("register");
-            console.log("VALID ", email, username, password, confirmPassword, dateOfBirth);
-          }
-        }}
+        onPress={
+          mode === "LOGIN"
+            ? () => {
+                performLogin();
+              }
+            : () => {
+                performRegistration();
+              }
+        }
       >
         <ThemedText className="text-white font-semibold text-lg">
           {mode === "LOGIN"
@@ -51,7 +81,16 @@ export default function AuthTouchables({
             ? AuthTexts.login.notRegistered[language]
             : AuthTexts.signup.haveAccount[language]}
         </ThemedText>
-        <Button hapticFeedback="light" type="fit" variant="transparent" onPress={() => {router.push(mode === "LOGIN" ? "/(auth)/register" : "/(auth)/login")}}>
+        <Button
+          hapticFeedback="light"
+          type="fit"
+          variant="transparent"
+          onPress={() => {
+            router.push(
+              mode === "LOGIN" ? "/(auth)/register" : "/(auth)/login"
+            );
+          }}
+        >
           <ThemedText className="underline font-bold">
             {mode === "LOGIN"
               ? AuthTexts.login.confirmTabSwitch[language]

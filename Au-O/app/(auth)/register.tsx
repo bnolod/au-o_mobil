@@ -21,6 +21,7 @@ export default function Register() {
     setFormData("register", {
       email: getFormData("register")?.email || "",
       username: getFormData("register")?.username || "",
+      nickname: getFormData("register")?.nickname || "",
       password: getFormData("register")?.password || "",
       confirmPassword: getFormData("register")?.confirmPassword || "",
       dateOfBirth: getFormData("register")?.dateOfBirth || "",
@@ -56,7 +57,10 @@ export default function Register() {
           />
         }
       />
+      <View className="flex  mx-auto w-full flex-row justify-between">
+
       <Input
+      containerClassName="w-1/2 pl-[4%] pr-[1%]"
         label={AuthTexts.signup.labels.username[language]}
         TextInputProps={{
           keyboardType: "default",
@@ -69,17 +73,43 @@ export default function Register() {
               getFormData,
               setFormData
             ),
-          textContentType: "username",
-          placeholder: AuthTexts.signup.placeholders.username[language],
-        }}
-        icon={
-          <MaterialCommunityIcons
+            textContentType: "username",
+            placeholder: AuthTexts.signup.placeholders.username[language],
+          }}
+          icon={
+            <MaterialCommunityIcons
             name="account"
             size={24}
             color={colorScheme.get() === "dark" ? "white" : "black"}
+            />
+          }
           />
-        }
-      />
+      <Input
+      containerClassName="w-1/2 pr-[4%] pl-[1%]"
+        label={AuthTexts.signup.labels.nickname[language]}
+        TextInputProps={{
+          keyboardType: "default",
+          autoComplete: "username",
+          onChangeText: (text) =>
+            handleFormInputChange(
+              "register",
+              "username",
+              text,
+              getFormData,
+              setFormData
+            ),
+            textContentType: "username",
+            placeholder: AuthTexts.signup.placeholders.nickname[language],
+          }}
+          icon={
+            <MaterialCommunityIcons
+            name="account"
+            size={24}
+            color={colorScheme.get() === "dark" ? "white" : "black"}
+            />
+          }
+          />
+          </View>
       <View className="flex  mx-auto w-full flex-row justify-between">
         <Input
         containerClassName="w-1/2 pl-[4%] pr-[1%]" //kiszámoltam, nem random szám!!
