@@ -25,10 +25,13 @@ apiClient.interceptors.request.use(
 )
 export default apiClient;
 
-export const login = async (request: LoginRequest): Promise<LoginResponse | null> => {
+export const login = async (request: LoginRequest): Promise<string | null> => {
     try {
-        const response = await apiClient.post<LoginResponse>('/login', request);
+        const response = await apiClient.post<string>('/login', request);
+        if (response) {
 
+            await SecureStore.setItemAsync('jwtToken', response.data);
+        }
         return response.data;
     } catch (error: unknown) {
         return null

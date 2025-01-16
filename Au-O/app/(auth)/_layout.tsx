@@ -1,6 +1,6 @@
 import AuthTouchables from "@/components/auth/AuthTouchables";
 import OnboardingHeader from "@/components/onboarding/Header";
-import { Stack, usePathname } from "expo-router";
+import { Redirect, Stack, usePathname } from "expo-router";
 import React from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import {
@@ -9,11 +9,16 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
+import { useAuthentication } from "@/contexts/AuthenticationContext";
 
 export default function AuthLayout() {
   const { language } = useLanguage();
   const path = usePathname();
+    const {user} = useAuthentication()
   
+    if (user) {
+      return <Redirect href={"/(root)/home"} />;
+    }
   return (
     <>
       <TouchableWithoutFeedback

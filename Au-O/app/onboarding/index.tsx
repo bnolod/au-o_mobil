@@ -15,13 +15,18 @@ import Carousel, { ICarouselInstance } from "react-native-reanimated-carousel";
 import Slide from "../../components/onboarding/Slide";
 import SvgSlide2Image from "@/components/graphics/Slide2Image";
 import SvgSlide3Image from "@/components/graphics/Slide3Image";
-import { router } from "expo-router";
+import { Redirect, router } from "expo-router";
+import { useAuthentication } from "@/contexts/AuthenticationContext";
 export default function Onboarding() {
   const { language } = useLanguage();
   const { colorScheme } = useColorScheme();
   const carouselRef = useRef<ICarouselInstance>(null);
   const [index, setIndex ] = useState(0)
+  const {user} = useAuthentication()
 
+  if (user) {
+    return <Redirect href={"/(root)/home"} />;
+  }
   return (
     <OnboardingProvider>
       <StatusBar style="light" />

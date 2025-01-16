@@ -24,18 +24,22 @@ export interface ButtonProps extends TouchableOpacityProps {
 }
 
 export interface LoginRequest {
-  username?: string;
-  email?: string;
+  usernameOrEmail: string;
   password: string;
 }
 export interface User {
-  id: string; //ha uuid
+  id: Number;
   username: string;
-  email: string
+  password: string;
+  nickname: string;
+  role_id: Number;
+  email: string;
+  isPublic: boolean;
+  profile_img: string;
+  bio: string;
+  date_of_birth: Date
 }
 export interface LoginResponse {
-  user: User;
-  message: string;
   token?: string;
 }
 export type HttpMethod = "GET" | "POST" | "PUT" | "DELETE";
