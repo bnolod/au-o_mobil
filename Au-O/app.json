@@ -29,11 +29,10 @@
         "expo-splash-screen",
         {
           "image": "./assets/images/auo-splash-dark.png",
-
           "resizeMode": "cover"
-          
         }
-      ]
+      ],
+      "expo-secure-store"
     ],
     "experiments": {
       "typedRoutes": true
