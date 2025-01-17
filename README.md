@@ -147,3 +147,6 @@ Szükséges a futtatáshoz
     - Profil fülből?
     - Külön gomb valahol?
 
+
+- Nagyon kérdéses:
+    - útvonal/időmérő funkció
