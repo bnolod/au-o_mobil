@@ -37,7 +37,8 @@ export interface User {
   isPublic: boolean;
   profile_img: string;
   bio: string;
-  date_of_birth: Date
+  date_of_birth: string
+  date_of_signup: string
 }
 export interface LoginResponse {
   token?: string;
@@ -48,7 +49,7 @@ export interface RegisterRequest {
   password: string;
   username: string;
   nickname: string;
-  dateOfBirth: Date;
+  date_of_birth: string;
 }
 export type HttpMethod = "GET" | "POST" | "PUT" | "DELETE";
 export interface IHttpError {

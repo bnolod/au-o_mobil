@@ -1,5 +1,6 @@
 import { UIErrorTexts } from "@/constants/texts";
-
+import { User } from "@/constants/types";
+import * as SecureStore from 'expo-secure-store'
 export function handleFormInputChange(
   formKey: string,
   key: string,
@@ -123,3 +124,9 @@ export function validateLogin(
     return { valid: true, message: UIErrorTexts.authentication.registrationSuccess[language] };
   }
   
+export async function saveUser(user: User) {
+    await SecureStore.setItemAsync("user", JSON.stringify(user));
+  }
+export async function deleteUser() {
+    await SecureStore.deleteItemAsync("user");
+  }

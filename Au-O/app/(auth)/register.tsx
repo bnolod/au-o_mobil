@@ -93,7 +93,7 @@ export default function Register() {
           onChangeText: (text) =>
             handleFormInputChange(
               "register",
-              "username",
+              "nickname",
               text,
               getFormData,
               setFormData

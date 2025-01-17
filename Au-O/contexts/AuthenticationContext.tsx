@@ -1,28 +1,30 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { ActivityIndicator, SafeAreaView } from "react-native";
-import { useRouter } from "expo-router";
+import { router, useRouter } from "expo-router";
 import * as SecureStore from "expo-secure-store";
-import { Colors } from "@/constants/Colors";
 import {
   apiFetch,
-  login as apiLogin,
-  register as apiRegister,
+  handleLogin as apiLogin,
+  handleRegister as apiRegister,
   logout as apiLogout,
+  getUser,
 } from "@/lib/apiClient";
 import {
   HttpError,
+  LoginRequest,
   RegisterRequest,
   User,
 } from "@/constants/types";
+import UserLoading from "@/components/auth/UserLoading";
+import { deleteUser, saveUser } from "@/lib/functions";
 
 interface AuthenticationContextType {
   user: User | null | undefined;
-  login?: (usernameOrEmail: string, password: string) => Promise<boolean>;
+  login?: (request: LoginRequest) => Promise<void>;
   logout?: () => Promise<void>;
   register?: (
     request : RegisterRequest
-  ) => Promise<boolean>;
-  fetchUser?: () => Promise<User | null | undefined>;
+  ) => Promise<string>;
+  
 }
 
 const AuthenticationContext = createContext<
@@ -33,111 +35,70 @@ export const AuthenticationProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
 
-  const [user, setUser] = useState<User | null | undefined>(undefined);
-  const [isMounted, setIsMounted] = useState(false);
-  const router = useRouter();
+  const [user, setUser] = useState<User | null | undefined>(null);
 
-  async function fetchUser() {
+  async function register(request: RegisterRequest): Promise<string> {
     try {
-      const token = await SecureStore.getItemAsync("jwtToken");
-      console.log(token)
-      if (!token) {
-        return null;
-      }
-      const userData = await apiFetch<User>("auth/profile", "POST", false, {
-        token,
-      });
-      if (userData !== null) {
-        if (isMounted) {
-          router.replace("/(root)/home");
-        }
-        return userData;
-      } else {
-        return undefined;
-      }
-    } catch (error: unknown) {
-      return null;
-    }
-  }
-  async function confirmAuth() {
-    const userData = await fetchUser();
-    if (userData) {
-      setUser(userData);
-      return true;
-    } else {
-      setUser(null);
-      return false;
-    }
-  }
-  async function login(
-    usernameOrEmail: string,
-    password: string
-  ): Promise<boolean> {
-    try {
-      const request = {
-        usernameOrEmail,
-        password,
-      };
-      const response = await apiLogin(request);
+      const response = await apiRegister(request);
+      console.log("Registration successful", response);
       if (response) {
-        await confirmAuth();
-        router.replace("/(root)/home");
-        return true;
-      } else return false;
-    } catch (error: unknown) {
-      throw new HttpError(500, (error as Error).message);
-    }
-  }
-
-  async function logout() {
-    try {
-      await apiLogout();
-      setUser(null);
-
-      router.replace("/(auth)/login");
-    } catch (error: unknown) {
-      throw new HttpError(500, (error as Error).message);
-    }
-  }
-  async function register(
-    request: RegisterRequest
-  ): Promise<boolean> {
-    try {
-      const response = await apiRegister(
-        request
-      );
-      if (response) {
-        await confirmAuth();
-        router.replace("/(root)/home");
-        return true;
+        await SecureStore.setItemAsync("jwtToken", response);
+        const user = await getUser(response);
+        if (user) {
+          await saveUser(user);
+          setUser(user);
+        } 
+        return response;
       }
-      return false;
+      throw new HttpError(500, "Registration failed");
     } catch (error: unknown) {
-      throw new HttpError(500, (error as Error).message);
+      throw new HttpError(500, "Registration failed");
     }
   }
+
   useEffect(() => {
-    setIsMounted(true); 
-    console.log(SecureStore.getItem("jwtToken"));
-    async function checkAuth() {
-      await confirmAuth();
+    async function getStoredUser() {
+      const user = await SecureStore.getItemAsync("user");
+      setUser(user ? JSON.parse(user) : null);
     }
-    checkAuth();
-  }, []);
-
+    getStoredUser()
+  }, [])
+   
+  async function login(request: LoginRequest): Promise<void> {
+    try {
+      const token = await apiLogin(request);
+      if (token) {
+        await SecureStore.setItemAsync("jwtToken", token);
+        const user = await getUser(token);
+        if (user) {
+          await saveUser(user);
+          setUser(user);
+        } 
+      }
+    } catch (error: unknown) {
+      console.error(error);
+    }
+  }
   if (user === undefined) {
     return (
       <AuthenticationContext.Provider value={{ user: undefined }}>
-        <SafeAreaView>
-          <ActivityIndicator size="large" color={Colors.highlight.main} />
-        </SafeAreaView>
+        <UserLoading/>
       </AuthenticationContext.Provider>
     );
   }
-
+  async function logout() {
+    try {
+      setUser(null);
+      await SecureStore.deleteItemAsync("jwtToken");
+      await deleteUser()
+      router.replace("/(auth)/login");
+    } catch (error: unknown) {
+      console.error(error);
+    }
+  }
   return (
     <AuthenticationContext.Provider
-      value={{ user, login, logout, fetchUser, register }}
+      value={{ user, login, logout, register }}
     >
       {children}
     </AuthenticationContext.Provider>

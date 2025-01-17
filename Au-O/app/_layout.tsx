@@ -4,7 +4,7 @@ import {
   ThemeProvider,
 } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
+import { router, Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
@@ -14,9 +14,11 @@ import { useColorScheme } from "nativewind";
 import { configureReanimatedLogger } from "react-native-reanimated";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { OnboardingProvider } from "@/contexts/OnboardingContext";
-import { AuthenticationProvider } from "@/contexts/AuthenticationContext";
+import { AuthenticationProvider, useAuthentication } from "@/contexts/AuthenticationContext";
 import { FormProvider } from "@/contexts/FormContext";
-
+import * as SecureStore from 'expo-secure-store';
+import { getUser, validateToken } from "@/lib/apiClient";
+import { saveUser } from "@/lib/functions";
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
@@ -28,9 +30,28 @@ export default function RootLayout() {
   configureReanimatedLogger({
     strict: false,
   });
+async function initialValidation() {
 
+  const token = await SecureStore.getItemAsync("jwtToken").then((res) => {
+    if (!res) {
+      router.replace("/onboarding")
+      return null
+    }
+    return res
+  })
+  const user = await validateToken(token!)
+  if (user) {
+    console.log("Token is valid")
+    const fetchedUser = await getUser(token!)
+    await saveUser(fetchedUser!)
+    router.replace("/(root)/home")
+  }
+  else router.replace("/(auth)/login")
+  
+}
   useEffect(() => {
     if (loaded) {
+      initialValidation()
       SplashScreen.hideAsync();
     }
   }, [loaded]);
@@ -47,12 +68,13 @@ export default function RootLayout() {
         >
           <AuthenticationProvider>
             <FormProvider>
-              <Stack>
+              <Stack initialRouteName="onboarding">
                 <Stack.Screen
                   name="onboarding"
                   options={{ headerShown: false }}
                 />
                 <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+                <Stack.Screen name="(root)" options={{ headerShown: false }} />
               </Stack>
             </FormProvider>
           </AuthenticationProvider>
