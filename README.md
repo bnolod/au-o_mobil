@@ -10,18 +10,11 @@
 - [ ❓ Használati útmutató](#-használati-útmutató)
 - [ 💻 Felhasznált technológiák](#-felhasznált-technológiák)
 - [ 📝 Tesztelések](#-tesztelések)
-- [ ✨ Featureok](#-featureok)
-- [ ✈ Felhasználói élmény](#felhasználói-élmény)
-- [ 🗺 Navigáció](#-navigáció)
 
 ---
 ## 📚 Bevezetés
 
 ## 💡 Termék leírása
-<center><h3>🏎 Au-Ó 🚗</h3><h4>Új szociális platform az autós közösségnek</h4></center>
-
-- **Amit kínálunk:** Egy külön kifejlesztett social media platform mindennek, aminek legalább két kereke van, és legalább egy henger hajtja.
-
 
 ## ✅ Telepítési útmutató
 
@@ -35,21 +28,21 @@ Szükséges a futtatáshoz
 >
 > Parancssor:
 >
-> `git clone <repo_link>` - klónozza az applikáció forráskódját a helyi rendszerre
+> `git clone <repo_link>` - kód lemásolása a rendszerre
 >
-> `cd /Au-O/` - belépés az appot tartalmazó könyvtárba
+> `cd /Au-O/` - kódot tartalmazó könyvtárba lépés
 >
-> `npm i` - npm csomagok telepítése
+> `npm i` - szükséges csomagok telepítése
 >
-> `npx expo start -c` - Expo keretrendszer indítása
+> `npx expo start -c` - Expo keretrendszer környezet indítása
 >
 > Bescanneljük a QR kódot, ami megnyitja az expo mobil appban.
 
 
 ## ❓ Használati útmutató
 
-### 🔐 Regisztráció és bejelentkezés
-- A program elsőként egy regisztrációs bemutatkozási folyamaton viszi át. (`/onboarding/`)
+### 🚪 Regisztráció és bejelentkezés
+- A program elsőként egy regisztrációs bemutatkozási folyamaton viszi át. (`/onboarding/index`)
 - Ezután standard bejelentkezési/regisztrációs képernyők bejelentkezhet a felhasználó. (`/(auth)/[login vagy register]`)
 - Miután a felhasználó sikeresen, visszaigazoltan bejelentkezett, a program átirányítja a felhasználói felület főoldalára (`/(root)/feed`)
 
@@ -61,7 +54,6 @@ Szükséges a futtatáshoz
 ## 📝 Tesztelések
 
 ## ✨ Featureok
-- **Felhasználóbarát bejelentkezés:** Az alkalmazásunk autentikációs rendszere a felhasználónevet is elfogadja e-mail mellett, biztonsági hátulütő nélkül.
 
 ## ✈ Felhasználói élmény
 
@@ -81,7 +73,7 @@ Szükséges a futtatáshoz
     - Becenév
 - Regisztrálás után egyből bejelentkeztet a felhasználódba.
 
-### 🚪 Bejelentkezés
+### 🔐 Bejelentkezés
 
 - Email vagy felhasználónév, és jelszó alapján.
 
@@ -99,9 +91,9 @@ Szükséges a futtatáshoz
     - Csoportok fülben
         - Felső sávhoz hozzáragad a csoport név, és azon belüli fülek (posztok, események)
 
-### 📲 Alsó navigációs sáv gombok
 ---
 
+## 📲 Alsó navigációs sáv gombok
 
 ### 🏡 Kezdőlap
 
@@ -155,3 +147,6 @@ Szükséges a futtatáshoz
     - Profil fülből?
     - Külön gomb valahol?
 
+
+- Nagyon kérdéses:
+    - útvonal/időmérő funkció

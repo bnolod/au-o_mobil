@@ -41,7 +41,6 @@ async function initialValidation() {
   })
   const user = await validateToken(token!)
   if (user) {
-    console.log("Token is valid")
     const fetchedUser = await getUser(token!)
     await saveUser(fetchedUser!)
     router.replace("/(root)/home")
@@ -68,7 +67,7 @@ async function initialValidation() {
         >
           <AuthenticationProvider>
             <FormProvider>
-              <Stack initialRouteName="onboarding">
+              <Stack>
                 <Stack.Screen
                   name="onboarding"
                   options={{ headerShown: false }}

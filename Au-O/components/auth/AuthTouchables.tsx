@@ -22,9 +22,7 @@ export default function AuthTouchables({
             resetFormData("login");
             console.log("VALID ", identifier, password);
           }*/
-    await login!({usernameOrEmail: identifier, password}).then(() => {
-      router.replace("/(root)/home");
-    })
+    await login!({usernameOrEmail: identifier, password})
   }
   async function performRegistration() {
     const {email, username, password, nickname, confirmPassword, dateOfBirth} = await getFormData("register");
