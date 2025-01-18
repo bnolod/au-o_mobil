@@ -53,6 +53,8 @@ export interface RegisterRequest {
 }
 export type HttpMethod = "GET" | "POST" | "PUT" | "DELETE";
 export interface IHttpError {
+
+  
   status: number;
   message?: string | undefined;
   language?: "EN" | "HU";
@@ -65,3 +67,7 @@ export class HttpError implements IHttpError {
     
   }
 }
+export type TokenResponse = {
+  token: string;
+}
+export type UserResponse = User | null | undefined;

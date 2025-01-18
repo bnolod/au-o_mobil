@@ -24,7 +24,7 @@ export default function Register() {
       nickname: getFormData("register")?.nickname || "",
       password: getFormData("register")?.password || "",
       confirmPassword: getFormData("register")?.confirmPassword || "",
-      dateOfBirth: getFormData("register")?.dateOfBirth || "",
+      dateOfBirth: getFormData("register")?.dateOfBirth || "2007-01-01T00:00:00.000Z",
     });
   }, []);
 
@@ -164,7 +164,7 @@ export default function Register() {
         />
       </View>
       <View className="w-full mx-auto flex items-center flex-1">
-        <RNDateTimePicker accentColor={Colors.dark.secondary} mode="date" display="spinner" maximumDate={new Date(2007, 12, 31)} value={new Date(2007, 0, 1)} onChange={(e, date) => {
+        <RNDateTimePicker  accentColor={Colors.dark.secondary} mode="date" display="spinner" maximumDate={new Date(2007, 12, 31)} value={new Date(2007, 0, 1)} onChange={(e, date) => {
           handleFormInputChange("register", "dateOfBirth", date!.toISOString(), getFormData, setFormData);
         }}/>
       </View>

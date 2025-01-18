@@ -4,6 +4,7 @@ import {
   LoginRequest,
   LoginResponse,
   RegisterRequest,
+  TokenResponse,
   User,
 } from "@/constants/types";
 import axios, { AxiosInstance } from "axios";
@@ -52,7 +53,6 @@ export const login = async (request: LoginRequest): Promise<string | null> => {
   }
 export const logout = async (): Promise<void> => {
   try {
-    //await apiClient.post("/logout");
     await SecureStore.deleteItemAsync("jwtToken");
   } catch (error: unknown) {
     console.error(error);
@@ -107,10 +107,10 @@ export async function handleRegister(
   request: RegisterRequest
 ): Promise<string> {
   try {
-    const response = await axios.post("http://192.168.11.71:8080/api/v1/auth/register", request);
-
-    if (response.data.token) {
-      return response.data.token;
+    const response = await apiFetch<TokenResponse>("auth/register", "POST", false, request);
+    
+    if (response!.token) {
+      return response!.token;
     }
     throw new HttpError(500, "No token in response");
   } catch (error: unknown) {
@@ -119,10 +119,10 @@ export async function handleRegister(
 }
 export async function handleLogin( request: LoginRequest): Promise<string> {
   try {
-    const response = await apiClient.post("auth/login", request);
+    const response = await apiFetch<TokenResponse>("auth/login", "POST", false, request);
 
-    if (response.data.token) {
-      return response.data.token;
+    if (response!.token) {
+      return response!.token;
     }
     throw new HttpError(500, "No token in response");
   } catch (error: unknown) {

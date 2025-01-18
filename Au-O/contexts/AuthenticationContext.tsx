@@ -1,8 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { router, useRouter } from "expo-router";
+import { router } from "expo-router";
 import * as SecureStore from "expo-secure-store";
 import {
-  apiFetch,
   handleLogin as apiLogin,
   handleRegister as apiRegister,
   logout as apiLogout,
@@ -12,13 +11,13 @@ import {
   HttpError,
   LoginRequest,
   RegisterRequest,
-  User,
+  UserResponse,
 } from "@/constants/types";
 import UserLoading from "@/components/auth/UserLoading";
 import { deleteUser, saveUser } from "@/lib/functions";
 
 interface AuthenticationContextType {
-  user: User | null | undefined;
+  user: UserResponse;
   login?: (request: LoginRequest) => Promise<void>;
   logout?: () => Promise<void>;
   register?: (
@@ -35,12 +34,11 @@ export const AuthenticationProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
 
-  const [user, setUser] = useState<User | null | undefined>(null);
+  const [user, setUser] = useState<UserResponse>(null);
 
   async function register(request: RegisterRequest): Promise<string> {
     try {
       const response = await apiRegister(request);
-      console.log("Registration successful", response);
       if (response) {
         await SecureStore.setItemAsync("jwtToken", response);
         const user = await getUser(response);
