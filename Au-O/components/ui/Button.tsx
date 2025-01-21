@@ -17,6 +17,7 @@ export default function Button({ variant, type, hapticFeedback, children, ...pro
         return 'button btn-transparent';
       case 'outline':
         return 'button btn-outline';
+      
       default:
         return 'button';
     }

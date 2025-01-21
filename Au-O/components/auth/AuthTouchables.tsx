@@ -22,9 +22,7 @@ export default function AuthTouchables({
             resetFormData("login");
             console.log("VALID ", identifier, password);
           }*/
-    if (await login!(identifier, password)) {
-      router.replace("/(root)/home");
-    }
+    await login!({usernameOrEmail: identifier, password})
   }
   async function performRegistration() {
     const {email, username, password, nickname, confirmPassword, dateOfBirth} = await getFormData("register");
@@ -48,9 +46,10 @@ export default function AuthTouchables({
         dateOfBirth
       );
     } */
-    if (await register!({email, password, username, nickname, dateOfBirth})) {
-      router.replace("/(root)/home");
-    }
+   console.log("Registering", email, username, password, nickname, dateOfBirth.split("T")[0]);
+    await register!({email, username, password, nickname, date_of_birth: dateOfBirth.split("T")[0]}).then((res) => {
+      console.log("Registration successful", res);
+    })
 
   }
   return (
