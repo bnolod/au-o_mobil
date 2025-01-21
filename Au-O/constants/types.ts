@@ -70,4 +70,9 @@ export class HttpError implements IHttpError {
 export type TokenResponse = {
   token: string;
 }
+export interface SearchBarProps {
+  placeholder?: string;
+  onSearch: (query: string) => void;
+  onChangeText?: (query: string) => void;
+}
 export type UserResponse = User | null | undefined;
