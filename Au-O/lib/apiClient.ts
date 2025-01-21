@@ -8,6 +8,7 @@ import {
   User,
 } from "@/constants/types";
 import axios, { AxiosInstance } from "axios";
+import { router } from "expo-router";
 import * as SecureStore from "expo-secure-store";
 
 const apiClient: AxiosInstance = axios.create({
@@ -44,10 +45,18 @@ export const login = async (request: LoginRequest): Promise<string | null> => {
   export async function validateToken(token: string) {
     const validToken = await apiFetch<string>("auth/authenticate", "POST", true, {
       token
-    }).then((response) => {
-      SecureStore.setItemAsync("jwtToken", response!);
-      return response
-    });
+    })
+    if (!validToken) {
+      console.error("Invalid token")
+      await logout()
+      router.replace("/(auth)/login")
+    }
+    else {
+
+      SecureStore.setItemAsync("jwtToken", validToken!);
+      return validToken
+    }
+    ;
     return validToken
     
   }
