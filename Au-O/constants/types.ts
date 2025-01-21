@@ -84,6 +84,8 @@ export interface PostCardProps {
   location: Geolocation
   reactions: Reactions
   comments: Comment[];
+  language: "EN" | "HU";
+  colorScheme: "light" | "dark";
 }
 
 export type Comment = {
@@ -104,5 +106,7 @@ export interface AvatarProps {
   image: any;
   className?: string;
   nickname?: string;
+  width?: number | string;
+  height?: number | string;
 }
 export type UserResponse = User | null | undefined;

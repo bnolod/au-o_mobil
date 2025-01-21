@@ -261,3 +261,21 @@ export const HttpErrorTexts = {
     EN: "HTTP version not supported",
   },
 };
+export const HomeTexts = {
+  search: {
+    placeholder: {
+      HU: "Keress akármire",
+      EN: "Search for anything",
+    },
+  },
+  post: {
+    comment_1: {
+      HU: "Szólj hozzá",
+      EN: "Say something about"
+    },
+    comment_2: {
+      HU: "posztjához",
+      EN: "'s post!"
+    },
+  }
+}
