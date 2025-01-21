@@ -75,4 +75,34 @@ export interface SearchBarProps {
   onSearch: (query: string) => void;
   onChangeText?: (query: string) => void;
 }
+export interface PostCardProps {
+  author_nickname: string;
+  author_username: string;
+  date: string;
+  image: any; //temporary
+  description: string;
+  location: Geolocation
+  reactions: Reactions
+  comments: Comment[];
+}
+
+export type Comment = {
+  text: string
+  likes: number
+}
+export type Reactions = {
+  fire: number;
+  heart: number;
+  sunglasses: number;
+}
+export type Geolocation = {
+  lat: number;
+  lng: number;
+}
+
+export interface AvatarProps {
+  image: any;
+  className?: string;
+  nickname?: string;
+}
 export type UserResponse = User | null | undefined;

@@ -57,4 +57,17 @@
   .input-body {
     @apply flex flex-row justify-start items-center bg-backdrop-secondary dark:bg-backdrop-secondary-dark relative rounded-full border 
   }
+
+  .post-container {
+    @apply flex flex-col w-full bg-backdrop-primary dark:bg-backdrop-primary-dark rounded-xl shadow-md p-4 
+  }
+  .post-header {
+    @apply flex flex-row items-center w-full
+  }
+  .post-image {
+    @apply my-2 bg-backdrop-secondary aspect-square rounded-xl mx-auto
+  }
+  .post-footer {
+    @apply flex flex-col w-full h-fit
+  }
 }
