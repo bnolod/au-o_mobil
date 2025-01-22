@@ -2,23 +2,22 @@ import React from "react";
 import { Dimensions, Image, Platform, View } from "react-native";
 import { ThemedText } from "../ui/ThemedText";
 import SvgHeaderDecoration from "../graphics/HeaderDecoration";
-import { useColorScheme } from "nativewind";
 import Button from "../ui/Button";
 import { ButtonTexts } from "@/constants/texts";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { CommonStaticElementProps } from "@/constants/types";
 export default function OnboardingHeader({
   isStatic,
   onBackPress,
   onSkipPress,
   index,
+  language,
+  colorScheme,
 }: {
   isStatic?: boolean;
   onBackPress?: () => void;
   onSkipPress?: () => void;
   index?: number;
-}) {
-  const { colorScheme } = useColorScheme();
-  const { language } = useLanguage();
+} & CommonStaticElementProps) {
 
   return (
     <View

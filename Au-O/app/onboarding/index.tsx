@@ -31,7 +31,7 @@ export default function Onboarding() {
     <OnboardingProvider>
       <StatusBar style="light" />
       <View className="h-screen overflow-y-hidden w-full mx-auto">
-        <OnboardingHeader index={index} onBackPress={() => {
+        <OnboardingHeader colorScheme={colorScheme!} language={language} index={index} onBackPress={() => {
           carouselRef.current?.prev()
         }} onSkipPress={() => (router.replace("/(auth)/register"))} />
         <View className="container flex flex-col justify-between py-5">
@@ -65,7 +65,7 @@ export default function Onboarding() {
             }}
             />
           </View>
-          <CallToAction index={index} onPress={index !== 2 ? () => carouselRef.current?.next() : () => router.replace('/(auth)/register')} />
+          <CallToAction colorScheme={colorScheme!} language={language} index={index} onPress={index !== 2 ? () => carouselRef.current?.next() : () => router.replace('/(auth)/register')} />
         </View>
       </View>
     </OnboardingProvider>

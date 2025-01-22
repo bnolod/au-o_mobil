@@ -8,7 +8,8 @@ import {
 import ThemedText from "./ThemedText";
 import { useState } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { colorScheme } from "nativewind";
+import { CommonStaticElementProps } from "@/constants/types";
+
 
 
 export default function Input({
@@ -17,12 +18,14 @@ export default function Input({
   secureTextEntry = false,
   TextInputProps,
   icon,
+  colorScheme
 }: {
   label?: string;
   secureTextEntry?: boolean;
   TextInputProps?: TextInputProps;
   containerClassName?: string;
   icon?: any;
+  colorScheme: "light" | "dark";
 }) {
   const [isFocused, setIsFocused] = useState(false);
   const [isSecure, setIsSecure] = useState(false);
@@ -66,7 +69,7 @@ export default function Input({
                 hitSlop={40}
                 onPress={() => {setIsSecure(!isSecure)}}
               >
-                <MaterialCommunityIcons style={{right: 12, position: "absolute"}} name={isSecure ? "eye-off" : "eye"} size={24} color={colorScheme.get() === "dark" ? "white" : "black"} />
+                <MaterialCommunityIcons style={{right: 12, position: "absolute"}} name={isSecure ? "eye-off" : "eye"} size={24} color={colorScheme === "dark" ? "white" : "black"} />
 
               </TouchableWithoutFeedback>
             )}

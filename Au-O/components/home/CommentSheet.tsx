@@ -1,16 +1,14 @@
 import React, { useCallback, useRef } from "react";
-import BottomSheet, {
+import {
   BottomSheetFlatList,
   BottomSheetModal,
-  BottomSheetView,
+  
 } from "@gorhom/bottom-sheet";
 
 import ThemedText from "../ui/ThemedText";
 import {
   TouchableOpacity,
-  StyleSheet,
   View,
-  TextInput,
   Keyboard,
   TouchableWithoutFeedback,
 } from "react-native";
@@ -21,6 +19,7 @@ import { HomeTexts } from "@/constants/texts";
 import { Colors } from "@/constants/Colors";
 import AddCommentRow from "./AddCommentRow";
 import CommentElement from "../ui/CommentElement";
+import CommentsEmpty from "./CommentsEmpty";
 
 export default function CommentSheet({
   colorScheme,
@@ -36,21 +35,26 @@ export default function CommentSheet({
   const [focused, setFocused] = React.useState(false);
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   function handlePresent(): void {
+    bottomSheetModalRef.current?.dismiss();
     bottomSheetModalRef.current?.present();
-    setFocused(false)
+    setFocused(false);
   }
 
-  const renderItem = useCallback(({item}: {item: Comment}) => {
-
-      return <CommentElement replies={item.replies} text={item.text} />;
-
-  }, [])
+  const renderItem = useCallback(({ item }: { item: Comment }) => {
+    return <CommentElement replies={item.replies} text={item.text} />;
+  }, []);
   return (
-    <TouchableWithoutFeedback onPress={() => {Keyboard.dismiss(); bottomSheetModalRef.current?.dismiss(); setFocused(false)}}>
+    <TouchableWithoutFeedback
+      onPress={() => {
+        Keyboard.dismiss();
+        bottomSheetModalRef.current?.dismiss();
+        setFocused(false);
+      }}
+    >
       <View className="post-comment-container">
         <View className="basis-1/12 flex justify-center items-center">
           <Avatar
-            className="bg-backdrop-primary dark:bg-backdrop-primary-dark"
+            className="primary"
             image={null}
             nickname={"teszt"}
             height={12}
@@ -58,18 +62,22 @@ export default function CommentSheet({
           />
         </View>
         <View className="basis-8/12">
-        <TouchableWithoutFeedback onPress={() => {handlePresent(); setFocused(true)}}>
-
-          <View  className="h-12 primary flex items-start px-2 justify-center rounded-xl">
-            <ThemedText className="opacity-40">
-              {HomeTexts.post.comment_1[language]}
-              <ThemedText className="font-bold">
-                {" " + author_nickname}
+          <TouchableWithoutFeedback
+            onPress={() => {
+              handlePresent();
+              setFocused(true);
+            }}
+          >
+            <View className="post-comment-input-trigger">
+              <ThemedText className="opacity-40">
+                {HomeTexts.post.comment_1[language]}
+                <ThemedText className="font-bold">
+                  {" " + author_nickname}
+                </ThemedText>
+                {HomeTexts.post.comment_2[language]}
               </ThemedText>
-              {HomeTexts.post.comment_2[language]}
-            </ThemedText>
-          </View>
-        </TouchableWithoutFeedback>
+            </View>
+          </TouchableWithoutFeedback>
         </View>
         <View className="basis-2/12">
           <TouchableOpacity
@@ -101,7 +109,6 @@ export default function CommentSheet({
             setFocused(false);
           }}
           enableDismissOnClose
-          
           enablePanDownToClose={true}
           backgroundStyle={{
             backgroundColor: Colors[colorScheme].secondary,
@@ -111,31 +118,31 @@ export default function CommentSheet({
             backgroundColor: Colors[colorScheme].text,
             width: "33%",
             height: 5,
-            
           }}
           handleStyle={{
             backgroundColor: Colors[colorScheme].secondary,
-            
+
             borderTopRightRadius: 10,
             borderTopLeftRadius: 10,
           }}
           index={2}
         >
           <BottomSheetFlatList
-          ListHeaderComponent={
-            <AddCommentRow focus={focused} author_nickname={author_nickname} language={language} colorScheme={colorScheme} />
-          }
-          data={comments}
-          ListEmptyComponent={<View className="flex opacity-50 justify-center flex-col items-center mt-4">
-            <MaterialCommunityIcons name="comment-remove-outline" size={64} color={Colors[colorScheme].text} />
-            <ThemedText className="text-3xl">{HomeTexts.post.nocomments[language]}</ThemedText>
-            <ThemedText className="text-xl">{HomeTexts.post.addcomment[language]}</ThemedText>
-            </View>}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id.toString()}
-          
+            ListHeaderComponent={
+              <AddCommentRow
+                focus={focused}
+                author_nickname={author_nickname}
+                language={language}
+                colorScheme={colorScheme}
+              />
+            }
+            data={comments}
+            ListEmptyComponent={
+              <CommentsEmpty language={language} colorScheme={colorScheme} />
+            }
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id.toString()}
             contentContainerStyle={{
-
               backgroundColor: Colors[colorScheme].secondary,
               paddingVertical: 12,
               width: "100%",

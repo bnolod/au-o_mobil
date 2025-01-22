@@ -1,7 +1,6 @@
 import { View } from "react-native";
 import ThemedText from "./ThemedText";
 import { Comment } from "@/constants/types";
-import Button from "./Button";
 import ReactionButton from "./ReactionButton";
 
 export default function CommentElement({text, replies}: {text: string, replies: Comment[]}) {

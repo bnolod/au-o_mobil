@@ -10,13 +10,14 @@ import { useEffect } from "react";
 import { handleFormInputChange } from "@/lib/functions";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
 import React from "react";
-
+import { useColorScheme } from "nativewind";
 import { Colors } from "@/constants/Colors";
+import { CommonStaticElementProps } from "@/constants/types";
 export default function Register() {
-  const { language } = useLanguage();
 
   const { setFormData, getFormData } = useFormContext();
-
+  const { language } = useLanguage();
+  const {colorScheme} = useColorScheme()
   useEffect(() => {
     setFormData("register", {
       email: getFormData("register")?.email || "",
@@ -35,6 +36,7 @@ export default function Register() {
       </ThemedText>
       <Input
         label={AuthTexts.signup.labels.email[language]}
+        colorScheme={colorScheme!}
         TextInputProps={{
           keyboardType: "email-address",
           autoComplete: "email",
@@ -53,13 +55,14 @@ export default function Register() {
           <MaterialCommunityIcons
             name="email"
             size={24}
-            color={colorScheme.get() === "dark" ? "white" : "black"}
+            color={colorScheme === "dark" ? "white" : "black"}
           />
         }
       />
       <View className="flex  mx-auto w-full flex-row justify-between">
 
       <Input
+      colorScheme={colorScheme!}
       containerClassName="w-1/2 pl-[4%] pr-[1%]"
         label={AuthTexts.signup.labels.username[language]}
         TextInputProps={{
@@ -80,11 +83,12 @@ export default function Register() {
             <MaterialCommunityIcons
             name="account"
             size={24}
-            color={colorScheme.get() === "dark" ? "white" : "black"}
+            color={colorScheme === "dark" ? "white" : "black"}
             />
           }
           />
       <Input
+      colorScheme={colorScheme!}
       containerClassName="w-1/2 pr-[4%] pl-[1%]"
         label={AuthTexts.signup.labels.nickname[language]}
         TextInputProps={{
@@ -105,20 +109,21 @@ export default function Register() {
             <MaterialCommunityIcons
             name="account"
             size={24}
-            color={colorScheme.get() === "dark" ? "white" : "black"}
+            color={colorScheme === "dark" ? "white" : "black"}
             />
           }
           />
           </View>
       <View className="flex  mx-auto w-full flex-row justify-between">
         <Input
+        colorScheme={colorScheme!}
         containerClassName="w-1/2 pl-[4%] pr-[1%]" //kiszámoltam, nem random szám!!
           label={AuthTexts.signup.labels.password[language]}
           icon={
             <MaterialCommunityIcons
               name="lock"
               size={24}
-              color={colorScheme.get() === "dark" ? "white" : "black"}
+              color={colorScheme === "dark" ? "white" : "black"}
             />
           }
           secureTextEntry
@@ -137,6 +142,7 @@ export default function Register() {
           }}
         />
         <Input
+        colorScheme={colorScheme!}
                 containerClassName="w-1/2 pr-[4%] pl-[1%]" //kiszámoltam, nem random szám!!
           label={AuthTexts.signup.labels.confirmPassword[language]}
           secureTextEntry
@@ -158,7 +164,7 @@ export default function Register() {
             <MaterialCommunityIcons
               name="lock-check"
               size={24}
-              color={colorScheme.get() === "dark" ? "white" : "black"}
+              color={colorScheme === "dark" ? "white" : "black"}
             />
           }
         />

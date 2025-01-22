@@ -1,19 +1,19 @@
 import Input from "@/components/ui/Input";
 import { ScrollView, View } from "react-native";
-import { useLanguage } from "@/contexts/LanguageContext";
 import { AuthTexts } from "@/constants/texts";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { colorScheme } from "nativewind";
 import ThemedText from "@/components/ui/ThemedText";
 import { useEffect } from "react";
 import { useFormContext } from "@/contexts/FormContext";
-import { handleFormInputChange, validateLogin } from "@/lib/functions";
+import { handleFormInputChange } from "@/lib/functions";
+import { useColorScheme } from "nativewind";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-
-export default function Login() {
-  const { language } = useLanguage();
+export default function Login({route}: any) {
   const {setFormData, getFormData} = useFormContext();
-
+  const { language } = useLanguage();
+  const {colorScheme} = useColorScheme()
+  
   useEffect(() => {
     setFormData("login", {
       identifier: getFormData("login")?.identifier || "",
@@ -29,6 +29,7 @@ const loginForm = getFormData("login");
       </ThemedText>
       <Input
         label={AuthTexts.login.labels.email[language]}
+        colorScheme={colorScheme!}
         TextInputProps={{
           keyboardType: "email-address",
           autoComplete: "email",
@@ -41,17 +42,20 @@ const loginForm = getFormData("login");
           <MaterialCommunityIcons
             name="email"
             size={24}
-            color={colorScheme.get() === "dark" ? "white" : "black"}
+            color={colorScheme === "dark" ? "white" : "black"}
           />
         }
       />
       <Input
         label={AuthTexts.login.labels.password[language]}
+        colorScheme={colorScheme!}
+        
         icon={
           <MaterialCommunityIcons
           name="lock"
           size={24}
-          color={colorScheme.get() === "dark" ? "white" : "black"}
+          
+          color={colorScheme === "dark" ? "white" : "black"}
           />
         }
         secureTextEntry

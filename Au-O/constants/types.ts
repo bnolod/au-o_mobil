@@ -114,7 +114,11 @@ export type Geolocation = {
   lat: number;
   lng: number;
 }
-
+export interface CommonStaticElementProps {
+  children?: ReactNode;
+  language: "EN" | "HU";
+  colorScheme: "light" | "dark";
+}
 export interface AvatarProps {
   image: any;
   className?: string;

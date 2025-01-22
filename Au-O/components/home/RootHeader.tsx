@@ -5,8 +5,9 @@ import Button from "../ui/Button";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
 import { Images } from "@/lib/staticAssetExports";
-export default function RootHeader() {
-  const { toggleColorScheme, colorScheme } = useColorScheme();
+import { CommonStaticElementProps } from "@/constants/types";
+export default function RootHeader({language, colorScheme} : CommonStaticElementProps) {
+  const { toggleColorScheme } = useColorScheme();
   return (
     <View className="root-header">
       <Image

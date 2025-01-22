@@ -82,9 +82,15 @@
   .post-comment-input {
     @apply h-12 p-0 gap-2 flex flex-row items-center rounded-xl justify-center bg-backdrop-primary dark:bg-backdrop-primary-dark
   }
+  .post-comment-input-trigger {
+    @apply h-12 primary flex items-start px-2 justify-center rounded-xl
+  }
 
   .root-header {
     @apply pt-16 pb-4 fixed bg-backdrop-primary w-screen dark:bg-backdrop-primary-dark flex items-center px-3 flex-row gap-2
+  }
+  .root-comment-empty-container {
+    @apply flex opacity-50 justify-center flex-col items-center mt-4
   }
 } 
 @layer base {

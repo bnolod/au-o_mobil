@@ -10,10 +10,12 @@ import {
   View,
 } from "react-native";
 import { useAuthentication } from "@/contexts/AuthenticationContext";
+import { useColorScheme } from "nativewind";
 
 export default function AuthLayout() {
   const { language } = useLanguage();
   const path = usePathname();
+  const { colorScheme } = useColorScheme();
     const {user} = useAuthentication()
   
     if (user) {
@@ -34,11 +36,11 @@ export default function AuthLayout() {
             className="bg-transparent"
             
           >
-            <OnboardingHeader isStatic />
+            <OnboardingHeader colorScheme={colorScheme!} language={language} isStatic />
             
             <Stack>
-              <Stack.Screen name="login"  options={{ headerShown: false }} />
-              <Stack.Screen name="register" options={{ headerShown: false }} />
+              <Stack.Screen  name="login"  options={{ headerShown: false }} />
+              <Stack.Screen  name="register" options={{ headerShown: false }} />
             </Stack>
             {
             path === "/login" &&

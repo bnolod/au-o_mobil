@@ -1,20 +1,21 @@
 import React from "react";
 import { useAuthentication } from "@/contexts/AuthenticationContext";
-import { Redirect, Stack, Tabs } from "expo-router";
-import SearchBar from "@/components/ui/SearchBar";
+import { Redirect, Tabs } from "expo-router";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
 import { Colors } from "@/constants/Colors";
 import RootHeader from "@/components/home/RootHeader";
+import { useLanguage } from "@/contexts/LanguageContext";
 export default function RootLayout() {
   const { user } = useAuthentication();
+  const { language } = useLanguage();
   const { colorScheme } = useColorScheme();
   if (!user) {
     return <Redirect href={"/(auth)/login"} />;
   }
   return (
     <>
-                <RootHeader/>
+      <RootHeader language={language} colorScheme={colorScheme!} />
       <Tabs
         screenOptions={{
           tabBarShowLabel: false,
@@ -31,11 +32,12 @@ export default function RootLayout() {
           tabBarIconStyle: {
             height: "100%",
             width: "100%",
-          }
+          },
         }}
       >
         <Tabs.Screen
           name="home"
+          initialParams={{colorScheme, language}}
           options={{
             headerShown: false,
             title: "Home",
@@ -45,10 +47,9 @@ export default function RootLayout() {
                 size={42}
                 color={color}
               />
-            ),
+            )
           }}
         />
-    
       </Tabs>
     </>
   );

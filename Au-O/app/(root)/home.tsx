@@ -1,16 +1,12 @@
 import Button from "@/components/ui/Button";
 import ThemedText from "@/components/ui/ThemedText";
-import { ScrollView, View } from "react-native";
+import { ScrollView } from "react-native";
 import { useAuthentication } from "@/contexts/AuthenticationContext";
-import { useEffect } from "react";
-import SearchBar from "@/components/ui/SearchBar";
-import RootHeader from "@/components/home/RootHeader";
 import { Keyboard } from "react-native";
 import { TouchableWithoutFeedback } from "react-native";
 import PostCard from "@/components/home/UserPost";
 import { colorScheme } from "nativewind";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Comment } from "@/constants/types";
 export default function Home() {
 
   const { logout, user } = useAuthentication();

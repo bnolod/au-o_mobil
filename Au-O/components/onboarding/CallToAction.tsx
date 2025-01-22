@@ -3,16 +3,17 @@ import Button from "../ui/Button";
 import { ThemedText } from "../ui/ThemedText";
 import { Colors } from "@/constants/Colors";
 import { CallToActionTexts } from "@/constants/texts";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { CommonStaticElementProps } from "@/constants/types";
 
 export default function CallToAction({
   onPress,
   index,
+  language,
+
 }: {
   onPress: () => void;
   index: number;
-}) {
-  const { language } = useLanguage();
+} & CommonStaticElementProps) {
   return (
     <View className=" w-full items-end justify-end flex flex-col pb-12 basis-2/12">
       <Button

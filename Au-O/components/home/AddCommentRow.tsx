@@ -3,8 +3,9 @@ import { TextInput, View } from "react-native";
 import Button from "../ui/Button";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Colors } from "@/constants/Colors";
+import { CommonStaticElementProps } from "@/constants/types";
 
-export default function AddCommentRow({author_nickname, language, colorScheme, focus}: {author_nickname: string, language: "HU" | "EN", colorScheme: "light" | "dark", focus: boolean}) {
+export default function AddCommentRow({author_nickname, language, colorScheme, focus}: {author_nickname: string, focus: boolean } & CommonStaticElementProps) {
     return (
         <View className="flex flex-row mb-2 rounded-xl mx-auto justify-between gap-4 items-center">
             <View className="basis-10/12 rounded-xl">
