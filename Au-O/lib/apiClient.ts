@@ -10,6 +10,7 @@ import {
 import axios, { AxiosInstance } from "axios";
 import { router } from "expo-router";
 import * as SecureStore from "expo-secure-store";
+import { deleteUser } from "./functions";
 
 const apiClient: AxiosInstance = axios.create({
   baseURL: process.env.EXPO_PUBLIC_AXIOS_BASE_URL,
@@ -42,14 +43,16 @@ export const login = async (request: LoginRequest): Promise<string | null> => {
     return null;
   }
 };
-  export async function validateToken(token: string) {
+  export async function validateToken(token: string, path: string) {
     const validToken = await apiFetch<string>("auth/authenticate", "POST", true, {
       token
     })
     if (!validToken) {
-      console.error("Invalid token")
       await logout()
-      router.replace("/(auth)/login")
+      if (path !== "/" && path !== "/onboarding" && path !== "/login" && path !== "/register") {
+
+        router.replace("/(auth)/login") 
+      }
     }
     else {
 
@@ -63,6 +66,7 @@ export const login = async (request: LoginRequest): Promise<string | null> => {
 export const logout = async (): Promise<void> => {
   try {
     await SecureStore.deleteItemAsync("jwtToken");
+    await deleteUser()
   } catch (error: unknown) {
     console.error(error);
   }
