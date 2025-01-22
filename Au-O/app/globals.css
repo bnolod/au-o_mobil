@@ -84,7 +84,7 @@
   }
 
   .root-header {
-    @apply pt-16 pb-4 sticky bg-backdrop-primary w-screen dark:bg-backdrop-primary-dark flex items-center px-3 flex-row gap-2
+    @apply pt-16 pb-4 fixed bg-backdrop-primary w-screen dark:bg-backdrop-primary-dark flex items-center px-3 flex-row gap-2
   }
 } 
 @layer base {

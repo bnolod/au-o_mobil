@@ -8,6 +8,7 @@ import ReactionButton from "../ui/ReactionButton";
 import { useState } from "react";
 import { formatDate } from "@/lib/functions";
 import { HomeTexts } from "@/constants/texts";
+import CommentSheet from "./CommentSheet";
 
 export default function PostCard({
   author_nickname,
@@ -108,24 +109,11 @@ export default function PostCard({
         <View className="px-2 py-2 dark:bg-backdrop-primary-dark bg-backdrop-secondary">
           <ThemedText>{description}</ThemedText>
         </View>
-        <View className="post-comment-container">
-          <View className="basis-1/12 flex justify-center items-center">
-            <Avatar className="bg-backdrop-primary dark:bg-backdrop-primary-dark" image={null} nickname={"teszt"} height={12} width={12} />
-          </View>
-          <View className="basis-8/12">
-            <TextInput className="bg-backdrop-primary dark:bg-backdrop-primary-dark  h-12 rounded-xl px-2"  placeholder={HomeTexts.post.comment_1[language] + " " + author_nickname + " " + HomeTexts.post.comment_2[language]} />
-          </View>
-          <View className="basis-2/12">
-          <TouchableOpacity className="post-comment-input">
-            
-              <MaterialCommunityIcons name="comment-outline" size={24} color={colorScheme === "dark" ? "white" : "black"} />
-            <ThemedText className="font-bold text-lg">
-        
-              {comments.length}
-              </ThemedText>
-            </TouchableOpacity>
-          </View>
-        </View>
+
+
+              <CommentSheet author_nickname={author_nickname} language={language} colorScheme={colorScheme} comments={comments} />
+
+
       </View>
     </View>
   );

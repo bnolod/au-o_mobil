@@ -5,6 +5,7 @@ import SearchBar from "@/components/ui/SearchBar";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
 import { Colors } from "@/constants/Colors";
+import RootHeader from "@/components/home/RootHeader";
 export default function RootLayout() {
   const { user } = useAuthentication();
   const { colorScheme } = useColorScheme();
@@ -13,6 +14,7 @@ export default function RootLayout() {
   }
   return (
     <>
+                <RootHeader/>
       <Tabs
         screenOptions={{
           tabBarShowLabel: false,

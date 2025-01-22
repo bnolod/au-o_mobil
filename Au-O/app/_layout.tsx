@@ -20,6 +20,8 @@ import * as SecureStore from 'expo-secure-store';
 import { getUser, validateToken } from "@/lib/apiClient";
 import { saveUser } from "@/lib/functions";
 import { usePathname } from "expo-router";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
@@ -66,14 +68,20 @@ async function initialValidation() {
         >
           <AuthenticationProvider>
             <FormProvider>
+
+                      <GestureHandlerRootView>
+                        <BottomSheetModalProvider>
+
               <Stack initialRouteName="onboarding">
                 <Stack.Screen
                   name="onboarding"
                   options={{ headerShown: false }}
-                />
+                  />
                 <Stack.Screen name="(auth)" options={{ headerShown: false }} />
                 <Stack.Screen name="(root)" options={{ headerShown: false }} />
               </Stack>
+                  </BottomSheetModalProvider>
+                </GestureHandlerRootView>
             </FormProvider>
           </AuthenticationProvider>
         </ThemeProvider>

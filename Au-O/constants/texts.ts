@@ -274,8 +274,16 @@ export const HomeTexts = {
       EN: "Say something about"
     },
     comment_2: {
-      HU: "posztjához",
+      HU: " posztjához",
       EN: "'s post!"
     },
+    nocomments: {
+      HU: "Nincsenek hozzászólások",
+      EN: "No comments yet",
+    },
+    addcomment: {
+      HU: "Légy te az első!",
+      EN: "Be the first!",
+    }
   }
 }
