@@ -89,10 +89,22 @@ export interface PostCardProps {
   colorScheme: "light" | "dark";
 }
 
-export type Comment = {
-  text: string
-  likes: number
+export class Comment {
+  id: number;
+  text: string;
+  replies: Array<Comment>
+
+  constructor(id:number, text:string) {
+    this.id = id;
+    this.text = text;
+    this.replies = new Array<Comment>
+  }
 }
+
+// export type Comment = {
+//   text: string
+//   likes: number
+// }
 export type Reactions = {
   fire: number;
   heart: number;
