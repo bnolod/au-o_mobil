@@ -1,5 +1,6 @@
 import { TouchableOpacityProps } from "react-native";
 import { HttpErrorTexts } from "./texts";
+import { ReactNode } from "react";
 
 export interface OnboardingLayoutProps {
   headerText: React.ReactNode;
@@ -108,5 +109,12 @@ export interface AvatarProps {
   nickname?: string;
   width?: number | string;
   height?: number | string;
+}
+export interface DropdownWrapperProps {
+  visible: boolean
+  handleOpen: () => void
+  handleClose: () => void
+  width: number
+  children: ReactNode
 }
 export type UserResponse = User | null | undefined;

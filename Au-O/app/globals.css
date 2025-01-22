@@ -82,4 +82,22 @@
   .post-comment-input {
     @apply h-12 p-0 gap-2 flex flex-row items-center rounded-xl justify-center bg-backdrop-primary dark:bg-backdrop-primary-dark
   }
+
+  .root-header {
+    @apply pt-16 pb-4 sticky bg-backdrop-primary w-screen dark:bg-backdrop-primary-dark flex items-center px-3 flex-row gap-2
+  }
 } 
+@layer base {
+  .secondary {
+    @apply bg-backdrop-secondary dark:bg-backdrop-secondary-dark
+  }
+  .primary {
+    @apply bg-backdrop-primary dark:bg-backdrop-primary-dark
+  }
+  .background {
+    @apply bg-background dark:bg-background-dark
+  }
+  .highlight {
+    @apply bg-highlight-light dark:bg-highlight
+  }
+}

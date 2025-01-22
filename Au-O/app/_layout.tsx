@@ -19,10 +19,13 @@ import { FormProvider } from "@/contexts/FormContext";
 import * as SecureStore from 'expo-secure-store';
 import { getUser, validateToken } from "@/lib/apiClient";
 import { saveUser } from "@/lib/functions";
+import { usePathname } from "expo-router";
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  
+  const path = usePathname()
   const { colorScheme, toggleColorScheme } = useColorScheme();
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
@@ -34,19 +37,17 @@ async function initialValidation() {
 
   const token = await SecureStore.getItemAsync("jwtToken").then((res) => {
     if (!res) {
-      router.replace("/onboarding")
+      console.log(path)
+      //router.replace("/onboarding")
       return null
     }
     return res
   })
-  const user = await validateToken(token!)
+  const user = await validateToken(token! , path)
   if (user) {
     const fetchedUser = await getUser(token!)
     await saveUser(fetchedUser!)
-    router.replace("/(root)/home")
   }
-  else router.replace("/(auth)/login")
-  
 }
   useEffect(() => {
     if (loaded) {
@@ -67,7 +68,7 @@ async function initialValidation() {
         >
           <AuthenticationProvider>
             <FormProvider>
-              <Stack>
+              <Stack initialRouteName="onboarding">
                 <Stack.Screen
                   name="onboarding"
                   options={{ headerShown: false }}

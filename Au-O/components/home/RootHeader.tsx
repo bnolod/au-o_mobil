@@ -6,14 +6,31 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
 import { Images } from "@/lib/staticAssetExports";
 export default function RootHeader() {
-    const {toggleColorScheme, colorScheme} = useColorScheme();
-    return (
-        <View className="pt-16 pb-4 sticky bg-backdrop-primary w-screen dark:bg-backdrop-primary-dark flex items-center px-3 flex-row gap-2">
-             <Image source={colorScheme === "dark" ? Images.logo_white : Images.logo_black} className=" basis-2/12" resizeMode="contain" />
-            <SearchBar placeholder="Keresés" colorScheme={colorScheme} onSearch={(query) => {console.log(query)}} />
-                <Button onPress={() => toggleColorScheme()} className="h-12 w-12 text-center flex justify-center items-center p-1 rounded-xl bg-backdrop-secondary dark:bg-backdrop-secondary-dark">
-                    <MaterialCommunityIcons name="chat-outline" size={32} color={colorScheme === "light" ? "black" : "white"} />
-                </Button>
-        </View>
-    )
+  const { toggleColorScheme, colorScheme } = useColorScheme();
+  return (
+    <View className="root-header">
+      <Image
+        source={colorScheme === "dark" ? Images.logo_white : Images.logo_black}
+        className=" basis-2/12"
+        resizeMode="contain"
+      />
+      <SearchBar
+        placeholder="Keresés"
+        colorScheme={colorScheme}
+        onSearch={(query) => {
+          console.log(query);
+        }}
+      />
+      <Button
+        onPress={() => toggleColorScheme()}
+        className="h-12 w-12 text-center flex justify-center items-center p-1 rounded-xl secondary"
+      >
+        <MaterialCommunityIcons
+          name="chat-outline"
+          size={32}
+          color={colorScheme === "light" ? "black" : "white"}
+        />
+      </Button>
+    </View>
+  );
 }
