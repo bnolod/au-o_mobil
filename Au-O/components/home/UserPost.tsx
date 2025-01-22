@@ -70,7 +70,6 @@ export default function PostCard({
       </View>
       <View className="post-footer">
         <View className="post-reaction-container">
-        
           <View className=" gap-2 flex flex-row basis-7/12">
             <ReactionButton
               type="fire"
@@ -110,10 +109,12 @@ export default function PostCard({
           <ThemedText>{description}</ThemedText>
         </View>
 
-
-              <CommentSheet author_nickname={author_nickname} language={language} colorScheme={colorScheme} comments={comments} />
-
-
+        <CommentSheet
+          author_nickname={author_nickname}
+          language={language}
+          colorScheme={colorScheme}
+          comments={comments}
+        />
       </View>
     </View>
   );

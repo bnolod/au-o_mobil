@@ -107,8 +107,15 @@ export default function CommentSheet({
             backgroundColor: Colors[colorScheme].secondary,
           }}
           snapPoints={[1, "60%", "90%"]}
+          handleIndicatorStyle={{
+            backgroundColor: Colors[colorScheme].text,
+            width: "33%",
+            height: 5,
+            
+          }}
           handleStyle={{
             backgroundColor: Colors[colorScheme].secondary,
+            
             borderTopRightRadius: 10,
             borderTopLeftRadius: 10,
           }}
@@ -119,7 +126,7 @@ export default function CommentSheet({
             <AddCommentRow focus={focused} author_nickname={author_nickname} language={language} colorScheme={colorScheme} />
           }
           data={comments}
-          ListEmptyComponent={<View className="flex justify-center flex-col items-center mt-4">
+          ListEmptyComponent={<View className="flex opacity-50 justify-center flex-col items-center mt-4">
             <MaterialCommunityIcons name="comment-remove-outline" size={64} color={Colors[colorScheme].text} />
             <ThemedText className="text-3xl">{HomeTexts.post.nocomments[language]}</ThemedText>
             <ThemedText className="text-xl">{HomeTexts.post.addcomment[language]}</ThemedText>
