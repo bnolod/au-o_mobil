@@ -37,8 +37,6 @@ async function initialValidation() {
 
   const token = await SecureStore.getItemAsync("jwtToken").then((res) => {
     if (!res) {
-      console.log(path)
-      //router.replace("/onboarding")
       return null
     }
     return res

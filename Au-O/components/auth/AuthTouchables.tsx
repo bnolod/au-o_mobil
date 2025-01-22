@@ -18,39 +18,45 @@ export default function AuthTouchables({
   const { login, register } = useAuthentication();
   async function performLogin() {
     const { identifier, password } = await getFormData("login");
-    /*          if (validateLogin(identifier, password, language).valid) {
-            resetFormData("login");
-            console.log("VALID ", identifier, password);
-          }*/
-    await login!({usernameOrEmail: identifier, password})
+    if (process.env.EXPO_PUBLIC_VALIDATE_AUTH === "true") {
+      if (!validateLogin(identifier, password, language).valid) {
+        return
+      }
+    }
+    resetFormData("login");
+    await login!({ usernameOrEmail: identifier, password });
   }
   async function performRegistration() {
-    const {email, username, password, nickname, confirmPassword, dateOfBirth} = await getFormData("register");
-/*     if (
-      validateRegister(
-        email,
-        username,
-        password,
-        confirmPassword,
-        dateOfBirth,
-        language
-      ).valid
-    ) {
-      resetFormData("register");
-      console.log(
-        "VALID ",
-        email,
-        username,
-        password,
-        confirmPassword,
-        dateOfBirth
-      );
-    } */
-   console.log("Registering", email, username, password, nickname, dateOfBirth.split("T")[0]);
-    await register!({email, username, password, nickname, date_of_birth: dateOfBirth.split("T")[0]}).then((res) => {
-      console.log("Registration successful", res);
-    })
-
+    const {
+      email,
+      username,
+      password,
+      nickname,
+      confirmPassword,
+      dateOfBirth,
+    } = await getFormData("register");
+    if (process.env.EXPO_PUBLIC_VALIDATE_AUTH === "true") {
+      if (
+        !validateRegister(
+          email,
+          username,
+          password,
+          confirmPassword,
+          dateOfBirth,
+          language
+        ).valid
+      ) {
+        return
+      }
+    }
+    resetFormData("register");
+    await register!({
+      email,
+      username,
+      password,
+      nickname,
+      date_of_birth: dateOfBirth.split("T")[0],
+    });
   }
   return (
     <View className="w-full basis-2/12 sticky flex flex-col my-6 bg-transparent justify-evenly items-center">

@@ -49,7 +49,7 @@ export const login = async (request: LoginRequest): Promise<string | null> => {
     })
     if (!validToken) {
       await logout()
-      if (path !== "/" && path !== "/onboarding" && path !== "/login" && path !== "/register") {
+      if (path === "/onboarding" || path === "/login" || path === "/register") {
 
         router.replace("/(auth)/login") 
       }
@@ -111,7 +111,6 @@ export async function apiFetch<T>(
     const res = await apiClient.request<T>(config);
     return res.data;
   } catch (error: unknown) {
-    console.error(error);
     return null;
   }
 }
@@ -121,13 +120,12 @@ export async function handleRegister(
 ): Promise<string> {
   try {
     const response = await apiFetch<TokenResponse>("auth/register", "POST", false, request);
-    
     if (response!.token) {
       return response!.token;
     }
-    throw new HttpError(500, "No token in response");
+    return Promise.reject()
   } catch (error: unknown) {
-    throw error;
+    throw new HttpError(500, "No token in response");
   }
 }
 export async function handleLogin( request: LoginRequest): Promise<string> {
