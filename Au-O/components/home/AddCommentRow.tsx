@@ -13,6 +13,8 @@ export default function AddCommentRow({author_nickname, language, colorScheme, f
               
               autoFocus={focus}
               className="primary h-12 rounded-xl px-2"
+              placeholderClassName="text-gray-500"
+              style={{backgroundColor: Colors[colorScheme].primary, color: Colors[colorScheme].text}}
               placeholder={
                 HomeTexts.post.comment_1[language] +
                 " " +

@@ -9,6 +9,7 @@ import ThemedText from "./ThemedText";
 import { useState } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { CommonStaticElementProps } from "@/constants/types";
+import { Colors } from "@/constants/Colors";
 
 
 
@@ -56,7 +57,7 @@ export default function Input({
             onFocus={() => {setIsFocused(true); setIsSecure(secureTextEntry)}}
             onBlur={() => setIsFocused(false)}
             secureTextEntry={isSecure}
-            style={{backgroundColor: "transparent"}}
+            style={{backgroundColor: "transparent", color: Colors[colorScheme].text}}
             autoComplete="off"
             textContentType="none"
             
