@@ -101,6 +101,31 @@
   .comment-avatar {
     @apply basis-2/12 flex justify-center items-center
   }
+  .comment-user {
+    @apply flex flex-col items-start justify-center
+  }
+  .comment-body {
+    @apply flex flex-col self-end
+  }
+  .comment-reply-line-container {
+    @apply basis-2/12 flex h-auto  items-center justify-center
+    
+  }
+  .comment-reply-line {
+    @apply w-1 h-full bg-backdrop-primary-dark dark:bg-backdrop-primary my-5 flex-1 rounded-full mx-auto
+  }
+  .comment-text-body {
+    @apply basis-10/12 flex flex-col
+  }
+  .comment-reactions {
+    @apply flex flex-row mt-2 gap-2
+  }
+  .reply {
+    @apply primary w-full mt-2 gap-2 flex flex-col items-start justify-between
+  }
+  .reply-avatar {
+    @apply flex flex-row items-center 
+  }
 } 
 @layer base {
   .secondary {
@@ -115,4 +140,5 @@
   .highlight {
     @apply bg-highlight-light dark:bg-highlight
   }
+  
 }

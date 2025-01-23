@@ -4,24 +4,24 @@ import ThemedText from "./ThemedText";
 import { boros_manifesto } from "@/constants/texts";
 import ReactionButton from "./ReactionButton";
 import { useState } from "react";
-
+import * as Haptics from 'expo-haptics'
 export default function Reply() {
         const [lines, setLines] = useState<number | undefined>(3);
   return (
-    <View className="primary w-full mt-2 gap-2 flex flex-col items-start justify-between">
-      <View className="flex flex-row gap-2">
-        <View className="flex flex-row items-center justify-center">
+    <View className="reply">
+      <View className="comment-header">
+        <View className="reply-avatar">
           <Avatar image={null} nickname={"teszt"} />
         </View>
-        <View className="flex flex-col justify-center">
+        <View className="comment-user">
           <ThemedText className="text-lg font-semibold">Tesztiklész</ThemedText>
           <ThemedText className="">@teszt</ThemedText>
         </View>
       </View>
-        <ThemedText numberOfLines={lines} onPress={() => setLines(!lines ? 3 : undefined)}>
+        <ThemedText numberOfLines={lines} onPress={() => {setLines(!lines ? 3 : undefined); Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)}}>
             {boros_manifesto.EN}
         </ThemedText>
-                    <View className="flex flex-row mt-2 gap-2">
+                    <View className="comment-reactions">
                       <ReactionButton type="fire" count={0}></ReactionButton>
                       <ReactionButton type="heart" count={1}></ReactionButton>
                       <ReactionButton type="sunglasses" count={23}></ReactionButton>
