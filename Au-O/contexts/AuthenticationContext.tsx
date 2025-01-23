@@ -23,7 +23,6 @@ interface AuthenticationContextType {
   register?: (
     request : RegisterRequest
   ) => Promise<string>;
-  
 }
 
 const AuthenticationContext = createContext<

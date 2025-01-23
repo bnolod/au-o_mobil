@@ -12,7 +12,6 @@ import RNDateTimePicker from "@react-native-community/datetimepicker";
 import React from "react";
 import { useColorScheme } from "nativewind";
 import { Colors } from "@/constants/Colors";
-import { CommonStaticElementProps } from "@/constants/types";
 export default function Register() {
 
   const { setFormData, getFormData } = useFormContext();

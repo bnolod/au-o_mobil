@@ -46,10 +46,10 @@ export default function AuthTouchables({
           language
         ).valid
       ) {
+        resetFormData("register");
         return
       }
     }
-    resetFormData("register");
     await register!({
       email,
       username,
@@ -57,6 +57,7 @@ export default function AuthTouchables({
       nickname,
       date_of_birth: dateOfBirth.split("T")[0],
     });
+    resetFormData("register");
   }
   return (
     <View className="w-full basis-2/12 sticky flex flex-col my-6 bg-transparent justify-evenly items-center">

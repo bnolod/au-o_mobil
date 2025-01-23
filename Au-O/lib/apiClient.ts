@@ -47,6 +47,7 @@ export const login = async (request: LoginRequest): Promise<string | null> => {
     const validToken = await apiFetch<string>("auth/authenticate", "POST", true, {
       token
     })
+
     if (!validToken) {
       await logout()
       if (path === "/onboarding" || path === "/login" || path === "/register") {

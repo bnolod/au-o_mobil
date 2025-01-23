@@ -18,7 +18,7 @@ import { AuthenticationProvider, useAuthentication } from "@/contexts/Authentica
 import { FormProvider } from "@/contexts/FormContext";
 import * as SecureStore from 'expo-secure-store';
 import { getUser, validateToken } from "@/lib/apiClient";
-import { saveUser } from "@/lib/functions";
+import { saveUser, setTimestamp } from "@/lib/functions";
 import { usePathname } from "expo-router";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";

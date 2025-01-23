@@ -14,7 +14,12 @@ export function handleFormInputChange(
     [key]: value,
   });
 }
-
+export async function setTimestamp() {
+  await SecureStore.setItemAsync("timestamp", new Date().getTime().toString());
+}
+export async function getTimestamp() {
+  return await SecureStore.getItemAsync("timestamp");
+}
 export function validateLogin(
     identifier: string,
     password: string,
