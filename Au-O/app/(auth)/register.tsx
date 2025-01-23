@@ -6,12 +6,13 @@ import { Platform, ScrollView, View } from "react-native";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ThemedText from "@/components/ui/ThemedText";
 import { useFormContext } from "@/contexts/FormContext";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { handleFormInputChange } from "@/lib/functions";
-import RNDateTimePicker from "@react-native-community/datetimepicker";
+import RNDateTimePicker, { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
 import React from "react";
 import { useColorScheme } from "nativewind";
 import { Colors } from "@/constants/Colors";
+import Button from "@/components/ui/Button";
 export default function Register() {
 
   const { setFormData, getFormData } = useFormContext();
@@ -27,6 +28,28 @@ export default function Register() {
       dateOfBirth: getFormData("register")?.dateOfBirth || "2007-01-01T00:00:00.000Z",
     });
   }, []);
+
+  const [date, setDate] = useState(new Date(1598051730000));
+
+  const onChange = (event: any, selectedDate: any) => {
+    const currentDate = selectedDate;
+    
+    handleFormInputChange("register", "dateOfBirth", selectedDate, getFormData, setFormData)
+  };
+
+  const showMode = (currentMode: any) => {
+    DateTimePickerAndroid.open({
+      value: date,
+      onChange,
+      mode: currentMode,
+      
+      is24Hour: true,
+    });
+  };
+
+  const showDatepicker = () => {
+    showMode('date');
+  };
 
   return (
     <ScrollView className="max-w-screen">
@@ -169,9 +192,17 @@ export default function Register() {
         />
       </View>
       <View className="w-full mx-auto flex items-center flex-1">
-        <RNDateTimePicker  accentColor={Colors.dark.secondary} mode="date" display={Platform.OS === "ios" ? "spinner" : "default"} maximumDate={new Date(2007, 12, 31)} value={new Date(2007, 0, 1)} onChange={(e, date) => {
-          handleFormInputChange("register", "dateOfBirth", date!.toISOString(), getFormData, setFormData);
-        }}/>
+        {
+          Platform.OS === "ios" ?
+          <RNDateTimePicker accentColor={Colors.dark.secondary} disabled mode="date" display="spinner"   maximumDate={new Date(2007, 12, 31)} value={new Date(2007, 0, 1)} onChange={(e, date) => {
+            handleFormInputChange("register", "dateOfBirth", date!.toISOString(), getFormData, setFormData);
+          }}/> : <Button variant="highlight" type="fill" onPress={showDatepicker}>Date of Birth</Button>
+        }
+
+
+
+        
+        
       </View>
     </ScrollView>
   );
