@@ -71,13 +71,13 @@
     @apply flex flex-col w-full h-fit
   }
   .post-reaction-container {
-    @apply p-2 w-full flex dark:bg-backdrop-primary-dark bg-backdrop-primary flex-row justify-between
+    @apply py-2 px-4 w-full flex dark:bg-backdrop-primary-dark bg-backdrop-primary flex-row justify-between
   }
   .post-data-container {
     @apply basis-5/12 flex flex-col items-end gap-2 justify-evenly
   }
   .post-comment-container {
-    @apply flex flex-row p-2 rounded-b-xl dark:bg-backdrop-secondary-dark bg-backdrop-secondary items-center justify-between
+    @apply flex flex-row py-2 px-4 rounded-b-xl dark:bg-backdrop-secondary-dark bg-backdrop-secondary items-center justify-between
   }
   .post-comment-input {
     @apply h-12 p-0 gap-2 flex flex-row items-center rounded-xl justify-center bg-backdrop-primary dark:bg-backdrop-primary-dark

@@ -10,6 +10,7 @@ import { colorScheme } from "nativewind";
 import { useLanguage } from "@/contexts/LanguageContext";
 import RootHeader from "@/components/home/RootHeader";
 import { Colors } from "@/constants/Colors";
+import { boros_manifesto } from "@/constants/texts";
 
 export default function Home() {
 
@@ -40,6 +41,7 @@ export default function Home() {
         <ThemedText>
           Helló, {user?.username} vagyok, tehát {user?.nickname}.{" "}
         </ThemedText>
+        
         <PostCard
           author_nickname={"teszt"}
           author_username={"teszti"}
@@ -75,7 +77,7 @@ export default function Home() {
             },
           ]}
           date={"2021-01-01"}
-          description={"teszt"}
+          description={boros_manifesto.EN}
           image={{}}
           location={{ lat: 30, lng: 30 }}
           reactions={{ fire: 4, heart: 0, sunglasses: 4 }}

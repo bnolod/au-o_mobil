@@ -31,6 +31,11 @@ export default function PostCard({
     heart: reactions.heart,
     sunglasses: reactions.sunglasses,
   });
+  const [lines, setLines] = useState<number | undefined>(3);
+
+  function handleShowMore() {
+    setLines(lines === 3 ? undefined : 3);
+  }
   const handleReaction = (type: "fire" | "heart" | "sunglasses") => {
     const newReactions = { ...reactionState };
     newReactions[type] =
@@ -105,8 +110,16 @@ export default function PostCard({
             <ThemedText>{formatDate(date)}</ThemedText>
           </View>
         </View>
-        <View className="px-2 py-2 dark:bg-backdrop-primary-dark bg-backdrop-secondary">
-          <ThemedText>{description}</ThemedText>
+        <View className={`px-4 pt-2 pb-5  dark:bg-backdrop-primary-dark bg-backdrop-secondary`}>
+          <ThemedText
+            onPress={handleShowMore}
+            ellipsizeMode="tail"
+            className="text-lg leading-tight"
+            
+            numberOfLines={lines}
+          >
+            {description}
+          </ThemedText>
         </View>
 
         <CommentSheet
