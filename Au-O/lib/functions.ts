@@ -20,6 +20,7 @@ export async function setTimestamp() {
 export async function getTimestamp() {
   return await SecureStore.getItemAsync("timestamp");
 }
+
 export function validateLogin(
     identifier: string,
     password: string,

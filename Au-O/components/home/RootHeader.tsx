@@ -9,7 +9,7 @@ import { CommonStaticElementProps } from "@/constants/types";
 export default function RootHeader({language, colorScheme} : CommonStaticElementProps) {
   const { toggleColorScheme } = useColorScheme();
   return (
-    <View className="root-header">
+    <View className="root-header" >
       <Image
         source={colorScheme === "dark" ? Images.logo_white : Images.logo_black}
         className=" basis-2/12"

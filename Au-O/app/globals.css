@@ -87,7 +87,7 @@
   }
 
   .root-header {
-    @apply pt-16 pb-4 fixed bg-backdrop-primary w-screen dark:bg-backdrop-primary-dark flex items-center px-3 flex-row gap-2
+    @apply pt-16 pb-4  w-screen primary flex items-center px-3 flex-row gap-2
   }
   .root-comment-empty-container {
     @apply flex opacity-50 justify-center flex-col items-center mt-4

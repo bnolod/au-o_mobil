@@ -5,7 +5,9 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
 import { Colors } from "@/constants/Colors";
 import RootHeader from "@/components/home/RootHeader";
+
 import { useLanguage } from "@/contexts/LanguageContext";
+import { ScrollView } from "react-native";
 export default function RootLayout() {
   const { user } = useAuthentication();
   const { language } = useLanguage();
@@ -14,27 +16,28 @@ export default function RootLayout() {
     return <Redirect href={"/(auth)/login"} />;
   }
   return (
-    <>
-      <RootHeader language={language} colorScheme={colorScheme!} />
       <Tabs
-        screenOptions={{
-          tabBarShowLabel: false,
-          tabBarStyle: {
+       
+      
+      screenOptions={{
+        tabBarShowLabel: false,
+        
+        tabBarStyle: {
             backgroundColor:
               colorScheme === "light" ? "white" : Colors.dark.secondary,
-          },
+            },
           tabBarActiveTintColor:
             colorScheme === "light"
-              ? Colors.highlight.light
-              : Colors.highlight.main,
-          tabBarInactiveTintColor: colorScheme === "light" ? "gray" : "gray",
-          tabBarHideOnKeyboard: true,
-          tabBarIconStyle: {
-            height: "100%",
-            width: "100%",
-          },
-        }}
-      >
+            ? Colors.highlight.light
+            : Colors.highlight.main,
+            tabBarInactiveTintColor: colorScheme === "light" ? "gray" : "gray",
+            tabBarHideOnKeyboard: true,
+            tabBarIconStyle: {
+              height: "100%",
+              width: "100%",
+            },
+          }}
+          >
         <Tabs.Screen
           name="home"
           initialParams={{colorScheme, language}}
@@ -46,11 +49,10 @@ export default function RootLayout() {
                 name={focused ? "home" : "home-outline"}
                 size={42}
                 color={color}
-              />
-            )
-          }}
-        />
-      </Tabs>
-    </>
+                />
+              )
+            }}
+            />
+      </Tabs> 
   );
 }
