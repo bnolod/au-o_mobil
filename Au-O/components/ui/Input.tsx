@@ -6,7 +6,7 @@ import {
   View,
 } from "react-native";
 import ThemedText from "./ThemedText";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { CommonStaticElementProps } from "@/constants/types";
 import { Colors } from "@/constants/Colors";
@@ -21,7 +21,7 @@ export default function Input({
   icon,
   colorScheme
 }: {
-  label?: string;
+  label?: string | ReactNode;
   secureTextEntry?: boolean;
   TextInputProps?: TextInputProps;
   containerClassName?: string;

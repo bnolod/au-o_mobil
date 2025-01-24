@@ -71,7 +71,7 @@ export default function PostCard({
         </View>
       </View>
       <View className="post-image">
-        <Image source={image} className="w-full" />
+        <Image source={{uri: image}} className="w-full flex-1" resizeMode="contain" />
       </View>
       <View className="post-footer">
         <View className="post-reaction-container">

@@ -42,7 +42,7 @@ export default function CommentElement({
             </View>
         <View className="w-full">
         {replies.map((reply) => (
-               <Reply/>
+               <Reply key={reply.id}/>
             ))}
         </View>
           </View>

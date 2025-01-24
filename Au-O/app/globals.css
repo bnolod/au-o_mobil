@@ -55,7 +55,7 @@
     @apply m-2  w-11/12 gap-x-2 flex justify-between  mx-auto
   }
   .input-body {
-    @apply flex flex-row justify-start items-center bg-backdrop-secondary dark:bg-backdrop-secondary-dark relative rounded-full border 
+    @apply flex flex-row justify-start items-center secondary relative rounded-xl border 
   }
 
   .post-container {

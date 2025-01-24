@@ -8,6 +8,7 @@ import RootHeader from "@/components/home/RootHeader";
 
 import { useLanguage } from "@/contexts/LanguageContext";
 import { ScrollView } from "react-native";
+import Avatar from "@/components/ui/Avatar";
 export default function RootLayout() {
   const { user } = useAuthentication();
   const { language } = useLanguage();
@@ -26,6 +27,7 @@ export default function RootLayout() {
             backgroundColor:
               colorScheme === "light" ? "white" : Colors.dark.secondary,
             },
+            
           tabBarActiveTintColor:
             colorScheme === "light"
             ? Colors.highlight.light
@@ -50,6 +52,16 @@ export default function RootLayout() {
                 size={42}
                 color={color}
                 />
+              )
+            }}
+            />
+        <Tabs.Screen
+          name="new"
+          options={{
+            headerShown: false,
+            title: "Home",
+            tabBarIcon: ({ color, focused }) => (
+              <Avatar image={null} nickname="teszt" className={`${focused && "bg-highlight"}`} />
               )
             }}
             />

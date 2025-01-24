@@ -16,7 +16,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/auo-logo.png",
         "backgroundColor": "#EF1A2DC"
-      }
+      },
+      "package": "com.anonymous.AuO"
     },
     "web": {
       "bundler": "metro",

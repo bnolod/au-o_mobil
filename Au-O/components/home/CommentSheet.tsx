@@ -41,7 +41,7 @@ export default function CommentSheet({
   }
 
   const renderItem = useCallback(({ item }: { item: Comment }) => {
-    return <CommentElement replies={item.replies} text={item.text} />;
+    return <CommentElement key={item.id} replies={item.replies} text={item.text} />;
   }, []);
   return (
     <TouchableWithoutFeedback
