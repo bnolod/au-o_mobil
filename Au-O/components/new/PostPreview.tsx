@@ -8,9 +8,9 @@ import ReactionButton from "../ui/ReactionButton";
 import { useState } from "react";
 import { formatDate } from "@/lib/functions";
 import { HomeTexts } from "@/constants/texts";
-import CommentSheet from "./CommentSheet";
+import AddCommentRow from "../home/AddCommentRow";
 
-export default function PostCard({
+export default function PostPreview({
   author_nickname,
   author_username,
   comments,
@@ -22,28 +22,13 @@ export default function PostCard({
   language,
   colorScheme,
 }: PostCardProps) {
-  const [reactionState, setReactions] = useState<{
-    fire: number;
-    heart: number;
-    sunglasses: number;
-  }>({
-    fire: reactions.fire,
-    heart: reactions.heart,
-    sunglasses: reactions.sunglasses,
-  });
+  
   const [lines, setLines] = useState<number | undefined>(3);
 
   function handleShowMore() {
     setLines(lines === 3 ? undefined : 3);
   }
-  const handleReaction = (type: "fire" | "heart" | "sunglasses") => {
-    const newReactions = { ...reactionState };
-    newReactions[type] =
-      newReactions[type] === reactions[type]
-        ? reactions[type] + 1
-        : reactions[type];
-    setReactions(newReactions);
-  };
+  
   return (
     <View className="post-container">
       <View className="post-header">
@@ -71,36 +56,22 @@ export default function PostCard({
         </View>
       </View>
       <View className="post-image">
-   
+        {image && <Image source={{uri: image}} className="flex-1" resizeMode="contain" />}
       </View>
       <View className="post-footer">
         <View className="post-reaction-container">
           <View className=" gap-2 flex flex-row basis-7/12">
             <ReactionButton
               type="fire"
-              state={
-                reactionState.fire === reactions.fire ? "inactive" : "active"
-              }
-              count={reactionState.fire}
-              onPress={() => handleReaction("fire")}
-            />
+              count={12}
+              />
             <ReactionButton
               type="heart"
-              count={reactionState.heart}
-              onPress={() => handleReaction("heart")}
-              state={
-                reactionState.heart === reactions.heart ? "inactive" : "active"
-              }
+                count={320}
             />
             <ReactionButton
               type="sunglasses"
-              count={reactionState.sunglasses}
-              onPress={() => handleReaction("sunglasses")}
-              state={
-                reactionState.sunglasses === reactions.sunglasses
-                  ? "inactive"
-                  : "active"
-              }
+              count={0}
             />
           </View>
           <View className="post-data-container">
@@ -122,12 +93,6 @@ export default function PostCard({
           </ThemedText>
         </View>
 
-        <CommentSheet
-          author_nickname={author_nickname}
-          language={language}
-          colorScheme={colorScheme}
-          comments={comments}
-        />
       </View>
     </View>
   );

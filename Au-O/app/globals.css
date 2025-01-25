@@ -126,6 +126,16 @@
   .reply-avatar {
     @apply flex flex-row items-center 
   }
+
+  .new-post-image-upload-prompt {
+    @apply w-full h-full opacity-40 flex justify-center items-center
+  }
+  .new-post-pop-image {
+    @apply bg-highlight z-50 rounded-full opacity-40 w-14 h-14 flex justify-center items-center m-3 absolute bottom-0
+  }
+  .new-post-gallery-opener {
+    @apply my-2 secondary basis-1/12 text-center w-11/12 flex flex-col justify-center items-center gap-1 border-2 border-highlight rounded-xl
+  }
 } 
 @layer base {
   .secondary {

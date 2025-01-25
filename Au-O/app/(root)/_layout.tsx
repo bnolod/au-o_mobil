@@ -61,7 +61,11 @@ export default function RootLayout() {
             headerShown: false,
             title: "Home",
             tabBarIcon: ({ color, focused }) => (
-              <Avatar image={null} nickname="teszt" className={`${focused && "bg-highlight"}`} />
+              <MaterialCommunityIcons
+                name={focused ? "plus-circle" : "plus-circle-outline"}
+                size={42}
+                color={color}
+                />
               )
             }}
             />

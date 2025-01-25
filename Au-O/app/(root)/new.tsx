@@ -12,6 +12,7 @@ import {
   Image,
   Keyboard,
   Platform,
+  Pressable,
   ScrollView,
   TouchableOpacity,
   View,
@@ -21,21 +22,23 @@ import { useState } from "react";
 import { Images } from "@/lib/staticAssetExports";
 import * as ImagePicker from "expo-image-picker";
 import Carousel from "react-native-reanimated-carousel";
-import BottomSheet, {
-  BottomSheetBackdrop,
+import {
   BottomSheetModal,
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
-import PostCard from "@/components/home/UserPost";
+
+import { PostCreationTexts } from "@/constants/texts";
+import ImageNotFound from "@/components/new/ImageNotFound";
+import PostPreview from "@/components/new/PostPreview";
 export default function NewPost() {
   const { language } = useLanguage();
   const { colorScheme } = useColorScheme();
   const [selectedGroup, setSelectedGroup] = useState<string>("Public");
   const [images, setImages] = useState<ImagePicker.ImagePickerAsset[]>([]);
   const [selectedEvent, setSelectedEvent] = useState<string>("None");
-  const groups = ["Public", "Civic Imádó Csoportos Indulás Közösség", "Buzik"];
+  const groups = [PostCreationTexts.publicPostIndicator[language ? language : "EN"], "Civic Imádó Csoportos Indulás Közösség", "Buzik"];
   const events = [
-    "None",
+    PostCreationTexts.noEventSpecified[language ? language : "EN"],
     "Buzi Találkozó 2024",
     "XVII. Nemzetközi Hump Day Fesztivál",
   ];
@@ -48,20 +51,23 @@ export default function NewPost() {
       let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ["images"],
         allowsEditing: false,
+        exif: false,
+        
         quality: 0.7,
         allowsMultipleSelection: true,
         selectionLimit: 10 - images.length,
       });
       if (!result.canceled) {
+        if (result.assets.length + images.length <= 10) {
         setImages(images.concat(result.assets));
-      } else console.log("too many images");
+      }}
     }
   }
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const openGroupSheetIOS = () => {
     ActionSheetIOS.showActionSheetWithOptions(
       {
-        options: ["Cancel", ...groups],
+        options: [PostCreationTexts.cancel[language ? language : "EN"], ...groups],
         cancelButtonIndex: 0,
         destructiveButtonIndex: 1,
       },
@@ -70,7 +76,7 @@ export default function NewPost() {
           return;
         }
         if (buttonIndex === 1) {
-          setSelectedGroup("Public");
+          setSelectedGroup(PostCreationTexts.publicPostIndicator[language ? language : "EN"]);
         } else {
           setSelectedGroup(groups[buttonIndex - 1]);
         }
@@ -80,7 +86,7 @@ export default function NewPost() {
   const openEventSheetIOS = () => {
     ActionSheetIOS.showActionSheetWithOptions(
       {
-        options: ["Cancel", ...events],
+        options: [PostCreationTexts.cancel[language ? language : "EN"], ...events],
         cancelButtonIndex: 0,
         destructiveButtonIndex: 1,
       },
@@ -89,7 +95,7 @@ export default function NewPost() {
           return;
         }
         if (buttonIndex === 1) {
-          setSelectedEvent("None");
+          setSelectedEvent(PostCreationTexts.noEventSpecified[language ? language : "EN"]);
         } else {
           setSelectedEvent(events[buttonIndex - 1]);
         }
@@ -98,14 +104,15 @@ export default function NewPost() {
   };
   return (
     <>
+  
       <View className="w-full sticky secondary pt-16">
         <Image
-          source={Images.logo_white}
+          source={colorScheme === "dark" ? Images.logo_white : Images.logo_black}
           className="h-8 mx-auto my-4"
           resizeMode="contain"
         />
       </View>
-      <View className="flex-1 flex flex-col items-center">
+      <Pressable onPress={() => Keyboard.dismiss()} className="flex-1 flex flex-col items-center">
         <View className=" w-full basis-5/12 primary">
           {images.length > 0 ? (
             <Carousel
@@ -114,7 +121,7 @@ export default function NewPost() {
               renderItem={({ index }) => (
                 <View>
                   <TouchableOpacity
-                    className="bg-highlight z-50 rounded-xl w-14 h-14 flex justify-center items-center m-3 absolute bottom-0"
+                    className="new-post-pop-image"
                     onPress={() => {
                       setImages(images.filter((_, i) => i !== index));
                     }}
@@ -133,32 +140,21 @@ export default function NewPost() {
                 </View>
               )}
             />
-          ) : (
-            <View className="w-full h-full opacity-40 flex justify-center items-center">
-              <MaterialCommunityIcons
-                name="image-search"
-                size={64}
-                color={Colors[colorScheme!].text}
-                style={{ textAlign: "center" }}
-              />
-              <ThemedText className="text-xl font-bold">
-                Upload photos from your device
-              </ThemedText>
-            </View>
-          )}
+          ) : (<ImageNotFound onPress={handleGallery} language={language} colorScheme={colorScheme!}/>
+            )}
         </View>
         <TouchableOpacity
           onPress={handleGallery}
-          className="my-2 secondary basis-1/12 text-center w-11/12 flex flex-col justify-center items-center gap-1 border-2 border-highlight rounded-xl"
+          className="new-post-gallery-opener"
         >
-          <ThemedText className="text-lg">Upload photos</ThemedText>
+          <ThemedText className="text-lg">{PostCreationTexts.upload[language]}</ThemedText>
           <ThemedText className="text-sm">
-            {images.length} of 10 selected
+            {images.length} { PostCreationTexts.selectedImages[language]}
           </ThemedText>
         </TouchableOpacity>
         {images.length > 0 && (
           <TouchableOpacity onPress={() => setImages([])}>
-            <ThemedText>Clear Selection</ThemedText>
+            <ThemedText>{PostCreationTexts.clearImages[language]}</ThemedText>
           </TouchableOpacity>
         )}
         <ScrollView>
@@ -166,11 +162,11 @@ export default function NewPost() {
             <Input
               label={
                 <ThemedText>
-                  <MaterialCommunityIcons name="pencil" size={19} /> Description
+                  <MaterialCommunityIcons name="pencil" size={19} /> {PostCreationTexts.form.description.label[language]}
                 </ThemedText>
               }
               TextInputProps={{
-                placeholder: "Say something about your post",
+                placeholder: PostCreationTexts.form.description.placeholder[language],
                 multiline: true,
                 numberOfLines: 4,
                 style: { maxHeight: 100 },
@@ -182,9 +178,8 @@ export default function NewPost() {
               <View className=" flex-1 w-6/12 self-start">
                 <ThemedText className="w-full text-lg">
                   <MaterialCommunityIcons name="account-group" size={19} />{" "}
-                  Group
+                  {PostCreationTexts.form.group[language]}
                 </ThemedText>
-
                 {Platform.OS === "android" ? (
                   <Picker
                     selectedValue={selectedGroup}
@@ -215,7 +210,7 @@ export default function NewPost() {
                     name="calendar-account-outline"
                     size={19}
                   />{" "}
-                  Event
+                  {PostCreationTexts.form.event[language]}
                 </ThemedText>
 
                 {Platform.OS === "android" ? (
@@ -247,11 +242,11 @@ export default function NewPost() {
               label={
                 <ThemedText>
                   <MaterialCommunityIcons name="map-marker-outline" size={19} />{" "}
-                  Hely
+                  {PostCreationTexts.form.location.label[language]}
                 </ThemedText>
               }
               TextInputProps={{
-                placeholder: "Tell us where you took the picture",
+                placeholder: PostCreationTexts.form.location.placeholder[language],
               }}
               colorScheme={colorScheme!}
               containerClassName="rounded-xl"
@@ -265,7 +260,7 @@ export default function NewPost() {
             hapticFeedback="light"
             onPress={() => {handlePresent()}}
           >
-            Tovább
+            {PostCreationTexts.form.next[language]}
           </Button>
 
           <BottomSheetModal ref={bottomSheetRef}
@@ -290,7 +285,7 @@ export default function NewPost() {
             <BottomSheetView
               
             >
-              <PostCard
+              <PostPreview
                 author_nickname="teszt"
                 author_username="teszt"
                 colorScheme={colorScheme!}
@@ -308,7 +303,7 @@ export default function NewPost() {
             </BottomSheetView>
           </BottomSheetModal>
         </View>
-      </View>
+      </Pressable>
     </>
   );
 }
