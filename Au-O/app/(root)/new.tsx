@@ -291,20 +291,17 @@ export default function NewPost() {
               
             >
               <PostPreview
-              onDismiss={() => bottomSheetRef.current?.dismiss()}
+              handleDismiss={() => bottomSheetRef.current?.dismiss()}
                 author_nickname="teszt"
                 author_username="teszt"
                 colorScheme={colorScheme!}
-                comments={[]}
+                handleSubmit={() => {}}
                 date={new Date().toDateString()}
                 description="teszt"
-                image={images.length > 0 && images[0].uri}
+                images={images}
                 language={language}
-                location={{
-                  lat: 32,
-                  lng: 32,
-                }}
-                reactions={{ fire: 4, heart: 6, sunglasses: 12 }}
+                location={"teszt"}
+                
               />
             </BottomSheetView>
           </BottomSheetModal>

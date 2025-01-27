@@ -78,8 +78,8 @@ export default function Home() {
           ]}
           date={"2021-01-01"}
           description={boros_manifesto.EN}
-          image={{}}
-          location={{ lat: 30, lng: 30 }}
+          images={[]}
+          location={"teszt"}
           reactions={{ fire: 4, heart: 0, sunglasses: 4 }}
         />
         <PostCard
@@ -90,8 +90,8 @@ export default function Home() {
           comments={[]}
           date={"2021-01-01"}
           description={"teszt"}
-          image={{}}
-          location={{ lat: 30, lng: 30 }}
+          images={[]}
+          location={"teszt"}
           reactions={{ fire: 4, heart: 0, sunglasses: 4 }}
           />
       </ScrollView>

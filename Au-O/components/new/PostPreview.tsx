@@ -1,5 +1,5 @@
-import { PostCardProps } from "@/constants/types";
-import { View, Text, Image, TextInput, TouchableOpacity } from "react-native";
+import { CommonStaticElementProps, PostCardProps, PostPreviewProps } from "@/constants/types";
+import { View, Text, Image, TextInput, TouchableOpacity, Dimensions } from "react-native";
 import Avatar from "../ui/Avatar";
 import Button from "../ui/Button";
 import ThemedText from "../ui/ThemedText";
@@ -9,20 +9,20 @@ import { useState } from "react";
 import { formatDate } from "@/lib/functions";
 import { HomeTexts, PostCreationTexts } from "@/constants/texts";
 import AddCommentRow from "../home/AddCommentRow";
+import Carousel from "react-native-reanimated-carousel";
 
 export default function PostPreview({
   author_nickname,
   author_username,
-  comments,
   date,
   description,
-  image,
+  images,
   location,
-  reactions,
+  handleSubmit,
   language,
   colorScheme,
-  onDismiss
-}: PostCardProps & {onDismiss: () => void}) {
+  handleDismiss
+}: PostPreviewProps & CommonStaticElementProps) {
   
   const [lines, setLines] = useState<number | undefined>(3);
 
@@ -59,7 +59,18 @@ export default function PostPreview({
         </View>
       </View>
       <View className="post-image">
-        {image && <Image source={{uri: image}} className="flex-1" resizeMode="contain" />}
+      {
+          images.length > 1 ?
+          <Carousel
+          width={Dimensions.get("screen").width}
+          data={images}
+          loop={false}
+          snapEnabled
+          renderItem={({ index }) => (
+            <Image source={{ uri: images[index].uri }} className="flex-1" resizeMode="contain"/>
+          )}
+          /> : <Image source={{ uri: images[0].uri }} className="flex-1" resizeMode="contain"/>
+        }
       </View>
       <View className="post-footer">
         <View className="post-reaction-container">
@@ -79,7 +90,7 @@ export default function PostPreview({
           </View>
           <View className="post-data-container">
             <ThemedText className=" text-highlight-light dark:text-highlight">
-              hely koordinátákból
+              {location}
             </ThemedText>
             <ThemedText>{formatDate(date)}</ThemedText>
           </View>
@@ -97,11 +108,11 @@ export default function PostPreview({
         </View>
       </View>
             </View>
-<Button type="fill" variant="highlight">
+<Button type="fill" variant="highlight" onPress={handleSubmit}>
   {PostCreationTexts.confirmPost[language]}
 </Button>
             
-<Button type="fill" className="btn-outline btn-fill mx-auto rounded-xl py-2 btn-highlight" onPress={onDismiss}>
+<Button type="fill" className="btn-outline btn-fill mx-auto rounded-xl py-2 btn-highlight" onPress={handleDismiss}>
   {PostCreationTexts.cancel[language]}
 </Button>
     </View>

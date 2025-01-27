@@ -1,6 +1,7 @@
 import { TouchableOpacityProps } from "react-native";
 import { HttpErrorTexts } from "./texts";
 import { ReactNode } from "react";
+import { ImagePickerAsset } from "expo-image-picker";
 
 export interface OnboardingLayoutProps {
   headerText: React.ReactNode;
@@ -80,15 +81,30 @@ export interface PostCardProps {
   author_nickname: string;
   author_username: string;
   date: string;
-  image: any; //temporary
+  images: ImagePickerAsset[]
   description: string;
-  location: Geolocation
+  location: string
   reactions: Reactions
   comments: Comment[];
   language: "EN" | "HU";
   colorScheme: "light" | "dark";
 }
-
+export interface PostPreviewProps {
+  author_nickname: string
+  author_username: string
+  
+  date: string
+  images: ImagePickerAsset[]
+  description: string
+  location: string,
+  handleDismiss: () => void
+  handleSubmit: () => void
+  
+}
+export type ImageUploadType = {
+  image: string;
+  type: string;
+}
 export class Comment {
   id: number;
   text: string;
@@ -100,7 +116,14 @@ export class Comment {
     this.replies = new Array<Comment>
   }
 }
-
+export interface CreatePostRequest {
+  user_id: string
+  description: string
+  images: string[]
+  group: string
+  location: string
+  event: string
+}
 // export type Comment = {
 //   text: string
 //   likes: number

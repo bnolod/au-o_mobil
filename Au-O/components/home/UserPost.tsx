@@ -1,5 +1,13 @@
 import { PostCardProps } from "@/constants/types";
-import { View, Text, Image, TextInput, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  Dimensions,
+} from "react-native";
+import React from "react";
 import Avatar from "../ui/Avatar";
 import Button from "../ui/Button";
 import ThemedText from "../ui/ThemedText";
@@ -9,6 +17,7 @@ import { useState } from "react";
 import { formatDate } from "@/lib/functions";
 import { HomeTexts } from "@/constants/texts";
 import CommentSheet from "./CommentSheet";
+import Carousel from "react-native-reanimated-carousel";
 
 export default function PostCard({
   author_nickname,
@@ -16,7 +25,7 @@ export default function PostCard({
   comments,
   date,
   description,
-  image,
+  images,
   location,
   reactions,
   language,
@@ -71,7 +80,18 @@ export default function PostCard({
         </View>
       </View>
       <View className="post-image">
-   
+        {images.length !== 0 ?
+          images.length > 1 ?
+          <Carousel
+          width={Dimensions.get("screen").width}
+          data={images}
+          loop={false}
+          snapEnabled
+          renderItem={({ index }) => (
+            <Image source={{ uri: images[index].uri }} className="flex-1" resizeMode="contain"/>
+          )}
+          /> : <Image source={{ uri: images[0].uri }} className="flex-1" resizeMode="contain"/> : <></>
+          }
       </View>
       <View className="post-footer">
         <View className="post-reaction-container">
@@ -105,17 +125,18 @@ export default function PostCard({
           </View>
           <View className="post-data-container">
             <ThemedText className=" text-highlight-light dark:text-highlight">
-              hely koordinátákból
+              {location}
             </ThemedText>
             <ThemedText>{formatDate(date)}</ThemedText>
           </View>
         </View>
-        <View className={`px-4 pt-2 pb-5  dark:bg-backdrop-primary-dark bg-backdrop-secondary`}>
+        <View
+          className={`px-4 pt-2 pb-5  dark:bg-backdrop-primary-dark bg-backdrop-secondary`}
+        >
           <ThemedText
             onPress={handleShowMore}
             ellipsizeMode="tail"
             className="text-lg leading-tight"
-            
             numberOfLines={lines}
           >
             {description}
