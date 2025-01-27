@@ -354,5 +354,21 @@ export const PostCreationTexts = {
   upload: {
     HU: "Képfeltöltés",
     EN: "Upload photos"
+  },
+  noImageFoundAlert: {
+    HU: "Nem található kép!",
+    EN: "No image found!"
+  },
+  noImageFoundAlertMessage: {
+    HU: "Kérlek válassz ki legalább egy képet a feltöltéshez!",
+    EN: "Please select at least one image to upload!"
+  },
+  confirmPost: {
+    HU: "Közzététel",
+    EN: "Post"
+  },
+  cancelPreview: {
+    HU: "Vissza",
+    EN: "Back"
   }
 }

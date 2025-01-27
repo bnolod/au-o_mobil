@@ -7,7 +7,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import ReactionButton from "../ui/ReactionButton";
 import { useState } from "react";
 import { formatDate } from "@/lib/functions";
-import { HomeTexts } from "@/constants/texts";
+import { HomeTexts, PostCreationTexts } from "@/constants/texts";
 import AddCommentRow from "../home/AddCommentRow";
 
 export default function PostPreview({
@@ -30,13 +30,15 @@ export default function PostPreview({
   }
   
   return (
-    <View className="post-container">
+    <View className="post-container flex justify-start gap-6 h-full">
+      <View>
+
       <View className="post-header">
         <Button
           variant="transparent"
           className="m-0 basis-2/12"
           hapticFeedback="light"
-        >
+          >
           <Avatar image={null} nickname={author_nickname} />
         </Button>
         <View className="flex flex-col basis-5/12 justify-center">
@@ -52,7 +54,7 @@ export default function PostPreview({
             name="dots-horizontal"
             size={42}
             color={colorScheme === "dark" ? "white" : "black"}
-          />
+            />
         </View>
       </View>
       <View className="post-image">
@@ -67,12 +69,12 @@ export default function PostPreview({
               />
             <ReactionButton
               type="heart"
-                count={320}
-            />
+              count={320}
+              />
             <ReactionButton
               type="sunglasses"
               count={0}
-            />
+              />
           </View>
           <View className="post-data-container">
             <ThemedText className=" text-highlight-light dark:text-highlight">
@@ -88,12 +90,20 @@ export default function PostPreview({
             className="text-lg leading-tight"
             
             numberOfLines={lines}
-          >
+            >
             {description}
           </ThemedText>
         </View>
-
       </View>
+            </View>
+<Button type="fill" variant="highlight">
+  {PostCreationTexts.confirmPost[language]}
+</Button>
+            
+<Button type="fill" className="btn-outline btn-fill mx-auto rounded-xl py-2 btn-highlight">
+  {PostCreationTexts.cancel[language]}
+</Button>
     </View>
+  
   );
 }

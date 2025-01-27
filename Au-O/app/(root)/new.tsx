@@ -8,6 +8,7 @@ import { useColorScheme } from "nativewind";
 import React, { useRef } from "react";
 import {
   ActionSheetIOS,
+  Alert,
   Dimensions,
   Image,
   Keyboard,
@@ -118,6 +119,8 @@ export default function NewPost() {
             <Carousel
               width={Dimensions.get("screen").width}
               data={images}
+              loop={images.length > 1}
+              overscrollEnabled={false}
               renderItem={({ index }) => (
                 <View>
                   <TouchableOpacity
@@ -258,7 +261,9 @@ export default function NewPost() {
             variant="highlight"
             type="fill"
             hapticFeedback="light"
-            onPress={() => {handlePresent()}}
+            onPress={() => {images.length > 0 ? handlePresent() : Alert.alert(PostCreationTexts.noImageFoundAlert[language], PostCreationTexts.noImageFoundAlertMessage[language], [], {
+  userInterfaceStyle: colorScheme === "dark" ? "dark" : "light",            
+            })}}
           >
             {PostCreationTexts.form.next[language]}
           </Button>
@@ -269,7 +274,7 @@ export default function NewPost() {
               backgroundStyle={{
                 backgroundColor: Colors[colorScheme!].secondary,
               }}
-              snapPoints={["60%", "90%"]}
+              snapPoints={["80%", "90%"]}
               handleIndicatorStyle={{
                 backgroundColor: Colors[colorScheme!].text,
                 width: "33%",

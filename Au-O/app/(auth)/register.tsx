@@ -194,7 +194,7 @@ export default function Register() {
       <View className="w-full mx-auto flex items-center flex-1">
         {
           Platform.OS === "ios" ?
-          <RNDateTimePicker accentColor={Colors.dark.secondary} disabled mode="date" display="spinner"   maximumDate={new Date(2007, 12, 31)} value={new Date(2007, 0, 1)} onChange={(e, date) => {
+          <RNDateTimePicker accentColor={Colors.dark.secondary} mode="date" display="spinner"   maximumDate={new Date(2007, 12, 31)} value={new Date(2007, 0, 1)} onChange={(e, date) => {
             handleFormInputChange("register", "dateOfBirth", date!.toISOString(), getFormData, setFormData);
           }}/> : <Button variant="highlight" type="fill" onPress={showDatepicker}>Date of Birth</Button>
         }
