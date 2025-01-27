@@ -21,7 +21,8 @@ export default function PostPreview({
   reactions,
   language,
   colorScheme,
-}: PostCardProps) {
+  onDismiss
+}: PostCardProps & {onDismiss: () => void}) {
   
   const [lines, setLines] = useState<number | undefined>(3);
 
@@ -100,7 +101,7 @@ export default function PostPreview({
   {PostCreationTexts.confirmPost[language]}
 </Button>
             
-<Button type="fill" className="btn-outline btn-fill mx-auto rounded-xl py-2 btn-highlight">
+<Button type="fill" className="btn-outline btn-fill mx-auto rounded-xl py-2 btn-highlight" onPress={onDismiss}>
   {PostCreationTexts.cancel[language]}
 </Button>
     </View>

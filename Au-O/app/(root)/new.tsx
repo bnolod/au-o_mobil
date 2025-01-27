@@ -291,6 +291,7 @@ export default function NewPost() {
               
             >
               <PostPreview
+              onDismiss={() => bottomSheetRef.current?.dismiss()}
                 author_nickname="teszt"
                 author_username="teszt"
                 colorScheme={colorScheme!}
