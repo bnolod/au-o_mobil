@@ -25,7 +25,7 @@ groupData
       {postType === "USER" && (
         <Avatar image={null} nickname={author_nickname} />
       )}
-      {postType === "GROUP" && (
+      {postType === "GROUP" && !eventData && (
         <TouchableOpacity className="w-12 h-12 secondary rounded-xl flex justify-center items-center">
           <MaterialCommunityIcons
             name="account-group-outline"
@@ -34,10 +34,21 @@ groupData
           />
         </TouchableOpacity>
       )}
-      {postType === "EVENT" && (
+      {
+postType === "GROUP" && eventData && (
+  <TouchableOpacity className="w-12 h-12 secondary rounded-xl flex justify-center items-center">
+    <MaterialCommunityIcons
+      name="flag-checkered"
+      size={32}
+      color={Colors[colorScheme].text}
+    />
+  </TouchableOpacity>
+)
+      }
+      {eventData && postType !== "GROUP" && (
         <TouchableOpacity className="w-12 h-12 secondary rounded-xl flex justify-center items-center">
           <MaterialCommunityIcons
-            name="calendar-clock-outline"
+            name="flag-outline"
             size={32}
             color={Colors[colorScheme].text}
           />

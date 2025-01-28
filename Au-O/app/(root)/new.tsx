@@ -78,7 +78,7 @@ export default function NewPost() {
           return;
         }
         if (buttonIndex === 1) {
-          setSelectedGroup(PostCreationTexts.publicPostIndicator[language ? language : "EN"]);
+          setSelectedGroup(null);
         } else {
           setSelectedGroup(groups[buttonIndex - 1]);
         }
@@ -97,7 +97,7 @@ export default function NewPost() {
           return;
         }
         if (buttonIndex === 1) {
-          setSelectedEvent(PostCreationTexts.noEventSpecified[language ? language : "EN"]);
+          setSelectedEvent(null);
         } else {
           setSelectedEvent(events[buttonIndex - 1]);
         }
