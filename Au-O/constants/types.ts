@@ -77,7 +77,36 @@ export interface SearchBarProps {
   onSearch: (query: string) => void;
   onChangeText?: (query: string) => void;
 }
+export interface GroupPostData {
+
+  group_name: string
+  group_nickname: string
+  group_icon: string | null
+}
+export interface EventPostData {
+  event_name: string
+  attendees: number
+  group_id?: string
+  location : string
+  start_date: string
+  end_date: string
+
+}
+export type PostType = "USER" | "GROUP" | "EVENT" | "INVALID"
+export interface PostDispayElementProps {
+  
+      onPress: () => void,
+      postType: string,
+      colorScheme: "light" | "dark",
+      author_nickname: string,
+      author_username: string,
+      groupData: GroupPostData | null,
+      eventData: EventPostData | null
+}
 export interface PostCardProps {
+  preview?: boolean
+  groupData?: GroupPostData
+  eventData?: EventPostData
   author_nickname: string;
   author_username: string;
   date: string;

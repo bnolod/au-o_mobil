@@ -1,5 +1,5 @@
 import { UIErrorTexts } from "@/constants/texts";
-import { User } from "@/constants/types";
+import { EventPostData, GroupPostData, PostType, User } from "@/constants/types";
 import * as SecureStore from 'expo-secure-store'
 export function handleFormInputChange(
   formKey: string,
@@ -19,6 +19,21 @@ export async function setTimestamp() {
 }
 export async function getTimestamp() {
   return await SecureStore.getItemAsync("timestamp");
+}
+export function getPostType( nickname: string, username: string, groupData?: GroupPostData, eventData?: EventPostData): string {
+  if (nickname && username) {
+    if (!groupData && !eventData) {
+      return "USER"
+    }
+    if (!groupData && eventData) {
+      return "EVENT"
+    }
+    if ((groupData && eventData) || (groupData && !eventData)) {
+      return "GROUP"
+    }
+    else return "INVALID"
+  }
+  else return "INVALID"
 }
 
 export function validateLogin(

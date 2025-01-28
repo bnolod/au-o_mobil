@@ -6,6 +6,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
 import { Images } from "@/lib/staticAssetExports";
 import { CommonStaticElementProps } from "@/constants/types";
+import { HomeTexts } from "@/constants/texts";
 export default function RootHeader({language, colorScheme} : CommonStaticElementProps) {
   const { toggleColorScheme } = useColorScheme();
   return (
@@ -16,7 +17,7 @@ export default function RootHeader({language, colorScheme} : CommonStaticElement
         resizeMode="contain"
       />
       <SearchBar
-        placeholder="Keresés"
+        placeholder={HomeTexts.search.placeholder[language]}
         colorScheme={colorScheme}
         onSearch={(query) => {
           console.log(query);

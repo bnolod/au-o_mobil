@@ -30,13 +30,14 @@ import {
 
 import { PostCreationTexts } from "@/constants/texts";
 import ImageNotFound from "@/components/new/ImageNotFound";
-import PostPreview from "@/components/new/PostPreview";
+import PostCard from "@/components/home/Post";
+import { EventPostData } from "@/constants/types";
 export default function NewPost() {
   const { language } = useLanguage();
   const { colorScheme } = useColorScheme();
-  const [selectedGroup, setSelectedGroup] = useState<string>("Public");
+  const [selectedGroup, setSelectedGroup] = useState<string | null>(null);
   const [images, setImages] = useState<ImagePicker.ImagePickerAsset[]>([]);
-  const [selectedEvent, setSelectedEvent] = useState<string>("None");
+  const [selectedEvent, setSelectedEvent] = useState<string | null>(null);
   const groups = [PostCreationTexts.publicPostIndicator[language ? language : "EN"], "Civic Imádó Csoportos Indulás Közösség", "Buzik"];
   const events = [
     PostCreationTexts.noEventSpecified[language ? language : "EN"],
@@ -290,19 +291,23 @@ export default function NewPost() {
             <BottomSheetView
               
             >
-              <PostPreview
-              handleDismiss={() => bottomSheetRef.current?.dismiss()}
-                author_nickname="teszt"
+              <PostCard
+author_nickname="teszt"
                 author_username="teszt"
                 colorScheme={colorScheme!}
-                handleSubmit={() => {}}
                 date={new Date().toDateString()}
                 description="teszt"
                 images={images}
                 language={language}
                 location={"teszt"}
-                
+comments={[]}
+preview
+reactions={{fire: 12, heart: 34, sunglasses: 567}}
+eventData={selectedEvent ? {event_name: selectedEvent, attendees: 24, end_date: new Date().toDateString(), start_date: new Date().toDateString(), location: "teszt", group_id: selectedGroup!} as EventPostData : undefined}
+groupData={selectedGroup ?  {group_icon: null, group_name: selectedGroup!, group_nickname: selectedGroup!} : undefined}                
               />
+              <Button onPress={() => bottomSheetRef.current?.dismiss()} className=" my-2 btn-highlight button btn-fill btn-outline">Dismiss</Button>
+              <Button onPress={() => bottomSheetRef.current?.dismiss()} className=" mt-2 btn-highlight button btn-fill">Post</Button>
             </BottomSheetView>
           </BottomSheetModal>
         </View>

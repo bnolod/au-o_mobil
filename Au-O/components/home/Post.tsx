@@ -1,26 +1,26 @@
 import { PostCardProps } from "@/constants/types";
 import {
   View,
-  Text,
   Image,
-  TextInput,
-  TouchableOpacity,
   Dimensions,
 } from "react-native";
 import React from "react";
-import Avatar from "../ui/Avatar";
-import Button from "../ui/Button";
 import ThemedText from "../ui/ThemedText";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import ReactionButton from "../ui/ReactionButton";
 import { useState } from "react";
-import { formatDate } from "@/lib/functions";
-import { HomeTexts } from "@/constants/texts";
+import { formatDate, getPostType } from "@/lib/functions";
 import CommentSheet from "./CommentSheet";
 import Carousel from "react-native-reanimated-carousel";
+import PostHeaderElement from "./PostHeaderElement";
+import PostAuthorDisplayElement from "./PostAuthorDisplayElement";
+import { HomeTexts } from "@/constants/texts";
 
 export default function PostCard({
+  preview = false,
   author_nickname,
+  eventData,
+  groupData,
   author_username,
   comments,
   date,
@@ -31,6 +31,12 @@ export default function PostCard({
   language,
   colorScheme,
 }: PostCardProps) {
+  const postType = getPostType(
+    author_nickname,
+    author_username,
+    groupData,
+    eventData
+  );
   const [reactionState, setReactions] = useState<{
     fire: number;
     heart: number;
@@ -55,23 +61,30 @@ export default function PostCard({
   };
   return (
     <View className="post-container">
-      <View className="post-header">
-        <Button
-          variant="transparent"
-          className="m-0 basis-2/12"
-          hapticFeedback="light"
-        >
-          <Avatar image={null} nickname={author_nickname} />
-        </Button>
-        <View className="flex flex-col basis-5/12 justify-center">
-          <ThemedText className="text-xl font-semibold">
-            {author_nickname}
-          </ThemedText>
-          <ThemedText className="text-sm opacity-40">
-            @{author_username}
-          </ThemedText>
+      <View className="post-header justify-between">
+        <View className="flex-row flex items-center basis-11/12">
+
+        <PostHeaderElement
+          author_nickname={author_nickname}
+          author_username={author_username}
+          colorScheme={colorScheme}
+          onPress={() => {}}
+          postType={postType}
+          eventData={eventData || null}
+          groupData={groupData || null}
+          />
+
+        <PostAuthorDisplayElement
+          author_nickname={author_nickname}
+          author_username={author_username}
+          colorScheme={colorScheme}
+          onPress={() => {}}
+          postType={postType}
+          eventData={eventData || null}
+          groupData={groupData || null}
+          />
         </View>
-        <View className="flex flex-row basis-5/12 justify-end text-right">
+        <View className="flex flex-row basis-1/12 justify-end text-right">
           <MaterialCommunityIcons
             name="dots-horizontal"
             size={42}
@@ -80,18 +93,35 @@ export default function PostCard({
         </View>
       </View>
       <View className="post-image">
-        {images.length !== 0 ?
-          images.length > 1 ?
-          <Carousel
-          width={Dimensions.get("screen").width}
-          data={images}
-          loop={false}
-          snapEnabled
-          renderItem={({ index }) => (
-            <Image source={{ uri: images[index].uri }} className="flex-1" resizeMode="contain"/>
-          )}
-          /> : <Image source={{ uri: images[0].uri }} className="flex-1" resizeMode="contain"/> : <></>
-          }
+        {
+          eventData && <View className="w-1/2 h-8 secondary absolute z-50 top-6 left-6 flex justify-center items-center rounded-xl"><ThemedText className=" font-semibold text-lg">
+            {eventData.attendees} {HomeTexts.post.attendees[language]}</ThemedText></View>
+        }
+        {images.length !== 0 ? (
+          images.length > 1 ? (
+            <Carousel
+              width={Dimensions.get("screen").width}
+              data={images}
+              loop={false}
+              snapEnabled
+              renderItem={({ index }) => (
+                <Image
+                  source={{ uri: images[index].uri }}
+                  className="flex-1"
+                  resizeMode="contain"
+                />
+              )}
+            />
+          ) : (
+            <Image
+              source={{ uri: images[0].uri }}
+              className="flex-1"
+              resizeMode="contain"
+            />
+          )
+        ) : (
+          <></>
+        )}
       </View>
       <View className="post-footer">
         <View className="post-reaction-container">
@@ -131,20 +161,24 @@ export default function PostCard({
           </View>
         </View>
         <View
-          className={`px-4 pt-2 pb-5  dark:bg-backdrop-primary-dark bg-backdrop-secondary`}
+          className={`px-4 pt-2 pb-5 flex flex-row  dark:bg-backdrop-primary-dark bg-backdrop-secondary`}
         >
           <ThemedText
             onPress={handleShowMore}
             ellipsizeMode="tail"
-            className="text-lg leading-tight"
+            className="text-lg leading-tight flex gap-2"
             numberOfLines={lines}
           >
+          <ThemedText className="text-highlight-light pr-4 dark:text-highlight font-semibold">
+              {author_username + "  "}
+          </ThemedText>
             {description}
           </ThemedText>
         </View>
 
         <CommentSheet
           author_nickname={author_nickname}
+          preview={preview}
           language={language}
           colorScheme={colorScheme}
           comments={comments}

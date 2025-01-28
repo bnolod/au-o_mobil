@@ -1,11 +1,11 @@
 import Button from "@/components/ui/Button";
 import ThemedText from "@/components/ui/ThemedText";
-import { NativeScrollEvent, NativeSyntheticEvent, RefreshControl, ScrollView } from "react-native";
+import { RefreshControl, ScrollView } from "react-native";
 import React, { useCallback, useState } from "react";
 import { useAuthentication } from "@/contexts/AuthenticationContext";
 import { Keyboard } from "react-native";
 import { TouchableWithoutFeedback } from "react-native";
-import PostCard from "@/components/home/UserPost";
+import PostCard from "@/components/home/Post";
 import { colorScheme } from "nativewind";
 import { useLanguage } from "@/contexts/LanguageContext";
 import RootHeader from "@/components/home/RootHeader";
@@ -83,6 +83,7 @@ export default function Home() {
           reactions={{ fire: 4, heart: 0, sunglasses: 4 }}
         />
         <PostCard
+          groupData={{ group_nickname: "teszt", group_icon: null, group_name: "teszt" }}
           author_nickname={"teszt"}
           author_username={"teszti"}
           colorScheme={colorScheme.get()!}

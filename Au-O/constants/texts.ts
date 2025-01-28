@@ -284,7 +284,12 @@ export const HomeTexts = {
     addcomment: {
       HU: "Légy te az első!",
       EN: "Be the first!",
+    },
+    attendees: {
+      HU: " résztvevő",
+      EN: " attendees",
     }
+    
   }
 }
 export const boros_manifesto = {

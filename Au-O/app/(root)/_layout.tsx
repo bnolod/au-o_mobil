@@ -4,11 +4,7 @@ import { Redirect, Tabs } from "expo-router";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
 import { Colors } from "@/constants/Colors";
-import RootHeader from "@/components/home/RootHeader";
-
 import { useLanguage } from "@/contexts/LanguageContext";
-import { ScrollView } from "react-native";
-import Avatar from "@/components/ui/Avatar";
 export default function RootLayout() {
   const { user } = useAuthentication();
   const { language } = useLanguage();

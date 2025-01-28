@@ -26,11 +26,13 @@ export default function CommentSheet({
   comments,
   author_nickname,
   language,
+  preview = false,
 }: {
   colorScheme: "light" | "dark";
   comments: Comment[];
   author_nickname: string;
   language: "HU" | "EN";
+  preview?: boolean;
 }) {
   const [focused, setFocused] = React.useState(false);
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
@@ -96,15 +98,17 @@ export default function CommentSheet({
             </ThemedText>
           </TouchableOpacity>
         </View>
+        {
+          !preview &&
         <BottomSheetModal
-          onChange={(index) => {
-            if (index === 1) {
-              bottomSheetModalRef.current?.dismiss();
-              setFocused(false);
-            }
-          }}
-          ref={bottomSheetModalRef}
-          onDismiss={() => {
+        onChange={(index) => {
+          if (index === 1) {
+            bottomSheetModalRef.current?.dismiss();
+            setFocused(false);
+          }
+        }}
+        ref={bottomSheetModalRef}
+        onDismiss={() => {
             Keyboard.dismiss();
             setFocused(false);
           }}
@@ -121,7 +125,7 @@ export default function CommentSheet({
           }}
           handleStyle={{
             backgroundColor: Colors[colorScheme].secondary,
-
+            
             borderTopRightRadius: 10,
             borderTopLeftRadius: 10,
           }}
@@ -134,21 +138,22 @@ export default function CommentSheet({
                 author_nickname={author_nickname}
                 language={language}
                 colorScheme={colorScheme}
+                />
+              }
+              data={comments}
+              ListEmptyComponent={
+                <CommentsEmpty language={language} colorScheme={colorScheme} />
+              }
+              renderItem={renderItem}
+              keyExtractor={(item) => item.id.toString()}
+              contentContainerStyle={{
+                backgroundColor: Colors[colorScheme].secondary,
+                paddingVertical: 12,
+                width: "100%",
+              }}
               />
-            }
-            data={comments}
-            ListEmptyComponent={
-              <CommentsEmpty language={language} colorScheme={colorScheme} />
-            }
-            renderItem={renderItem}
-            keyExtractor={(item) => item.id.toString()}
-            contentContainerStyle={{
-              backgroundColor: Colors[colorScheme].secondary,
-              paddingVertical: 12,
-              width: "100%",
-            }}
-          />
         </BottomSheetModal>
+    }
       </View>
     </TouchableWithoutFeedback>
   );
