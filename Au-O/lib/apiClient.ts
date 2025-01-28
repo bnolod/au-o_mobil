@@ -2,6 +2,7 @@ import {
   CreatePostRequest,
   HttpError,
   HttpMethod,
+  ImageUploadResponse,
   ImageUploadType,
   LoginRequest,
   LoginResponse,
@@ -66,20 +67,27 @@ export const login = async (request: LoginRequest): Promise<string | null> => {
     return validToken
     
   }
-  export const imageUpload = async (image: string): Promise<string | null> => {
+  export const imageUpload = async (image: FormData): Promise<ImageUploadResponse | null> => {
     const endpoint = "https://api.imgur.com/3/image"
     const headers = {
-      "Authorization": `Client-ID ${process.env.EXPO_PUBLIC_IMGUR_CLIENT_ID}`
-    }
-    const body = {
-      image
+      "Authorization": `Client-ID ${process.env.EXPO_PUBLIC_IMGUR_CLIENT_ID}`,
+      "Content-Type": "multipart/form-data",
     }
     try {
-      const response = await axios.post(endpoint, body, { headers })
-      const data = response.data
-      return data
+      const response = await axios.post(endpoint, image, { headers })
+      console.log(response)
+      if (response.status !== 200) {
+        return null
+      }
+      const data = response.data.data
+      
+      return {
+        link: data.link,
+        deleteHash: data.deletehash
+      }
     }
     catch (error: unknown) {
+      console.error(error)
       return null
     }
 

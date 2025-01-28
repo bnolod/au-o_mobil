@@ -35,7 +35,17 @@ export function getPostType( nickname: string, username: string, groupData?: Gro
   }
   else return "INVALID"
 }
-
+export function createTimestamp() {
+  return new Date().getTime().toString();
+}
+export async function convertToBlob(image: string): Promise<string> {
+  const response = await fetch(image);
+  const blob = await response.blob();
+  const  b64 = await new Response(blob).arrayBuffer().then((buffer) => {
+    return btoa(String.fromCharCode(...new Uint8Array(buffer)));
+  })
+  return b64;
+}
 export function validateLogin(
     identifier: string,
     password: string,

@@ -301,6 +301,14 @@ export const PostCreationTexts = {
     HU: "Nyilvános",
     EN: "Public"
   },
+  imageUploadErrorAlert: {
+    HU: "Hiba a képek feltöltésekor",
+    EN: "Error uploading images"
+  },
+  imageUploadErrorAlertMessage: {
+    HU: "Próbáld újra",
+    EN: "Try again"
+  },
   noEventSpecified: {
     HU: "Nincs",
     EN: "None"

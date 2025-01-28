@@ -103,6 +103,10 @@ export interface PostDispayElementProps {
       groupData: GroupPostData | null,
       eventData: EventPostData | null
 }
+export interface ImageUploadResponse {
+  link: string,
+  deleteHash: string
+}
 export interface PostCardProps {
   preview?: boolean
   groupData?: GroupPostData

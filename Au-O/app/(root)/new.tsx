@@ -5,7 +5,7 @@ import { Colors } from "@/constants/Colors";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   ActionSheetIOS,
   Alert,
@@ -23,53 +23,120 @@ import { useState } from "react";
 import { Images } from "@/lib/staticAssetExports";
 import * as ImagePicker from "expo-image-picker";
 import Carousel from "react-native-reanimated-carousel";
-import {
-  BottomSheetModal,
-  BottomSheetView,
-} from "@gorhom/bottom-sheet";
+import { BottomSheetModal, BottomSheetView } from "@gorhom/bottom-sheet";
 
 import { PostCreationTexts } from "@/constants/texts";
 import ImageNotFound from "@/components/new/ImageNotFound";
 import PostCard from "@/components/home/Post";
-import { EventPostData } from "@/constants/types";
+import { EventPostData, ImageUploadResponse } from "@/constants/types";
+import { useAuthentication } from "@/contexts/AuthenticationContext";
+import { convertToBlob, createTimestamp } from "@/lib/functions";
+import { imageUpload } from "@/lib/apiClient";
 export default function NewPost() {
   const { language } = useLanguage();
+  const { user } = useAuthentication();
   const { colorScheme } = useColorScheme();
   const [selectedGroup, setSelectedGroup] = useState<string | null>(null);
-  const [images, setImages] = useState<ImagePicker.ImagePickerAsset[]>([]);
   const [selectedEvent, setSelectedEvent] = useState<string | null>(null);
-  const groups = [PostCreationTexts.publicPostIndicator[language ? language : "EN"], "Civic Imádó Csoportos Indulás Közösség", "Buzik"];
+  const [images, setImages] = useState<ImagePicker.ImagePickerAsset[]>([]);
+  const [newPostForm, setNewPostForm] = useState({
+    description: "",
+    location: "",
+    group: selectedGroup,
+    event: selectedEvent,
+    images: images,
+  });
+  useEffect(() => {
+    setNewPostForm({
+      ...newPostForm,
+      group: selectedGroup,
+      event: selectedEvent,
+      images: images,
+    });
+  }, [images, selectedEvent, selectedGroup]);
+  const groups = [
+    PostCreationTexts.publicPostIndicator[language ? language : "EN"],
+    "Civic Imádó Csoportos Indulás Közösség",
+    "Buzik",
+  ];
   const events = [
     PostCreationTexts.noEventSpecified[language ? language : "EN"],
     "Buzi Találkozó 2024",
     "XVII. Nemzetközi Hump Day Fesztivál",
   ];
-   function handlePresent() {
+  function handlePresent() {
     bottomSheetRef.current?.present();
   }
+  async function createImageForm(element: ImagePicker.ImagePickerAsset) {
+    const imageForm = new FormData();
+    const file = await convertToBlob(element.uri);
+
+    imageForm.append("image", file);
+    imageForm.append("description", newPostForm.description);
+    imageForm.append("type", "base64");
+    imageForm.append(
+      "title",
+      `${user!.username.replaceAll("_", "")}_${createTimestamp()}`
+    );
+
+    const res = await imageUpload(imageForm);
+    return res;
+  }
+  async function handleSubmit() {
+    const uploadedImages: ImageUploadResponse[] = [];
+      images.map(async (element) => {
+        const uploadedElement = await createImageForm(element);
+        if (uploadedElement) {
+          uploadedImages.push(uploadedElement);
+        }
+        else {
+          
+          Alert.alert(
+            PostCreationTexts.imageUploadErrorAlert[language],
+            PostCreationTexts.imageUploadErrorAlertMessage[language],
+            [],
+            {
+              userInterfaceStyle:
+                colorScheme,
+            }
+          );
+        }
+      })
+
+    if (uploadedImages.length === images.length) {
+      console.log("All images uploaded successfully");
+
+    }
+    else {
+      console.log("Some images failed to upload");
+    }
+  }
   async function handleGallery() {
-    console.log(images.length);
     if (images.length < 10) {
       let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ["images"],
         allowsEditing: false,
         exif: false,
-        
+
         quality: 0.7,
         allowsMultipleSelection: true,
         selectionLimit: 10 - images.length,
       });
       if (!result.canceled) {
         if (result.assets.length + images.length <= 10) {
-        setImages(images.concat(result.assets));
-      }}
+          setImages(images.concat(result.assets));
+        }
+      }
     }
   }
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const openGroupSheetIOS = () => {
     ActionSheetIOS.showActionSheetWithOptions(
       {
-        options: [PostCreationTexts.cancel[language ? language : "EN"], ...groups],
+        options: [
+          PostCreationTexts.cancel[language ? language : "EN"],
+          ...groups,
+        ],
         cancelButtonIndex: 0,
         destructiveButtonIndex: 1,
       },
@@ -88,7 +155,10 @@ export default function NewPost() {
   const openEventSheetIOS = () => {
     ActionSheetIOS.showActionSheetWithOptions(
       {
-        options: [PostCreationTexts.cancel[language ? language : "EN"], ...events],
+        options: [
+          PostCreationTexts.cancel[language ? language : "EN"],
+          ...events,
+        ],
         cancelButtonIndex: 0,
         destructiveButtonIndex: 1,
       },
@@ -106,15 +176,19 @@ export default function NewPost() {
   };
   return (
     <>
-  
       <View className="w-full sticky secondary pt-16">
         <Image
-          source={colorScheme === "dark" ? Images.logo_white : Images.logo_black}
+          source={
+            colorScheme === "dark" ? Images.logo_white : Images.logo_black
+          }
           className="h-8 mx-auto my-4"
           resizeMode="contain"
         />
       </View>
-      <Pressable onPress={() => Keyboard.dismiss()} className="flex-1 flex flex-col items-center">
+      <Pressable
+        onPress={() => Keyboard.dismiss()}
+        className="flex-1 flex flex-col items-center"
+      >
         <View className=" w-full basis-5/12 primary">
           {images.length > 0 ? (
             <Carousel
@@ -144,16 +218,23 @@ export default function NewPost() {
                 </View>
               )}
             />
-          ) : (<ImageNotFound onPress={handleGallery} language={language} colorScheme={colorScheme!}/>
-            )}
+          ) : (
+            <ImageNotFound
+              onPress={handleGallery}
+              language={language}
+              colorScheme={colorScheme!}
+            />
+          )}
         </View>
         <TouchableOpacity
           onPress={handleGallery}
           className="new-post-gallery-opener"
         >
-          <ThemedText className="text-lg">{PostCreationTexts.upload[language]}</ThemedText>
+          <ThemedText className="text-lg">
+            {PostCreationTexts.upload[language]}
+          </ThemedText>
           <ThemedText className="text-sm">
-            {images.length} { PostCreationTexts.selectedImages[language]}
+            {images.length} {PostCreationTexts.selectedImages[language]}
           </ThemedText>
         </TouchableOpacity>
         {images.length > 0 && (
@@ -166,14 +247,19 @@ export default function NewPost() {
             <Input
               label={
                 <ThemedText>
-                  <MaterialCommunityIcons name="pencil" size={19} /> {PostCreationTexts.form.description.label[language]}
+                  <MaterialCommunityIcons name="pencil" size={19} />{" "}
+                  {PostCreationTexts.form.description.label[language]}
                 </ThemedText>
               }
               TextInputProps={{
-                placeholder: PostCreationTexts.form.description.placeholder[language],
+                placeholder:
+                  PostCreationTexts.form.description.placeholder[language],
                 multiline: true,
                 numberOfLines: 4,
                 style: { maxHeight: 100 },
+                onChangeText: (text) => {
+                  setNewPostForm({ ...newPostForm, description: text });
+                },
               }}
               colorScheme={colorScheme!}
               containerClassName="rounded-xl"
@@ -250,7 +336,11 @@ export default function NewPost() {
                 </ThemedText>
               }
               TextInputProps={{
-                placeholder: PostCreationTexts.form.location.placeholder[language],
+                placeholder:
+                  PostCreationTexts.form.location.placeholder[language],
+                onChangeText: (text) => {
+                  setNewPostForm({ ...newPostForm, location: text });
+                },
               }}
               colorScheme={colorScheme!}
               containerClassName="rounded-xl"
@@ -262,52 +352,90 @@ export default function NewPost() {
             variant="highlight"
             type="fill"
             hapticFeedback="light"
-            onPress={() => {images.length > 0 ? handlePresent() : Alert.alert(PostCreationTexts.noImageFoundAlert[language], PostCreationTexts.noImageFoundAlertMessage[language], [], {
-  userInterfaceStyle: colorScheme === "dark" ? "dark" : "light",            
-            })}}
+            onPress={() => {
+              images.length > 0
+                ? handlePresent()
+                : Alert.alert(
+                    PostCreationTexts.noImageFoundAlert[language],
+                    PostCreationTexts.noImageFoundAlertMessage[language],
+                    [],
+                    {
+                      userInterfaceStyle:
+                        colorScheme === "dark" ? "dark" : "light",
+                    }
+                  );
+            }}
           >
             {PostCreationTexts.form.next[language]}
           </Button>
 
-          <BottomSheetModal ref={bottomSheetRef}
-              
-              enablePanDownToClose={true}
-              backgroundStyle={{
-                backgroundColor: Colors[colorScheme!].secondary,
-              }}
-              snapPoints={["80%", "90%"]}
-              handleIndicatorStyle={{
-                backgroundColor: Colors[colorScheme!].text,
-                width: "33%",
-                height: 5,
-              }}
-              handleStyle={{
-                backgroundColor: Colors[colorScheme!].secondary,
+          <BottomSheetModal
+            ref={bottomSheetRef}
+            enablePanDownToClose={true}
+            backgroundStyle={{
+              backgroundColor: Colors[colorScheme!].secondary,
+            }}
+            snapPoints={["80%", "90%"]}
+            handleIndicatorStyle={{
+              backgroundColor: Colors[colorScheme!].text,
+              width: "33%",
+              height: 5,
+            }}
+            handleStyle={{
+              backgroundColor: Colors[colorScheme!].secondary,
 
-                borderTopRightRadius: 10,
-                borderTopLeftRadius: 10,
-              }}
-              index={1}>
-            <BottomSheetView
-              
-            >
+              borderTopRightRadius: 10,
+              borderTopLeftRadius: 10,
+            }}
+            index={1}
+          >
+            <BottomSheetView>
               <PostCard
-author_nickname="teszt"
-                author_username="teszt"
+                author_nickname={user!.nickname}
+                author_username={user!.username}
                 colorScheme={colorScheme!}
                 date={new Date().toDateString()}
-                description="teszt"
+                description={newPostForm.description}
                 images={images}
                 language={language}
-                location={"teszt"}
-comments={[]}
-preview
-reactions={{fire: 12, heart: 34, sunglasses: 567}}
-eventData={selectedEvent ? {event_name: selectedEvent, attendees: 24, end_date: new Date().toDateString(), start_date: new Date().toDateString(), location: "teszt", group_id: selectedGroup!} as EventPostData : undefined}
-groupData={selectedGroup ?  {group_icon: null, group_name: selectedGroup!, group_nickname: selectedGroup!} : undefined}                
+                location={newPostForm.location}
+                comments={[]}
+                preview
+                reactions={{ fire: 12, heart: 34, sunglasses: 567 }}
+                eventData={
+                  selectedEvent
+                    ? ({
+                        event_name: selectedEvent,
+                        attendees: 24,
+                        end_date: new Date().toDateString(),
+                        start_date: new Date().toDateString(),
+                        location: "teszt",
+                        group_id: selectedGroup!,
+                      } as EventPostData)
+                    : undefined
+                }
+                groupData={
+                  selectedGroup
+                    ? {
+                        group_icon: null,
+                        group_name: selectedGroup!,
+                        group_nickname: selectedGroup!,
+                      }
+                    : undefined
+                }
               />
-              <Button onPress={() => bottomSheetRef.current?.dismiss()} className=" my-2 btn-highlight button btn-fill btn-outline">Dismiss</Button>
-              <Button onPress={() => bottomSheetRef.current?.dismiss()} className=" mt-2 btn-highlight button btn-fill">Post</Button>
+              <Button
+                onPress={() => bottomSheetRef.current?.dismiss()}
+                className=" my-2 btn-highlight button btn-fill btn-outline"
+              >
+                Dismiss
+              </Button>
+              <Button
+                onPress={handleSubmit}
+                className=" mt-2 btn-highlight button btn-fill"
+              >
+                Post
+              </Button>
             </BottomSheetView>
           </BottomSheetModal>
         </View>
