@@ -16,7 +16,7 @@ import { LanguageProvider } from "@/contexts/LanguageContext";
 import { OnboardingProvider } from "@/contexts/OnboardingContext";
 import { AuthenticationProvider } from "@/contexts/AuthenticationContext";
 import { FormProvider } from "@/contexts/FormContext";
-import * as SecureStore from 'expo-secure-store';
+import * as SecureStore from "expo-secure-store";
 import { getUser, validateToken } from "@/lib/apiClient";
 import { saveUser } from "@/lib/functions";
 import { usePathname } from "expo-router";
@@ -28,8 +28,7 @@ import { Platform } from "react-native";
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  
-  const path = usePathname()
+  const path = usePathname();
   const { colorScheme, toggleColorScheme } = useColorScheme();
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
@@ -37,23 +36,22 @@ export default function RootLayout() {
   configureReanimatedLogger({
     strict: false,
   });
-async function initialValidation() {
-
-  const token = await SecureStore.getItemAsync("jwtToken").then((res) => {
-    if (!res) {
-      return null
+  async function initialValidation() {
+    const token = await SecureStore.getItemAsync("jwtToken").then((res) => {
+      if (!res) {
+        return null;
+      }
+      return res;
+    });
+    const user = await validateToken(token!, path);
+    if (user) {
+      const fetchedUser = await getUser(token!);
+      await saveUser(fetchedUser!);
     }
-    return res
-  })
-  const user = await validateToken(token! , path)
-  if (user) {
-    const fetchedUser = await getUser(token!)
-    await saveUser(fetchedUser!)
   }
-}
   useEffect(() => {
     if (loaded) {
-      initialValidation()
+      initialValidation();
       SplashScreen.hideAsync();
     }
   }, [loaded]);
@@ -61,7 +59,6 @@ async function initialValidation() {
   if (!loaded) {
     return null;
   }
-
 
   return (
     <LanguageProvider>
@@ -71,21 +68,29 @@ async function initialValidation() {
         >
           <AuthenticationProvider>
             <FormProvider>
-
-                      <GestureHandlerRootView>
-                        <BottomSheetModalProvider>
-              <Stack initialRouteName="onboarding">
-                <Stack.Screen
-                  name="onboarding"
-                  options={{ headerShown: false }}
-                  />
-                <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-                <Stack.Screen name="(root)" options={{ headerShown: false }} />
-                <Stack.Screen name="(post)" options={{ headerShown: false }} />
-              </Stack>
-                  </BottomSheetModalProvider>
-                </GestureHandlerRootView>
-                  <Toast topOffset={Platform.OS === "ios" ? 60 : 30}/>
+              <GestureHandlerRootView>
+                <BottomSheetModalProvider>
+                  <Stack initialRouteName="onboarding">
+                    <Stack.Screen
+                      name="onboarding"
+                      options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                      name="(auth)"
+                      options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                      name="(root)"
+                      options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                      name="(post)"
+                      options={{ headerShown: false }}
+                    />
+                  </Stack>
+                </BottomSheetModalProvider>
+              </GestureHandlerRootView>
+              <Toast topOffset={Platform.OS === "ios" ? 60 : 30} />
             </FormProvider>
           </AuthenticationProvider>
         </ThemeProvider>

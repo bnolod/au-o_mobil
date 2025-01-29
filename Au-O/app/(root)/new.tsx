@@ -160,7 +160,7 @@ export default function NewPost() {
   }
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   /*const openGroupSheetIOS = () => {
-    ActionSheetIOS.showActionSheetWithOptions(
+    retIOS.showActionSheetWithOptions(
       {
         options: [
           PostCreationTexts.cancel[language ? language : "EN"],
@@ -305,16 +305,16 @@ export default function NewPost() {
                   <MaterialCommunityIcons name="account-group" size={19} />{" "}
                   {PostCreationTexts.form.group[language]}
                 </ThemedText>
-                {Platform.OS === "android" ? (
+                {/*Platform.OS === "android" ? (
                   <Picker
                     selectedValue={selectedGroup}
                     onValueChange={(itemValue) => setSelectedGroup(itemValue)}
                   >
-                    {/*groups.map((group, index) => {
+                    {groups.map((group, index) => {
                       return (
                         <Picker.Item key={index} label={group} value={index} />
                       );
-                    })*/}
+                    })}
                   </Picker>
                 ) : (
                   <TouchableOpacity
@@ -327,7 +327,7 @@ export default function NewPost() {
                       {selectedGroup}
                     </ThemedText>
                   </TouchableOpacity>
-                )}
+                )*/}
               </View>
               <View className=" flex-1 w-6/12 self-end">
                 <ThemedText className="w-11/12 text-lg">

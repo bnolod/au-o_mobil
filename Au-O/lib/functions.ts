@@ -1,4 +1,4 @@
-import { UIErrorTexts } from "@/constants/texts";
+import { PostCreationTexts, UIErrorTexts } from "@/constants/texts";
 import {
   EventPostData,
   GroupPostData,
@@ -11,6 +11,7 @@ import * as SecureStore from "expo-secure-store";
 import * as FileSystem from 'expo-file-system'
 import { ImagePickerAsset } from "expo-image-picker";
 import { imageUpload } from "./apiClient";
+import { ActionSheetIOS, ActionSheetIOSOptions } from "react-native";
 export function handleFormInputChange(
   formKey: string,
   key: string,

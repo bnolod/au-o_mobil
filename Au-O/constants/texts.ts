@@ -333,6 +333,28 @@ export const PostCreationTexts = {
     HU: "Nincs",
     EN: "None"
   },
+  copied: {
+    HU: "Másolva a vágólapra",
+    EN: "Copied to clipboard"
+  },
+  options: {
+    share: {
+      HU: "Megosztás",
+      EN: "Share"
+    },
+    report: {
+      HU: "Jelentés",
+      EN: "Report"
+    },
+    cancel: {
+      HU: "Mégse",
+      EN: "Cancel"
+    },
+    edit: {
+      HU: "Szerkesztés",
+      EN: "Edit"
+    }
+  },
   cancel: {
     HU: "Mégse",
     EN: "Cancel"

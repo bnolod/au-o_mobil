@@ -1,4 +1,4 @@
-import { TouchableOpacityProps } from "react-native";
+import { GestureResponderEvent, TouchableOpacityProps } from "react-native";
 import { HttpErrorTexts } from "./texts";
 import { ReactNode } from "react";
 import { ImagePickerAsset } from "expo-image-picker";
@@ -141,6 +141,32 @@ export interface ImageStoreRequest {
   text: string,
   postImages: ImageUploadResponse[]
   location: string
+}
+export interface OptionModalProps {
+  visible: boolean;
+  handleOpen: () => void;
+  handleClose: () => void;
+  children: ReactNode;
+  title: string;
+  options: OptionModalOptionProps[]
+  position: {
+    x: number
+    y: number
+  }
+}
+export interface ModalState {
+  visible: boolean;
+  content: ReactNode | null;
+  event: GestureResponderEvent | null;
+}
+export interface TapWrapperProps {
+  onSingleTap?: () => void;
+  onDoubleTap?: () => void;
+  children: React.ReactNode;
+}
+export interface OptionModalOptionProps {
+  text: string;
+  onPress: () => void;
 }
 export interface PostCardProps {
   post_id: string
