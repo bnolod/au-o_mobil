@@ -309,6 +309,26 @@ export const PostCreationTexts = {
     HU: "Próbáld újra",
     EN: "Try again"
   },
+  imageUploadSuccessToast: {
+    header: {
+      HU: "Siker!",
+      EN: "Success!"
+    },
+    message: {
+      HU: "Minden kép feltöltésre került."
+      , EN: "All images have been uploaded."
+    }
+  },
+  imageUploadDuplicateSafeguard: {
+    header: {
+      HU: "Duplikált kép",
+      EN: "Duplicate image"
+    },
+    message: {
+      HU: "Ez a kép már feltöltésre került korábban, és nem került hozzáadásra.",
+      EN: "This image has already been uploaded and was not added."
+    }
+  },
   noEventSpecified: {
     HU: "Nincs",
     EN: "None"

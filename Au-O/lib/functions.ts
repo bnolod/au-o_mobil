@@ -1,6 +1,16 @@
 import { UIErrorTexts } from "@/constants/texts";
-import { EventPostData, GroupPostData, PostType, User } from "@/constants/types";
-import * as SecureStore from 'expo-secure-store'
+import {
+  EventPostData,
+  GroupPostData,
+
+  ImageUploadResponse,
+
+  User,
+} from "@/constants/types";
+import * as SecureStore from "expo-secure-store";
+import * as FileSystem from 'expo-file-system'
+import { ImagePickerAsset } from "expo-image-picker";
+import { imageUpload } from "./apiClient";
 export function handleFormInputChange(
   formKey: string,
   key: string,
@@ -20,147 +30,162 @@ export async function setTimestamp() {
 export async function getTimestamp() {
   return await SecureStore.getItemAsync("timestamp");
 }
-export function getPostType( nickname: string, username: string, groupData?: GroupPostData, eventData?: EventPostData): string {
+export function getPostType(
+  nickname: string,
+  username: string,
+  groupData?: GroupPostData,
+  eventData?: EventPostData
+): string {
   if (nickname && username) {
     if (!groupData && !eventData) {
-      return "USER"
+      return "USER";
     }
     if (!groupData && eventData) {
-      return "EVENT"
+      return "EVENT";
     }
     if ((groupData && eventData) || (groupData && !eventData)) {
-      return "GROUP"
-    }
-    else return "INVALID"
-  }
-  else return "INVALID"
+      return "GROUP";
+    } else return "INVALID";
+  } else return "INVALID";
 }
 export function createTimestamp() {
   return new Date().getTime().toString();
 }
-export async function convertToBlob(image: string): Promise<string> {
-  const response = await fetch(image);
-  const blob = await response.blob();
-  const  b64 = await new Response(blob).arrayBuffer().then((buffer) => {
-    return btoa(String.fromCharCode(...new Uint8Array(buffer)));
+export async function cleanupInvalidImageUploads(images: ImageUploadResponse[]) {
+  images.map(async (image) => {
+    await fetch(`https://api.imgur.com/3/image/${image.deleteHash}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Client-ID ${process.env.EXPO_PUBLIC_IMGUR_CLIENT_ID}`,
+      },
+    });
+  });
+}
+export async function convertToBlob(image: any): Promise<any> {
+  const base64 = await FileSystem.readAsStringAsync(image, {
+    encoding: FileSystem.EncodingType.Base64
   })
-  return b64;
+  return base64
 }
 export function validateLogin(
-    identifier: string,
-    password: string,
-    language: "HU" | "EN" = "EN"
-  ) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const usernameRegex = /^[a-zA-Z0-9_]{3,}$/;
-    const minCharactersRegex = new RegExp(
-      `^.{${process.env.EXPO_PUBLIC_MIN_PASSWORD_CHARACTER_LENGTH || 8},}$`
-    );
-    const noCapitalLettersRegex = /^(?=.*[A-Z])/;
-    const noSmallLettersRegex = /^(?=.*[a-z])/;
-    const noNumbersRegex = /^(?=.*\d)/;
-    const noSpecialCharactersRegex = /^(?=.*\W)/;
-  
-    const errors: string[] = [];
+  identifier: string,
+  password: string,
+  language: "HU" | "EN" = "EN"
+) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const usernameRegex = /^[a-zA-Z0-9_]{3,}$/;
+  const minCharactersRegex = new RegExp(
+    `^.{${process.env.EXPO_PUBLIC_MIN_PASSWORD_CHARACTER_LENGTH || 8},}$`
+  );
+  const noCapitalLettersRegex = /^(?=.*[A-Z])/;
+  const noSmallLettersRegex = /^(?=.*[a-z])/;
+  const noNumbersRegex = /^(?=.*\d)/;
+  const noSpecialCharactersRegex = /^(?=.*\W)/;
 
-    if (!emailRegex.test(identifier) && !usernameRegex.test(identifier)) {
-      errors.push(UIErrorTexts.email.invalidEmail[language]);
-    }
+  const errors: string[] = [];
 
-    if (!minCharactersRegex.test(password)) {
-      errors.push(UIErrorTexts.password.minCharacters[language]);
-    }
-    if (!noCapitalLettersRegex.test(password)) {
-      errors.push(UIErrorTexts.password.noCapitalLetters[language]);
-    }
-    if (!noSmallLettersRegex.test(password)) {
-      errors.push(UIErrorTexts.password.noSmallLetters[language]);
-    }
-    if (!noNumbersRegex.test(password)) {
-      errors.push(UIErrorTexts.password.noNumbers[language]);
-    }
-    if (!noSpecialCharactersRegex.test(password)) {
-      errors.push(UIErrorTexts.password.noSpecialCharacters[language]);
-    }
-
-    if (errors.length > 0) {
-      return { valid: false, messages: errors };
-    }
-
-    return { valid: true, message: UIErrorTexts.authentication.loginSuccess[language] };
+  if (!emailRegex.test(identifier) && !usernameRegex.test(identifier)) {
+    errors.push(UIErrorTexts.email.invalidEmail[language]);
   }
-  
 
-  export function validateRegister(
-    email: string,
-    username: string,
-    password: string,
-    confirmPassword: string,
-    dateOfBirth: string,
-    language: "HU" | "EN" = "EN"
-  ) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const usernameRegex = /^[a-zA-Z0-9_]{3,}$/;
-    const minCharactersRegex = new RegExp(
-      `^.{${process.env.EXPO_PUBLIC_MIN_PASSWORD_CHARACTER_LENGTH || 8},}$`
-    );
-    const noCapitalLettersRegex = /^(?=.*[A-Z])/;
-    const noSmallLettersRegex = /^(?=.*[a-z])/;
-    const noNumbersRegex = /^(?=.*\d)/;
-    const noSpecialCharactersRegex = /^(?=.*\W)/;
-  
-    const errors: string[] = [];
-  
-    if (!emailRegex.test(email)) {
-      errors.push(UIErrorTexts.email.invalidEmail[language]);
-    }
-  
-
-    if (!usernameRegex.test(username)) {
-      errors.push(UIErrorTexts.username.invalidUsername[language]);
-    }
-
-    if (!minCharactersRegex.test(password)) {
-      errors.push(UIErrorTexts.password.minCharacters[language]);
-    }
-    if (!noCapitalLettersRegex.test(password)) {
-      errors.push(UIErrorTexts.password.noCapitalLetters[language]);
-    }
-    if (!noSmallLettersRegex.test(password)) {
-      errors.push(UIErrorTexts.password.noSmallLetters[language]);
-    }
-    if (!noNumbersRegex.test(password)) {
-      errors.push(UIErrorTexts.password.noNumbers[language]);
-    }
-    if (!noSpecialCharactersRegex.test(password)) {
-      errors.push(UIErrorTexts.password.noSpecialCharacters[language]);
-    }
-
-    if (password !== confirmPassword) {
-      errors.push(UIErrorTexts.password.passwordsDoNotMatch[language]);
-    }
-    if (Number(dateOfBirth.split("-")[0]) > 2009) {
-        errors.push(UIErrorTexts.dateOfBirth.ageRestriction[language]);
-    }
-    
-    if (Number(dateOfBirth.split("-")[0]) < 1930) {
-        errors.push(UIErrorTexts.dateOfBirth.invalidDoB[language]);
-    }
-
-    errors.map((error) => console.log(error));
-    if (errors.length > 0) {
-      return { valid: false, messages: errors };
-    }
-
-    return { valid: true, message: UIErrorTexts.authentication.registrationSuccess[language] };
+  if (!minCharactersRegex.test(password)) {
+    errors.push(UIErrorTexts.password.minCharacters[language]);
   }
-  
+  if (!noCapitalLettersRegex.test(password)) {
+    errors.push(UIErrorTexts.password.noCapitalLetters[language]);
+  }
+  if (!noSmallLettersRegex.test(password)) {
+    errors.push(UIErrorTexts.password.noSmallLetters[language]);
+  }
+  if (!noNumbersRegex.test(password)) {
+    errors.push(UIErrorTexts.password.noNumbers[language]);
+  }
+  if (!noSpecialCharactersRegex.test(password)) {
+    errors.push(UIErrorTexts.password.noSpecialCharacters[language]);
+  }
+
+  if (errors.length > 0) {
+    return { valid: false, messages: errors };
+  }
+
+  return {
+    valid: true,
+    message: UIErrorTexts.authentication.loginSuccess[language],
+  };
+}
+
+export function validateRegister(
+  email: string,
+  username: string,
+  password: string,
+  confirmPassword: string,
+  dateOfBirth: string,
+  language: "HU" | "EN" = "EN"
+) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const usernameRegex = /^[a-zA-Z0-9_]{3,}$/;
+  const minCharactersRegex = new RegExp(
+    `^.{${process.env.EXPO_PUBLIC_MIN_PASSWORD_CHARACTER_LENGTH || 8},}$`
+  );
+  const noCapitalLettersRegex = /^(?=.*[A-Z])/;
+  const noSmallLettersRegex = /^(?=.*[a-z])/;
+  const noNumbersRegex = /^(?=.*\d)/;
+  const noSpecialCharactersRegex = /^(?=.*\W)/;
+
+  const errors: string[] = [];
+
+  if (!emailRegex.test(email)) {
+    errors.push(UIErrorTexts.email.invalidEmail[language]);
+  }
+
+  if (!usernameRegex.test(username)) {
+    errors.push(UIErrorTexts.username.invalidUsername[language]);
+  }
+
+  if (!minCharactersRegex.test(password)) {
+    errors.push(UIErrorTexts.password.minCharacters[language]);
+  }
+  if (!noCapitalLettersRegex.test(password)) {
+    errors.push(UIErrorTexts.password.noCapitalLetters[language]);
+  }
+  if (!noSmallLettersRegex.test(password)) {
+    errors.push(UIErrorTexts.password.noSmallLetters[language]);
+  }
+  if (!noNumbersRegex.test(password)) {
+    errors.push(UIErrorTexts.password.noNumbers[language]);
+  }
+  if (!noSpecialCharactersRegex.test(password)) {
+    errors.push(UIErrorTexts.password.noSpecialCharacters[language]);
+  }
+
+  if (password !== confirmPassword) {
+    errors.push(UIErrorTexts.password.passwordsDoNotMatch[language]);
+  }
+  if (Number(dateOfBirth.split("-")[0]) > 2009) {
+    errors.push(UIErrorTexts.dateOfBirth.ageRestriction[language]);
+  }
+
+  if (Number(dateOfBirth.split("-")[0]) < 1930) {
+    errors.push(UIErrorTexts.dateOfBirth.invalidDoB[language]);
+  }
+
+  errors.map((error) => console.log(error));
+  if (errors.length > 0) {
+    return { valid: false, messages: errors };
+  }
+
+  return {
+    valid: true,
+    message: UIErrorTexts.authentication.registrationSuccess[language],
+  };
+}
+
 export async function saveUser(user: User) {
-    await SecureStore.setItemAsync("user", JSON.stringify(user));
-  }
+  await SecureStore.setItemAsync("user", JSON.stringify(user));
+}
 export async function deleteUser() {
-    await SecureStore.deleteItemAsync("user");
-  }
-  export function formatDate(date: string) {
-    return date.replaceAll("-", ". ") + "."
-  }
+  await SecureStore.deleteItemAsync("user");
+}
+export function formatDate(date: string) {
+  return date.replaceAll("-", ". ") + ".";
+}

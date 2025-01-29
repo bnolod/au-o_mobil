@@ -104,8 +104,43 @@ export interface PostDispayElementProps {
       eventData: EventPostData | null
 }
 export interface ImageUploadResponse {
-  link: string,
+  url: string,
   deleteHash: string
+}
+export type PostResponseType = "USERPOST" | "GROUPOST" | "EVENTPOST"
+export type UserPostResponseType = {
+  _public:boolean,
+  bio:string,
+  date_of_signup:string,
+  id: number,
+  nickname: string,
+  profile_img:any,
+  username: string
+}
+export type ImagePostResponseType = {
+  id: number,
+  url: string
+  index: number
+  deleteHash: string
+}
+export interface PostResponse {
+  
+    date_of_creation: string,
+    date_of_update: string,
+    group: any,
+    images: ImageUploadResponse[],
+
+    post_id: string,
+    post_type: PostResponseType
+    reaction_count: number,
+    text: string,
+    user:UserPostResponseType
+ 
+}
+export interface ImageStoreRequest {
+  text: string,
+  postImages: ImageUploadResponse[]
+  location: string
 }
 export interface PostCardProps {
   preview?: boolean
@@ -114,7 +149,7 @@ export interface PostCardProps {
   author_nickname: string;
   author_username: string;
   date: string;
-  images: ImagePickerAsset[]
+  images: string[]
   description: string;
   location: string
   reactions: Reactions
@@ -157,10 +192,12 @@ export interface CreatePostRequest {
   location: string
   event: string
 }
-// export type Comment = {
-//   text: string
-//   likes: number
-// }
+export interface LoadingModalProps {
+  loading: boolean;
+  text?: string;
+  onStart?: () => void;
+  onEnd?: () => void;
+}
 export type Reactions = {
   fire: number;
   heart: number;

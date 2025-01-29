@@ -2,6 +2,7 @@ import {
   CreatePostRequest,
   HttpError,
   HttpMethod,
+  ImageStoreRequest,
   ImageUploadResponse,
   ImageUploadType,
   LoginRequest,
@@ -67,7 +68,8 @@ export const login = async (request: LoginRequest): Promise<string | null> => {
     return validToken
     
   }
-  export const imageUpload = async (image: FormData): Promise<ImageUploadResponse | null> => {
+  export const 
+  imageUpload = async (image: FormData): Promise<ImageUploadResponse | null> => {
     const endpoint = "https://api.imgur.com/3/image"
     const headers = {
       "Authorization": `Client-ID ${process.env.EXPO_PUBLIC_IMGUR_CLIENT_ID}`,
@@ -75,14 +77,13 @@ export const login = async (request: LoginRequest): Promise<string | null> => {
     }
     try {
       const response = await axios.post(endpoint, image, { headers })
-      console.log(response)
       if (response.status !== 200) {
         return null
       }
       const data = response.data.data
       
       return {
-        link: data.link,
+        url: data.link,
         deleteHash: data.deletehash
       }
     }
@@ -91,6 +92,13 @@ export const login = async (request: LoginRequest): Promise<string | null> => {
       return null
     }
 
+  }
+  export async function storeImages(request: ImageStoreRequest): Promise<boolean> {
+    const res = await apiFetch("posts/post/user", "POST", true, request)
+    if (res) {
+      return true
+    }
+    else return false
   }
   export async function CreatePost(props: CreatePostRequest ): Promise<void> {
     const res = await apiFetch<CreatePostRequest>("post/new", "POST", true, {

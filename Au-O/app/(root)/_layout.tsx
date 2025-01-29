@@ -5,6 +5,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
 import { Colors } from "@/constants/Colors";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { StatusBar } from "expo-status-bar";
 export default function RootLayout() {
   const { user } = useAuthentication();
   const { language } = useLanguage();
@@ -13,28 +14,30 @@ export default function RootLayout() {
     return <Redirect href={"/(auth)/login"} />;
   }
   return (
-      <Tabs
+    <>
+    <StatusBar style="auto" />
+    <Tabs
        
-      
-      screenOptions={{
-        tabBarShowLabel: false,
-        
-        tabBarStyle: {
-            backgroundColor:
-              colorScheme === "light" ? "white" : Colors.dark.secondary,
-            },
-            
+       
+       screenOptions={{
+         tabBarShowLabel: false,
+         
+         tabBarStyle: {
+           backgroundColor:
+           colorScheme === "light" ? "white" : Colors.dark.secondary,
+          },
+          
           tabBarActiveTintColor:
-            colorScheme === "light"
-            ? Colors.highlight.light
-            : Colors.highlight.main,
-            tabBarInactiveTintColor: colorScheme === "light" ? "gray" : "gray",
-            tabBarHideOnKeyboard: true,
-            tabBarIconStyle: {
-              height: "100%",
-              width: "100%",
-            },
-          }}
+          colorScheme === "light"
+          ? Colors.highlight.light
+          : Colors.highlight.main,
+          tabBarInactiveTintColor: colorScheme === "light" ? "gray" : "gray",
+          tabBarHideOnKeyboard: true,
+          tabBarIconStyle: {
+            height: "100%",
+            width: "100%",
+          },
+        }}
           >
         <Tabs.Screen
           name="home"
@@ -44,13 +47,13 @@ export default function RootLayout() {
             title: "Home",
             tabBarIcon: ({ color, focused }) => (
               <MaterialCommunityIcons
-                name={focused ? "home" : "home-outline"}
-                size={42}
-                color={color}
-                />
-              )
-            }}
-            />
+              name={focused ? "home" : "home-outline"}
+              size={42}
+              color={color}
+              />
+            )
+          }}
+          />
         <Tabs.Screen
           name="new"
           options={{
@@ -58,13 +61,14 @@ export default function RootLayout() {
             title: "Home",
             tabBarIcon: ({ color, focused }) => (
               <MaterialCommunityIcons
-                name={focused ? "plus-circle" : "plus-circle-outline"}
-                size={42}
-                color={color}
-                />
-              )
+              name={focused ? "plus-circle" : "plus-circle-outline"}
+              size={42}
+              color={color}
+              />
+            )
             }}
             />
       </Tabs> 
+            </>
   );
 }

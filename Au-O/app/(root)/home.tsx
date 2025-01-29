@@ -1,7 +1,7 @@
 import Button from "@/components/ui/Button";
 import ThemedText from "@/components/ui/ThemedText";
 import { RefreshControl, ScrollView } from "react-native";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useAuthentication } from "@/contexts/AuthenticationContext";
 import { Keyboard } from "react-native";
 import { TouchableWithoutFeedback } from "react-native";
@@ -11,92 +11,67 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import RootHeader from "@/components/home/RootHeader";
 import { Colors } from "@/constants/Colors";
 import { boros_manifesto } from "@/constants/texts";
+import { apiFetch } from "@/lib/apiClient";
+import { PostResponse } from "@/constants/types";
+import { router } from "expo-router";
 
 export default function Home() {
-
   const { logout, user } = useAuthentication();
   const { language } = useLanguage();
   const [refreshing, setRefreshing] = useState(false);
   const handleRefresh = useCallback(() => {
     setRefreshing(true);
-    setTimeout(() => {
-      setRefreshing(false);
-    }, 2000);
-  }, [])
+    router.reload()
+    setRefreshing(false);
+  }, []);
+  const [post, setPost] = useState<PostResponse[]>([]);
+  useEffect(() => {
+    async function fetchPost() {
+      const post = await apiFetch<PostResponse[]>("posts/all", "GET", true);
+      setPost(post!);
+    }
+    fetchPost();
+  }, []);
   return (
     <>
-            
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <ScrollView refreshControl={<RefreshControl refreshing={refreshing}  onRefresh={handleRefresh} tintColor={Colors.highlight.main} colors={[Colors.highlight.main]} progressBackgroundColor="#FFFFFF" />} stickyHeaderIndices={[0]} stickyHeaderHiddenOnScroll >
-      <RootHeader language={language} colorScheme={colorScheme.get()!} />
-        <Button
-          variant="highlight"
-          type="fill"
-          onPress={() => {
-            logout!();
-          }}
-          >
-          <ThemedText>Logout</ThemedText>
-        </Button>
-        <ThemedText>
-          Helló, {user?.username} vagyok, tehát {user?.nickname}.{" "}
-        </ThemedText>
-        
-        <PostCard
-          author_nickname={"teszt"}
-          author_username={"teszti"}
-          colorScheme={colorScheme.get()!}
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <ScrollView
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={handleRefresh}
+              
+              tintColor={Colors.highlight.main}
+              colors={[Colors.highlight.main]}
+              progressBackgroundColor="#FFFFFF"
+            />
+          }
+          stickyHeaderIndices={[0]}
+          stickyHeaderHiddenOnScroll
+        >
+          <RootHeader language={language} colorScheme={colorScheme.get()!} />
+         
+          {
+            post.map((post) => (
+
+              <PostCard
+              key={post.post_id}
+              author_nickname={post.user.nickname}
+              author_username={post.user.username}
+              colorScheme={colorScheme.get()!}
+              comments={[]}
+          date={post.date_of_creation.split("T")[0]}
+          description={post.text}
+          images={post.images.map((image) => image.url)}
           language={language}
-          comments={[
-            {
-              id: 1,
-              replies: [{
-                id: 2,
-                text: "Köszi!",
-                replies: []
-              }],
-              text: "Szia! Gratulálok hozzá! :)",
-            },
-            {
-              id: 3,
-              replies: [{
-                id: 4,
-                text: "Köszi!",
-                replies: []
-              }],
-              text: "Szia! Nagyon jó lett! :)",
-            },
-            {
-              id: 5,
-              replies: [{
-                id: 6,
-                text: "Köszi!",
-                replies: []
-              }],
-              text: "Nem bírom tovább! :)",
-            },
-          ]}
-          date={"2021-01-01"}
-          description={boros_manifesto.EN}
-          images={[]}
-          location={"teszt"}
-          reactions={{ fire: 4, heart: 0, sunglasses: 4 }}
-        />
-        <PostCard
-          groupData={{ group_nickname: "teszt", group_icon: null, group_name: "teszt" }}
-          author_nickname={"teszt"}
-          author_username={"teszti"}
-          colorScheme={colorScheme.get()!}
-          language={language}
-          comments={[]}
-          date={"2021-01-01"}
-          description={"teszt"}
-          images={[]}
-          location={"teszt"}
-          reactions={{ fire: 4, heart: 0, sunglasses: 4 }}
+          location={""}
+          reactions={{fire: 0, heart: 0, sunglasses: 0}}
+          
           />
-      </ScrollView>
-    </TouchableWithoutFeedback>
-          </>
+        ))
+      }
+        </ScrollView>
+      </TouchableWithoutFeedback>
+    </>
   );
 }

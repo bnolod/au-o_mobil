@@ -22,6 +22,8 @@ import { saveUser } from "@/lib/functions";
 import { usePathname } from "expo-router";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import Toast, { ToastConfig } from "react-native-toast-message";
+import { Platform } from "react-native";
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
@@ -60,6 +62,7 @@ async function initialValidation() {
     return null;
   }
 
+
   return (
     <LanguageProvider>
       <OnboardingProvider>
@@ -71,7 +74,6 @@ async function initialValidation() {
 
                       <GestureHandlerRootView>
                         <BottomSheetModalProvider>
-
               <Stack initialRouteName="onboarding">
                 <Stack.Screen
                   name="onboarding"
@@ -82,6 +84,7 @@ async function initialValidation() {
               </Stack>
                   </BottomSheetModalProvider>
                 </GestureHandlerRootView>
+                  <Toast topOffset={Platform.OS === "ios" ? 60 : 30}/>
             </FormProvider>
           </AuthenticationProvider>
         </ThemeProvider>

@@ -15,6 +15,7 @@ import Carousel from "react-native-reanimated-carousel";
 import PostHeaderElement from "./PostHeaderElement";
 import PostAuthorDisplayElement from "./PostAuthorDisplayElement";
 import { HomeTexts } from "@/constants/texts";
+import { ImagePickerAsset } from "expo-image-picker";
 
 export default function PostCard({
   preview = false,
@@ -59,6 +60,7 @@ export default function PostCard({
         : reactions[type];
     setReactions(newReactions);
   };
+  ;
   return (
     <View className="post-container">
       <View className="post-header justify-between">
@@ -106,7 +108,7 @@ export default function PostCard({
               snapEnabled
               renderItem={({ index }) => (
                 <Image
-                  source={{ uri: images[index].uri }}
+                  source={{ uri: images[index] }}
                   className="flex-1"
                   resizeMode="contain"
                 />
@@ -114,7 +116,7 @@ export default function PostCard({
             />
           ) : (
             <Image
-              source={{ uri: images[0].uri }}
+            source={{ uri: (images[0]) }}
               className="flex-1"
               resizeMode="contain"
             />
@@ -132,12 +134,12 @@ export default function PostCard({
                 reactionState.fire === reactions.fire ? "inactive" : "active"
               }
               count={reactionState.fire}
-              onPress={() => handleReaction("fire")}
+              onPress={!preview ? () => handleReaction("fire") : () => {}}
             />
             <ReactionButton
               type="heart"
               count={reactionState.heart}
-              onPress={() => handleReaction("heart")}
+              onPress={!preview ? () => handleReaction("heart") : () => {}}
               state={
                 reactionState.heart === reactions.heart ? "inactive" : "active"
               }
@@ -145,7 +147,7 @@ export default function PostCard({
             <ReactionButton
               type="sunglasses"
               count={reactionState.sunglasses}
-              onPress={() => handleReaction("sunglasses")}
+              onPress={!preview ? () => handleReaction("sunglasses") : () => {}}
               state={
                 reactionState.sunglasses === reactions.sunglasses
                   ? "inactive"
