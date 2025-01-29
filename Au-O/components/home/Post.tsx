@@ -3,6 +3,7 @@ import {
   View,
   Image,
   Dimensions,
+  Pressable,
 } from "react-native";
 import React from "react";
 import ThemedText from "../ui/ThemedText";
@@ -16,6 +17,7 @@ import PostHeaderElement from "./PostHeaderElement";
 import PostAuthorDisplayElement from "./PostAuthorDisplayElement";
 import { HomeTexts } from "@/constants/texts";
 import { ImagePickerAsset } from "expo-image-picker";
+import { router } from "expo-router";
 
 export default function PostCard({
   preview = false,
@@ -31,6 +33,7 @@ export default function PostCard({
   reactions,
   language,
   colorScheme,
+  post_id
 }: PostCardProps) {
   const postType = getPostType(
     author_nickname,
@@ -94,7 +97,10 @@ export default function PostCard({
           />
         </View>
       </View>
-      <View className="post-image">
+      <Pressable className="post-image" onPress={post_id.length > 1 ? () => {router.push({
+        pathname: "/(post)/[id]",
+        params: { id: post_id}
+      })} : () => {}}>
         {
           eventData && <View className="w-1/2 h-8 secondary absolute z-50 top-6 left-6 flex justify-center items-center rounded-xl"><ThemedText className=" font-semibold text-lg">
             {eventData.attendees} {HomeTexts.post.attendees[language]}</ThemedText></View>
@@ -124,7 +130,7 @@ export default function PostCard({
         ) : (
           <></>
         )}
-      </View>
+      </Pressable>
       <View className="post-footer">
         <View className="post-reaction-container">
           <View className=" gap-2 flex flex-row basis-7/12">

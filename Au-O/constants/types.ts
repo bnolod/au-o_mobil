@@ -143,6 +143,7 @@ export interface ImageStoreRequest {
   location: string
 }
 export interface PostCardProps {
+  post_id: string
   preview?: boolean
   groupData?: GroupPostData
   eventData?: EventPostData

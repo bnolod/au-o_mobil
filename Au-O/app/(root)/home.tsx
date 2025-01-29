@@ -55,6 +55,7 @@ export default function Home() {
             post.map((post) => (
 
               <PostCard
+              post_id={post.post_id}
               key={post.post_id}
               author_nickname={post.user.nickname}
               author_username={post.user.username}

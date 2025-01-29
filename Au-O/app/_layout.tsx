@@ -81,6 +81,7 @@ async function initialValidation() {
                   />
                 <Stack.Screen name="(auth)" options={{ headerShown: false }} />
                 <Stack.Screen name="(root)" options={{ headerShown: false }} />
+                <Stack.Screen name="(post)" options={{ headerShown: false }} />
               </Stack>
                   </BottomSheetModalProvider>
                 </GestureHandlerRootView>
