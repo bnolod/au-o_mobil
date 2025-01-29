@@ -1,7 +1,7 @@
 import { TapWrapperProps } from '@/constants/types';
 import React, { useRef } from 'react';
-import { View } from 'react-native';
-import { TapGestureHandler, GestureHandlerRootView } from 'react-native-gesture-handler';
+
+import { TapGestureHandler } from 'react-native-gesture-handler';
 
 
 export default function ({ onSingleTap, onDoubleTap, children }: TapWrapperProps) {

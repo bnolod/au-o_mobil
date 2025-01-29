@@ -142,18 +142,7 @@ export interface ImageStoreRequest {
   postImages: ImageUploadResponse[]
   location: string
 }
-export interface OptionModalProps {
-  visible: boolean;
-  handleOpen: () => void;
-  handleClose: () => void;
-  children: ReactNode;
-  title: string;
-  options: OptionModalOptionProps[]
-  position: {
-    x: number
-    y: number
-  }
-}
+
 export interface ModalState {
   visible: boolean;
   content: ReactNode | null;
@@ -164,10 +153,7 @@ export interface TapWrapperProps {
   onDoubleTap?: () => void;
   children: React.ReactNode;
 }
-export interface OptionModalOptionProps {
-  text: string;
-  onPress: () => void;
-}
+
 export interface PostCardProps {
   post_id: string
   preview?: boolean
@@ -184,18 +170,7 @@ export interface PostCardProps {
   language: "EN" | "HU";
   colorScheme: "light" | "dark";
 }
-export interface PostPreviewProps {
-  author_nickname: string
-  author_username: string
-  
-  date: string
-  images: ImagePickerAsset[]
-  description: string
-  location: string,
-  handleDismiss: () => void
-  handleSubmit: () => void
-  
-}
+
 export type ImageUploadType = {
   image: string;
   type: string;

@@ -140,6 +140,9 @@
   .new-post-gallery-opener {
     @apply my-2 secondary basis-1/12 text-center w-11/12 flex flex-col justify-center items-center gap-1 border-2 border-highlight rounded-xl
   }
+  .post-image-index {
+    @apply px-3 z-50 py-1 font-semibold left-4 top-4 absolute primary rounded-xl
+  }
 } 
 @layer base {
   .secondary {

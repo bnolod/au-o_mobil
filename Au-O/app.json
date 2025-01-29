@@ -10,7 +10,7 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false
     },
     "android": {
       "adaptiveIcon": {
@@ -29,7 +29,7 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/auo-splash-dark.png",
+          "image": "./assets/images/auo-splash.png",
           "resizeMode": "cover"
         }
       ],

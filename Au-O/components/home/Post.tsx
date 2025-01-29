@@ -1,11 +1,5 @@
 import { PostCardProps } from "@/constants/types";
-import {
-  View,
-  Image,
-  Dimensions,
-  Platform,
-  ActionSheetIOS,
-} from "react-native";
+import { View } from "react-native";
 import * as Haptics from "expo-haptics";
 import React from "react";
 import ThemedText from "../ui/ThemedText";
@@ -14,15 +8,13 @@ import ReactionButton from "../ui/ReactionButton";
 import { useState } from "react";
 import { formatDate, getPostType } from "@/lib/functions";
 import CommentSheet from "./CommentSheet";
-import Carousel from "react-native-reanimated-carousel";
 import PostHeaderElement from "./PostHeaderElement";
 import PostAuthorDisplayElement from "./PostAuthorDisplayElement";
-import { HomeTexts, PostCreationTexts } from "@/constants/texts";
+import { HomeTexts } from "@/constants/texts";
 import { router } from "expo-router";
-import * as Clipboard from "expo-clipboard";
-import Toast from "react-native-toast-message";
-import { Picker } from "@react-native-picker/picker";
 import TapCountWrapper from "../utility/TapCountWrapper";
+import PostOptionMenu from "./PostOptionMenu";
+import PostImage from "./PostImage";
 
 export default function PostCard({
   preview = false,
@@ -97,70 +89,7 @@ export default function PostCard({
             name="dots-horizontal"
             size={42}
             color={colorScheme === "dark" ? "white" : "black"}
-            onPress={
-              !preview
-                ? Platform.OS === "ios"
-                  ? () => {
-                      ActionSheetIOS.showActionSheetWithOptions(
-                        {
-                          options: [
-                            PostCreationTexts.options.cancel[language],
-                            PostCreationTexts.options.share[language],
-                            PostCreationTexts.options.edit[language],
-                            PostCreationTexts.options.report[language],
-                          ],
-                          cancelButtonIndex: 0,
-                          destructiveButtonIndex:3,
-                        },
-                        async (buttonIndex) => {
-                          if (buttonIndex === 1) {
-                            await Clipboard.setStringAsync("id");
-                            Toast.show({
-                              type: "success",
-                              text1: PostCreationTexts.copied[language],
-                              position: "top",
-                              visibilityTime: 2000,
-                            });
-                          }
-                          if (buttonIndex === 2) {
-                            console.log("Reported post");
-                          }
-                          if (buttonIndex === 2) {
-                            console.log("edit");
-                          }
-                        }
-                      );
-                    }
-                  : () => {
-                      return (
-                        <Picker
-                          onValueChange={async (itemValue, itemIndex) => {
-                            if (itemIndex === 2) {
-                              return;
-                            }
-                            if (itemIndex === 0) {
-                              await Clipboard.setStringAsync("id");
-                              Toast.show({
-                                type: "success",
-                                text1: PostCreationTexts.copied[language],
-                                position: "top",
-                                visibilityTime: 2000,
-                              });
-                            }
-                            if (itemIndex === 1) {
-                              console.log("Reported post");
-                            }
-                          }}
-                        >
-                          <Picker.Item label={PostCreationTexts.options.share[language]} />
-                          <Picker.Item label={PostCreationTexts.options.edit[language]} />
-                          <Picker.Item label={PostCreationTexts.options.report[language]} />
-                          <Picker.Item label={PostCreationTexts.options.cancel[language]} />
-                        </Picker>
-                      );
-                    }
-                : () => {}
-            }
+            onPress={() => PostOptionMenu(preview, language, post_id)}
           />
         </View>
       </View>
@@ -189,43 +118,9 @@ export default function PostCard({
               </ThemedText>
             </View>
           )}
-          {images.length !== 0 ? (
-            images.length > 1 ? (
-              <Carousel
-                width={Dimensions.get("screen").width}
-                panGestureHandlerProps={{
-                  minDist: 30,
-                }}
-                data={images}
-                loop={false}
-                
-                snapEnabled
-                renderItem={({ index }) => (
-                  <>
-<ThemedText className="px-3 z-50 py-1 font-semibold left-4 top-4 absolute primary rounded-full">{index+1}/{images.length}</ThemedText>
-
-                  <Image
-                    source={{ uri: images[index] }}
-                    className="flex-1"
-                    resizeMode="contain"
-                    />
-                    
-                    </>
-                )}
-              />
-            ) : (
-              <Image
-                source={{ uri: images[0] }}
-                className="flex-1"
-                resizeMode="contain"
-              />
-            )
-          ) : (
-            <></>
-          )}
+          <PostImage images={images}/>
         </View>
       </TapCountWrapper>
-
       <View className="post-footer">
         <View className="post-reaction-container">
           <View className=" gap-2 flex flex-row basis-7/12">
