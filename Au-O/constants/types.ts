@@ -131,7 +131,7 @@ export interface PostResponse {
     group: any,
     images: ImageUploadResponse[],
     location: string
-    post_id: string,
+    post_id: number,
     post_type: PostResponseType
     reaction_count: number,
     text: string,
@@ -156,7 +156,7 @@ export interface TapWrapperProps {
 }
 
 export interface PostCardProps {
-  post_id: string
+  post_id: number | null
   preview?: boolean
   groupData?: GroupPostData
   eventData?: EventPostData

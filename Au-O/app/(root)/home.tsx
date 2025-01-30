@@ -51,12 +51,12 @@ export default function Home() {
         >
           <RootHeader language={language} colorScheme={colorScheme.get()!} />
          
-          {
+          { post &&
             post.map((post) => (
 
               <PostCard
-              user_id={user!.id.toString()} //uuid mikor?
-              author_id={post.user.id.toString()}
+              user_id={user!.id}
+              author_id={post.user.id}
               post_id={post.post_id}
               key={post.post_id}
               author_nickname={post.user.nickname}

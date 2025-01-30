@@ -1,5 +1,5 @@
 import { PostCardProps } from "@/constants/types";
-import { View } from "react-native";
+import { Pressable, View } from "react-native";
 import * as Haptics from "expo-haptics";
 import React from "react";
 import ThemedText from "../ui/ThemedText";
@@ -33,13 +33,19 @@ export default function PostCard({
   colorScheme,
   post_id,
   user_id
-}: PostCardProps & { user_id: string | null, author_id: string | null }) {
+}: PostCardProps & { user_id: number | null, author_id: number | null }) {
   const postType = getPostType(
     author_nickname,
     author_username,
     groupData,
     eventData
   );
+  function showOptions() {
+    if (!preview) {
+
+      PostOptionMenu(preview, language, post_id!, user_id, author_id)
+    }
+  }
   const [reactionState, setReactions] = useState<{
     fire: number;
     heart: number;
@@ -91,10 +97,11 @@ export default function PostCard({
             name="dots-horizontal"
             size={36}
             color={colorScheme === "dark" ? "white" : "black"}
-            onPress={() => PostOptionMenu(preview, language, post_id, user_id, author_id)}
+            onPress={() => showOptions()}
           />
         </View>
       </View>
+<Pressable onLongPress={() => showOptions()}>
 
       <TapCountWrapper
         onDoubleTap={async () => {
@@ -102,14 +109,15 @@ export default function PostCard({
           await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
         }}
         onSingleTap={
-          post_id.length > 1
-            ? () => {
-                router.push({
-                  pathname: "/(post)/[id]",
+          post_id
+          ? () => {
+            console.log("post_id", post_id);
+            router.push({
+                  pathname: "/(post)/page/[id]",
                   params: { id: post_id },
                 });
               }
-            : () => {}
+            : () => {console.log("no post_id")}
         }
       >
         <View className="post-image">
@@ -123,6 +131,7 @@ export default function PostCard({
           <PostImage images={images}/>
         </View>
       </TapCountWrapper>
+          </Pressable>
       <View className="post-footer">
         <View className="post-reaction-container">
           <View className=" gap-2 flex flex-row basis-7/12">
@@ -133,7 +142,7 @@ export default function PostCard({
               }
               count={reactionState.fire}
               onPress={!preview ? () => handleReaction("fire") : () => {}}
-            />
+              />
             <ReactionButton
               type="heart"
               count={reactionState.heart}

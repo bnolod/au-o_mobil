@@ -101,7 +101,7 @@ export const login = async (request: LoginRequest): Promise<string | null> => {
     else return false
   }
   export async function CreatePost(props: CreatePostRequest ): Promise<void> {
-    const res = await apiFetch<CreatePostRequest>("post/new", "POST", true, {
+  await apiFetch<CreatePostRequest>("post/new", "POST", true, {
       ...props
     })
     //

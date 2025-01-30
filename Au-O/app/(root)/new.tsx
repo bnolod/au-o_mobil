@@ -31,7 +31,7 @@ import ImageNotFound from "@/components/new/ImageNotFound";
 import PostCard from "@/components/home/Post";
 import { EventPostData, ImageStoreRequest, ImageUploadResponse } from "@/constants/types";
 import { useAuthentication } from "@/contexts/AuthenticationContext";
-import { cleanupInvalidImageUploads, convertToBlob, createTimestamp } from "@/lib/functions";
+import { cleanupInvalidImageUploads, convertToBlob, createTimestamp, handleGallery } from "@/lib/functions";
 import {  imageUpload, storeImages } from "@/lib/apiClient";
 import Toast from "react-native-toast-message";
 import LoadingModal from "@/components/ui/LoadingModal";
@@ -130,34 +130,7 @@ export default function NewPost() {
       return
     }
   }
-  async function handleGallery() {
-    if (images.length < 10) {
-      let result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ["images"],
-        allowsEditing: false,
-        exif: false,
-
-        quality: 0.7,
-        allowsMultipleSelection: true,
-        selectionLimit: 10 - images.length,
-      });
-      if (!result.canceled) {
-        if (result.assets.length + images.length <= 10) {
-            const newAssets = result.assets.filter(
-            (asset) => !images.some((image) => image.assetId === asset.assetId)
-            );
-            if (newAssets.length < result.assets.length) {
-              Toast.show({
-                type: "error",
-                text1: PostCreationTexts.imageUploadDuplicateSafeguard.header[language],
-                text2: PostCreationTexts.imageUploadDuplicateSafeguard.message[language],
-              })
-            }
-            setImages(images.concat(newAssets));
-        }
-      }
-    }
-  }
+  
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   /*const openGroupSheetIOS = () => {
     retIOS.showActionSheetWithOptions(
@@ -255,14 +228,15 @@ export default function NewPost() {
               />
             ) : (
               <ImageNotFound
-              onPress={handleGallery}
+              onPress={async () => {await handleGallery(images, language)}}
               language={language}
               colorScheme={colorScheme!}
               />
             )}
         </View>
         <TouchableOpacity
-          onPress={handleGallery}
+
+          onPress={async () => {await handleGallery(images, language)}}
           className="new-post-gallery-opener mx-auto"
         >
           <ThemedText className="text-lg">
@@ -427,7 +401,7 @@ export default function NewPost() {
           >
             <BottomSheetView>
               <PostCard
-              post_id=""
+              post_id={null}
               user_id={null}
               author_id={null}
                 author_nickname={user!.nickname}

@@ -3,26 +3,26 @@ import { ActionSheetIOS, Platform } from "react-native";
 import * as Clipboard from "expo-clipboard";
 import Toast from "react-native-toast-message";
 import { Picker } from "@react-native-picker/picker";
+import { router } from "expo-router";
 export default function PostOptionMenu(
   preview: boolean,
   language: "EN" | "HU",
-  post_id: string,
-  user_id: string | null,
-  author_id: string | null
+  post_id: number,
+  user_id: number | null,
+  author_id: number | null
 ) {
+  if (preview) return null;
   let iosOptions = [
-    
     PostCreationTexts.options.cancel[language],
     PostCreationTexts.options.share[language],
     PostCreationTexts.options.report[language],
-    
-  ]
-  console.log(author_id, user_id)
+  ];
+  console.log(author_id, user_id);
   if (author_id && author_id === user_id) {
-    iosOptions.push(PostCreationTexts.options.edit[language])
+    iosOptions.push(PostCreationTexts.options.edit[language]);
   }
   async function handleShare() {
-    await Clipboard.setStringAsync(post_id);
+    await Clipboard.setStringAsync(post_id.toString());
     Toast.show({
       type: "success",
       text1: PostCreationTexts.copied[language],
@@ -31,14 +31,14 @@ export default function PostOptionMenu(
     });
   }
   async function handleReport() {
-    console.log("report")
+    console.log("report");
   }
   async function handleEdit() {
-    if (author_id && user_id && (author_id === user_id)) {
-      console.log("editing")
+    if (author_id && user_id && author_id === user_id) {
+      router.push({ pathname: "/(post)/edit/[id]", params: { id: post_id } });
     }
   }
-  if (preview) return null;
+
   if (Platform.OS === "ios") {
     return ActionSheetIOS.showActionSheetWithOptions(
       {
@@ -48,19 +48,17 @@ export default function PostOptionMenu(
       },
       async (buttonIndex) => {
         if (buttonIndex === 1) {
-          await handleShare() 
+          await handleShare();
         }
         if (buttonIndex === 2) {
-          await handleReport()
+          await handleReport();
         }
         if (buttonIndex === 3) {
-          await handleEdit()
+          await handleEdit();
         }
       }
     );
-  }
-  else if (Platform.OS === "android") {
-    
+  } else if (Platform.OS === "android") {
     return (
       <Picker
         onValueChange={async (itemIndex) => {
@@ -68,20 +66,22 @@ export default function PostOptionMenu(
             return;
           }
           if (itemIndex === 1) {
-            await handleShare()
+            await handleShare();
           }
           if (itemIndex === 2) {
-            await handleReport()
+            await handleReport();
           }
           if (itemIndex === 3) {
-            await handleEdit()
+            await handleEdit();
           }
         }}
       >
         <Picker.Item label={PostCreationTexts.options.cancel[language]} />
         <Picker.Item label={PostCreationTexts.options.share[language]} />
         <Picker.Item label={PostCreationTexts.options.report[language]} />
-        {(user_id && user_id === author_id) && <Picker.Item label={PostCreationTexts.options.edit[language]} />}
+        {user_id && user_id === author_id && (
+          <Picker.Item label={PostCreationTexts.options.edit[language]} />
+        )}
       </Picker>
     );
   }

@@ -427,3 +427,13 @@ export const PostCreationTexts = {
     EN: "Back"
   }
 }
+export const PostEditTexts = {
+  header: {
+    HU: "Poszt szerkesztése",
+    EN: "Edit post"
+  },
+  date: {
+    HU: "Dátumozva: ",
+    EN: "Dated: "
+  },
+}

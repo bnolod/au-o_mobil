@@ -9,9 +9,11 @@ import {
 } from "@/constants/types";
 import * as SecureStore from "expo-secure-store";
 import * as FileSystem from 'expo-file-system'
+import * as ImagePicker from 'expo-image-picker'
 import { ImagePickerAsset } from "expo-image-picker";
 import { imageUpload } from "./apiClient";
 import { ActionSheetIOS, ActionSheetIOSOptions } from "react-native";
+import Toast from "react-native-toast-message";
 export function handleFormInputChange(
   formKey: string,
   key: string,
@@ -67,6 +69,35 @@ export async function convertToBlob(image: any): Promise<any> {
     encoding: FileSystem.EncodingType.Base64
   })
   return base64
+}
+export async function handleGallery(images: ImagePicker.ImagePickerAsset[], language: "HU" | "EN" = "EN") {
+  if (images.length < 10) {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ["images"],
+      allowsEditing: false,
+      exif: false,
+
+      quality: 0.7,
+      allowsMultipleSelection: true,
+      selectionLimit: 10 - images.length,
+    });
+    if (!result.canceled) {
+      if (result.assets.length + images.length <= 10) {
+          const newAssets = result.assets.filter(
+          (asset) => !images.some((image) => image.assetId === asset.assetId)
+          );
+          if (newAssets.length < result.assets.length) {
+            Toast.show({
+              type: "error",
+              text1: PostCreationTexts.imageUploadDuplicateSafeguard.header[language],
+              text2: PostCreationTexts.imageUploadDuplicateSafeguard.message[language],
+            })
+          }
+          const newImages = images.concat(newAssets);
+          return newImages
+      }
+    }
+  }
 }
 export function validateLogin(
   identifier: string,
