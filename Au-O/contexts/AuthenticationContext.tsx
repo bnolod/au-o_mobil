@@ -4,7 +4,6 @@ import * as SecureStore from "expo-secure-store";
 import {
   handleLogin as apiLogin,
   handleRegister as apiRegister,
-  logout as apiLogout,
   getUser,
 } from "@/lib/apiClient";
 import {

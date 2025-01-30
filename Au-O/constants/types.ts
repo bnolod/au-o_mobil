@@ -30,7 +30,7 @@ export interface LoginRequest {
   password: string;
 }
 export interface User {
-  id: Number;
+  id: number;
   username: string;
   password: string;
   nickname: string;
@@ -116,6 +116,7 @@ export type UserPostResponseType = {
   nickname: string,
   profile_img:any,
   username: string
+
 }
 export type ImagePostResponseType = {
   id: number,
@@ -129,7 +130,7 @@ export interface PostResponse {
     date_of_update: string,
     group: any,
     images: ImageUploadResponse[],
-
+    location: string
     post_id: string,
     post_type: PostResponseType
     reaction_count: number,

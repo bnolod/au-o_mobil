@@ -19,6 +19,7 @@ import PostImage from "./PostImage";
 export default function PostCard({
   preview = false,
   author_nickname,
+  author_id,
   eventData,
   groupData,
   author_username,
@@ -31,7 +32,8 @@ export default function PostCard({
   language,
   colorScheme,
   post_id,
-}: PostCardProps) {
+  user_id
+}: PostCardProps & { user_id: string | null, author_id: string | null }) {
   const postType = getPostType(
     author_nickname,
     author_username,
@@ -87,9 +89,9 @@ export default function PostCard({
         <View className="flex flex-row basis-1/12 justify-end text-right">
           <MaterialCommunityIcons
             name="dots-horizontal"
-            size={42}
+            size={36}
             color={colorScheme === "dark" ? "white" : "black"}
-            onPress={() => PostOptionMenu(preview, language, post_id)}
+            onPress={() => PostOptionMenu(preview, language, post_id, user_id, author_id)}
           />
         </View>
       </View>

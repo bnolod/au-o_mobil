@@ -428,6 +428,8 @@ export default function NewPost() {
             <BottomSheetView>
               <PostCard
               post_id=""
+              user_id={null}
+              author_id={null}
                 author_nickname={user!.nickname}
                 author_username={user!.username}
                 colorScheme={colorScheme!}

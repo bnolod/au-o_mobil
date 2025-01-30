@@ -55,6 +55,8 @@ export default function Home() {
             post.map((post) => (
 
               <PostCard
+              user_id={user!.id.toString()} //uuid mikor?
+              author_id={post.user.id.toString()}
               post_id={post.post_id}
               key={post.post_id}
               author_nickname={post.user.nickname}
@@ -65,7 +67,7 @@ export default function Home() {
           description={post.text}
           images={post.images.map((image) => image.url)}
           language={language}
-          location={""}
+          location={post.location}
           reactions={{fire: 0, heart: 0, sunglasses: 0}}
           
           />
