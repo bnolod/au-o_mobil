@@ -14,6 +14,8 @@ import { boros_manifesto } from "@/constants/texts";
 import { apiFetch } from "@/lib/apiClient";
 import { PostResponse } from "@/constants/types";
 import { router } from "expo-router";
+import { FlashList } from "@shopify/flash-list";
+import NoPostsFound from "@/components/home/NoPostsFound";
 
 export default function Home() {
   const { logout, user } = useAuthentication();
@@ -21,7 +23,7 @@ export default function Home() {
   const [refreshing, setRefreshing] = useState(false);
   const handleRefresh = useCallback(() => {
     setRefreshing(true);
-    router.reload()
+    router.reload();
     setRefreshing(false);
   }, []);
   const [post, setPost] = useState<PostResponse[]>([]);
@@ -40,7 +42,6 @@ export default function Home() {
             <RefreshControl
               refreshing={refreshing}
               onRefresh={handleRefresh}
-              
               tintColor={Colors.highlight.main}
               colors={[Colors.highlight.main]}
               progressBackgroundColor="#FFFFFF"
@@ -50,29 +51,30 @@ export default function Home() {
           stickyHeaderHiddenOnScroll
         >
           <RootHeader language={language} colorScheme={colorScheme.get()!} />
-         
-          { post &&
-            post.map((post) => (
-
+          <FlashList
+          contentContainerClassName="mt-4 flex-1"
+            data={post}
+            renderItem={({ item, index }) => (
               <PostCard
-              user_id={user!.id}
-              author_id={post.user.id}
-              post_id={post.post_id}
-              key={post.post_id}
-              author_nickname={post.user.nickname}
-              author_username={post.user.username}
-              colorScheme={colorScheme.get()!}
-              comments={[]}
-          date={post.date_of_creation.split("T")[0]}
-          description={post.text}
-          images={post.images.map((image) => image.url)}
-          language={language}
-          location={post.location}
-          reactions={{fire: 0, heart: 0, sunglasses: 0}}
-          
+                user_id={user!.id}
+                author_id={item.user.id}
+                post_id={item.post_id}
+                key={item.post_id}
+                author_nickname={item.user.nickname}
+                author_username={item.user.username}
+                colorScheme={colorScheme.get()!}
+                comments={[]}
+                date={item.date_of_creation.split("T")[0]}
+                description={item.text}
+                images={item.images.map((image) => image.url)}
+                language={language}
+                location={item.location}
+                reactions={{ fire: 0, heart: 0, sunglasses: 0 }}
+              />
+            )}
+            estimatedItemSize={300}
+            ListEmptyComponent={<NoPostsFound language={language} />}
           />
-        ))
-      }
         </ScrollView>
       </TouchableWithoutFeedback>
     </>

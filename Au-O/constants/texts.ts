@@ -180,6 +180,10 @@ export const UIErrorTexts = {
             EN: "Username must be at least 3 characters long."
         }
     },
+    loading: {
+      HU: "Egy pillanat...",
+      EN: "Just a moment..."
+    },
     dateOfBirth: {
       ageRestriction: {
         HU: "A felhasználónak legalább 16 évesnek kell lennie.",
@@ -436,4 +440,15 @@ export const PostEditTexts = {
     HU: "Dátumozva: ",
     EN: "Dated: "
   },
+}
+export const PostStatusTexts = {
+  loading: {
+    HU: "Poszt betöltése...",
+    EN: "Loading post..."
+  },
+  notFound: {
+    HU: "Poszt nem található",
+    EN: "Post not found"
+  },
+
 }

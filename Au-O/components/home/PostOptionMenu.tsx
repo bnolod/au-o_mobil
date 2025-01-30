@@ -17,7 +17,6 @@ export default function PostOptionMenu(
     PostCreationTexts.options.share[language],
     PostCreationTexts.options.report[language],
   ];
-  console.log(author_id, user_id);
   if (author_id && author_id === user_id) {
     iosOptions.push(PostCreationTexts.options.edit[language]);
   }

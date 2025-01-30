@@ -228,7 +228,7 @@ export default function NewPost() {
               />
             ) : (
               <ImageNotFound
-              onPress={async () => {await handleGallery(images, language)}}
+              onPress={async () => {const res = await handleGallery(images, language);  setImages((res as ImagePicker.ImagePickerAsset[]) || [])}}
               language={language}
               colorScheme={colorScheme!}
               />
@@ -236,14 +236,14 @@ export default function NewPost() {
         </View>
         <TouchableOpacity
 
-          onPress={async () => {await handleGallery(images, language)}}
+          onPress={async () =>  {const res = await handleGallery(images, language);  setImages((res as ImagePicker.ImagePickerAsset[]) || [])}}
           className="new-post-gallery-opener mx-auto"
         >
           <ThemedText className="text-lg">
             {PostCreationTexts.upload[language]}
           </ThemedText>
           <ThemedText className="text-sm">
-            {images.length} {PostCreationTexts.selectedImages[language]}
+            {images.length || 0} {PostCreationTexts.selectedImages[language]}
           </ThemedText>
         </TouchableOpacity>
         {images.length > 0 && (
