@@ -429,6 +429,10 @@ export const PostCreationTexts = {
   cancelPreview: {
     HU: "Vissza",
     EN: "Back"
+  },
+  deletePost: {
+    HU: "Poszt törlése",
+    EN: "Delete post"
   }
 }
 export const PostEditTexts = {
@@ -450,5 +454,31 @@ export const PostStatusTexts = {
     HU: "Poszt nem található",
     EN: "Post not found"
   },
-
+  deletePrompt: {
+    title: {
+      HU: "Poszt törlése",
+      EN: "Delete post"
+    },
+    message: {
+      HU: "Biztosan törölni szeretnéd ezt a posztot?",
+      EN: "Are you sure you want to delete this post?"
+    },
+    buttons: {
+      cancel: {
+        HU: "Mégse",
+        EN: "Cancel"
+      },
+      delete: {
+        HU: "Törlés",
+        EN: "Delete"
+      }
+    }
+  },
+  options: {
+    title: {
+      HU: "Poszt műveletek",
+      EN: "Post options"
+    },
+    
+  }
 }

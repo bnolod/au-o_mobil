@@ -10,42 +10,50 @@ import { colorScheme } from "nativewind";
 import { useLanguage } from "@/contexts/LanguageContext";
 import RootHeader from "@/components/home/RootHeader";
 import { Colors } from "@/constants/Colors";
-import { boros_manifesto } from "@/constants/texts";
+import { boros_manifesto, PostStatusTexts, UIErrorTexts } from "@/constants/texts";
 import { apiFetch } from "@/lib/apiClient";
 import { PostResponse } from "@/constants/types";
 import { router } from "expo-router";
 import { FlashList } from "@shopify/flash-list";
 import NoPostsFound from "@/components/home/NoPostsFound";
+import LoadingModal from "@/components/ui/LoadingModal";
 
 export default function Home() {
-  const { logout, user } = useAuthentication();
+  const { user } = useAuthentication();
   const { language } = useLanguage();
   const [refreshing, setRefreshing] = useState(false);
-  const handleRefresh = useCallback(() => {
+  const handleRefresh = useCallback(async () => {
     setRefreshing(true);
-    router.reload();
+    await fetchPosts();
+    setTimeout(() => {
+      
+    }, 1000);
     setRefreshing(false);
+    
   }, []);
   const [post, setPost] = useState<PostResponse[]>([]);
+  async function fetchPosts() {
+    
+    const post = await apiFetch<PostResponse[]>("posts/all", "GET", true);
+    
+    setPost(post!);
+    console.log("confirmed")
+  }
   useEffect(() => {
-    async function fetchPost() {
-      const post = await apiFetch<PostResponse[]>("posts/all", "GET", true);
-      setPost(post!);
-    }
-    fetchPost();
+    fetchPosts();
+    
   }, []);
   return (
     <>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <ScrollView
           refreshControl={
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={handleRefresh}
-              tintColor={Colors.highlight.main}
-              colors={[Colors.highlight.main]}
-              progressBackgroundColor="#FFFFFF"
-            />
+            
+            <RefreshControl  refreshing={refreshing} onRefresh={handleRefresh}>
+
+           <LoadingModal colorScheme={colorScheme.get()!} loading={refreshing} text={UIErrorTexts.loading[language] } />
+            </RefreshControl>
+            
           }
           stickyHeaderIndices={[0]}
           stickyHeaderHiddenOnScroll

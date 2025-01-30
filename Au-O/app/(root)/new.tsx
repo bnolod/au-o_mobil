@@ -112,7 +112,7 @@ export default function NewPost() {
           images: [],
         })
         setLoading(false);
-        router.replace("/(root)/home")
+        router.replace({pathname: "/(post)/page/[id]", params: { id: storeRes.post_id as string }, });
       }
       else {
         Toast.show({

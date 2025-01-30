@@ -93,12 +93,12 @@ export const login = async (request: LoginRequest): Promise<string | null> => {
     }
 
   }
-  export async function storeImages(request: ImageStoreRequest): Promise<boolean> {
+  export async function storeImages(request: ImageStoreRequest): Promise<any> {
     const res = await apiFetch("posts/post/user", "POST", true, request)
     if (res) {
-      return true
+      return res
     }
-    else return false
+    else return null
   }
   export async function CreatePost(props: CreatePostRequest ): Promise<void> {
   await apiFetch<CreatePostRequest>("post/new", "POST", true, {
