@@ -5,21 +5,42 @@ import ThemedText from "@/components/ui/ThemedText";
 import { Colors } from "@/constants/Colors";
 import { PostResponse } from "@/constants/types";
 import { useLanguage } from "@/contexts/LanguageContext";
-import apiClient, { apiFetch } from "@/lib/apiClient";
+import { apiFetch } from "@/lib/apiClient";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { router, useLocalSearchParams } from "expo-router";
 import { useColorScheme } from "nativewind";
 import { useEffect, useState } from "react";
-import { View } from "react-native";
+import { Alert, View } from "react-native";
+import * as Clipboard from 'expo-clipboard'
+import { PostStatusTexts } from "@/constants/texts";
 
 export default function PostPage() {
   const [post, setPost] = useState<PostResponse>();
-  const { id } = useLocalSearchParams();
+  const { id, isNew } = useLocalSearchParams<{id: string; isNew?: string}>();
   const { colorScheme } = useColorScheme();
   const { language } = useLanguage();
   const [loading, setLoading] = useState<boolean | null>(true);
+  function showShareModal() {
+    if (Boolean(isNew)) {
+      Alert.alert(PostStatusTexts.newShare.title[language], PostStatusTexts.newShare.message[language], [
+        {
+          text: PostStatusTexts.newShare.responses.no[language],
+          style: "cancel",
+      
+        },
+        {
+          isPreferred: true,
+          text: PostStatusTexts.newShare.responses.yes[language],
+          onPress: async () => {
+            await Clipboard.setStringAsync(post!.post_id.toString())
+          },
+        }
+      ])
+    }
+  }
   useEffect(() => {
     async function getPost() {
+      
       const res = await apiFetch<PostResponse>(`posts/post/${id}`, "GET", true);
       if (res) {
         setPost(res);
@@ -29,6 +50,7 @@ export default function PostPage() {
       }
     }
     getPost();
+    showShareModal()
   }, []);
   if (loading === null) {
     return (
@@ -50,7 +72,7 @@ export default function PostPage() {
       <LoadingModal
         colorScheme={colorScheme!}
         loading={loading}
-        text={"Loading post..."}
+        text={PostStatusTexts.loading[language]}
       />
     );
   }

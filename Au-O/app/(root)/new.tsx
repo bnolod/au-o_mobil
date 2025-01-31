@@ -25,7 +25,6 @@ import { Images } from "@/lib/staticAssetExports";
 import * as ImagePicker from "expo-image-picker";
 import Carousel from "react-native-reanimated-carousel";
 import { BottomSheetModal, BottomSheetView } from "@gorhom/bottom-sheet";
-
 import { PostCreationTexts } from "@/constants/texts";
 import ImageNotFound from "@/components/new/ImageNotFound";
 import PostCard from "@/components/home/Post";
@@ -112,7 +111,8 @@ export default function NewPost() {
           images: [],
         })
         setLoading(false);
-        router.replace({pathname: "/(post)/page/[id]", params: { id: storeRes.post_id as string }, });
+        router.replace("/(root)/home")
+        router.push({pathname: "/(post)/page/[id]", params: { id: storeRes.post_id as string, isNew: "true" }, });
       }
       else {
         Toast.show({
@@ -247,8 +247,8 @@ export default function NewPost() {
           </ThemedText>
         </TouchableOpacity>
         {images.length > 0 && (
-          <TouchableOpacity onPress={() => setImages([])}>
-            <ThemedText>{PostCreationTexts.clearImages[language]}</ThemedText>
+          <TouchableOpacity className="mx-auto my-2" onPress={() => setImages([])}>
+            <ThemedText className="font-semibold underline">{PostCreationTexts.clearImages[language]}</ThemedText>
           </TouchableOpacity>
         )}
         <View className=" w-full">

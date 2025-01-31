@@ -479,6 +479,26 @@ export const PostStatusTexts = {
       HU: "Poszt műveletek",
       EN: "Post options"
     },
-    
+  },
+  newShare: {
+    title: {
+      EN: "Share your new post!",
+      HU: "Oszd meg az új posztod!"
+    },
+    message: {
+      EN: "Congratulations on your new post! Would you like to share it?",
+      HU: "Gratulálok az új posztodhoz! Szeretnéd megosztani?"
+    },
+    responses: {
+      no: {
+        EN: "No",
+        HU: "Nem"
+      },
+      yes: {
+        EN: "Yes",
+        HU: "Igen"
+      }
+    }
   }
+  
 }
