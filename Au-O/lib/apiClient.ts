@@ -112,7 +112,13 @@ export const logout = async (): Promise<void> => {
     console.error(error);
   }
 };
-
+export async function editPost(text: string, location: string, id: string) {
+    const res = await apiFetch(`/posts/post/${id}`, 'PUT', true, {text, location})
+    if (res) {
+      return res
+    }
+    else return null
+}
 export async function getUser(token: string): Promise<User | null | undefined> {
     try {
       

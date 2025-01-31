@@ -444,6 +444,26 @@ export const PostEditTexts = {
     HU: "Dátumozva: ",
     EN: "Dated: "
   },
+  success: {
+    title: {
+      HU: "Siker!",
+      EN: "Success!"
+    },
+    message: {
+      HU: "Sikeresen szerkesztetted a posztod!",
+      EN: "You have successfully edited your post!"
+    }
+  },
+  error: {
+    title: {
+      HU: "Hiba",
+      EN: "Error"
+    },
+    message: {
+      HU: "Nem sikerült a poszt szerkesztése.",
+      EN: "Failed to edit post."
+    }
+  }
 }
 export const PostStatusTexts = {
   loading: {

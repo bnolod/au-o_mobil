@@ -2,17 +2,12 @@ import { PostCreationTexts, UIErrorTexts } from "@/constants/texts";
 import {
   EventPostData,
   GroupPostData,
-
   ImageUploadResponse,
-
   User,
 } from "@/constants/types";
 import * as SecureStore from "expo-secure-store";
-import * as FileSystem from 'expo-file-system'
-import * as ImagePicker from 'expo-image-picker'
-import { ImagePickerAsset } from "expo-image-picker";
-import { imageUpload } from "./apiClient";
-import { ActionSheetIOS, ActionSheetIOSOptions } from "react-native";
+import * as FileSystem from "expo-file-system";
+import * as ImagePicker from "expo-image-picker";
 import Toast from "react-native-toast-message";
 export function handleFormInputChange(
   formKey: string,
@@ -54,7 +49,9 @@ export function getPostType(
 export function createTimestamp() {
   return new Date().getTime().toString();
 }
-export async function cleanupInvalidImageUploads(images: ImageUploadResponse[]) {
+export async function cleanupInvalidImageUploads(
+  images: ImageUploadResponse[]
+) {
   images.map(async (image) => {
     await fetch(`https://api.imgur.com/3/image/${image.deleteHash}`, {
       method: "DELETE",
@@ -66,11 +63,15 @@ export async function cleanupInvalidImageUploads(images: ImageUploadResponse[]) 
 }
 export async function convertToBlob(image: any): Promise<any> {
   const base64 = await FileSystem.readAsStringAsync(image, {
-    encoding: FileSystem.EncodingType.Base64
-  })
-  return base64
+    encoding: FileSystem.EncodingType.Base64,
+  });
+  return base64;
 }
-export async function handleGallery(images: ImagePicker.ImagePickerAsset[], language: "HU" | "EN" = "EN") {
+
+export async function handleGallery(
+  images: ImagePicker.ImagePickerAsset[],
+  language: "HU" | "EN" = "EN"
+) {
   if (images.length < 10) {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ["images"],
@@ -83,18 +84,20 @@ export async function handleGallery(images: ImagePicker.ImagePickerAsset[], lang
     });
     if (!result.canceled) {
       if (result.assets.length + images.length <= 10) {
-          const newAssets = result.assets.filter(
+        const newAssets = result.assets.filter(
           (asset) => !images.some((image) => image.assetId === asset.assetId)
-          );
-          if (newAssets.length < result.assets.length) {
-            Toast.show({
-              type: "error",
-              text1: PostCreationTexts.imageUploadDuplicateSafeguard.header[language],
-              text2: PostCreationTexts.imageUploadDuplicateSafeguard.message[language],
-            })
-          }
-          const newImages = images.concat(newAssets);
-          return newImages
+        );
+        if (newAssets.length < result.assets.length) {
+          Toast.show({
+            type: "error",
+            text1:
+              PostCreationTexts.imageUploadDuplicateSafeguard.header[language],
+            text2:
+              PostCreationTexts.imageUploadDuplicateSafeguard.message[language],
+          });
+        }
+        const newImages = images.concat(newAssets);
+        return newImages;
       }
     }
   }

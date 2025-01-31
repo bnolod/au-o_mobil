@@ -1,6 +1,4 @@
 import PostCard from "@/components/home/Post";
-import PostImage from "@/components/home/PostImage";
-import ImageNotFound from "@/components/new/ImageNotFound";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import LoadingModal from "@/components/ui/LoadingModal";
@@ -10,16 +8,14 @@ import { PostCreationTexts, PostEditTexts } from "@/constants/texts";
 import { PostResponse } from "@/constants/types";
 import { useAuthentication } from "@/contexts/AuthenticationContext";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { apiFetch } from "@/lib/apiClient";
-import { handleGallery } from "@/lib/functions";
+import { apiFetch, editPost } from "@/lib/apiClient";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { BottomSheetModal, BottomSheetView } from "@gorhom/bottom-sheet";
-import { ImagePickerAsset } from "expo-image-picker";
 import { router, useLocalSearchParams } from "expo-router";
 import { useColorScheme } from "nativewind";
 import { useEffect, useRef, useState } from "react";
-import { Dimensions, Image, Keyboard, Pressable, TouchableOpacity, View } from "react-native";
-import Carousel from "react-native-reanimated-carousel";
+import {  Keyboard, Pressable, View } from "react-native";
+import Toast from "react-native-toast-message";
 
 export default function EditPost() {
   const bottomSheetRef = useRef<BottomSheetModal>(null);
@@ -35,7 +31,31 @@ export default function EditPost() {
     eventData: "",
     location: "",
   });
-  async function handleSubmit() {}
+  async function handleSubmit() {
+    
+    const res = await editPost(editPostForm.description, editPostForm.location, id as string);
+    if (res) {
+      bottomSheetRef.current?.dismiss();
+      Toast.show({
+        type: "success",
+        text1: PostEditTexts.success.title[language],
+        text2: PostEditTexts.success.message[language],
+      })
+      router.replace("/(root)/home")
+      router.push({
+        pathname: "/(post)/page/[id]",
+        params: { id: id as string, isNew: "true" },
+      })
+    }
+    else {
+      bottomSheetRef.current?.dismiss();
+      Toast.show({
+        type: "error",
+        text1: PostEditTexts.error.title[language],
+        text2: PostEditTexts.error.message[language],
+      })
+    }
+  }
   async function getPost() {
     const postResponse = await apiFetch<PostResponse>(
       `posts/post/${id}`,
@@ -141,6 +161,7 @@ export default function EditPost() {
           variant="highlight"
           type="fill"
           onPress={() => {
+            Keyboard.dismiss();
             bottomSheetRef.current?.present();
           }}
         >
