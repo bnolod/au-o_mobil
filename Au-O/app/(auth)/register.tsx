@@ -32,9 +32,9 @@ export default function Register() {
   const [date, setDate] = useState(new Date(1598051730000));
 
   const onChange = (event: any, selectedDate: any) => {
-    const currentDate = selectedDate;
-    
-    handleFormInputChange("register", "dateOfBirth", selectedDate, getFormData, setFormData)
+;
+    setDate(selectedDate);
+    handleFormInputChange("register", "dateOfBirth", selectedDate.toISOString(), getFormData, setFormData);
   };
 
   const showMode = (currentMode: any) => {

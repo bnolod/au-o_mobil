@@ -1,18 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useAuthentication } from "@/contexts/AuthenticationContext";
-import { Redirect, Tabs } from "expo-router";
+import { Redirect, router, Tabs } from "expo-router";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
 import { Colors } from "@/constants/Colors";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { StatusBar } from "expo-status-bar";
+import Avatar from "@/components/ui/Avatar";
 export default function RootLayout() {
   const { user } = useAuthentication();
   const { language } = useLanguage();
   const { colorScheme } = useColorScheme();
-  if (!user) {
-    return <Redirect href={"/(auth)/login"} />;
-  }
+  if (user) {
   return (
     <>
     <StatusBar style="auto" />
@@ -68,7 +67,19 @@ export default function RootLayout() {
             )
             }}
             />
+        <Tabs.Screen
+          name="profile/[id]"
+          initialParams={{id: user.id}}
+          options={{
+            headerShown: false,
+            title: "Profile",
+            tabBarIcon: ({ color, focused }) => (
+              <Avatar className={`${focused ? "highlight" : "primary"}`} image={null} nickname={user.nickname} />
+            )
+            }}
+            />
       </Tabs> 
             </>
   );
+} else return <Redirect href="/(auth)/login" />;
 }
