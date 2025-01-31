@@ -25,6 +25,7 @@ export default function AuthTouchables({
     }
     resetFormData("login");
     await login!({ usernameOrEmail: identifier, password });
+    router.replace("/(root)/home")
   }
   async function performRegistration() {
     const {
@@ -57,6 +58,7 @@ export default function AuthTouchables({
       nickname,
       date_of_birth: dateOfBirth.split("T")[0],
     });
+    router.replace("/(root)/home")
     resetFormData("register");
   }
   return (
@@ -92,7 +94,7 @@ export default function AuthTouchables({
           type="fit"
           variant="transparent"
           onPress={() => {
-            router.push(
+            router.replace(
               mode === "LOGIN" ? "/(auth)/register" : "/(auth)/login"
             );
           }}

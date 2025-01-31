@@ -13,11 +13,14 @@ import { PostResponse } from "@/constants/types";
 import { FlashList } from "@shopify/flash-list";
 import NoPostsFound from "@/components/home/NoPostsFound";
 import LoadingModal from "@/components/ui/LoadingModal";
+import { Redirect } from "expo-router";
+
 
 export default function Home() {
   const { user } = useAuthentication();
   const { language } = useLanguage();
   const [refreshing, setRefreshing] = useState(false);
+
   const handleRefresh = useCallback(async () => {
     setRefreshing(true);
     await fetchPosts();
@@ -31,7 +34,11 @@ export default function Home() {
   }
   useEffect(() => {
     fetchPosts();
+
+    
   }, []);
+
+  if (user)
   return (
     <>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -82,4 +89,5 @@ export default function Home() {
       </TouchableWithoutFeedback>
     </>
   );
+  else return <Redirect href={"/(auth)/login"}/>
 }

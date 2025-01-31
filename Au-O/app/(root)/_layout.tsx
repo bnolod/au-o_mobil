@@ -7,11 +7,15 @@ import { Colors } from "@/constants/Colors";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { StatusBar } from "expo-status-bar";
 import Avatar from "@/components/ui/Avatar";
+
 export default function RootLayout() {
   const { user } = useAuthentication();
   const { language } = useLanguage();
   const { colorScheme } = useColorScheme();
-  if (user) {
+
+  if (!user) {
+    return null;
+  }
   return (
     <>
     <StatusBar style="auto" />
@@ -80,6 +84,5 @@ export default function RootLayout() {
             />
       </Tabs> 
             </>
-  );
-} else return <Redirect href="/(auth)/login" />;
+  )
 }

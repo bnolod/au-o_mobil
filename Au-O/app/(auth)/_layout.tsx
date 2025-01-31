@@ -18,9 +18,7 @@ export default function AuthLayout() {
   const { colorScheme } = useColorScheme();
     const {user} = useAuthentication()
   
-    if (user) {
-      return <Redirect href={"/(root)/home"} />;
-    }
+   
   return (
     <>
       <TouchableWithoutFeedback

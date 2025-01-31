@@ -4,9 +4,9 @@ import {
   ThemeProvider,
 } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
+import { router, Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "react-native-reanimated";
 import "./globals.css";
 
@@ -24,10 +24,12 @@ import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Toast, { ToastConfig } from "react-native-toast-message";
 import { Platform } from "react-native";
+import { eventEmitter } from "@/lib/events";
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+const [canPass, setCanPass] = useState<boolean | undefined>(undefined);
   const path = usePathname();
   const { colorScheme, toggleColorScheme } = useColorScheme();
   const [loaded] = useFonts({
@@ -36,22 +38,31 @@ export default function RootLayout() {
   configureReanimatedLogger({
     strict: false,
   });
-  async function initialValidation() {
-    const token = await SecureStore.getItemAsync("jwtToken").then((res) => {
-      if (!res) {
-        return null;
-      }
-      return res;
-    });
+  /* async function initialValidation() {
+    const token = await SecureStore.getItemAsync("jwtToken")
     const user = await validateToken(token!, path);
     if (user) {
       const fetchedUser = await getUser(token!);
       await saveUser(fetchedUser!);
     }
-  }
+    console.log(user && token)
+  }*/
+   async function initialValidation() {
+    const token = await SecureStore.getItemAsync("jwtToken");
+    const user = await validateToken(token!, path);
+    if (user) {
+      const fetchedUser = await getUser(token!);
+      await saveUser(fetchedUser!);
+    }
+    console.log(user && token);
+    setCanPass(!!user && !!token);
+   }
   useEffect(() => {
     if (loaded) {
-      initialValidation();
+      //initialValidation();
+      eventEmitter.on("triggerLogout", () => {
+        router.replace("/(auth)/login");
+      })
       SplashScreen.hideAsync();
     }
   }, [loaded]);
@@ -59,7 +70,7 @@ export default function RootLayout() {
   if (!loaded) {
     return null;
   }
-
+  
   return (
     <LanguageProvider>
       <OnboardingProvider>
@@ -80,6 +91,7 @@ export default function RootLayout() {
                       options={{ headerShown: false }}
                     />
                     <Stack.Screen
+
                       name="(root)"
                       options={{ headerShown: false }}
                     />

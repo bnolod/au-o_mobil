@@ -20,11 +20,11 @@ export default function Register() {
   const {colorScheme} = useColorScheme()
   useEffect(() => {
     setFormData("register", {
-      email: getFormData("register")?.email || "",
-      username: getFormData("register")?.username || "",
-      nickname: getFormData("register")?.nickname || "",
-      password: getFormData("register")?.password || "",
-      confirmPassword: getFormData("register")?.confirmPassword || "",
+      email: getFormData("register")?.email || "buzitron@fasz.com",
+      username: getFormData("register")?.username || "buzitron",
+      nickname: getFormData("register")?.nickname || "buzi",
+      password: getFormData("register")?.password || "buzi",
+      confirmPassword: getFormData("register")?.confirmPassword || "buzi",
       dateOfBirth: getFormData("register")?.dateOfBirth || "2007-01-01T00:00:00.000Z",
     });
   }, []);

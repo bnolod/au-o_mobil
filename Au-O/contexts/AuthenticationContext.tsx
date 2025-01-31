@@ -1,10 +1,11 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { router } from "expo-router";
+import { Redirect, Router, router } from "expo-router";
 import * as SecureStore from "expo-secure-store";
 import {
   handleLogin as apiLogin,
   handleRegister as apiRegister,
   getUser,
+  logout,
 } from "@/lib/apiClient";
 import {
   HttpError,
@@ -14,6 +15,7 @@ import {
 } from "@/constants/types";
 import UserLoading from "@/components/auth/UserLoading";
 import { deleteUser, saveUser } from "@/lib/functions";
+import { eventEmitter } from "@/lib/events";
 
 interface AuthenticationContextType {
   user: UserResponse;
@@ -82,16 +84,7 @@ export const AuthenticationProvider: React.FC<{
       </AuthenticationContext.Provider>
     );
   }
-  async function logout() {
-    try {
-      setUser(null);
-      await SecureStore.deleteItemAsync("jwtToken");
-      await deleteUser()
-      router.replace("/(auth)/login");
-    } catch (error: unknown) {
-      console.error(error);
-    }
-  }
+  
   return (
     <AuthenticationContext.Provider
       value={{ user, login, logout, register }}
