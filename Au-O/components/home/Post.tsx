@@ -43,9 +43,12 @@ export default function PostCard({
   function showOptions() {
     if (!preview) {
 
-      PostOptionMenu(preview, language, post_id!, user_id, author_id)
+      PostOptionMenu(preview, language, post_id!, user_id, author_id, () => {
+        setIsDeleted(true);
+      })
     }
   }
+  const [isDeleted, setIsDeleted] = useState<boolean>(false);
   const [reactionState, setReactions] = useState<{
     fire: number;
     heart: number;
@@ -69,7 +72,7 @@ export default function PostCard({
     setReactions(newReactions);
   };
   return (
-    <View className="post-container">
+    <View className={isDeleted ? "hidden" : "post-container"}>
       <View className="post-header justify-between">
         <View className="flex-row flex items-center basis-11/12">
           <PostHeaderElement

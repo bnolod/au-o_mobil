@@ -492,6 +492,14 @@ export const PostStatusTexts = {
         HU: "Törlés",
         EN: "Delete"
       }
+    },
+    success: {
+      HU: "Poszt törölve!",
+      EN: "Post deleted!"
+    },
+    error: {
+      HU: "Hiba a poszt törlésekor",
+      EN: "Error deleting post"
     }
   },
   options: {

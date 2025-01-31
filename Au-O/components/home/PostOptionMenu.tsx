@@ -6,15 +6,14 @@ import Toast from "react-native-toast-message";
 import { Picker } from "@react-native-picker/picker";
 import { router } from "expo-router";
 import { Colors } from "@/constants/Colors";
-import ThemedText from "../ui/ThemedText";
-import Button from "../ui/Button";
 import { apiFetch } from "@/lib/apiClient";
 export default function PostOptionMenu(
   preview: boolean,
   language: "EN" | "HU",
   post_id: number,
   user_id: number | null,
-  author_id: number | null
+  author_id: number | null,
+  onDelete?: () => void
 ) {
   if (preview) return null;
   let iosOptions = [
@@ -52,8 +51,20 @@ export default function PostOptionMenu(
         text: PostStatusTexts.deletePrompt.buttons.delete[language],
         style: "destructive",
         onPress: async () => {
-          //await apiFetch(`posts/delete/${post_id}`, "DELETE", true);
-          router.navigate("/(root)/home");
+          const res = await apiFetch(`posts/post/${post_id}`, "DELETE", true);
+          if (res) {
+            Toast.show({
+              type: "success",
+              text1: PostStatusTexts.deletePrompt.success[language],
+            });
+            if (onDelete) onDelete();
+          }
+          else {
+            Toast.show({
+              type: "error",
+              text1: PostStatusTexts.deletePrompt.error[language],
+            });
+          }
         }
       }])
     }
