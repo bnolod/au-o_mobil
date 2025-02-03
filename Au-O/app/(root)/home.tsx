@@ -35,7 +35,7 @@ export default function Home() {
     fetchPosts();
 
     
-  }, []);
+  }, [refreshing]);
 
   if (user)
   return (
@@ -57,6 +57,7 @@ export default function Home() {
           <RootHeader language={language} colorScheme={colorScheme.get()!} />
           {post && post.length > 0 ? (
             <FlashList
+            key={refreshing ? "refresh" : "list"}
               contentContainerClassName="mt-4 flex-1"
               data={post.sort((a, b) => new Date(b.date_of_creation).getTime() - new Date(a.date_of_creation).getTime())}
               renderItem={({ item, index }) => (
@@ -68,7 +69,7 @@ export default function Home() {
                   author_nickname={item.user.nickname}
                   author_username={item.user.username}
                   colorScheme={colorScheme.get()!}
-                  comments={[]}
+                  comments={item.comments || []}
                   date={item.date_of_creation.split("T")[0]}
                   description={item.text}
                   images={item.images.map((image) => image.url)}

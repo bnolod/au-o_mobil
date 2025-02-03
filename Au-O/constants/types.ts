@@ -17,12 +17,12 @@ export interface ButtonProps extends TouchableOpacityProps {
     | "highlight-dark" //sötét piros
     | "transparent" //fill és border nélkül
     | "outline"; //csak border
-  type?: 
-     "icon" //kerek, w=h
-   | "fit" //tartalom szélességéhez igazodik
-   | "fill"; //container szélességéhez igazodik
+  type?:
+    | "icon" //kerek, w=h
+    | "fit" //tartalom szélességéhez igazodik
+    | "fill"; //container szélességéhez igazodik
   children?: React.ReactNode;
-  hapticFeedback?: | "light" | "medium" | "heavy";
+  hapticFeedback?: "light" | "medium" | "heavy";
 }
 
 export interface LoginRequest {
@@ -39,8 +39,8 @@ export interface User {
   isPublic: boolean;
   profile_img: string;
   bio: string;
-  date_of_birth: string
-  date_of_signup: string
+  date_of_birth: string;
+  date_of_signup: string;
 }
 export interface LoginResponse {
   token?: string;
@@ -55,93 +55,91 @@ export interface RegisterRequest {
 }
 export type HttpMethod = "GET" | "POST" | "PUT" | "DELETE";
 export interface IHttpError {
-
-  
   status: number;
   message?: string | undefined;
   language?: "EN" | "HU";
 }
 
 export class HttpError implements IHttpError {
-  constructor(public status: number, public message?: string | undefined, public language: "EN" | "HU" = "EN") {
-    this.message = message || HttpErrorTexts[(status) as keyof typeof HttpErrorTexts][language];
+  constructor(
+    public status: number,
+    public message?: string | undefined,
+    public language: "EN" | "HU" = "EN"
+  ) {
+    this.message =
+      message ||
+      HttpErrorTexts[status as keyof typeof HttpErrorTexts][language];
     this.status = status;
-    
   }
 }
 export type TokenResponse = {
   token: string;
-}
+};
 export interface SearchBarProps {
   placeholder?: string;
   onSearch: (query: string) => void;
   onChangeText?: (query: string) => void;
 }
 export interface GroupPostData {
-
-  group_name: string
-  group_nickname: string
-  group_icon: string | null
+  group_name: string;
+  group_nickname: string;
+  group_icon: string | null;
 }
 export interface EventPostData {
-  event_name: string
-  attendees: number
-  group_id?: string
-  location : string
-  start_date: string
-  end_date: string
-
+  event_name: string;
+  attendees: number;
+  group_id?: string;
+  location: string;
+  start_date: string;
+  end_date: string;
 }
-export type PostType = "USER" | "GROUP" | "EVENT" | "INVALID"
+export type PostType = "USER" | "GROUP" | "EVENT" | "INVALID";
 export interface PostDispayElementProps {
-  
-      onPress: () => void,
-      postType: string,
-      colorScheme: "light" | "dark",
-      author_nickname: string,
-      author_username: string,
-      groupData: GroupPostData | null,
-      eventData: EventPostData | null
+  onPress: () => void;
+  postType: string;
+  colorScheme: "light" | "dark";
+  author_nickname: string;
+  author_username: string;
+  groupData: GroupPostData | null;
+  eventData: EventPostData | null;
 }
 export interface ImageUploadResponse {
-  url: string,
-  deleteHash: string
+  url: string;
+  deleteHash: string;
 }
-export type PostResponseType = "USERPOST" | "GROUPOST" | "EVENTPOST"
+export type PostResponseType = "USERPOST" | "GROUPOST" | "EVENTPOST";
 export type UserPostResponseType = {
-  _public:boolean,
-  bio:string,
-  date_of_signup:string,
-  id: number,
-  nickname: string,
-  profile_img:any,
-  username: string
-
-}
+  _public: boolean;
+  bio: string;
+  date_of_signup: string;
+  id: number;
+  nickname: string;
+  profile_img: any;
+  username: string;
+};
 export type ImagePostResponseType = {
-  id: number,
-  url: string
-  index: number
-  deleteHash: string
-}
+  id: number;
+  url: string;
+  index: number;
+  deleteHash: string;
+};
 export interface PostResponse {
-  
-    date_of_creation: string,
-    date_of_update: string,
-    group: any,
-    images: ImageUploadResponse[],
-    location: string
-    post_id: number,
-    post_type: PostResponseType
-    reaction_count: number,
-    text: string,
-    user:UserPostResponseType
- 
+  date_of_creation: string;
+  date_of_update: string;
+  group: any;
+  images: ImageUploadResponse[];
+  location: string;
+  post_id: number;
+  post_type: PostResponseType;
+  reaction_count: number;
+  text: string;
+  user: UserPostResponseType;
+  comments: Comment[];
 }
 export interface ImageStoreRequest {
-  text: string,
-  postImages: ImageUploadResponse[]
-  location: string
+  text: string;
+  postImages: ImageUploadResponse[];
+  location: string;
 }
 
 export interface ModalState {
@@ -156,17 +154,17 @@ export interface TapWrapperProps {
 }
 
 export interface PostCardProps {
-  post_id: number | null
-  preview?: boolean
-  groupData?: GroupPostData
-  eventData?: EventPostData
+  post_id: number | null;
+  preview?: boolean;
+  groupData?: GroupPostData;
+  eventData?: EventPostData;
   author_nickname: string;
   author_username: string;
   date: string;
-  images: string[]
+  images: string[];
   description: string;
-  location: string
-  reactions: Reactions
+  location: string;
+  reactions: Reactions;
   comments: Comment[];
   language: "EN" | "HU";
   colorScheme: "light" | "dark";
@@ -175,25 +173,27 @@ export interface PostCardProps {
 export type ImageUploadType = {
   image: string;
   type: string;
-}
-export class Comment {
+};
+export interface Comment {
   id: number;
+  time: string;
+  user: UserPostResponseType;
   text: string;
-  replies: Array<Comment>
-
-  constructor(id:number, text:string) {
-    this.id = id;
-    this.text = text;
-    this.replies = new Array<Comment>
-  }
+  replies: Reply[] | null;
+}
+export interface Reply {
+  id: number;
+  time: string;
+  user: UserPostResponseType;
+  text: string;
 }
 export interface CreatePostRequest {
-  user_id: string
-  description: string
-  images: string[]
-  group: string
-  location: string
-  event: string
+  user_id: string;
+  description: string;
+  images: string[];
+  group: string;
+  location: string;
+  event: string;
 }
 export interface LoadingModalProps {
   loading: boolean;
@@ -205,11 +205,11 @@ export type Reactions = {
   fire: number;
   heart: number;
   sunglasses: number;
-}
+};
 export type Geolocation = {
   lat: number;
   lng: number;
-}
+};
 export interface CommonStaticElementProps {
   children?: ReactNode;
   language: "EN" | "HU";
@@ -223,10 +223,10 @@ export interface AvatarProps {
   height?: number | string;
 }
 export interface DropdownWrapperProps {
-  visible: boolean
-  handleOpen: () => void
-  handleClose: () => void
-  width: number
-  children: ReactNode
+  visible: boolean;
+  handleOpen: () => void;
+  handleClose: () => void;
+  width: number;
+  children: ReactNode;
 }
 export type UserResponse = User | null | undefined;

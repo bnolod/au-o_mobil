@@ -1,9 +1,5 @@
-import React, { useCallback, useRef } from "react";
-import {
-  BottomSheetFlatList,
-  BottomSheetModal,
-  
-} from "@gorhom/bottom-sheet";
+import React, { useCallback, useRef, useState } from "react";
+import { BottomSheetFlatList, BottomSheetModal } from "@gorhom/bottom-sheet";
 
 import ThemedText from "../ui/ThemedText";
 import {
@@ -25,26 +21,37 @@ export default function CommentSheet({
   colorScheme,
   comments,
   author_nickname,
+  authorId,
   language,
+  userId,
   preview = false,
+  postId,
 }: {
   colorScheme: "light" | "dark";
   comments: Comment[];
   author_nickname: string;
   language: "HU" | "EN";
   preview?: boolean;
+  postId: number;
+  authorId: number;
+  userId: number;
 }) {
   const [focused, setFocused] = React.useState(false);
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const [renderedComments, setRenderedComments] =
+    useState<Comment[]>(comments);
   function handlePresent(): void {
     bottomSheetModalRef.current?.dismiss();
     bottomSheetModalRef.current?.present();
     setFocused(false);
   }
 
-  const renderItem = useCallback(({ item }: { item: Comment }) => {
-    return <CommentElement key={item.id} replies={item.replies} text={item.text} />;
-  }, []);
+  const renderItem = useCallback(
+    ({ item }: { item: Comment; index: number }) => {
+      return <CommentElement onDelete={(id) => setRenderedComments(renderedComments.filter((item) => id !== item.id))} userId={userId} key={item.id} item={item} language={language} authorId={authorId} />;
+    },
+    []
+  );
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -58,7 +65,7 @@ export default function CommentSheet({
           <Avatar
             className="primary"
             image={null}
-            nickname={"teszt"}
+            nickname={""}
             height={12}
             width={12}
           />
@@ -98,62 +105,72 @@ export default function CommentSheet({
             </ThemedText>
           </TouchableOpacity>
         </View>
-        {
-          !preview &&
-        <BottomSheetModal
-        onChange={(index) => {
-          if (index === 1) {
-            bottomSheetModalRef.current?.dismiss();
-            setFocused(false);
-          }
-        }}
-        ref={bottomSheetModalRef}
-        onDismiss={() => {
-            Keyboard.dismiss();
-            setFocused(false);
-          }}
-          enableDismissOnClose
-          enablePanDownToClose={true}
-          backgroundStyle={{
-            backgroundColor: Colors[colorScheme].secondary,
-          }}
-          snapPoints={[1, "60%", "90%"]}
-          handleIndicatorStyle={{
-            backgroundColor: Colors[colorScheme].text,
-            width: "33%",
-            height: 5,
-          }}
-          handleStyle={{
-            backgroundColor: Colors[colorScheme].secondary,
-            
-            borderTopRightRadius: 10,
-            borderTopLeftRadius: 10,
-          }}
-          index={2}
-        >
-          <BottomSheetFlatList
-            ListHeaderComponent={
-              <AddCommentRow
-                focus={focused}
-                author_nickname={author_nickname}
-                language={language}
-                colorScheme={colorScheme}
-                />
-              }
-              data={comments}
-              ListEmptyComponent={
-                <CommentsEmpty language={language} colorScheme={colorScheme} />
-              }
-              renderItem={renderItem}
-              keyExtractor={(item) => item.id.toString()}
-              contentContainerStyle={{
-                backgroundColor: Colors[colorScheme].secondary,
-                paddingVertical: 12,
-                width: "100%",
+        {!preview && (
+          <>
+            <BottomSheetModal
+              onChange={(index) => {
+                if (index === 1) {
+                  bottomSheetModalRef.current?.dismiss();
+                  setFocused(false);
+                }
               }}
+              ref={bottomSheetModalRef}
+              onDismiss={() => {
+                Keyboard.dismiss();
+                setFocused(false);
+              }}
+              enableDismissOnClose
+              enablePanDownToClose={true}
+              backgroundStyle={{
+                backgroundColor: Colors[colorScheme].secondary,
+              }}
+              snapPoints={[1, "60%", "90%"]}
+              handleIndicatorStyle={{
+                backgroundColor: Colors[colorScheme].text,
+                width: "33%",
+                height: 5,
+              }}
+
+              handleStyle={{
+                backgroundColor: Colors[colorScheme].secondary,
+
+                borderTopRightRadius: 10,
+                borderTopLeftRadius: 10,
+              }}
+              index={2}
+            >
+              <BottomSheetFlatList
+                ListHeaderComponent={
+                  <AddCommentRow
+                    focus={focused}
+                    author_nickname={author_nickname}
+                    language={language}
+                    colorScheme={colorScheme}
+                    postId={postId}
+                    onPostComment={(res) => {
+                      setRenderedComments([res, ...renderedComments]);
+                    }}
+                  />
+                }
+                data={renderedComments}
+                ListEmptyComponent={
+                  <CommentsEmpty
+                    language={language}
+                    colorScheme={colorScheme}
+                  />
+                }
+                renderItem={renderItem}
+                keyExtractor={(item) => item.id.toString()}
+                contentContainerStyle={{
+                  backgroundColor: Colors[colorScheme].secondary,
+                  paddingVertical: 12,
+                  width: "100%",
+                }}
+                automaticallyAdjustKeyboardInsets
               />
-        </BottomSheetModal>
-    }
+            </BottomSheetModal>
+          </>
+        )}
       </View>
     </TouchableWithoutFeedback>
   );

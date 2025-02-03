@@ -79,7 +79,7 @@ export default function PostCard({
             author_nickname={author_nickname}
             author_username={author_username}
             colorScheme={colorScheme}
-            onPress={() => {}}
+            onPress={() => {router.push({"pathname": "/(root)/profile/[id]", "params": {id: author_id!.toString()}})}}
             postType={postType}
             eventData={eventData || null}
             groupData={groupData || null}
@@ -89,7 +89,7 @@ export default function PostCard({
             author_nickname={author_nickname}
             author_username={author_username}
             colorScheme={colorScheme}
-            onPress={() => {}}
+            onPress={() => {router.push({"pathname": "/(root)/profile/[id]", "params": {id: author_id!.toString()}})}}
             postType={postType}
             eventData={eventData || null}
             groupData={groupData || null}
@@ -188,6 +188,9 @@ export default function PostCard({
         </View>
 
         <CommentSheet
+        postId={post_id!}
+        authorId={author_id!}
+        userId = {user_id!}
           author_nickname={author_nickname}
           preview={preview}
           language={language}

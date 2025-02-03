@@ -1,4 +1,5 @@
 import {
+  Comment,
   CreatePostRequest,
   HttpError,
   HttpMethod,
@@ -6,6 +7,7 @@ import {
   ImageUploadResponse,
   LoginRequest,
   RegisterRequest,
+  Reply,
   TokenResponse,
   User,
 } from "@/constants/types";
@@ -14,7 +16,6 @@ import { router } from "expo-router";
 import * as SecureStore from "expo-secure-store";
 import { deleteUser } from "./functions";
 import { eventEmitter } from "./events";
-
 
 const apiClient: AxiosInstance = axios.create({
   baseURL: process.env.EXPO_PUBLIC_AXIOS_BASE_URL,
@@ -52,10 +53,10 @@ export const login = async (request: LoginRequest): Promise<string | null> => {
   }
 };
 export async function logout() {
-  await SecureStore.deleteItemAsync("jwtToken")
-  await deleteUser()
-  
-  eventEmitter.emit("triggerLogout")
+  await SecureStore.deleteItemAsync("jwtToken");
+  await deleteUser();
+
+  eventEmitter.emit("triggerLogout");
 }
 export async function validateToken(token: string, path: string) {
   const validToken = await apiFetch<string>("auth/authenticate", "POST", true, {
@@ -188,4 +189,61 @@ export async function handleLogin(request: LoginRequest): Promise<string> {
   );
 
   return response!.token;
+}
+
+export async function AddCommentToPost(
+  postId: string,
+  comment: string
+): Promise<Comment | null> {
+  const res = await apiFetch<Comment>(
+    `posts/post/${postId}/comment`,
+    "POST",
+    true,
+    {
+      text: comment,
+    }
+  );
+  if (res) return res;
+  return null;
+}
+export async function DeleteComment(commentId: string): Promise<boolean> {
+  const res = await fetch(
+    `${apiClient.defaults.baseURL}/posts/post/comment/${commentId}`,
+    {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${await SecureStore.getItemAsync("jwtToken")}`,
+      },
+    }
+  );
+  if (res.status === 200) return true;
+  else return false;
+}
+export async function sendReply(
+  commentId: string,
+  text: string
+): Promise<Reply | null> {
+  const res = await apiFetch<Reply>(
+    `posts/post/comment/${commentId}/reply`,
+    "POST",
+    true,
+    {
+      text,
+    }
+  );
+  if (res) return res;
+  return null;
+}
+export async function deleteReply(replyId: number) {
+  const res = await fetch(
+    `${apiClient.defaults.baseURL}/posts/post/comment/reply/${replyId}`,
+    {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${await SecureStore.getItemAsync("jwtToken")}`,
+      },
+    }
+  );
+  if (res.status === 200) return true;
+  else return false;
 }

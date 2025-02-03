@@ -116,7 +116,7 @@
     
   }
   .comment-reply-line {
-    @apply w-1 h-full bg-backdrop-primary-dark dark:bg-backdrop-primary my-5 flex-1 rounded-full mx-auto
+    @apply w-1 h-full secondary px-1 my-5 flex-1 rounded-full mx-auto
   }
   .comment-text-body {
     @apply basis-10/12 flex flex-col

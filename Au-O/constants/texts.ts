@@ -538,3 +538,75 @@ EN: "Post"
   }
   
 }
+export const CommentTexts = {
+  deletePrompt: {
+    title: {
+      HU: "❌ Hozzászólás törlése",
+      EN: "❌ Delete comment"
+    },
+    message: {
+      HU: "⚠ Biztosan törölni szeretnéd ezt a hozzászólást?",
+      EN: "⚠ Are you sure you want to delete this comment?"
+    },
+    buttons: {
+      cancel: {
+        HU: "Mégse",
+        EN: "Cancel"
+      },
+      delete: {
+        HU: "Törlés",
+        EN: "Delete"
+      }
+    },
+    success: {
+      HU: "Hozzászólás törölve!",
+      EN: "Comment deleted!"
+    },
+    error: {
+      HU: "Hiba a hozzászólás törlésekor",
+      EN: "Error deleting comment"
+    }
+  },
+  commentCreated: {
+    success: {
+      HU: "Hozzászólás elküldve!",
+      EN: "Comment sent!"
+    },
+    error: {
+      HU: "Hiba a hozzászólás küldésekor",
+      EN: "Error sending comment"
+    }
+  },
+  replyCreated: {
+    success: {
+      HU: "✈ Válasz elküldve!",
+      EN: "✈ Reply sent!"
+    },
+    error: {
+      HU: "❌Hiba a válasz küldésekor",
+      EN: "❌Error sending reply"
+    }
+  },
+  commentAuthor: {
+    HU: " kommentje",
+    EN: "'s comment"
+  },
+  commentButtons: {
+    reply: {
+      HU: "Válasz",
+      EN: "Reply"
+    },
+    delete: {
+      HU: "Törlés",
+      EN: "Delete"
+    },
+    edit: {
+      HU: "Szerkesztés",
+      EN: "Edit"
+    },
+    cancel: {
+      HU: "Mégse",
+      EN: "Cancel"
+    }
+  }
+}
