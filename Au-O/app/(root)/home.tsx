@@ -1,5 +1,3 @@
-import Button from "@/components/ui/Button";
-import ThemedText from "@/components/ui/ThemedText";
 import { RefreshControl, ScrollView } from "react-native";
 import React, { useCallback, useEffect, useState } from "react";
 import { useAuthentication } from "@/contexts/AuthenticationContext";
@@ -9,23 +7,19 @@ import PostCard from "@/components/home/Post";
 import { colorScheme } from "nativewind";
 import { useLanguage } from "@/contexts/LanguageContext";
 import RootHeader from "@/components/home/RootHeader";
-import { Colors } from "@/constants/Colors";
-import {
-  boros_manifesto,
-  PostStatusTexts,
-  UIErrorTexts,
-} from "@/constants/texts";
+import { UIErrorTexts } from "@/constants/texts";
 import { apiFetch } from "@/lib/apiClient";
 import { PostResponse } from "@/constants/types";
-import { router } from "expo-router";
 import { FlashList } from "@shopify/flash-list";
 import NoPostsFound from "@/components/home/NoPostsFound";
 import LoadingModal from "@/components/ui/LoadingModal";
+import { Redirect } from "expo-router";
 
 export default function Home() {
   const { user } = useAuthentication();
   const { language } = useLanguage();
   const [refreshing, setRefreshing] = useState(false);
+
   const handleRefresh = useCallback(async () => {
     setRefreshing(true);
     await fetchPosts();
@@ -39,7 +33,11 @@ export default function Home() {
   }
   useEffect(() => {
     fetchPosts();
+
+    
   }, []);
+
+  if (user)
   return (
     <>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -60,7 +58,7 @@ export default function Home() {
           {post && post.length > 0 ? (
             <FlashList
               contentContainerClassName="mt-4 flex-1"
-              data={post}
+              data={post.sort((a, b) => new Date(b.date_of_creation).getTime() - new Date(a.date_of_creation).getTime())}
               renderItem={({ item, index }) => (
                 <PostCard
                   user_id={user!.id}
@@ -83,12 +81,12 @@ export default function Home() {
             />
           ) : (
             <View className={"flex-1  items-center justify-center m-auto"}>
-
-            <NoPostsFound language={language} />
+              <NoPostsFound language={language} />
             </View>
           )}
         </ScrollView>
       </TouchableWithoutFeedback>
     </>
   );
+  else return <Redirect href={"/(auth)/login"}/>
 }

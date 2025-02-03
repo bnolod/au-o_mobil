@@ -1,5 +1,5 @@
 import Input from "@/components/ui/Input";
-import { ScrollView, View } from "react-native";
+import { ScrollView } from "react-native";
 import { AuthTexts } from "@/constants/texts";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import ThemedText from "@/components/ui/ThemedText";

@@ -1,7 +1,6 @@
 import Input from "@/components/ui/Input";
 import { AuthTexts } from "@/constants/texts";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { colorScheme } from "nativewind";
 import { Platform, ScrollView, View } from "react-native";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ThemedText from "@/components/ui/ThemedText";
@@ -31,10 +30,10 @@ export default function Register() {
 
   const [date, setDate] = useState(new Date(1598051730000));
 
-  const onChange = (event: any, selectedDate: any) => {
-    const currentDate = selectedDate;
-    
-    handleFormInputChange("register", "dateOfBirth", selectedDate, getFormData, setFormData)
+  const onChange = (_: any, selectedDate: any) => {
+;
+    setDate(selectedDate);
+    handleFormInputChange("register", "dateOfBirth", selectedDate.toISOString(), getFormData, setFormData);
   };
 
   const showMode = (currentMode: any) => {

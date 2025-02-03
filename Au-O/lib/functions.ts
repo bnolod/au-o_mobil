@@ -221,6 +221,13 @@ export async function saveUser(user: User) {
 export async function deleteUser() {
   await SecureStore.deleteItemAsync("user");
 }
+export function checkUser() {
+  const user = SecureStore.getItem("user")
+  if (user && user !== null) {
+    return true
+  }
+  return false
+}
 export function formatDate(date: string) {
   return date.replaceAll("-", ". ") + ".";
 }

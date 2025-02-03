@@ -1,10 +1,10 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { router } from "expo-router";
 import * as SecureStore from "expo-secure-store";
 import {
   handleLogin as apiLogin,
   handleRegister as apiRegister,
   getUser,
+  logout,
 } from "@/lib/apiClient";
 import {
   HttpError,
@@ -13,11 +13,11 @@ import {
   UserResponse,
 } from "@/constants/types";
 import UserLoading from "@/components/auth/UserLoading";
-import { deleteUser, saveUser } from "@/lib/functions";
+import { saveUser } from "@/lib/functions";
 
 interface AuthenticationContextType {
   user: UserResponse;
-  login?: (request: LoginRequest) => Promise<void>;
+  login?: (request: LoginRequest) => Promise<boolean>;
   logout?: () => Promise<void>;
   register?: (
     request : RegisterRequest
@@ -60,7 +60,7 @@ export const AuthenticationProvider: React.FC<{
     getStoredUser()
   }, [])
    
-  async function login(request: LoginRequest): Promise<void> {
+  async function login(request: LoginRequest): Promise<boolean> {
     try {
       const token = await apiLogin(request);
       if (token) {
@@ -69,10 +69,13 @@ export const AuthenticationProvider: React.FC<{
         if (user) {
           await saveUser(user);
           setUser(user);
+          return true
         } 
       }
+      return false
     } catch (error: unknown) {
       console.error(error);
+      return false
     }
   }
   if (user === undefined) {
@@ -82,16 +85,7 @@ export const AuthenticationProvider: React.FC<{
       </AuthenticationContext.Provider>
     );
   }
-  async function logout() {
-    try {
-      setUser(null);
-      await SecureStore.deleteItemAsync("jwtToken");
-      await deleteUser()
-      router.replace("/(auth)/login");
-    } catch (error: unknown) {
-      console.error(error);
-    }
-  }
+  
   return (
     <AuthenticationContext.Provider
       value={{ user, login, logout, register }}

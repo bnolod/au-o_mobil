@@ -7,7 +7,6 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
 import React, { useEffect, useRef } from "react";
 import {
-  ActionSheetIOS,
   Alert,
   Dimensions,
   Image,
@@ -28,7 +27,7 @@ import { BottomSheetModal, BottomSheetView } from "@gorhom/bottom-sheet";
 import { PostCreationTexts } from "@/constants/texts";
 import ImageNotFound from "@/components/new/ImageNotFound";
 import PostCard from "@/components/home/Post";
-import { EventPostData, ImageStoreRequest, ImageUploadResponse } from "@/constants/types";
+import { ImageStoreRequest, ImageUploadResponse } from "@/constants/types";
 import { useAuthentication } from "@/contexts/AuthenticationContext";
 import { cleanupInvalidImageUploads, convertToBlob, createTimestamp, handleGallery } from "@/lib/functions";
 import {  imageUpload, storeImages } from "@/lib/apiClient";
@@ -51,6 +50,7 @@ export default function NewPost() {
     event: selectedEvent,
     images: images,
   });
+  
   useEffect(() => {
     setNewPostForm({
       ...newPostForm,
