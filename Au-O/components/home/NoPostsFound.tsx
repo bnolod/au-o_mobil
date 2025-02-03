@@ -2,7 +2,7 @@ import { View } from "react-native";
 import ThemedText from "../ui/ThemedText";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Colors } from "@/constants/Colors";
-import { PostStatusTexts, UIErrorTexts } from "@/constants/texts";
+import { PostStatusTexts } from "@/constants/texts";
 
 export default function NoPostsFound({language}: {language: "EN" | "HU"}) {
     return (

@@ -6,6 +6,7 @@ import { useFormContext } from "@/contexts/FormContext";
 import { router } from "expo-router";
 import { validateLogin, validateRegister } from "@/lib/functions";
 import { useAuthentication } from "@/contexts/AuthenticationContext";
+import Toast from "react-native-toast-message";
 
 export default function AuthTouchables({
   language,
@@ -24,8 +25,14 @@ export default function AuthTouchables({
       }
     }
     resetFormData("login");
-    await login!({ usernameOrEmail: identifier, password });
-    router.replace("/(root)/home")
+    const loginStatus = await login!({ usernameOrEmail: identifier, password });
+    if (loginStatus) {
+      router.replace("/(root)/home")
+    }
+    else Toast.show({
+      text1: "Login failed",
+      type: "error"
+    });
   }
   async function performRegistration() {
     const {

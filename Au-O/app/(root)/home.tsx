@@ -15,7 +15,6 @@ import NoPostsFound from "@/components/home/NoPostsFound";
 import LoadingModal from "@/components/ui/LoadingModal";
 import { Redirect } from "expo-router";
 
-
 export default function Home() {
   const { user } = useAuthentication();
   const { language } = useLanguage();

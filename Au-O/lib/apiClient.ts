@@ -12,8 +12,6 @@ import {
 import axios, { AxiosInstance } from "axios";
 import { router } from "expo-router";
 import * as SecureStore from "expo-secure-store";
-import * as Updates from 'expo-updates'
-import { Alert } from "react-native";
 import { deleteUser } from "./functions";
 import { eventEmitter } from "./events";
 
@@ -54,8 +52,6 @@ export const login = async (request: LoginRequest): Promise<string | null> => {
   }
 };
 export async function logout() {
-  
-  console.log("logoout")
   await SecureStore.deleteItemAsync("jwtToken")
   await deleteUser()
   
@@ -111,7 +107,6 @@ export async function CreatePost(props: CreatePostRequest): Promise<void> {
   await apiFetch<CreatePostRequest>("post/new", "POST", true, {
     ...props,
   });
-  //
 }
 export async function editPost(text: string, location: string, id: string) {
   const res = await apiFetch(`/posts/post/${id}`, "PUT", true, {
@@ -158,9 +153,7 @@ export async function apiFetch<T>(
 
     const res = await apiClient.request<T>(config);
     if (res.status === 403 && requiresAuth) {
-      console.log("NEM JÓ A KURVA TOKENED");
-      await logout(); console.log(await SecureStore.getItemAsync("user"))
-       
+      await logout();
     }
     return res.data;
   } catch (error: unknown) {
