@@ -7,16 +7,17 @@ import ThemedText from "@/components/ui/ThemedText";
 import { useFormContext } from "@/contexts/FormContext";
 import { useEffect, useState } from "react";
 import { handleFormInputChange } from "@/lib/functions";
-import RNDateTimePicker, { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
+import RNDateTimePicker, {
+  DateTimePickerAndroid,
+} from "@react-native-community/datetimepicker";
 import React from "react";
 import { useColorScheme } from "nativewind";
 import { Colors } from "@/constants/Colors";
 import Button from "@/components/ui/Button";
 export default function Register() {
-
   const { setFormData, getFormData } = useFormContext();
   const { language } = useLanguage();
-  const {colorScheme} = useColorScheme()
+  const { colorScheme } = useColorScheme();
   useEffect(() => {
     setFormData("register", {
       email: getFormData("register")?.email || "",
@@ -24,30 +25,38 @@ export default function Register() {
       nickname: getFormData("register")?.nickname || "",
       password: getFormData("register")?.password || "",
       confirmPassword: getFormData("register")?.confirmPassword || "",
-      dateOfBirth: getFormData("register")?.dateOfBirth || "2007-01-01T00:00:00.000Z",
+      dateOfBirth:
+        getFormData("register")?.dateOfBirth || "2007-01-01T00:00:00.000Z",
     });
   }, []);
 
-  const [date, setDate] = useState(new Date(1598051730000));
+  const [date, setDate] = useState<Date>();
 
   const onChange = (_: any, selectedDate: any) => {
-;
     setDate(selectedDate);
-    handleFormInputChange("register", "dateOfBirth", selectedDate.toISOString(), getFormData, setFormData);
+    handleFormInputChange(
+      "register",
+      "dateOfBirth",
+      selectedDate.toISOString(),
+      getFormData,
+      setFormData
+    );
   };
 
   const showMode = (currentMode: any) => {
     DateTimePickerAndroid.open({
-      value: date,
+      value: date || new Date(2007, 0, 1),
       onChange,
+      display: "spinner",
+      maximumDate: new Date(2007, 12, 31),
       mode: currentMode,
-      
-      is24Hour: true,
+      style: { backgroundColor: Colors.highlight.main,  },
+
     });
   };
 
   const showDatepicker = () => {
-    showMode('date');
+    showMode("date");
   };
 
   return (
@@ -81,64 +90,63 @@ export default function Register() {
         }
       />
       <View className="flex  mx-auto w-full flex-row justify-between">
-
-      <Input
-      colorScheme={colorScheme!}
-      containerClassName="w-1/2 pl-[4%] pr-[1%]"
-        label={AuthTexts.signup.labels.username[language]}
-        TextInputProps={{
-          keyboardType: "default",
-          autoComplete: "username",
-          onChangeText: (text) =>
-            handleFormInputChange(
-              "register",
-              "username",
-              text,
-              getFormData,
-              setFormData
-            ),
+        <Input
+          colorScheme={colorScheme!}
+          containerClassName="w-1/2 pl-[4%] pr-[1%]"
+          label={AuthTexts.signup.labels.username[language]}
+          TextInputProps={{
+            keyboardType: "default",
+            autoComplete: "username",
+            onChangeText: (text) =>
+              handleFormInputChange(
+                "register",
+                "username",
+                text,
+                getFormData,
+                setFormData
+              ),
             textContentType: "username",
             placeholder: AuthTexts.signup.placeholders.username[language],
           }}
           icon={
             <MaterialCommunityIcons
-            name="account"
-            size={24}
-            color={colorScheme === "dark" ? "white" : "black"}
+              name="account"
+              size={24}
+              color={colorScheme === "dark" ? "white" : "black"}
             />
           }
-          />
-      <Input
-      colorScheme={colorScheme!}
-      containerClassName="w-1/2 pr-[4%] pl-[1%]"
-        label={AuthTexts.signup.labels.nickname[language]}
-        TextInputProps={{
-          keyboardType: "default",
-          autoComplete: "username",
-          onChangeText: (text) =>
-            handleFormInputChange(
-              "register",
-              "nickname",
-              text,
-              getFormData,
-              setFormData
-            ),
+        />
+        <Input
+          colorScheme={colorScheme!}
+          containerClassName="w-1/2 pr-[4%] pl-[1%]"
+          label={AuthTexts.signup.labels.nickname[language]}
+          TextInputProps={{
+            keyboardType: "default",
+            autoComplete: "username",
+            onChangeText: (text) =>
+              handleFormInputChange(
+                "register",
+                "nickname",
+                text,
+                getFormData,
+                setFormData
+              ),
             textContentType: "username",
             placeholder: AuthTexts.signup.placeholders.nickname[language],
           }}
           icon={
             <MaterialCommunityIcons
-            name="account"
-            size={24}
-            color={colorScheme === "dark" ? "white" : "black"}
+              name="account"
+              size={24}
+              color={colorScheme === "dark" ? "white" : "black"}
             />
           }
-          />
-          </View>
+        />
+      </View>
       <View className="flex  mx-auto w-full flex-row justify-between">
         <Input
-        colorScheme={colorScheme!}
-        containerClassName="w-1/2 pl-[4%] pr-[1%]" //kiszámoltam, nem random szám!!
+          colorScheme={colorScheme!}
+          containerClassName="w-1/2 pl-[4%] pr-[1%]" //kiszámoltam, nem random szám!!
           label={AuthTexts.signup.labels.password[language]}
           icon={
             <MaterialCommunityIcons
@@ -163,8 +171,8 @@ export default function Register() {
           }}
         />
         <Input
-        colorScheme={colorScheme!}
-                containerClassName="w-1/2 pr-[4%] pl-[1%]" //kiszámoltam, nem random szám!!
+          colorScheme={colorScheme!}
+          containerClassName="w-1/2 pr-[4%] pl-[1%]" //kiszámoltam, nem random szám!!
           label={AuthTexts.signup.labels.confirmPassword[language]}
           secureTextEntry
           TextInputProps={{
@@ -178,6 +186,7 @@ export default function Register() {
               ),
             autoComplete: "off",
             textContentType: "password",
+            numberOfLines: 1,
             placeholder:
               AuthTexts.signup.placeholders.confirmPassword[language],
           }}
@@ -191,17 +200,30 @@ export default function Register() {
         />
       </View>
       <View className="w-full mx-auto flex items-center flex-1">
-        {
-          Platform.OS === "ios" ?
-          <RNDateTimePicker accentColor={Colors.dark.secondary} mode="date" display="spinner"   maximumDate={new Date(2007, 12, 31)} value={new Date(2007, 0, 1)} onChange={(e, date) => {
-            handleFormInputChange("register", "dateOfBirth", date!.toISOString(), getFormData, setFormData);
-          }}/> : <Button variant="highlight" type="fill" onPress={showDatepicker}>Date of Birth</Button>
-        }
-
-
-
-        
-        
+        {Platform.OS === "ios" ? (
+          <RNDateTimePicker
+            accentColor={Colors.dark.secondary}
+            mode="date"
+            display="spinner"
+            maximumDate={new Date(2007, 12, 31)}
+            value={new Date(2007, 0, 1)}
+            onChange={(_, date) => {
+              handleFormInputChange(
+                "register",
+                "dateOfBirth",
+                date!.toISOString(),
+                getFormData,
+                setFormData
+              );
+            }}
+          />
+        ) : (
+          <Button className="button btn-outline btn-highlight primary w-11/12 text-center items-center" onPress={showDatepicker}>
+           {
+            !date ? AuthTexts.signup.placeholders.dateOfBirth[language] : date!.toLocaleDateString()
+           }
+          </Button>
+        )}
       </View>
     </ScrollView>
   );

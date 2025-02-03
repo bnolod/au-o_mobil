@@ -20,6 +20,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Toast from "react-native-toast-message";
 import { Platform } from "react-native";
 import { eventEmitter } from "@/lib/events";
+import { Colors } from "@/constants/Colors";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -55,10 +56,11 @@ export default function RootLayout() {
             <FormProvider>
               <GestureHandlerRootView>
                 <BottomSheetModalProvider>
-                  <Stack initialRouteName="onboarding">
+                  <Stack initialRouteName="onboarding" > 
                     <Stack.Screen
                       name="onboarding"
-                      options={{ headerShown: false }}
+                      options={{ headerShown: false, navigationBarHidden: true }}
+                      
                     />
                     <Stack.Screen
                       name="(auth)"
@@ -67,7 +69,7 @@ export default function RootLayout() {
                     <Stack.Screen
 
                       name="(root)"
-                      options={{ headerShown: false }}
+                      options={{ headerShown: false, navigationBarColor: Colors[colorScheme!].secondary }}
                     />
                     <Stack.Screen
                       name="(post)"

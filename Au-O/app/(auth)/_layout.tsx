@@ -10,6 +10,7 @@ import {
   View,
 } from "react-native";
 import { useColorScheme } from "nativewind";
+import { StatusBar } from "expo-status-bar";
 
 export default function AuthLayout() {
   const { language } = useLanguage();
@@ -18,6 +19,7 @@ export default function AuthLayout() {
   
   return (
     <>
+    <StatusBar style="auto" />
       <TouchableWithoutFeedback
         onPress={() => {
           Keyboard.dismiss();

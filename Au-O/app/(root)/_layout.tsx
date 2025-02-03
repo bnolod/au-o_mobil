@@ -20,6 +20,7 @@ export default function RootLayout() {
     <>
     <StatusBar style="auto" />
     <Tabs
+    
        
        
        screenOptions={{
@@ -27,7 +28,7 @@ export default function RootLayout() {
          
          tabBarStyle: {
            backgroundColor:
-           colorScheme === "light" ? "white" : Colors.dark.secondary,
+           Colors[colorScheme!].secondary,
           },
           
           tabBarActiveTintColor:

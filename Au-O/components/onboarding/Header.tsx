@@ -26,10 +26,11 @@ export default function OnboardingHeader({
     >
       <SvgHeaderDecoration
         theme={colorScheme}
-        boxWidth={Dimensions.get("screen").width - 40}
+        boxWidth={Platform.OS === "ios" ? Dimensions.get("screen").width - 40 : Dimensions.get("screen").width}
+        height={Platform.OS === "ios" ? "100%" : "90%"}
       />
       <View
-        className={`flex flex-row-reverse w-full px-5 justify-between absolute  ios:top-[30%] android:top-3 items-center`}
+        className={`flex flex-row-reverse w-full px-5 justify-between absolute  ios:top-[30%] android:top-safe-offset-3 items-center`}
       >
         {!isStatic && (
           <Button
@@ -51,6 +52,7 @@ export default function OnboardingHeader({
           source={require("@/assets/images/auo-logo.png")}
           className="h-12 basis-6/12 mx-auto text-center"
           resizeMode="contain"
+          
         />
         {!isStatic && (
           <Button

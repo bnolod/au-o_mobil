@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Dimensions, View } from "react-native";
+import { Dimensions, Platform, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { useColorScheme } from "nativewind";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -29,13 +29,13 @@ export default function Onboarding() {
   }
   return (
     <OnboardingProvider>
-      <StatusBar style="light" />
-      <View className="h-screen overflow-y-hidden w-full mx-auto">
+
+      <View className="h-screen-safe overflow-y-hidden w-full mx-auto">
         <OnboardingHeader colorScheme={colorScheme!} language={language} index={index} onBackPress={() => {
           carouselRef.current?.prev()
         }} onSkipPress={() => (router.replace("/(auth)/register"))} />
-        <View className="container flex flex-col justify-between py-5">
-          <View className="basis-7/12 flex flex-col-reverse justify-between items-center">
+        <View className=" flex flex-col justify-between pb-5">
+          <View className="basis-8/12 flex flex-col-reverse items-center justify-center">
             <Carousel
               ref={carouselRef}
               enabled={false}
@@ -43,7 +43,7 @@ export default function Onboarding() {
               data={[
                 {
                   text: OnboardingTexts.slide1[language],
-                  image: <View style={{ transform: [{ scale: 1.2 }], marginBottom: 30 }}><SvgSlide1Image theme={colorScheme} /></View>,
+                  image: <View style={Platform.OS === "ios" ? { transform: [{ scale: 1.2 }]} : {}}><SvgSlide1Image theme={colorScheme} /></View>,
                 },
                 {
                   text: OnboardingTexts.slide2[language],
@@ -65,8 +65,8 @@ export default function Onboarding() {
             }}
             />
           </View>
-          <CallToAction colorScheme={colorScheme!} language={language} index={index} onPress={index !== 2 ? () => carouselRef.current?.next() : () => router.replace('/(auth)/register')} />
         </View>
+          <CallToAction colorScheme={colorScheme!} language={language} index={index} onPress={index !== 2 ? () => carouselRef.current?.next() : () => router.replace('/(auth)/register')} />
       </View>
     </OnboardingProvider>
   );

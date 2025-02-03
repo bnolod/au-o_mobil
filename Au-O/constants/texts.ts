@@ -71,6 +71,10 @@ export const AuthTexts = {
       nickname: {
         HU: "Becenév",
         EN: "Nickname",
+      },
+      dateOfBirth: {
+        HU: "Születési dátum",
+        EN: "Date of Birth",
       }
     },
     labels: {
@@ -466,6 +470,10 @@ export const PostEditTexts = {
   }
 }
 export const PostStatusTexts = {
+  header: {
+HU: "Bejegyzés",
+EN: "Post"
+  },
   loading: {
     HU: "Poszt betöltése...",
     EN: "Loading post..."

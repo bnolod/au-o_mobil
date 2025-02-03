@@ -114,13 +114,12 @@ export default function PostCard({
         onSingleTap={
           post_id
           ? () => {
-            console.log("post_id", post_id);
             router.push({
                   pathname: "/(post)/page/[id]",
                   params: { id: post_id},
                 });
               }
-            : () => {console.log("no post_id")}
+            : () => {}
         }
       >
         <View className="post-image">

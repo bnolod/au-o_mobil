@@ -58,10 +58,9 @@ export default function Input({
             onBlur={() => setIsFocused(false)}
             secureTextEntry={isSecure}
             style={{backgroundColor: "transparent", color: Colors[colorScheme].text}}
+            placeholderTextColor={"#767676"}
             autoComplete="off"
             textContentType="none"
-            
-            
             {...TextInputProps}
             />
             {secureTextEntry && (
