@@ -230,3 +230,9 @@ export interface DropdownWrapperProps {
   children: ReactNode;
 }
 export type UserResponse = User | null | undefined;
+
+export type ReactionState = {
+  fire: number;
+  heart: number;
+  sunglasses: number;
+}

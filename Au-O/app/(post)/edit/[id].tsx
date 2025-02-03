@@ -189,6 +189,9 @@ export default function EditPost() {
         >
           <BottomSheetView>
             <PostCard
+            user_nickname={user!.nickname}
+            user_profile_img={user!.profile_img}
+            
               post_id={null}
               user_id={null}
               author_id={null}

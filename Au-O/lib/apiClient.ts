@@ -6,6 +6,8 @@ import {
   ImageStoreRequest,
   ImageUploadResponse,
   LoginRequest,
+  Reactions,
+  ReactionState,
   RegisterRequest,
   Reply,
   TokenResponse,
@@ -108,6 +110,16 @@ export async function CreatePost(props: CreatePostRequest): Promise<void> {
   await apiFetch<CreatePostRequest>("post/new", "POST", true, {
     ...props,
   });
+}
+export async function addReaction(postId: number, reaction: "HEART" | "FIRE" | "COOL") {
+  const res = await fetch(`${apiClient.defaults.baseURL}/posts/post/${postId}/addOrRemoveReaction/${reaction}`, {
+    method: "POST",
+    headers: {
+        "Authorization": `Bearer ${await SecureStore.getItemAsync("jwtToken")}`
+    }
+  })
+  if (res.status===200) return true
+  return false 
 }
 export async function editPost(text: string, location: string, id: string) {
   const res = await apiFetch(`/posts/post/${id}`, "PUT", true, {

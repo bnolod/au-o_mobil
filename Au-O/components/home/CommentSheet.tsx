@@ -23,7 +23,9 @@ export default function CommentSheet({
   author_nickname,
   authorId,
   language,
+  user_nickname,
   userId,
+  user_profile_img,
   preview = false,
   postId,
 }: {
@@ -32,7 +34,9 @@ export default function CommentSheet({
   author_nickname: string;
   language: "HU" | "EN";
   preview?: boolean;
+  user_nickname: string
   postId: number;
+  user_profile_img: string
   authorId: number;
   userId: number;
 }) {
@@ -64,8 +68,8 @@ export default function CommentSheet({
         <View className="basis-1/12 flex justify-center items-center">
           <Avatar
             className="primary"
-            image={null}
-            nickname={""}
+            image={user_profile_img}
+            nickname={user_nickname}
             height={12}
             width={12}
           />

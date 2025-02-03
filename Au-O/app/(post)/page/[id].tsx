@@ -13,12 +13,14 @@ import { useEffect, useState } from "react";
 import { Alert, View } from "react-native";
 import * as Clipboard from 'expo-clipboard'
 import { PostStatusTexts } from "@/constants/texts";
+import { useAuthentication } from "@/contexts/AuthenticationContext";
 
 export default function PostPage() {
   const [post, setPost] = useState<PostResponse>();
   const { id, isNew } = useLocalSearchParams<{id: string; isNew?: string}>();
   const { colorScheme } = useColorScheme();
   const { language } = useLanguage();
+  const {user} = useAuthentication()
   const [loading, setLoading] = useState<boolean | null>(true);
   function showShareModal() {
     if (Boolean(isNew)) {
@@ -80,6 +82,8 @@ export default function PostPage() {
     return (
       <View className="flex justify-center items-center h-full primary">
         <PostCard
+        user_nickname={user!.nickname}
+        user_profile_img={user!.profile_img}
           author_id={post.user.id}
           author_nickname={post.user.nickname}
           author_username={post.user.username}

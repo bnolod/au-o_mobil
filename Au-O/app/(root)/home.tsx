@@ -27,67 +27,74 @@ export default function Home() {
     setRefreshing(false);
   }, []);
   const [post, setPost] = useState<PostResponse[]>([]);
-  async function fetchPosts() {
+  async function fetchPosts(): Promise<PostResponse[]> {
     const post = await apiFetch<PostResponse[]>("posts/all", "GET", true);
-    setPost(post!);
+    return post!;
   }
   useEffect(() => {
-    fetchPosts();
-
-    
+    async function load() {
+      setPost(await fetchPosts());
+    }
+    load();
   }, [refreshing]);
 
   if (user)
-  return (
-    <>
-      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <ScrollView
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={handleRefresh}>
-              <LoadingModal
-                colorScheme={colorScheme.get()!}
-                loading={refreshing}
-                text={UIErrorTexts.loading[language]}
-              />
-            </RefreshControl>
-          }
-          stickyHeaderIndices={[0]}
-          stickyHeaderHiddenOnScroll
-        >
-          <RootHeader language={language} colorScheme={colorScheme.get()!} />
-          {post && post.length > 0 ? (
-            <FlashList
-            key={refreshing ? "refresh" : "list"}
-              contentContainerClassName="mt-4 flex-1"
-              data={post.sort((a, b) => new Date(b.date_of_creation).getTime() - new Date(a.date_of_creation).getTime())}
-              renderItem={({ item, index }) => (
-                <PostCard
-                  user_id={user!.id}
-                  author_id={item.user.id}
-                  post_id={item.post_id}
-                  key={item.post_id}
-                  author_nickname={item.user.nickname}
-                  author_username={item.user.username}
+    return (
+      <>
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+          <ScrollView
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={handleRefresh}>
+                <LoadingModal
                   colorScheme={colorScheme.get()!}
-                  comments={item.comments || []}
-                  date={item.date_of_creation.split("T")[0]}
-                  description={item.text}
-                  images={item.images.map((image) => image.url)}
-                  language={language}
-                  location={item.location}
-                  reactions={{ fire: 0, heart: 0, sunglasses: 0 }}
+                  loading={refreshing}
+                  text={UIErrorTexts.loading[language]}
                 />
-              )}
-              estimatedItemSize={300}
-            />
-          ) : (
-            <View className={"flex-1  items-center justify-center m-auto"}>
-              <NoPostsFound language={language} />
-            </View>
-          )}
-        </ScrollView>
-      </TouchableWithoutFeedback>
-    </>
-  );
-  else return <Redirect href={"/(auth)/login"}/>
+              </RefreshControl>
+            }
+            stickyHeaderIndices={[0]}
+            stickyHeaderHiddenOnScroll
+          >
+            <RootHeader language={language} colorScheme={colorScheme.get()!} />
+            {post && post.length > 0 ? (
+              <FlashList
+                key={refreshing ? "refresh" : "list"}
+                contentContainerClassName="mt-4 flex-1"
+                data={post.sort(
+                  (a, b) =>
+                    new Date(b.date_of_creation).getTime() -
+                    new Date(a.date_of_creation).getTime()
+                )}
+                renderItem={({ item }) => (
+                  <PostCard
+                    user_id={user!.id}
+                    user_nickname={user.nickname}
+                    user_profile_img={user.profile_img}
+                    author_id={item.user.id}
+                    post_id={item.post_id}
+                    key={item.post_id}
+                    author_nickname={item.user.nickname}
+                    author_username={item.user.username}
+                    colorScheme={colorScheme.get()!}
+                    comments={item.comments || []}
+                    date={item.date_of_creation.split("T")[0]}
+                    description={item.text}
+                    images={item.images.map((image) => image.url)}
+                    language={language}
+                    location={item.location}
+                    reactions={{ fire: 0, heart: 0, sunglasses: 0 }}
+                  />
+                )}
+                estimatedItemSize={300}
+              />
+            ) : (
+              <View className={"flex-1  items-center justify-center m-auto"}>
+                <NoPostsFound language={language} />
+              </View>
+            )}
+          </ScrollView>
+        </TouchableWithoutFeedback>
+      </>
+    );
+  else return <Redirect href={"/(auth)/login"} />;
 }

@@ -186,7 +186,7 @@ export default function CommentElement({
               </View>
             )}
             <View></View>
-            {renderedReplies && (
+            {renderedReplies.length > 0 && (
               <FlashList
                 estimatedItemSize={100}
                 data={renderedReplies}
