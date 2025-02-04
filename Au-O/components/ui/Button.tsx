@@ -3,8 +3,11 @@ import { TouchableOpacity } from 'react-native';
 import { ThemedText } from './ThemedText';
 import { ButtonProps } from '@/constants/types';
 import * as Haptics from 'expo-haptics';
+import { Colors } from '@/constants/Colors';
+import { useColorScheme } from 'nativewind';
 
 export default function Button({ variant, type, hapticFeedback, children, ...props }: ButtonProps) {
+  const {colorScheme} = useColorScheme();
   const getButtonClass = (variant: ButtonProps['variant']) => {
     switch (variant) {
       case 'highlight':
@@ -61,6 +64,7 @@ export default function Button({ variant, type, hapticFeedback, children, ...pro
       className={`${getButtonClass(variant)} ${getButtonTypeClass(type)}`}
       {...props}
       onPressOut={handleHaptics}
+       style={{shadowColor: Colors[colorScheme!].background, shadowOffset: {width: 0, height: 4}, shadowOpacity:  0.8, shadowRadius: 2, elevation: 5}}
     >
       <ThemedText>{children}</ThemedText>
     </TouchableOpacity>

@@ -7,8 +7,6 @@ export default function PostAuthorDisplayElement({
   author_username,
   groupData,
   eventData,
-  colorScheme,
-  onPress,
   postType,
 }: PostDispayElementProps) {
   return (

@@ -36,24 +36,24 @@ export default function Input({
       onPress={Keyboard.dismiss}
       
     >
-      <View className={`input-container ${isFocused ? " z-50" : ""} ${containerClassName}`}>
-        {label && <ThemedText className="text-lg mb-1">{label}</ThemedText>}
+      <View className={`input-container my-4 ${isFocused ? " z-50" : ""} ${containerClassName}`}>
+
         <View
-          className={`input-body ${
+          className={`input-body pt-2 border-0 ${
             isFocused
               ? "border-backdrop-primary"
               : ""
           }`}
+
+          style={{shadowColor: !isFocused ? Colors[colorScheme].background : Colors.highlight.main, shadowOffset: {width: 0, height: 4}, shadowOpacity: isFocused ? 0.45 : 0.8, shadowRadius: 2, elevation: 5}}
         >
-          {
-            icon && (
-              <View className="pl-4">
-                {icon}
-              </View>
-            )
-          }
+        <View className="absolute  text-gray-500 -top-3 -left-3 flex flex-row-reverse justify-center items-center">
+        {label &&  <ThemedText className="text-lg font-semibold  text-gray-500">  {label}</ThemedText>}
+        {icon}
+
+        </View>
           <TextInput
-            className="text-input "
+            className="text-input"
             onFocus={() => {setIsFocused(true); setIsSecure(secureTextEntry)}}
             onBlur={() => setIsFocused(false)}
             secureTextEntry={isSecure}

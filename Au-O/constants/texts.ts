@@ -418,6 +418,17 @@ export const PostCreationTexts = {
     HU: "Képfeltöltés",
     EN: "Upload photos"
   },
+  
+  buttons: {
+    dismiss: {
+      HU: "Vissza",
+      EN: "Dismiss"
+    },
+    post: {
+      HU: "Közzététel",
+      EN: "Post"
+    }
+  },
   noImageFoundAlert: {
     HU: "Nem található kép!",
     EN: "No image found!"
@@ -467,7 +478,7 @@ export const PostEditTexts = {
       HU: "Nem sikerült a poszt szerkesztése.",
       EN: "Failed to edit post."
     }
-  }
+  },
 }
 export const PostStatusTexts = {
   header: {

@@ -88,7 +88,7 @@ export default function PostPage() {
           author_nickname={post.user.nickname}
           author_username={post.user.username}
           colorScheme={colorScheme!}
-          comments={[]}
+          comments={post.comments}
           date={post.date_of_creation.split("T")[0]}
           description={post.text}
           images={post.images.map((img) => img.url)}

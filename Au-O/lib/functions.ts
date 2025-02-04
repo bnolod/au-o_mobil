@@ -9,6 +9,7 @@ import * as SecureStore from "expo-secure-store";
 import * as FileSystem from "expo-file-system";
 import * as ImagePicker from "expo-image-picker";
 import Toast from "react-native-toast-message";
+import { imageUpload } from "./apiClient";
 export function handleFormInputChange(
   formKey: string,
   key: string,
@@ -231,3 +232,18 @@ export function checkUser() {
 export function formatDate(date: string) {
   return date.replaceAll("-", ". ") + ".";
 }
+
+export async function createImageForm(element: ImagePicker.ImagePickerAsset, description: string, user: User | null) {
+    
+    const imageForm = new FormData();
+    const file = await convertToBlob(element.uri);
+    imageForm.append("image", file);
+    imageForm.append("description", description || "");
+    imageForm.append("type", "base64");
+    imageForm.append(
+      "title",
+      `${user!.username.replaceAll("_", "")}_${createTimestamp()}`
+    );
+    return imageForm
+    
+  }
