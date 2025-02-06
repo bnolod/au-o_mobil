@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { useAuthentication } from "@/contexts/AuthenticationContext";
 import { apiFetch, updateProfilePicture } from "@/lib/apiClient";
-import { PostResponse, User } from "@/constants/types";
+import { PostResponse, User, UserResponse } from "@/constants/types";
 import { useEffect, useState } from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import UserLoading from "@/components/auth/UserLoading";
@@ -29,19 +29,14 @@ import { createImageForm, createTimestamp } from "@/lib/functions";
 import Toast from "react-native-toast-message";
 export default function Profile() {
   const [user, setUser] = useState<User>();
-  const { logout } = useAuthentication();
   const { language } = useLanguage();
   const { colorScheme } = useColorScheme();
   const { id } = useLocalSearchParams();
   const [lines, setLines] = useState<number | undefined>(3);
   const [posts, setPosts] = useState<PostResponse[]>([]);
-  const [profile_image, setProfileImage] = useState<string | undefined>(
-    user?.profileImg
-  );
   async function getUser() {
-    const res = await apiFetch<any>(`users/user/${id}`, "GET", true);
+    const res = await apiFetch<UserResponse>(`users/user/${id}`, "GET", true);
     if (res && res.data) {
-
       setUser(res.data);
     } else return;
   }
@@ -61,7 +56,7 @@ export default function Profile() {
   }, []);
   const isOwner = user && user.id.toString() === (id as string);
   if (isOwner === undefined) return <UserLoading />;
-  if (user !== undefined)
+  if (user !== undefined && user !== null)
     return (
       <ScrollView className="primary">
         <RootHeader colorScheme={colorScheme!} language={language} />
@@ -84,7 +79,6 @@ export default function Profile() {
                     const profileUpdateResponse = await updateProfilePicture(img)
                     
                     if (profileUpdateResponse) {
-                      setProfileImage(res.assets[0].uri);
                       Toast.show({
                         type: "success",
                         text1: "Profile picture updated!",
@@ -95,6 +89,7 @@ export default function Profile() {
             >
               <Avatar
                 image={user.profileImg}
+                
                 nickname={user.nickname}
                 className="h-20 w-20 primary my-4"
               />

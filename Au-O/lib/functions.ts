@@ -215,7 +215,6 @@ export function validateRegister(
     message: UIErrorTexts.authentication.registrationSuccess[language],
   };
 }
-
 export async function saveUser(user: User) {
   await SecureStore.setItemAsync("user", JSON.stringify(user));
 }
