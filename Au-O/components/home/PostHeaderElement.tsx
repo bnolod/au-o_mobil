@@ -7,8 +7,9 @@ import { EventPostData, GroupPostData, PostDispayElementProps } from "@/constant
 
 export default function PostHeaderElement({
 onPress,
-author_nickname,
-author_username,
+authorNickname,
+authorUsername,
+authorProfileImg,
 colorScheme,
 postType,
 eventData,
@@ -23,7 +24,7 @@ groupData
       hapticFeedback="light"
     >
       {postType === "USER" && (
-        <Avatar image={null} nickname={author_nickname} />
+        <Avatar image={authorProfileImg} nickname={authorNickname} />
       )}
       {postType === "GROUP" && !eventData && (
         <TouchableOpacity className="w-12 h-12 secondary rounded-xl flex justify-center items-center">

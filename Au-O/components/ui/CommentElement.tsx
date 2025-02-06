@@ -112,7 +112,7 @@ export default function CommentElement({
     >
       <View className="comment-header">
         <View className="comment-avatar">
-          <Avatar image={item.user.profile_img} nickname={item.user.nickname} />
+          <Avatar image={item.user.profileImg} nickname={item.user.nickname} />
         </View>
         <View className="comment-user">
           <ThemedText className="text-lg font-semibold">

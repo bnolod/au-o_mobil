@@ -10,9 +10,9 @@ import { apiFetch, deleteImgurImage } from "@/lib/apiClient";
 export default function PostOptionMenu(
   preview: boolean,
   language: "EN" | "HU",
-  post_id: number,
-  user_id: number | null,
-  author_id: number | null,
+  postId: number,
+  userId: number | null,
+  authorId: number | null,
   onDelete?: () => void,
 ) {
   if (preview) return null;
@@ -21,11 +21,11 @@ export default function PostOptionMenu(
     PostCreationTexts.options.share[language],
     PostCreationTexts.options.report[language],
   ];
-  if (author_id && author_id === user_id) {
+  if (authorId && authorId === userId) {
     iosOptions.push(PostCreationTexts.options.edit[language], PostCreationTexts.deletePost[language]);
   }
   async function handleShare() {
-    await Clipboard.setStringAsync(post_id.toString());
+    await Clipboard.setStringAsync(postId.toString());
     Toast.show({
       type: "success",
       text1: PostCreationTexts.copied[language],
@@ -38,12 +38,12 @@ export default function PostOptionMenu(
 
   }
   async function handleEdit() {
-    if (author_id && user_id && author_id === user_id) {
-      router.push({pathname: "/(post)/edit/[id]", params: {id: post_id.toString()}});
+    if (authorId && userId && authorId === userId) {
+      router.push({pathname: "/(post)/edit/[id]", params: {id: postId.toString()}});
     }
   }
   async function handleDelete() {
-    if (author_id && user_id && author_id === user_id) {
+    if (authorId && userId && authorId === userId) {
       Alert.alert("Post deletion", "Are you sure you want to delete this post?", [{
         text: PostStatusTexts.deletePrompt.buttons.cancel[language],
         style: "cancel",
@@ -51,7 +51,7 @@ export default function PostOptionMenu(
         text: PostStatusTexts.deletePrompt.buttons.delete[language],
         style: "destructive",
         onPress: async () => {
-          const res = await apiFetch(`posts/post/${post_id}`, "DELETE", true);
+          const res = await apiFetch(`posts/post/${postId}`, "DELETE", true);
           if (res) {
             Toast.show({
               type: "success",
@@ -118,7 +118,7 @@ export default function PostOptionMenu(
         <Picker.Item label={PostCreationTexts.options.cancel[language]} />
         <Picker.Item label={PostCreationTexts.options.share[language]} />
         <Picker.Item label={PostCreationTexts.options.report[language]} />
-        {user_id && user_id === author_id && (
+        {userId && userId === authorId && (
           <>
           <Picker.Item color={Colors.highlight.main} label={PostCreationTexts.options.edit[language]} />
           <Picker.Item color={Colors.highlight.main} label={PostCreationTexts.deletePost[language]} />

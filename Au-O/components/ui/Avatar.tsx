@@ -3,6 +3,11 @@ import { Image, View } from "react-native";
 import ThemedText from "./ThemedText";
 
 export default function Avatar({image, className, nickname, height = 14, width = 14} : AvatarProps) {
+    if (image) {
+                return (
+                    <Image source={{uri: image}} className={`w-${width} h-${height} ${className} rounded-full`}/>
+                )
+    }
     if (!image && nickname) {
         return (
              
@@ -18,7 +23,4 @@ export default function Avatar({image, className, nickname, height = 14, width =
             </View>
         )
     }
-    return (
-        <Image source={{uri: image}} className={`w-${width} h-${height} ${className} rounded-full`}/>
-    )
 } 

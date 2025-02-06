@@ -34,13 +34,13 @@ export interface User {
   username: string;
   password: string;
   nickname: string;
-  role_id: Number;
+  role: string;
   email: string;
   isPublic: boolean;
-  profile_img: string;
+  profileImg: string;
   bio: string;
-  date_of_birth: string;
-  date_of_signup: string;
+  dateOfBirth: string;
+  dateOfSignup: string;
 }
 export interface LoginResponse {
   token?: string;
@@ -51,7 +51,7 @@ export interface RegisterRequest {
   password: string;
   username: string;
   nickname: string;
-  date_of_birth: string;
+  dateOfBirth: string;
 }
 export type HttpMethod = "GET" | "POST" | "PUT" | "DELETE";
 export interface IHttpError {
@@ -81,25 +81,26 @@ export interface SearchBarProps {
   onChangeText?: (query: string) => void;
 }
 export interface GroupPostData {
-  group_name: string;
-  group_nickname: string;
-  group_icon: string | null;
+  groupName: string;
+  groupNickname: string;
+  groupIcon: string | null;
 }
 export interface EventPostData {
-  event_name: string;
+  eventName: string;
   attendees: number;
-  group_id?: string;
+  groupId?: string;
   location: string;
-  start_date: string;
-  end_date: string;
+  startDate: string;
+  endDate: string;
 }
 export type PostType = "USER" | "GROUP" | "EVENT" | "INVALID";
 export interface PostDispayElementProps {
   onPress: () => void;
   postType: string;
   colorScheme: "light" | "dark";
-  author_nickname: string;
-  author_username: string;
+  authorNickname: string;
+  authorProfileImg: string,
+  authorUsername: string;
   groupData: GroupPostData | null;
   eventData: EventPostData | null;
 }
@@ -109,12 +110,12 @@ export interface ImageUploadResponse {
 }
 export type PostResponseType = "USERPOST" | "GROUPOST" | "EVENTPOST";
 export type UserPostResponseType = {
-  _public: boolean;
+  isPublic: boolean;
   bio: string;
-  date_of_signup: string;
+  dateOfSignup: string;
   id: number;
   nickname: string;
-  profile_img: any;
+  profileImg: any;
   username: string;
 };
 export type ImagePostResponseType = {
@@ -124,14 +125,14 @@ export type ImagePostResponseType = {
   deleteHash: string;
 };
 export interface PostResponse {
-  date_of_creation: string;
-  date_of_update: string;
+  dateOfCreation: string;
+  dateOfUpdate: string;
   group: any;
   images: ImageUploadResponse[];
   location: string;
-  post_id: number;
-  post_type: PostResponseType;
-  reaction_count: number;
+  postId: number;
+  postType: PostResponseType;
+  reactionCount: number;
   text: string;
   user: UserPostResponseType;
   comments: Comment[];
@@ -154,12 +155,13 @@ export interface TapWrapperProps {
 }
 
 export interface PostCardProps {
-  post_id: number | null;
+  postId: number | null;
   preview?: boolean;
   groupData?: GroupPostData;
+  authorProfileImg: string;
   eventData?: EventPostData;
-  author_nickname: string;
-  author_username: string;
+  authorNickname: string;
+  authorUsername: string;
   date: string;
   images: {
     url: string;
@@ -192,7 +194,7 @@ export interface Reply {
   text: string;
 }
 export interface CreatePostRequest {
-  user_id: string;
+  userId: string;
   description: string;
   images: string[];
   group: string;

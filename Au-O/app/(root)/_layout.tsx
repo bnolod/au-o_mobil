@@ -7,9 +7,12 @@ import { Colors } from "@/constants/Colors";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { StatusBar } from "expo-status-bar";
 import Avatar from "@/components/ui/Avatar";
+import { View } from "react-native";
+
 
 export default function RootLayout() {
   const { user } = useAuthentication();
+  
   const { language } = useLanguage();
   const { colorScheme } = useColorScheme();
 
@@ -78,8 +81,10 @@ export default function RootLayout() {
           options={{
             headerShown: false,
             title: "Profile",
-            tabBarIcon: ({ color, focused }) => (
-              <Avatar className={`${focused ? "highlight" : "primary"}`} image={null} nickname={user.nickname} />
+            tabBarIcon: ({ focused }) => (
+              <View style={focused ? {shadowColor: Colors.highlight.main,  shadowOpacity: 1, shadowRadius: 7.84} : {}}>
+              <Avatar className={`${focused ? "highlight" : "primary"} mt-2`} image={user.profileImg} nickname={user.nickname} />
+              </View>
             )
             }}
             />

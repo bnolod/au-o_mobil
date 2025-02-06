@@ -22,11 +22,12 @@ import EditPost from "@/app/(post)/edit/[id]";
 
 export default function PostCard({
   preview = false,
-  author_nickname,
-  author_id,
+  authorNickname,
+  authorId,
+  authorProfileImg,
   eventData,
   groupData,
-  author_username,
+  authorUsername,
   comments,
   date,
   description,
@@ -35,22 +36,22 @@ export default function PostCard({
   reactions,
   language,
   colorScheme,
-  post_id,
+  postId,
   user,
 }: PostCardProps & {
   user: UserResponse;
-  author_id: number | null;
+  authorId: number | null;
 }) {
-  const [modalShown, setIsModalShown] = useState<boolean>(false);
+  
   const postType = getPostType(
-    author_nickname,
-    author_username,
+    authorNickname,
+    authorUsername,
     groupData,
     eventData
   );
   function showOptions() {
     if (!preview) {
-      PostOptionMenu(preview, language, post_id!, user!.id, author_id, () => {
+      PostOptionMenu(preview, language, postId!, user!.id, authorId, () => {
         setIsDeleted(true);
         for (const img of images) {
           async function handleImageDelete() {
@@ -70,7 +71,6 @@ export default function PostCard({
     sunglasses: reactions.sunglasses,
   });
   const [lines, setLines] = useState<number | undefined>(3);
-
   return (
     <>
 
@@ -79,13 +79,14 @@ export default function PostCard({
       <View className="post-header justify-between">
         <View className="flex-row flex items-center basis-11/12">
           <PostHeaderElement
-            author_nickname={author_nickname}
-            author_username={author_username}
+            authorProfileImg={authorProfileImg}
+            authorUsername={authorProfileImg}
+            authorNickname={authorNickname}
             colorScheme={colorScheme}
             onPress={() => {
               router.push({
                 pathname: "/(root)/profile/[id]",
-                params: { id: author_id!.toString() },
+                params: { id: authorId!.toString() },
               });
             }}
             postType={postType}
@@ -94,13 +95,14 @@ export default function PostCard({
           />
 
           <PostAuthorDisplayElement
-            author_nickname={author_nickname}
-            author_username={author_username}
+          authorProfileImg={authorProfileImg}
+          authorUsername={authorUsername}
+          authorNickname={authorNickname}
             colorScheme={colorScheme}
             onPress={() => {
               router.push({
                 pathname: "/(root)/profile/[id]",
-                params: { id: author_id!.toString() },
+                params: { id: authorId!.toString() },
               });
             }}
             postType={postType}
@@ -121,18 +123,18 @@ export default function PostCard({
         <TapCountWrapper
           onDoubleTap={async () => {
             await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-            const reactionResponse = await addReaction(post_id!, "FIRE");
+            const reactionResponse = await addReaction(postId!, "FIRE");
             if (reactionResponse === true) {
               setReactions(handleReaction(reactions, reactionState, "fire"));
             } else
               Toast.show({ text1: "Something went wrong.", type: "error" });
           }}
           onSingleTap={
-            post_id
+            postId
               ? () => {
                   router.push({
                     pathname: "/(post)/page/[id]",
-                    params: { id: post_id },
+                    params: { id: postId },
                   });
                 }
               : () => {}
@@ -165,7 +167,7 @@ export default function PostCard({
                       {
                         
           await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-          const reactionResponse = await addReaction(post_id!, "FIRE")
+          const reactionResponse = await addReaction(postId!, "FIRE")
           if (reactionResponse === true) {
             setReactions(handleReaction(reactions, reactionState, "fire"))
           }
@@ -181,7 +183,7 @@ export default function PostCard({
                 !preview
                   ? async () =>{
                     await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-                    const reactionResponse = await addReaction(post_id!, "HEART")
+                    const reactionResponse = await addReaction(postId!, "HEART")
                     if (reactionResponse === true) {
                       setReactions(handleReaction(reactions, reactionState, "heart"))
                     }
@@ -200,7 +202,7 @@ export default function PostCard({
                 !preview
                   ? async () =>{
                     await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-                    const reactionResponse = await addReaction(post_id!, "COOL")
+                    const reactionResponse = await addReaction(postId!, "COOL")
                     if (reactionResponse === true) {
                       setReactions(handleReaction(reactions, reactionState, "sunglasses"))
                     }
@@ -231,19 +233,19 @@ export default function PostCard({
             numberOfLines={lines}
           >
             <ThemedText className="text-highlight-light pr-4 dark:text-highlight font-semibold">
-              {author_username + "  "}
+              {authorUsername + "  "}
             </ThemedText>
             {description}
           </ThemedText>
         </View>
 
         <CommentSheet
-          postId={post_id!}
-          user_nickname={user!.nickname}
-          user_profile_img={user!.profile_img}
-          authorId={author_id!}
+          postId={postId!}
+          userProfileImg={user!.profileImg}
+          userNickname={user!.nickname}
+          authorId={authorId!}
           userId={user!.id}
-          author_nickname={author_nickname}
+          authorNickname={authorNickname}
           preview={preview}
           language={language}
           colorScheme={colorScheme}

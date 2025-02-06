@@ -62,20 +62,21 @@ export default function Home() {
                 contentContainerClassName="mt-4 flex-1"
                 data={post.sort(
                   (a, b) =>
-                    new Date(b.date_of_creation).getTime() -
-                    new Date(a.date_of_creation).getTime()
+                    new Date(b.dateOfCreation).getTime() -
+                    new Date(a.dateOfCreation).getTime()
                 )}
                 renderItem={({ item }) => (
                   <PostCard
                     user={user}
-                    author_id={item.user.id}
-                    post_id={item.post_id}
-                    key={item.post_id}
-                    author_nickname={item.user.nickname}
-                    author_username={item.user.username}
+                    authorProfileImg={item.user.profileImg}
+                    authorId={item.user.id}
+                    postId={item.postId}
+                    key={item.postId}
+                    authorNickname={item.user.nickname}
+                    authorUsername={item.user.username}
                     colorScheme={colorScheme.get()!}
                     comments={item.comments || []}
-                    date={item.date_of_creation.split("T")[0]}
+                    date={item.dateOfCreation.split("T")[0]}
                     description={item.text}
                     images={item.images}
                     language={language}

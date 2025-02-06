@@ -34,7 +34,7 @@ export default function PostPage() {
           isPreferred: true,
           text: PostStatusTexts.newShare.responses.yes[language],
           onPress: async () => {
-            await Clipboard.setStringAsync(post!.post_id.toString())
+            await Clipboard.setStringAsync(post!.postId.toString())
           },
         }
       ])
@@ -83,17 +83,18 @@ export default function PostPage() {
       <View className="flex justify-center items-center h-full primary">
         <PostCard
         user={user}
-          author_id={post.user.id}
-          author_nickname={post.user.nickname}
-          author_username={post.user.username}
+          authorId={post.user.id}
+          authorProfileImg={post.user.profileImg}
+          authorNickname={post.user.nickname}
+          authorUsername={post.user.username}
           colorScheme={colorScheme!}
           comments={post.comments}
-          date={post.date_of_creation.split("T")[0]}
+          date={post.dateOfCreation.split("T")[0]}
           description={post.text}
           images={post.images}
           language={language}
           location={post.location}
-          post_id={post.post_id}
+          postId={post.postId}
           reactions={{ fire: 0, heart: 0, sunglasses: 0 }}
         />
       </View>

@@ -63,7 +63,7 @@ export default function AuthTouchables({
       username,
       password,
       nickname,
-      date_of_birth: dateOfBirth.split("T")[0],
+      dateOfBirth: dateOfBirth.split("T")[0],
     });
     router.replace("/(root)/home")
     resetFormData("register");

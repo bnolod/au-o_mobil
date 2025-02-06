@@ -113,7 +113,7 @@ export default function NewPost() {
         router.replace("/(root)/home");
         router.push({
           pathname: "/(post)/page/[id]",
-          params: { id: storeRes.post_id as string, isNew: "true" },
+          params: { id: storeRes.postId as string, isNew: "true" },
         });
       } else {
         Toast.show({
@@ -411,11 +411,11 @@ export default function NewPost() {
                 <BottomSheetView>
                   <PostCard
                     user={user}
-                    post_id={null}
-
-                    author_id={null}
-                    author_nickname={user!.nickname}
-                    author_username={user!.username}
+                    postId={null}
+authorProfileImg={user!.profileImg}
+                    authorId={null}
+                    authorNickname={user!.nickname}
+                    authorUsername={user!.username}
                     colorScheme={colorScheme!}
                     date={new Date().toDateString()}
                     description={newPostForm.description}

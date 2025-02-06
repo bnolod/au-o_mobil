@@ -36,12 +36,13 @@ export default function Profile() {
   const [lines, setLines] = useState<number | undefined>(3);
   const [posts, setPosts] = useState<PostResponse[]>([]);
   const [profile_image, setProfileImage] = useState<string | undefined>(
-    user?.profile_img
+    user?.profileImg
   );
   async function getUser() {
     const res = await apiFetch<any>(`users/user/${id}`, "GET", true);
-    if (res) {
-      setUser(res.data!);
+    if (res && res.data) {
+
+      setUser(res.data);
     } else return;
   }
   async function getUserPosts() {
@@ -60,7 +61,7 @@ export default function Profile() {
   }, []);
   const isOwner = user && user.id.toString() === (id as string);
   if (isOwner === undefined) return <UserLoading />;
-  if (user)
+  if (user !== undefined)
     return (
       <ScrollView className="primary">
         <RootHeader colorScheme={colorScheme!} language={language} />
@@ -80,7 +81,7 @@ export default function Profile() {
                   const img = await createImageForm(res.assets[0], `${user.username}_PROFILEPIC_${createTimestamp()}`, user!);
                   
                   if (img) {
-                    const profileUpdateResponse = await updateProfilePicture(img, user!.id)
+                    const profileUpdateResponse = await updateProfilePicture(img)
                     
                     if (profileUpdateResponse) {
                       setProfileImage(res.assets[0].uri);
@@ -93,7 +94,7 @@ export default function Profile() {
               }}
             >
               <Avatar
-                image={profile_image}
+                image={user.profileImg}
                 nickname={user.nickname}
                 className="h-20 w-20 primary my-4"
               />
@@ -166,11 +167,11 @@ export default function Profile() {
         <View className="w-11/12 mx-auto mt-4">
           <FlashList
             estimatedItemSize={200}
-            data={posts.sort((a, b) => new Date(b.date_of_creation).getTime() - new Date(a.date_of_creation).getTime())}
+            data={posts.length > 0 ? posts.sort((a, b) => new Date(b.dateOfCreation).getTime() - new Date(a.dateOfCreation).getTime()) : null}
             renderItem={({ item }) => (
               <Pressable
                 className="flex-1"
-                onPress={() => router.push({pathname: "/(post)/page/[id]", params: {id: item.post_id}})}
+                onPress={() => router.push({pathname: "/(post)/page/[id]", params: {id: item.postId}})}
                 style={{
                   shadowColor: Colors[colorScheme!].background,
                   shadowOffset: { width: 1, height: 10 },

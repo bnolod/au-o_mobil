@@ -10,14 +10,14 @@ import Toast from "react-native-toast-message";
 import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
 
 export default function AddCommentRow({
-  author_nickname,
+  authorNickname,
   language,
   colorScheme,
   focus,
   postId,
   onPostComment,
 }: {
-  author_nickname: string;
+  authorNickname: string;
   focus: boolean;
   postId: number;
   onPostComment: (res: Comment) => void;
@@ -57,7 +57,7 @@ export default function AddCommentRow({
           placeholder={
             HomeTexts.post.comment_1[language] +
             " " +
-            author_nickname +
+            authorNickname +
             " " +
             HomeTexts.post.comment_2[language]
           }

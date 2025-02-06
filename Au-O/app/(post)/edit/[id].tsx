@@ -190,11 +190,11 @@ export default function EditPost() {
           <BottomSheetView>
             <PostCard
             user={user}
-              post_id={null}
-
-              author_id={null}
-              author_nickname={user!.nickname}
-              author_username={user!.username}
+              postId={null}
+authorProfileImg={user!.profileImg}
+              authorId={user!.id}
+              authorNickname={user!.nickname}
+              authorUsername={user!.username}
               colorScheme={colorScheme!}
               date={new Date().toDateString()}
               description={editPostForm.description}

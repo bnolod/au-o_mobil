@@ -16,7 +16,7 @@ import {
 import axios, { AxiosInstance } from "axios";
 import { router } from "expo-router";
 import * as SecureStore from "expo-secure-store";
-import { createImageForm, deleteUser } from "./functions";
+import { createImageForm, deleteUser, saveUser } from "./functions";
 import { eventEmitter } from "./events";
 
 const apiClient: AxiosInstance = axios.create({
@@ -210,6 +210,14 @@ export async function handleRegister(
     throw new HttpError(500, "No token in response");
   }
 }
+async function refreshUser() {
+  const token = await SecureStore.getItemAsync("jwtToken")
+  const res = await getUser(token!)
+  if (res) {
+
+    await saveUser(res)
+  }
+}
 export async function handleLogin(request: LoginRequest): Promise<string> {
   const response = await apiFetch<TokenResponse>(
     "auth/login",
@@ -280,15 +288,23 @@ export async function deleteReply(replyId: number) {
 
 export async function updateProfilePicture(
   imageForm: FormData,
-  user_id: number,
 ) {
   const image = await imageUpload(imageForm);
-  
   if (image) {
-    const req = await apiFetch(`users/user/update`, "PUT", true, {
-      profile_img: image.url,
-    });
-    console.log(req); 
+    const token = await SecureStore.getItemAsync("jwtToken");
+    const req = await fetch(`${apiClient.defaults.baseURL}/users/user/update`,{
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
+    },
+    method: "PUT",
+    body: JSON.stringify({
+      profileImg: image.url,
+    })
+   }
+    )
+    const res = await req.json()
+    saveUser(res.body)
     return true;
   }
 

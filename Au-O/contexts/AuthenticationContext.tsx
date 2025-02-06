@@ -13,7 +13,7 @@ import {
   UserResponse,
 } from "@/constants/types";
 import UserLoading from "@/components/auth/UserLoading";
-import { saveUser } from "@/lib/functions";
+import { deleteUser, saveUser } from "@/lib/functions";
 
 interface AuthenticationContextType {
   user: UserResponse;
@@ -53,6 +53,7 @@ export const AuthenticationProvider: React.FC<{
   }
 
   useEffect(() => {
+    
     async function getStoredUser() {
       const user = await SecureStore.getItemAsync("user");
       setUser(user ? JSON.parse(user) : null);

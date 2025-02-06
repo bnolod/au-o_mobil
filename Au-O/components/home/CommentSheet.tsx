@@ -20,23 +20,23 @@ import CommentsEmpty from "./CommentsEmpty";
 export default function CommentSheet({
   colorScheme,
   comments,
-  author_nickname,
+  authorNickname,
   authorId,
   language,
-  user_nickname,
+  userNickname,
   userId,
-  user_profile_img,
+  userProfileImg,
   preview = false,
   postId,
 }: {
   colorScheme: "light" | "dark";
   comments: Comment[];
-  author_nickname: string;
+  authorNickname: string;
   language: "HU" | "EN";
   preview?: boolean;
-  user_nickname: string
+  userNickname: string
   postId: number;
-  user_profile_img: string
+  userProfileImg: string
   authorId: number;
   userId: number;
 }) {
@@ -68,8 +68,8 @@ export default function CommentSheet({
         <View className="basis-1/12 flex justify-center items-center">
           <Avatar
             className="primary"
-            image={user_profile_img}
-            nickname={user_nickname}
+            image={userProfileImg}
+            nickname={userNickname}
             height={12}
             width={12}
           />
@@ -85,7 +85,7 @@ export default function CommentSheet({
               <ThemedText className="opacity-40">
                 {HomeTexts.post.comment_1[language]}
                 <ThemedText className="font-bold">
-                  {" " + author_nickname}
+                  {" " + authorNickname}
                 </ThemedText>
                 {HomeTexts.post.comment_2[language]}
               </ThemedText>
@@ -147,7 +147,7 @@ export default function CommentSheet({
                 ListHeaderComponent={
                   <AddCommentRow
                     focus={focused}
-                    author_nickname={author_nickname}
+                    authorNickname={authorNickname}
                     language={language}
                     colorScheme={colorScheme}
                     postId={postId}
