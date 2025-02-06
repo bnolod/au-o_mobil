@@ -51,8 +51,8 @@ export default function PostOptionMenu(
         text: PostStatusTexts.deletePrompt.buttons.delete[language],
         style: "destructive",
         onPress: async () => {
-          const res = await apiFetch(`posts/post/${postId}`, "DELETE", true);
-          if (res) {
+          /* const res = await apiFetch(`posts/post/${postId}`, "DELETE", true);
+          if (res && res.status === 200) {
             Toast.show({
               type: "success",
               text1: PostStatusTexts.deletePrompt.success[language],
@@ -64,7 +64,8 @@ export default function PostOptionMenu(
               type: "error",
               text1: PostStatusTexts.deletePrompt.error[language],
             });
-          }
+          } */
+         console.log(postId)
         }
       }])
     }

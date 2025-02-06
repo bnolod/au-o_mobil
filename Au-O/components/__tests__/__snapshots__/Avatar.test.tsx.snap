@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Avatar kép megjelenik 1`] = `
+<Image
+  className="w-14 h-14 undefined rounded-full"
+  source={
+    {
+      "uri": "https://via.placeholder.com/150",
+    }
+  }
+/>
+`;

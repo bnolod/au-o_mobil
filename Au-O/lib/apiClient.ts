@@ -304,7 +304,9 @@ export async function updateProfilePicture(
    }
     )
     const res = await req.json()
-    saveUser(res.body)
+    console.log(SecureStore.getItem("user"))
+    console.log(res)
+    await saveUser(res)
     return true;
   }
 
