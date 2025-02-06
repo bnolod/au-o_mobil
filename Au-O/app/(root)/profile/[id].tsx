@@ -9,7 +9,7 @@ import {
   View,
 } from "react-native";
 import { useAuthentication } from "@/contexts/AuthenticationContext";
-import { apiFetch } from "@/lib/apiClient";
+import { apiFetch, updateProfilePicture } from "@/lib/apiClient";
 import { PostResponse, User } from "@/constants/types";
 import { useEffect, useState } from "react";
 import { router, useLocalSearchParams } from "expo-router";
@@ -25,6 +25,8 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Colors } from "@/constants/Colors";
 import { FlashList } from "@shopify/flash-list";
 import PostCard from "@/components/home/Post";
+import { createImageForm, createTimestamp } from "@/lib/functions";
+import Toast from "react-native-toast-message";
 export default function Profile() {
   const [user, setUser] = useState<User>();
   const { logout } = useAuthentication();
@@ -36,11 +38,10 @@ export default function Profile() {
   const [profile_image, setProfileImage] = useState<string | undefined>(
     user?.profile_img
   );
-  const [showModal, setShowModal] = useState<PostResponse | null>(null);
   async function getUser() {
     const res = await apiFetch<any>(`users/user/${id}`, "GET", true);
     if (res) {
-      setUser(res);
+      setUser(res.data!);
     } else return;
   }
   async function getUserPosts() {
@@ -50,7 +51,7 @@ export default function Profile() {
       true
     );
     if (res) {
-      setPosts(res);
+      setPosts(res.data!);
     } else return;
   }
   useEffect(() => {
@@ -76,12 +77,23 @@ export default function Profile() {
                   mediaTypes: "images",
                 });
                 if (!res.canceled) {
-                  setProfileImage(res.assets[0].uri);
-                }
+                  const img = await createImageForm(res.assets[0], `${user.username}_PROFILEPIC_${createTimestamp()}`, user!);
+                  
+                  if (img) {
+                    const profileUpdateResponse = await updateProfilePicture(img, user!.id)
+                    
+                    if (profileUpdateResponse) {
+                      setProfileImage(res.assets[0].uri);
+                      Toast.show({
+                        type: "success",
+                        text1: "Profile picture updated!",
+                      })
+                    }
+                }}
               }}
             >
               <Avatar
-                image={user.profile_img}
+                image={profile_image}
                 nickname={user.nickname}
                 className="h-20 w-20 primary my-4"
               />
@@ -154,12 +166,11 @@ export default function Profile() {
         <View className="w-11/12 mx-auto mt-4">
           <FlashList
             estimatedItemSize={200}
-            data={posts}
+            data={posts.sort((a, b) => new Date(b.date_of_creation).getTime() - new Date(a.date_of_creation).getTime())}
             renderItem={({ item }) => (
               <Pressable
                 className="flex-1"
                 onPress={() => router.push({pathname: "/(post)/page/[id]", params: {id: item.post_id}})}
-                onLongPress={() => setShowModal(item)}
                 style={{
                   shadowColor: Colors[colorScheme!].background,
                   shadowOffset: { width: 1, height: 10 },
@@ -177,40 +188,7 @@ export default function Profile() {
             )}
             numColumns={2}
           />
-          {showModal && user && (
-            <Modal
-              visible={showModal !== null}
-              transparent
-              animationType="fade"
-            >
-              <Pressable
-                onPress={() => setShowModal(null)}
-                className="h-screen w-screen  absolute flex justify-center items-center bg-black/25"
-              >
-                  <View className=" w-screen pointer-events-none">
-                    <PostCard
-                      preview
-                      author_id={showModal!.user.id}
-                      author_nickname={showModal!.user.nickname}
-                      author_username={showModal!.user.username}
-                      colorScheme={colorScheme!}
-                      comments={showModal!.comments}
-                      date={showModal!.date_of_creation.split("T")[0]}
-                      description={showModal!.text}
-                      language={language}
-                      location={showModal!.location}
-                      post_id={showModal!.post_id}
-                      reactions={{ fire: 0, heart: 0, sunglasses: 0 }}
-                      user_id={user.id}
-                      user_nickname={user.nickname}
-                      user_profile_img={user.profile_img}
-                      images={showModal!.images.map((img) => img.url)}
-                    />
-                  </View>
-                </Pressable>
-            </Modal>
-          )}
-        </View>
+          </View>
       </ScrollView>
     );
 }

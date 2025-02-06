@@ -45,7 +45,7 @@ export default function PostPage() {
       
       const res = await apiFetch<PostResponse>(`posts/post/${id}`, "GET", true);
       if (res) {
-        setPost(res);
+        setPost(res?.data!);
         setLoading(false);
       } else {
         setLoading(null);
@@ -82,8 +82,7 @@ export default function PostPage() {
     return (
       <View className="flex justify-center items-center h-full primary">
         <PostCard
-        user_nickname={user!.nickname}
-        user_profile_img={user!.profile_img}
+        user={user}
           author_id={post.user.id}
           author_nickname={post.user.nickname}
           author_username={post.user.username}
@@ -91,12 +90,11 @@ export default function PostPage() {
           comments={post.comments}
           date={post.date_of_creation.split("T")[0]}
           description={post.text}
-          images={post.images.map((img) => img.url)}
+          images={post.images}
           language={language}
           location={post.location}
           post_id={post.post_id}
           reactions={{ fire: 0, heart: 0, sunglasses: 0 }}
-          user_id={post.user.id}
         />
       </View>
     );

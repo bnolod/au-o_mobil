@@ -6,14 +6,14 @@ import Toast from "react-native-toast-message";
 import { Picker } from "@react-native-picker/picker";
 import { router } from "expo-router";
 import { Colors } from "@/constants/Colors";
-import { apiFetch } from "@/lib/apiClient";
+import { apiFetch, deleteImgurImage } from "@/lib/apiClient";
 export default function PostOptionMenu(
   preview: boolean,
   language: "EN" | "HU",
   post_id: number,
   user_id: number | null,
   author_id: number | null,
-  onDelete?: () => void
+  onDelete?: () => void,
 ) {
   if (preview) return null;
   let iosOptions = [
@@ -39,7 +39,7 @@ export default function PostOptionMenu(
   }
   async function handleEdit() {
     if (author_id && user_id && author_id === user_id) {
-      router.push({ pathname: "/(post)/edit/[id]", params: { id: post_id } });
+      router.push({pathname: "/(post)/edit/[id]", params: {id: post_id.toString()}});
     }
   }
   async function handleDelete() {

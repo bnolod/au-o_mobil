@@ -19,6 +19,6 @@ export default function Avatar({image, className, nickname, height = 14, width =
         )
     }
     return (
-        <Image source={image} className={"w-14 h-14 rounded-full"}/>
+        <Image source={{uri: image}} className={`w-${width} h-${height} ${className} rounded-full`}/>
     )
 } 

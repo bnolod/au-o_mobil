@@ -22,8 +22,8 @@ export default function EditPost() {
   const [loading, setLoading] = useState<boolean | null>(true);
   const { user } = useAuthentication();
   const { language } = useLanguage();
+  const {id}  = useLocalSearchParams();
   const { colorScheme } = useColorScheme();
-  const { id } = useLocalSearchParams();
   const [post, setPost] = useState<PostResponse>();
   const [editPostForm, setEditPostForm] = useState({
     description: "",
@@ -63,11 +63,11 @@ export default function EditPost() {
       true
     );
     if (postResponse) {
-      setPost(postResponse);
+      setPost(postResponse?.data!);
       setEditPostForm({
         ...editPostForm,
-        description: postResponse.text,
-        location: postResponse.location,
+        description: postResponse.data!.text,
+        location: postResponse.data!.location,
       });
       setLoading(false);
     } else setLoading(null);
@@ -77,7 +77,7 @@ export default function EditPost() {
   }, []);
   if (loading === null) {
     return (
-      <View className="flex gap-2 m-auto p-4 justify-center items-center rounded-xl secondary">
+      <View className="flex gap-2 m-auto p-4 justify-center items-center rounded-xl bg-black/25">
         <MaterialCommunityIcons
           name="cloud-question"
           size={64}
@@ -96,8 +96,8 @@ export default function EditPost() {
   if (post)
   return (
     <Pressable
-      onPress={() => Keyboard.dismiss()}
-      className="primary flex-1 h-full justify-center items-center"
+      onPress={() => {Keyboard.dismiss()}}
+      className="flex-1 h-full justify-center items-center bg-black/25"
     >
       <View className="secondary p-4 w-11/12 rounded-xl flex gap-4">
         <ThemedText className="mx-auto text-center text-xl font-bold">
@@ -189,18 +189,16 @@ export default function EditPost() {
         >
           <BottomSheetView>
             <PostCard
-            user_nickname={user!.nickname}
-            user_profile_img={user!.profile_img}
-            
+            user={user}
               post_id={null}
-              user_id={null}
+
               author_id={null}
               author_nickname={user!.nickname}
               author_username={user!.username}
               colorScheme={colorScheme!}
               date={new Date().toDateString()}
               description={editPostForm.description}
-              images={post?.images.map((image) => image.url) || []}
+              images={post?.images || []}
               language={language}
               location={editPostForm.location}
               comments={[]}

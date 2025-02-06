@@ -410,17 +410,18 @@ export default function NewPost() {
               >
                 <BottomSheetView>
                   <PostCard
-                    user_nickname={user!.nickname}
-                    user_profile_img={user!.profile_img}
+                    user={user}
                     post_id={null}
-                    user_id={null}
+
                     author_id={null}
                     author_nickname={user!.nickname}
                     author_username={user!.username}
                     colorScheme={colorScheme!}
                     date={new Date().toDateString()}
                     description={newPostForm.description}
-                    images={images.map((image) => image.uri)}
+                    images={images.map((image) => {
+                      return {url: image.uri, deleteHash: ""}
+                    })}
                     language={language}
                     location={newPostForm.location}
                     comments={[]}

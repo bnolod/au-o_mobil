@@ -161,7 +161,11 @@ export interface PostCardProps {
   author_nickname: string;
   author_username: string;
   date: string;
-  images: string[];
+  images: {
+    url: string;
+    deleteHash: string;
+  
+  }[];
   description: string;
   location: string;
   reactions: Reactions;

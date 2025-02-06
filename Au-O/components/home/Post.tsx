@@ -1,5 +1,5 @@
-import { PostCardProps, Reactions, ReactionState } from "@/constants/types";
-import { Pressable, View } from "react-native";
+import { PostCardProps, Reactions, ReactionState, UserResponse } from "@/constants/types";
+import { Modal, Pressable, View } from "react-native";
 import * as Haptics from "expo-haptics";
 import React from "react";
 import ThemedText from "../ui/ThemedText";
@@ -16,8 +16,9 @@ import TapCountWrapper from "../utility/TapCountWrapper";
 import PostOptionMenu from "./PostOptionMenu";
 import PostImage from "./PostImage";
 import { handleReaction, handleShowMore } from "@/lib/events";
-import { addReaction } from "@/lib/apiClient";
+import { addReaction, deleteImgurImage } from "@/lib/apiClient";
 import Toast from "react-native-toast-message";
+import EditPost from "@/app/(post)/edit/[id]";
 
 export default function PostCard({
   preview = false,
@@ -26,9 +27,7 @@ export default function PostCard({
   eventData,
   groupData,
   author_username,
-  user_nickname,
   comments,
-  user_profile_img,
   date,
   description,
   images,
@@ -37,13 +36,12 @@ export default function PostCard({
   language,
   colorScheme,
   post_id,
-  user_id,
+  user,
 }: PostCardProps & {
-  user_id: number | null;
+  user: UserResponse;
   author_id: number | null;
-  user_nickname: string;
-  user_profile_img: string;
 }) {
+  const [modalShown, setIsModalShown] = useState<boolean>(false);
   const postType = getPostType(
     author_nickname,
     author_username,
@@ -52,9 +50,17 @@ export default function PostCard({
   );
   function showOptions() {
     if (!preview) {
-      PostOptionMenu(preview, language, post_id!, user_id, author_id, () => {
+      PostOptionMenu(preview, language, post_id!, user!.id, author_id, () => {
         setIsDeleted(true);
-      });
+        for (const img of images) {
+          async function handleImageDelete() {
+            const res = await deleteImgurImage(img.deleteHash)
+            if (res === true) {
+              console.log("Image deleted.")
+            }
+          }
+        }
+      })
     }
   }
   const [isDeleted, setIsDeleted] = useState<boolean>(false);
@@ -66,6 +72,9 @@ export default function PostCard({
   const [lines, setLines] = useState<number | undefined>(3);
 
   return (
+    <>
+
+    
     <View className={isDeleted ? "hidden" : "post-container"}>
       <View className="post-header justify-between">
         <View className="flex-row flex items-center basis-11/12">
@@ -137,7 +146,7 @@ export default function PostCard({
                 </ThemedText>
               </View>
             )}
-            <PostImage images={images} />
+            <PostImage images={images.map((img) => img.url)} />
           </View>
         </TapCountWrapper>
       </Pressable>
@@ -230,10 +239,10 @@ export default function PostCard({
 
         <CommentSheet
           postId={post_id!}
-          user_nickname={user_nickname}
-          user_profile_img={user_profile_img}
+          user_nickname={user!.nickname}
+          user_profile_img={user!.profile_img}
           authorId={author_id!}
-          userId={user_id!}
+          userId={user!.id}
           author_nickname={author_nickname}
           preview={preview}
           language={language}
@@ -241,6 +250,8 @@ export default function PostCard({
           comments={comments}
         />
       </View>
+
     </View>
+    </>
   );
 }

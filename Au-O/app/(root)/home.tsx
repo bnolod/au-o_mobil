@@ -29,7 +29,7 @@ export default function Home() {
   const [post, setPost] = useState<PostResponse[]>([]);
   async function fetchPosts(): Promise<PostResponse[]> {
     const post = await apiFetch<PostResponse[]>("posts/all", "GET", true);
-    return post!;
+    return post?.data!;
   }
   useEffect(() => {
     async function load() {
@@ -67,9 +67,7 @@ export default function Home() {
                 )}
                 renderItem={({ item }) => (
                   <PostCard
-                    user_id={user!.id}
-                    user_nickname={user.nickname}
-                    user_profile_img={user.profile_img}
+                    user={user}
                     author_id={item.user.id}
                     post_id={item.post_id}
                     key={item.post_id}
@@ -79,7 +77,7 @@ export default function Home() {
                     comments={item.comments || []}
                     date={item.date_of_creation.split("T")[0]}
                     description={item.text}
-                    images={item.images.map((image) => image.url)}
+                    images={item.images}
                     language={language}
                     location={item.location}
                     reactions={{ fire: 0, heart: 0, sunglasses: 0 }}

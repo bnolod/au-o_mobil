@@ -16,7 +16,7 @@ import {
 import axios, { AxiosInstance } from "axios";
 import { router } from "expo-router";
 import * as SecureStore from "expo-secure-store";
-import { deleteUser } from "./functions";
+import { createImageForm, deleteUser } from "./functions";
 import { eventEmitter } from "./events";
 
 const apiClient: AxiosInstance = axios.create({
@@ -60,21 +60,33 @@ export async function logout() {
 
   eventEmitter.emit("triggerLogout");
 }
+export async function deleteImgurImage(deleteHash: string) {
+  const req = await fetch(`https://api.imgur.com/3/image/${deleteHash}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Client-ID ${process.env.EXPO_PUBLIC_IMGUR_CLIENT_ID}`,
+    },
+  });
+  if (req.status === 200) {
+    return true;
+  }
+  return false;
+}
 export async function validateToken(token: string, path: string) {
   const validToken = await apiFetch<string>("auth/authenticate", "POST", true, {
     token,
   });
 
-  if (!validToken) {
+  if (!validToken?.data) {
     if (path === "/onboarding" || path === "/login" || path === "/register") {
       await logout();
       router.replace("/(auth)/login");
     }
   } else {
-    SecureStore.setItemAsync("jwtToken", validToken!);
-    return validToken;
+    SecureStore.setItemAsync("jwtToken", validToken.data!);
+    return validToken.data;
   }
-  return validToken;
+  return validToken?.data;
 }
 export const imageUpload = async (
   image: FormData
@@ -103,7 +115,7 @@ export const imageUpload = async (
 export async function storeImages(request: ImageStoreRequest): Promise<any> {
   const res = await apiFetch("posts/post/user", "POST", true, request);
   if (res) {
-    return res;
+    return res.data;
   } else return null;
 }
 export async function CreatePost(props: CreatePostRequest): Promise<void> {
@@ -111,15 +123,21 @@ export async function CreatePost(props: CreatePostRequest): Promise<void> {
     ...props,
   });
 }
-export async function addReaction(postId: number, reaction: "HEART" | "FIRE" | "COOL") {
-  const res = await fetch(`${apiClient.defaults.baseURL}/posts/post/${postId}/addOrRemoveReaction/${reaction}`, {
-    method: "POST",
-    headers: {
-        "Authorization": `Bearer ${await SecureStore.getItemAsync("jwtToken")}`
+export async function addReaction(
+  postId: number,
+  reaction: "HEART" | "FIRE" | "COOL"
+) {
+  const res = await fetch(
+    `${apiClient.defaults.baseURL}/posts/post/${postId}/addOrRemoveReaction/${reaction}`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${await SecureStore.getItemAsync("jwtToken")}`,
+      },
     }
-  })
-  if (res.status===200) return true
-  return false 
+  );
+  if (res.status === 200) return true;
+  return false;
 }
 export async function editPost(text: string, location: string, id: string) {
   const res = await apiFetch(`/posts/post/${id}`, "PUT", true, {
@@ -127,7 +145,7 @@ export async function editPost(text: string, location: string, id: string) {
     location,
   });
   if (res) {
-    return res;
+    return res.data;
   } else return null;
 }
 export async function getUser(token: string): Promise<User | null | undefined> {
@@ -137,7 +155,7 @@ export async function getUser(token: string): Promise<User | null | undefined> {
     }
     const user = await apiFetch<User>("auth/profile", "GET", true);
     if (user) {
-      return user;
+      return user.data;
     } else return null;
   } catch (error: unknown) {
     console.error(error);
@@ -150,7 +168,7 @@ export async function apiFetch<T>(
   method: HttpMethod = "GET",
   requiresAuth: boolean = true,
   body?: Record<string, any>
-): Promise<T | null> {
+): Promise<{data: T | null; status: number} | null> {
   try {
     const config = {
       method,
@@ -168,7 +186,7 @@ export async function apiFetch<T>(
     if (res.status === 403 && requiresAuth) {
       await logout();
     }
-    return res.data;
+    return {data: res.data, status: res.status}
   } catch (error: unknown) {
     return null;
   }
@@ -184,8 +202,8 @@ export async function handleRegister(
       false,
       request
     );
-    if (response!.token) {
-      return response!.token;
+    if (response!.data!.token) {
+      return response!.data!.token;
     }
     return Promise.reject();
   } catch (error: unknown) {
@@ -200,7 +218,7 @@ export async function handleLogin(request: LoginRequest): Promise<string> {
     request
   );
 
-  return response!.token;
+  return response!.data!.token;
 }
 
 export async function AddCommentToPost(
@@ -215,7 +233,7 @@ export async function AddCommentToPost(
       text: comment,
     }
   );
-  if (res) return res;
+  if (res) return res.data;
   return null;
 }
 export async function DeleteComment(commentId: string): Promise<boolean> {
@@ -243,7 +261,7 @@ export async function sendReply(
       text,
     }
   );
-  if (res) return res;
+  if (res) return res.data;
   return null;
 }
 export async function deleteReply(replyId: number) {
@@ -258,4 +276,21 @@ export async function deleteReply(replyId: number) {
   );
   if (res.status === 200) return true;
   else return false;
+}
+
+export async function updateProfilePicture(
+  imageForm: FormData,
+  user_id: number,
+) {
+  const image = await imageUpload(imageForm);
+  
+  if (image) {
+    const req = await apiFetch(`users/user/update`, "PUT", true, {
+      profile_img: image.url,
+    });
+    console.log(req); 
+    return true;
+  }
+
+  return false;
 }
