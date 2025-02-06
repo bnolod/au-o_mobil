@@ -23,7 +23,7 @@ export function handleFormInputChange(
     [key]: value,
   });
 }
-export async function setTimestamp() {
+export async function setTimestamp() { 
   await SecureStore.setItemAsync("timestamp", new Date().getTime().toString());
 }
 export async function getTimestamp() {
@@ -160,9 +160,6 @@ export function validateRegister(
 ) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const usernameRegex = /^[a-zA-Z0-9_]{3,}$/;
-  const minCharactersRegex = new RegExp(
-    `^.{${process.env.EXPO_PUBLIC_MIN_PASSWORD_CHARACTER_LENGTH || 8},}$`
-  );
   const noCapitalLettersRegex = /^(?=.*[A-Z])/;
   const noSmallLettersRegex = /^(?=.*[a-z])/;
   const noNumbersRegex = /^(?=.*\d)/;
@@ -178,7 +175,7 @@ export function validateRegister(
     errors.push(UIErrorTexts.username.invalidUsername[language]);
   }
 
-  if (!minCharactersRegex.test(password)) {
+  if (password.length < 8) {
     errors.push(UIErrorTexts.password.minCharacters[language]);
   }
   if (!noCapitalLettersRegex.test(password)) {

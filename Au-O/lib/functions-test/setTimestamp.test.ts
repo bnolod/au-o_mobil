@@ -1,4 +1,3 @@
-import { setItemAsync } from "expo-secure-store";
 
 jest.mock("expo-secure-store", () => ({
     setItemAsync: jest.fn()

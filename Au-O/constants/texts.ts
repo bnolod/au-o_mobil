@@ -154,8 +154,8 @@ export const UIErrorTexts = {
     },
     password: {
         minCharacters: {
-            HU: `A jelszó minimum ${process.env.EXPO_PUBLIC_MIN_PASSWORD_CHARACTER_LENGTH} karakterből kell, hogy álljon.`,
-            EN: `Your password must be at least ${process.env.EXPO_PUBLIC_MIN_PASSWORD_CHARACTER_LENGTH} characters.`
+            HU: `A jelszó minimum 8 karakterből kell, hogy álljon.`,
+            EN: `Your password must be at least 8 characters.`
         },
         noCapitalLetters: {
             HU: "A jelszóban szerepelnie kell minimum 1 nagybetűs karakternek.",
