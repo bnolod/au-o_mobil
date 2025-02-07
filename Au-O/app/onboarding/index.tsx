@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import { Dimensions, Platform, View } from "react-native";
-import { StatusBar } from "expo-status-bar";
 import { useColorScheme } from "nativewind";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { OnboardingTexts } from "@/constants/texts";

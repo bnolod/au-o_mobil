@@ -3,7 +3,7 @@ import { Keyboard, TextInput, View } from "react-native";
 import Button from "../ui/Button";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Colors } from "@/constants/Colors";
-import { Comment, CommonStaticElementProps } from "@/constants/types";
+import { AddCommentRowProps, Comment, CommonStaticElementProps } from "@/constants/types";
 import { useState } from "react";
 import { AddCommentToPost } from "@/lib/apiClient";
 import Toast from "react-native-toast-message";
@@ -16,12 +16,7 @@ export default function AddCommentRow({
   focus,
   postId,
   onPostComment,
-}: {
-  authorNickname: string;
-  focus: boolean;
-  postId: number;
-  onPostComment: (res: Comment) => void;
-} & CommonStaticElementProps) {
+}: AddCommentRowProps & CommonStaticElementProps) {
   const [commentText, setCommentText] = useState<string>("");
   async function handleSubmitComment() {
     const res = await AddCommentToPost(postId.toString(), commentText);

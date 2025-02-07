@@ -8,7 +8,6 @@ import { EventPostData, GroupPostData, PostDispayElementProps } from "@/constant
 export default function PostHeaderElement({
 onPress,
 authorNickname,
-authorUsername,
 authorProfileImg,
 colorScheme,
 postType,

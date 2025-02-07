@@ -1,17 +1,14 @@
 import {
   Keyboard,
   TextInput,
-  TextInputProps,
   TouchableWithoutFeedback,
   View,
 } from "react-native";
 import ThemedText from "./ThemedText";
-import { ReactNode, useState } from "react";
+import { useState } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { CommonStaticElementProps } from "@/constants/types";
 import { Colors } from "@/constants/Colors";
-
-
+import { InputProps } from "@/constants/types";
 
 export default function Input({
   label,
@@ -19,60 +16,76 @@ export default function Input({
   secureTextEntry = false,
   TextInputProps,
   icon,
-  colorScheme
-}: {
-  label?: string | ReactNode;
-  secureTextEntry?: boolean;
-  TextInputProps?: TextInputProps;
-  containerClassName?: string;
-  icon?: any;
-  colorScheme: "light" | "dark";
-}) {
+  colorScheme,
+}: InputProps) {
   const [isFocused, setIsFocused] = useState(false);
   const [isSecure, setIsSecure] = useState(false);
   return (
     <TouchableWithoutFeedback
-    className={" w-full " + ""}
+      className={" w-full " + ""}
       onPress={Keyboard.dismiss}
-      
     >
-      <View className={`input-container my-4 ${isFocused ? " z-50" : ""} ${containerClassName}`}>
-
+      <View
+        className={`input-container my-4 ${
+          isFocused ? " z-50" : ""
+        } ${containerClassName}`}
+      >
         <View
           className={`input-body pt-2 border-0 ${
-            isFocused
-              ? "border-backdrop-primary"
-              : ""
+            isFocused ? "border-backdrop-primary" : ""
           }`}
-
-          style={{shadowColor: !isFocused ? Colors[colorScheme].background : Colors.highlight.main, shadowOffset: {width: 0, height: 4}, shadowOpacity: isFocused ? 0.45 : 0.8, shadowRadius: 2, elevation: 5}}
+          style={{
+            shadowColor: !isFocused
+              ? Colors[colorScheme].background
+              : Colors.highlight.main,
+            shadowOffset: { width: 0, height: 4 },
+            shadowOpacity: isFocused ? 0.45 : 0.8,
+            shadowRadius: 2,
+            elevation: 5,
+          }}
         >
-        <View className="absolute  text-gray-500 -top-3 -left-3 flex flex-row-reverse justify-center items-center">
-        {label &&  <ThemedText className="text-lg font-semibold  text-gray-500">  {label}</ThemedText>}
-        {icon}
-
-        </View>
+          <View className="absolute  text-gray-500 -top-3 -left-3 flex flex-row-reverse justify-center items-center">
+            {label && (
+              <ThemedText className="text-lg font-semibold  text-gray-500">
+                {" "}
+                {label}
+              </ThemedText>
+            )}
+            {icon}
+          </View>
           <TextInput
             className="text-input"
-            onFocus={() => {setIsFocused(true); setIsSecure(secureTextEntry)}}
+            onFocus={() => {
+              setIsFocused(true);
+              setIsSecure(secureTextEntry);
+            }}
             onBlur={() => setIsFocused(false)}
             secureTextEntry={isSecure}
-            style={{backgroundColor: "transparent", color: Colors[colorScheme].text}}
+            style={{
+              backgroundColor: "transparent",
+              color: Colors[colorScheme].text,
+            }}
             placeholderTextColor={"#767676"}
             autoComplete="off"
             textContentType="none"
             {...TextInputProps}
-            />
-            {secureTextEntry && (
-              <TouchableWithoutFeedback
+          />
+          {secureTextEntry && (
+            <TouchableWithoutFeedback
               className="text-right h-3 w-full"
-                hitSlop={40}
-                onPress={() => {setIsSecure(!isSecure)}}
-              >
-                <MaterialCommunityIcons style={{right: 12, position: "absolute"}} name={isSecure ? "eye-off" : "eye"} size={24} color={colorScheme === "dark" ? "white" : "black"} />
-
-              </TouchableWithoutFeedback>
-            )}
+              hitSlop={40}
+              onPress={() => {
+                setIsSecure(!isSecure);
+              }}
+            >
+              <MaterialCommunityIcons
+                style={{ right: 12, position: "absolute" }}
+                name={isSecure ? "eye-off" : "eye"}
+                size={24}
+                color={colorScheme === "dark" ? "white" : "black"}
+              />
+            </TouchableWithoutFeedback>
+          )}
         </View>
       </View>
     </TouchableWithoutFeedback>

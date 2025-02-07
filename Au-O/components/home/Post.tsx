@@ -38,10 +38,7 @@ export default function PostCard({
   colorScheme,
   postId,
   user,
-}: PostCardProps & {
-  user: UserResponse;
-  authorId: number | null;
-}) {
+}: PostCardProps) {
   
   const postType = getPostType(
     authorNickname,
@@ -81,13 +78,13 @@ export default function PostCard({
         <View className="flex-row flex items-center basis-11/12">
           <PostHeaderElement
             authorProfileImg={authorProfileImg}
-            authorUsername={authorProfileImg}
+            authorUsername={authorUsername}
             authorNickname={authorNickname}
             colorScheme={colorScheme}
             onPress={() => {
               router.push({
                 pathname: "/(root)/profile/[id]",
-                params: { id: authorId!.toString() },
+                params: { id: authorId!},
               });
             }}
             postType={postType}

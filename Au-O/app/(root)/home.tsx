@@ -14,6 +14,7 @@ import { FlashList } from "@shopify/flash-list";
 import NoPostsFound from "@/components/home/NoPostsFound";
 import LoadingModal from "@/components/ui/LoadingModal";
 import { Redirect } from "expo-router";
+import * as SecureStore from "expo-secure-store";
 import FontStyleController from "@/components/ui/FontStyleController";
 
 export default function Home() {

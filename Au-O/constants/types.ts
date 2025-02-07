@@ -1,4 +1,4 @@
-import { GestureResponderEvent, TouchableOpacityProps } from "react-native";
+import { GestureResponderEvent, TextInputProps, TouchableOpacityProps } from "react-native";
 import { HttpErrorTexts } from "./texts";
 import { ReactNode } from "react";
 import { ImagePickerAsset } from "expo-image-picker";
@@ -99,7 +99,7 @@ export interface PostDispayElementProps {
   postType: string;
   colorScheme: "light" | "dark";
   authorNickname: string;
-  authorProfileImg: string,
+  authorProfileImg: string;
   authorUsername: string;
   groupData: GroupPostData | null;
   eventData: EventPostData | null;
@@ -132,7 +132,7 @@ export interface PostResponse {
   location: string;
   postId: number;
   postType: PostResponseType;
-  reactionTypeMap: Reactions
+  reactionTypeMap: Reactions;
   text: string;
   user: UserPostResponseType;
   comments: Comment[];
@@ -157,6 +157,8 @@ export interface TapWrapperProps {
 export interface PostCardProps {
   postId: number | null;
   preview?: boolean;
+  user: UserResponse;
+  authorId: number | null;
   groupData?: GroupPostData;
   authorProfileImg: string;
   eventData?: EventPostData;
@@ -166,7 +168,6 @@ export interface PostCardProps {
   images: {
     url: string;
     deleteHash: string;
-  
   }[];
   description: string;
   location: string;
@@ -241,4 +242,71 @@ export type ReactionState = {
   fire: number;
   heart: number;
   sunglasses: number;
+};
+export interface AddCommentRowProps {
+  authorNickname: string;
+  focus: boolean;
+  postId: number;
+  onPostComment: (res: Comment) => void;
+}
+export interface CommentSheetProps {
+  comments: Comment[];
+  authorNickname: string;
+  preview?: boolean;
+  userNickname: string;
+  postId: number;
+  userProfileImg: string;
+  authorId: number;
+  userId: number;
+}
+export interface PostCarouselElementProps {
+  images: string[];
+  index: number;
+}
+export interface PostOptionMenuProps {
+  preview: boolean,
+  language: "EN" | "HU",
+  postId: number,
+  userId: number | null,
+  authorId: number | null,
+  onDelete?: () => void
+}
+
+export interface PostCreationSheetElementProps {
+    group?: any;
+    event?: any;
+    onPress: (selected: any) => void;
+    title: string;
+}
+export interface OnboardHeaderProps {
+  isStatic?: boolean;
+  onBackPress?: () => void;
+  onSkipPress?: () => void;
+  index?: number;
+}
+export interface CommentElementProps {
+    item: Comment;
+    userId: number;
+    onDelete: (id: number) => void;
+    authorId: number;
+}
+export interface FilterBarProps {
+  onChange: (value: string) => void;
+  placeholder?: string;
+  initialValue?: string;
+}
+export interface InputProps {
+    label?: string | ReactNode;
+    secureTextEntry?: boolean;
+    TextInputProps?: TextInputProps;
+    containerClassName?: string;
+    icon?: any;
+    colorScheme: "light" | "dark";
+}
+export interface ReplyProps {
+    item: Reply;
+    language: "HU" | "EN";
+    userId: number;
+    authorId: number;
+    onDelete: (id: number) => void;
 }

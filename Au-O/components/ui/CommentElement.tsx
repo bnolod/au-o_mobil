@@ -9,7 +9,7 @@ import {
   View,
 } from "react-native";
 import ThemedText from "./ThemedText";
-import { Comment, Reply } from "@/constants/types";
+import { Comment, CommentElementProps, CommonStaticElementProps, Reply } from "@/constants/types";
 import ReactionButton from "./ReactionButton";
 import Avatar from "./Avatar";
 import { useState } from "react";
@@ -30,17 +30,11 @@ export default function CommentElement({
   language,
   userId,
   authorId,
+  colorScheme,
   onDelete,
-}: {
-  item: Comment;
-  language: "HU" | "EN";
-  userId: number;
-  onDelete: (id: number) => void;
-  authorId: number;
-}) {
+}: CommentElementProps & CommonStaticElementProps) {
   const [lines, setLines] = useState<number | undefined>(3);
   const [replying, setReplying] = useState<boolean>(false);
-  const { colorScheme } = useColorScheme();
   const [replyText, setReplyText] = useState<string>("");
   const [renderedReplies, setRenderedReplies] = useState<Reply[]>(
     item.replies ? item.replies : []

@@ -12,6 +12,7 @@ import {
   Reply,
   TokenResponse,
   User,
+  UserResponse,
 } from "@/constants/types";
 import axios, { AxiosInstance } from "axios";
 import { router } from "expo-router";
@@ -168,7 +169,7 @@ export async function apiFetch<T>(
   method: HttpMethod = "GET",
   requiresAuth: boolean = true,
   body?: Record<string, any>
-): Promise<{data: T | null; status: number} | null> {
+): Promise<{ data: T | null; status: number } | null> {
   try {
     const config = {
       method,
@@ -186,7 +187,7 @@ export async function apiFetch<T>(
     if (res.status === 403 && requiresAuth) {
       await logout();
     }
-    return {data: res.data, status: res.status}
+    return { data: res.data, status: res.status };
   } catch (error: unknown) {
     return null;
   }
@@ -211,11 +212,10 @@ export async function handleRegister(
   }
 }
 async function refreshUser() {
-  const token = await SecureStore.getItemAsync("jwtToken")
-  const res = await getUser(token!)
+  const token = await SecureStore.getItemAsync("jwtToken");
+  const res = await getUser(token!);
   if (res) {
-
-    await saveUser(res)
+    await saveUser(res);
   }
 }
 export async function handleLogin(request: LoginRequest): Promise<string> {
@@ -286,29 +286,58 @@ export async function deleteReply(replyId: number) {
   else return false;
 }
 
-export async function updateProfilePicture(
-  imageForm: FormData,
-) {
+export async function updateProfilePicture(imageForm: FormData) {
   const image = await imageUpload(imageForm);
   if (image) {
     const token = await SecureStore.getItemAsync("jwtToken");
-    const req = await fetch(`${apiClient.defaults.baseURL}/users/user/update`,{
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`
-    },
-    method: "PUT",
-    body: JSON.stringify({
-      profileImg: image.url,
-    })
-   }
-    )
-    const res = await req.json()
-    console.log(SecureStore.getItem("user"))
-    console.log(res)
-    await saveUser(res)
+    const req = await fetch(`${apiClient.defaults.baseURL}/users/user/update`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      method: "PUT",
+      body: JSON.stringify({
+        profileImg: image.url,
+      }),
+    });
+    const res = await req.json();
+    await saveUser(res);
     return true;
   }
 
   return false;
+}
+export async function getFollows(userId: string) {
+  const followingRes = await apiFetch<UserResponse[]>(
+    `users/user/${userId}/following`,
+    "GET",
+    true
+  );
+  const followersRes = await apiFetch<UserResponse[]>(
+    `users/user/${userId}/followers`,
+    "GET",
+    true
+  );
+  if (followingRes && followersRes) {
+    const ret = {
+      following: followingRes.data,
+      followers: followersRes.data,
+    }
+    return ret
+  } else return null;
+}
+export async function followUser(userId: string) {
+  const res = await apiFetch<UserResponse>(`users/user/${userId}/follow`, "POST", true);
+  console.log(res);
+  if (res && res.status === 200) {
+    
+    return true;
+  } else return false;
+}
+export async function unfollowUser(userId: string) {
+  const res = await apiFetch<UserResponse>(`users/user/${userId}/unfollow`, "DELETE", true);
+  console.log(res);
+  if (res && res.status === 200) {
+    return true;
+  } else return false;
 }

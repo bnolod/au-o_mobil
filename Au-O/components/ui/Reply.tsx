@@ -1,10 +1,9 @@
 import { Alert, Pressable, View } from "react-native";
 import Avatar from "./Avatar";
 import ThemedText from "./ThemedText";
-
 import { useState } from "react";
 import * as Haptics from "expo-haptics";
-import { Reply } from "@/constants/types";
+import { ReplyProps } from "@/constants/types";
 import { Text } from "react-native";
 import { CommentTexts } from "@/constants/texts";
 import { deleteReply } from "@/lib/apiClient";
@@ -16,13 +15,7 @@ export default function ReplyItem({
   userId,
   authorId,
   onDelete,
-}: {
-  item: Reply;
-  language: "HU" | "EN";
-  userId: number;
-  authorId: number;
-  onDelete: (id: number) => void;
-}) {
+}: ReplyProps) {
   const [lines, setLines] = useState<number | undefined>(3);
   async function handleReplyDelete() {
     const res = await deleteReply(item.id);

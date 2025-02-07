@@ -9,7 +9,7 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Comment } from "@/constants/types";
+import { Comment, CommentSheetProps, CommonStaticElementProps } from "@/constants/types";
 import Avatar from "../ui/Avatar";
 import { HomeTexts } from "@/constants/texts";
 import { Colors } from "@/constants/Colors";
@@ -28,18 +28,7 @@ export default function CommentSheet({
   userProfileImg,
   preview = false,
   postId,
-}: {
-  colorScheme: "light" | "dark";
-  comments: Comment[];
-  authorNickname: string;
-  language: "HU" | "EN";
-  preview?: boolean;
-  userNickname: string
-  postId: number;
-  userProfileImg: string
-  authorId: number;
-  userId: number;
-}) {
+}: CommentSheetProps & CommonStaticElementProps) {
   const [focused, setFocused] = React.useState(false);
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const [renderedComments, setRenderedComments] =
@@ -52,7 +41,7 @@ export default function CommentSheet({
 
   const renderItem = useCallback(
     ({ item }: { item: Comment; index: number }) => {
-      return <CommentElement onDelete={(id) => setRenderedComments(renderedComments.filter((item) => id !== item.id))} userId={userId} key={item.id} item={item} language={language} authorId={authorId} />;
+      return <CommentElement colorScheme={colorScheme} onDelete={(id) => setRenderedComments(renderedComments.filter((item) => id !== item.id))} userId={userId} key={item.id} item={item} language={language} authorId={authorId} />;
     },
     []
   );

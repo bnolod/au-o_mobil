@@ -12,10 +12,8 @@ import { Platform, View } from "react-native";
 
 export default function RootLayout() {
   const { user } = useAuthentication();
-  
   const { language } = useLanguage();
   const { colorScheme } = useColorScheme();
-
   if (!user) {
     return null;
   }
@@ -101,7 +99,7 @@ export default function RootLayout() {
             />
         <Tabs.Screen
           name="profile/[id]"
-          initialParams={{id: user.id}}
+          initialParams={{id: user.id }}
           options={{
             headerShown: false,
             title: "Profile",

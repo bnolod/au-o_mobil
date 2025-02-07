@@ -8,8 +8,20 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { apiFetch, updateProfilePicture } from "@/lib/apiClient";
-import { PostResponse, PostResponseType, User, UserResponse } from "@/constants/types";
+import {
+  apiFetch,
+  followUser,
+  getFollows,
+  logout,
+  unfollowUser,
+  updateProfilePicture,
+} from "@/lib/apiClient";
+import {
+  PostResponse,
+  PostResponseType,
+  User,
+  UserResponse,
+} from "@/constants/types";
 import { useEffect, useState } from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import UserLoading from "@/components/auth/UserLoading";
@@ -37,7 +49,27 @@ export default function Profile() {
   const [followers, setFollowers] = useState<User[]>([]);
   const [following, setFollowing] = useState<User[]>([]);
   const [posts, setPosts] = useState<PostResponse[]>([]);
-  const [selectedTab, setSelectedTab] = useState<"POST" | "GROUPS" | "SAVED">("POST");
+  const [selectedTab, setSelectedTab] = useState<"POST" | "GROUPS" | "SAVED">(
+    "POST"
+  );
+  async function handleFollow() {
+    
+
+    if (user && !followers.some((follower) => follower.id !== user.id)) {
+      console.log("FOLLOWING");
+      const followRes = await followUser(id as string);
+      if (followRes) {
+        setFollowers([...followers, user]);
+      }
+    } else if (user && followers.some((follower) => follower.id === user.id)) {
+      console.log("UNFOLLOWING");
+      const unfollowRes = await unfollowUser(id as string);
+      if (unfollowRes) {
+        setFollowers(followers.filter((follower) => follower.id !== user.id));
+      }
+    }
+  }
+
   async function getUser() {
     const res = await apiFetch<UserResponse>(`users/user/${id}`, "GET", true);
     if (res && res.data) {
@@ -55,15 +87,26 @@ export default function Profile() {
     } else return;
   }
   useEffect(() => {
+    setProfile(undefined);
     getUser();
     getUserPosts();
-    console.log(user?.id, id);
-    console.log(isOwner)
-  }, []);
-
-  const isOwner = profile && profile.id.toString() === (id as string);
+    getFollows(id as string).then((res) => {
+      if (res) {
+        setFollowers(res.followers as User[]);
+        setFollowing(res.following as User[]);
+      }
+    });
+    () => {
+      setProfile(undefined);
+    };
+  }, [id]);
+  const isOwner =
+    profile &&
+    user &&
+    profile.id.toString() === (id as string) &&
+    user.id === profile.id;
   if (isOwner === undefined) return <UserLoading />;
-  if (profile !== undefined && profile !== null)
+  if (user && profile !== undefined && profile !== null)
     return (
       <ScrollView className="primary">
         <RootHeader colorScheme={colorScheme!} language={language} />
@@ -109,10 +152,14 @@ export default function Profile() {
             </TouchableOpacity>
             <View>
               <ThemedText className="text-xl text-right">
-                {followers.length} {generalTexts.followers.followerCount[language]}{followers.length !== 1 && generalTexts.followers.followerCountMoreThanOne[language]}
+                {followers.length}{" "}
+                {generalTexts.followers.followerCount[language]}
+                {followers.length !== 1 &&
+                  generalTexts.followers.followerCountMoreThanOne[language]}
               </ThemedText>
               <ThemedText className="text-lg text-right">
-                {following.length} {generalTexts.following.followingCount[language]}
+                {following.length}{" "}
+                {generalTexts.following.followingCount[language]}
               </ThemedText>
             </View>
           </View>
@@ -120,7 +167,9 @@ export default function Profile() {
             <ThemedText className="text-xl font-bold">
               {profile.nickname}
             </ThemedText>
-            <ThemedText className="text-gray-500">@{profile.username}</ThemedText>
+            <ThemedText className="text-gray-500">
+              @{profile.username}
+            </ThemedText>
           </View>
           <ThemedText
             numberOfLines={lines}
@@ -134,8 +183,11 @@ export default function Profile() {
               <Button
                 className="w-1/3 button highlight ml-0 items-center py-3"
                 hapticFeedback="medium"
+                onPress={() => handleFollow()}
               >
-                Follow
+                {followers.some((follower) => follower.id === user.id)
+                  ? "Unfollow"
+                  : "Follow"}
               </Button>
               <View className="flex items-center justify-around gap-2 flex-row  my-3">
                 <Button className="button primary w-fit py-3">Message</Button>
@@ -149,29 +201,40 @@ export default function Profile() {
               Long-press to edit your profile attributes
             </ThemedText>
           )}
+          <Button onPress={() => logout()}>Logout</Button>
           <View className="p-4 secondary h-24 rounded-b-2xl">
             <View className="primary flex flex-row justify-between items-center m-auto w-full h-full  rounded-xl">
               <MaterialCommunityIcons
                 name="cards-outline"
                 size={42}
                 className="text-center flex-1 border-r border-r-[#767676]"
-                color={selectedTab === "POST" ? Colors.highlight.main : Colors[colorScheme!].text}
+                color={
+                  selectedTab === "POST"
+                    ? Colors.highlight.main
+                    : Colors[colorScheme!].text
+                }
                 onPress={() => setSelectedTab(handleTabSelection("POST"))}
-                />
+              />
               <MaterialCommunityIcons
                 name="account-group-outline"
                 size={42}
                 className="text-center flex-1 border-x border-x-[#767676]"
-                color={selectedTab === "GROUPS" ? Colors.highlight.main : Colors[colorScheme!].text}
+                color={
+                  selectedTab === "GROUPS"
+                    ? Colors.highlight.main
+                    : Colors[colorScheme!].text
+                }
                 onPress={() => setSelectedTab(handleTabSelection("GROUPS"))}
-                
-                />
+              />
               <MaterialCommunityIcons
                 name="bookmark-outline"
                 size={42}
                 className="text-center flex-1 border-l border-l-[#767676]"
-                color={selectedTab === "SAVED" ? Colors.highlight.main : Colors[colorScheme!].text}
-
+                color={
+                  selectedTab === "SAVED"
+                    ? Colors.highlight.main
+                    : Colors[colorScheme!].text
+                }
                 onPress={() => setSelectedTab(handleTabSelection("SAVED"))}
               />
             </View>

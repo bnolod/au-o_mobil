@@ -202,7 +202,7 @@ export function validateRegister(
     errors.push(UIErrorTexts.dateOfBirth.invalidDoB[language]);
   }
 
-  errors.map((error) => console.log(error));
+  errors.map((error) => console.error(error));
   if (errors.length > 0) {
     return { valid: false, messages: errors };
   }

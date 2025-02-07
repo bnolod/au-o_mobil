@@ -4,7 +4,7 @@ import { ThemedText } from "../ui/ThemedText";
 import SvgHeaderDecoration from "../graphics/HeaderDecoration";
 import Button from "../ui/Button";
 import { ButtonTexts } from "@/constants/texts";
-import { CommonStaticElementProps } from "@/constants/types";
+import { CommonStaticElementProps, OnboardHeaderProps } from "@/constants/types";
 export default function OnboardingHeader({
   isStatic,
   onBackPress,
@@ -12,12 +12,7 @@ export default function OnboardingHeader({
   index,
   language,
   colorScheme,
-}: {
-  isStatic?: boolean;
-  onBackPress?: () => void;
-  onSkipPress?: () => void;
-  index?: number;
-} & CommonStaticElementProps) {
+}: OnboardHeaderProps & CommonStaticElementProps) {
 
   return (
     <View
