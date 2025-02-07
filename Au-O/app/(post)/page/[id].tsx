@@ -95,7 +95,7 @@ export default function PostPage() {
           language={language}
           location={post.location}
           postId={post.postId}
-          reactions={{ fire: 0, heart: 0, sunglasses: 0 }}
+          reactions={post.reactionTypeMap}
         />
       </View>
     );

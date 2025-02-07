@@ -53,9 +53,9 @@ export const AuthenticationProvider: React.FC<{
   }
 
   useEffect(() => {
-    
     async function getStoredUser() {
       const user = await SecureStore.getItemAsync("user");
+      
       setUser(user ? JSON.parse(user) : null);
     }
     getStoredUser()

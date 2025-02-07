@@ -40,6 +40,9 @@ export default function RootLayout() {
       })
       SplashScreen.hideAsync();
     }
+    return () => {
+      eventEmitter.removeAllListeners("triggerLogout"); //tesztre
+    }
   }, [loaded]);
 
   if (!loaded) {

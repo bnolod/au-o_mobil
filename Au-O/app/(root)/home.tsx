@@ -4,7 +4,7 @@ import { useAuthentication } from "@/contexts/AuthenticationContext";
 import { Keyboard, View } from "react-native";
 import { TouchableWithoutFeedback } from "react-native";
 import PostCard from "@/components/home/Post";
-import { colorScheme } from "nativewind";
+import { useColorScheme } from "nativewind";
 import { useLanguage } from "@/contexts/LanguageContext";
 import RootHeader from "@/components/home/RootHeader";
 import { UIErrorTexts } from "@/constants/texts";
@@ -14,12 +14,13 @@ import { FlashList } from "@shopify/flash-list";
 import NoPostsFound from "@/components/home/NoPostsFound";
 import LoadingModal from "@/components/ui/LoadingModal";
 import { Redirect } from "expo-router";
+import FontStyleController from "@/components/ui/FontStyleController";
 
 export default function Home() {
   const { user } = useAuthentication();
   const { language } = useLanguage();
   const [refreshing, setRefreshing] = useState(false);
-
+  const { colorScheme } = useColorScheme();
   const handleRefresh = useCallback(async () => {
     setRefreshing(true);
     await fetchPosts();
@@ -46,7 +47,7 @@ export default function Home() {
             refreshControl={
               <RefreshControl refreshing={refreshing} onRefresh={handleRefresh}>
                 <LoadingModal
-                  colorScheme={colorScheme.get()!}
+                  colorScheme={colorScheme!}
                   loading={refreshing}
                   text={UIErrorTexts.loading[language]}
                 />
@@ -55,7 +56,7 @@ export default function Home() {
             stickyHeaderIndices={[0]}
             stickyHeaderHiddenOnScroll
           >
-            <RootHeader language={language} colorScheme={colorScheme.get()!} />
+            <RootHeader language={language} colorScheme={colorScheme!} />
             {post && post.length > 0 ? (
               <FlashList
                 key={refreshing ? "refresh" : "list"}
@@ -74,14 +75,14 @@ export default function Home() {
                     key={item.postId}
                     authorNickname={item.user.nickname}
                     authorUsername={item.user.username}
-                    colorScheme={colorScheme.get()!}
+                    colorScheme={colorScheme!}
                     comments={item.comments || []}
                     date={item.dateOfCreation.split("T")[0]}
                     description={item.text}
                     images={item.images}
                     language={language}
                     location={item.location}
-                    reactions={{ fire: 0, heart: 0, sunglasses: 0 }}
+                    reactions={item.reactionTypeMap}
                   />
                 )}
                 estimatedItemSize={300}

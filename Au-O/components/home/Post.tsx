@@ -49,8 +49,9 @@ export default function PostCard({
     groupData,
     eventData
   );
-  function showOptions() {
+  async function showOptions() {
     if (!preview) {
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
       PostOptionMenu(preview, language, postId!, user!.id, authorId, () => {
         setIsDeleted(true);
         for (const img of images) {
@@ -65,10 +66,10 @@ export default function PostCard({
     }
   }
   const [isDeleted, setIsDeleted] = useState<boolean>(false);
-  const [reactionState, setReactions] = useState<ReactionState>({
-    fire: reactions.fire,
-    heart: reactions.heart,
-    sunglasses: reactions.sunglasses,
+  const [reactionState, setReactions] = useState<Reactions>({
+    FIRE: reactions.FIRE,
+    HEART: reactions.HEART,
+    COOL: reactions.COOL,
   });
   const [lines, setLines] = useState<number | undefined>(3);
   return (
@@ -122,10 +123,10 @@ export default function PostCard({
       <Pressable onLongPress={() => showOptions()}>
         <TapCountWrapper
           onDoubleTap={async () => {
-            await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+            await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
             const reactionResponse = await addReaction(postId!, "FIRE");
             if (reactionResponse === true) {
-              setReactions(handleReaction(reactions, reactionState, "fire"));
+              setReactions(handleReaction(reactions, reactionState, "FIRE"));
             } else
               Toast.show({ text1: "Something went wrong.", type: "error" });
           }}
@@ -156,11 +157,11 @@ export default function PostCard({
         <View className="post-reaction-container">
           <View className=" gap-2 flex flex-row basis-7/12">
             <ReactionButton
-              type="fire"
+              type="FIRE"
               state={
-                reactionState.fire === reactions.fire ? "inactive" : "active"
+                reactionState.FIRE === reactions.FIRE ? "inactive" : "active"
               }
-              count={reactionState.fire}
+              count={reactionState.FIRE}
               onPress={
                 !preview
                   ? async () =>
@@ -169,7 +170,7 @@ export default function PostCard({
           await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
           const reactionResponse = await addReaction(postId!, "FIRE")
           if (reactionResponse === true) {
-            setReactions(handleReaction(reactions, reactionState, "fire"))
+            setReactions(handleReaction(reactions, reactionState, "FIRE"))
           }
           else Toast.show({text1: "Something went wrong.", type: "error"})
                       }
@@ -177,40 +178,40 @@ export default function PostCard({
               }
             />
             <ReactionButton
-              type="heart"
-              count={reactionState.heart}
+              type="HEART"
+              count={reactionState.HEART}
               onPress={
                 !preview
                   ? async () =>{
                     await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
                     const reactionResponse = await addReaction(postId!, "HEART")
                     if (reactionResponse === true) {
-                      setReactions(handleReaction(reactions, reactionState, "heart"))
+                      setReactions(handleReaction(reactions, reactionState, "HEART"))
                     }
                     else Toast.show({text1: "Something went wrong.", type: "error"})}
                       
                   : () => {}
               }
               state={
-                reactionState.heart === reactions.heart ? "inactive" : "active"
+                reactionState.HEART === reactions.HEART ? "inactive" : "active"
               }
             />
             <ReactionButton
-              type="sunglasses"
-              count={reactionState.sunglasses}
+              type="COOL"
+              count={reactionState.COOL}
               onPress={
                 !preview
                   ? async () =>{
                     await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
                     const reactionResponse = await addReaction(postId!, "COOL")
                     if (reactionResponse === true) {
-                      setReactions(handleReaction(reactions, reactionState, "sunglasses"))
+                      setReactions(handleReaction(reactions, reactionState, "COOL"))
                     }
                     else Toast.show({text1: "Something went wrong.", type: "error"})}
                   : () => {}
               }
               state={
-                reactionState.sunglasses === reactions.sunglasses
+                reactionState.COOL === reactions.COOL
                   ? "inactive"
                   : "active"
               }

@@ -16,13 +16,14 @@ import { useState } from "react";
 import * as Haptics from "expo-haptics";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Colors } from "@/constants/Colors";
-import { colorScheme } from "nativewind";
+import { useColorScheme } from "nativewind";
 import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
 import { DeleteComment, sendReply } from "@/lib/apiClient";
 
 import ReplyItem from "./Reply";
 import Toast from "react-native-toast-message";
 import { FlashList } from "@shopify/flash-list";
+
 import { CommentTexts } from "@/constants/texts";
 export default function CommentElement({
   item,
@@ -39,6 +40,7 @@ export default function CommentElement({
 }) {
   const [lines, setLines] = useState<number | undefined>(3);
   const [replying, setReplying] = useState<boolean>(false);
+  const { colorScheme } = useColorScheme();
   const [replyText, setReplyText] = useState<string>("");
   const [renderedReplies, setRenderedReplies] = useState<Reply[]>(
     item.replies ? item.replies : []
@@ -147,12 +149,12 @@ export default function CommentElement({
                 <MaterialCommunityIcons
                   name={replying ? "reply" : "reply-outline"}
                   size={32}
-                  color={Colors[colorScheme.get()!].text}
+                  color={Colors[colorScheme!].text}
                 />
               </TouchableOpacity>
-              <ReactionButton type="fire" count={0}></ReactionButton>
-              <ReactionButton type="heart" count={1}></ReactionButton>
-              <ReactionButton type="sunglasses" count={23}></ReactionButton>
+              <ReactionButton type="FIRE" count={0}></ReactionButton>
+              <ReactionButton type="HEART" count={1}></ReactionButton>
+              <ReactionButton type="COOL" count={23}></ReactionButton>
             </View>
             {replying && (
               <View className="flex flex-row gap-2 items-center justify-center">
@@ -164,11 +166,11 @@ export default function CommentElement({
                   style={{
                     width: "auto",
                     height: 44,
-                    backgroundColor: Colors[colorScheme.get()!].secondary,
+                    backgroundColor: Colors[colorScheme!].secondary,
                     marginTop: 4,
                     borderRadius: 8,
                     paddingHorizontal: 4,
-                    color: Colors[colorScheme.get()!].text,
+                    color: Colors[colorScheme!].text,
                     flexBasis: Dimensions.get("window").width * 0.7,
                   }}
                   placeholderTextColor={"#767676"}
@@ -180,7 +182,7 @@ export default function CommentElement({
                   <MaterialCommunityIcons
                     name="send"
                     size={32}
-                    color={Colors[colorScheme.get()!].text}
+                    color={Colors[colorScheme!].text}
                   />
                 </TouchableOpacity>
               </View>

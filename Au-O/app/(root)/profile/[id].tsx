@@ -5,12 +5,13 @@ import {
   Modal,
   Pressable,
   ScrollView,
+  Text,
   TouchableOpacity,
   View,
 } from "react-native";
 import { useAuthentication } from "@/contexts/AuthenticationContext";
 import { apiFetch, updateProfilePicture } from "@/lib/apiClient";
-import { PostResponse, User, UserResponse } from "@/constants/types";
+import { PostResponse, PostResponseType, User, UserResponse } from "@/constants/types";
 import { useEffect, useState } from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import UserLoading from "@/components/auth/UserLoading";
@@ -19,12 +20,12 @@ import { useColorScheme } from "nativewind";
 import { useLanguage } from "@/contexts/LanguageContext";
 import Avatar from "@/components/ui/Avatar";
 import { boros_manifesto } from "@/constants/texts";
-import { handleShowMore } from "@/lib/events";
+import { handleShowMore, handleTabSelection } from "@/lib/events";
 import * as ImagePicker from "expo-image-picker";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Colors } from "@/constants/Colors";
 import { FlashList } from "@shopify/flash-list";
-import PostCard from "@/components/home/Post";
+
 import { createImageForm, createTimestamp } from "@/lib/functions";
 import Toast from "react-native-toast-message";
 export default function Profile() {
@@ -34,6 +35,7 @@ export default function Profile() {
   const { id } = useLocalSearchParams();
   const [lines, setLines] = useState<number | undefined>(3);
   const [posts, setPosts] = useState<PostResponse[]>([]);
+  const [selectedTab, setSelectedTab] = useState<"POST" | "GROUPS" | "SAVED">("POST");
   async function getUser() {
     const res = await apiFetch<UserResponse>(`users/user/${id}`, "GET", true);
     if (res && res.data) {
@@ -54,6 +56,7 @@ export default function Profile() {
     getUser();
     getUserPosts();
   }, []);
+
   const isOwner = user && user.id.toString() === (id as string);
   if (isOwner === undefined) return <UserLoading />;
   if (user !== undefined && user !== null)
@@ -73,23 +76,29 @@ export default function Profile() {
                   mediaTypes: "images",
                 });
                 if (!res.canceled) {
-                  const img = await createImageForm(res.assets[0], `${user.username}_PROFILEPIC_${createTimestamp()}`, user!);
-                  
+                  const img = await createImageForm(
+                    res.assets[0],
+                    `${user.username}_PROFILEPIC_${createTimestamp()}`,
+                    user!
+                  );
+
                   if (img) {
-                    const profileUpdateResponse = await updateProfilePicture(img)
-                    
+                    const profileUpdateResponse = await updateProfilePicture(
+                      img
+                    );
+
                     if (profileUpdateResponse) {
                       Toast.show({
                         type: "success",
                         text1: "Profile picture updated!",
-                      })
+                      });
                     }
-                }}
+                  }
+                }
               }}
             >
               <Avatar
                 image={user.profileImg}
-                
                 nickname={user.nickname}
                 className="h-20 w-20 primary my-4"
               />
@@ -142,19 +151,24 @@ export default function Profile() {
                 name="cards-outline"
                 size={42}
                 className="text-center flex-1 border-r border-r-[#767676]"
-                color={Colors[colorScheme!].text}
-              />
+                color={selectedTab === "POST" ? Colors.highlight.main : Colors[colorScheme!].text}
+                onPress={() => setSelectedTab(handleTabSelection("POST"))}
+                />
               <MaterialCommunityIcons
                 name="account-group-outline"
                 size={42}
                 className="text-center flex-1 border-x border-x-[#767676]"
-                color={Colors[colorScheme!].text}
-              />
+                color={selectedTab === "GROUPS" ? Colors.highlight.main : Colors[colorScheme!].text}
+                onPress={() => setSelectedTab(handleTabSelection("GROUPS"))}
+                
+                />
               <MaterialCommunityIcons
                 name="bookmark-outline"
                 size={42}
                 className="text-center flex-1 border-l border-l-[#767676]"
-                color={Colors[colorScheme!].text}
+                color={selectedTab === "SAVED" ? Colors.highlight.main : Colors[colorScheme!].text}
+
+                onPress={() => setSelectedTab(handleTabSelection("SAVED"))}
               />
             </View>
           </View>
@@ -162,11 +176,24 @@ export default function Profile() {
         <View className="w-11/12 mx-auto mt-4">
           <FlashList
             estimatedItemSize={200}
-            data={posts.length > 0 ? posts.sort((a, b) => new Date(b.dateOfCreation).getTime() - new Date(a.dateOfCreation).getTime()) : null}
+            data={
+              posts.length > 0
+                ? posts.sort(
+                    (a, b) =>
+                      new Date(b.dateOfCreation).getTime() -
+                      new Date(a.dateOfCreation).getTime()
+                  )
+                : null
+            }
             renderItem={({ item }) => (
               <Pressable
                 className="flex-1"
-                onPress={() => router.push({pathname: "/(post)/page/[id]", params: {id: item.postId}})}
+                onPress={() =>
+                  router.push({
+                    pathname: "/(post)/page/[id]",
+                    params: { id: item.postId },
+                  })
+                }
                 style={{
                   shadowColor: Colors[colorScheme!].background,
                   shadowOffset: { width: 1, height: 10 },
@@ -176,7 +203,7 @@ export default function Profile() {
               >
                 <Image
                   resizeMethod="auto"
-                  className="flex-1 h-72 rounded-xl mt-0 w-11/12 primary"
+                  className="flex-1 h-72 rounded-xl my-2 w-11/12 primary"
                   resizeMode="cover"
                   source={{ uri: item.images[0].url }}
                 />
@@ -184,7 +211,7 @@ export default function Profile() {
             )}
             numColumns={2}
           />
-          </View>
+        </View>
       </ScrollView>
     );
 }

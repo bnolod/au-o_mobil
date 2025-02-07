@@ -426,7 +426,7 @@ authorProfileImg={user!.profileImg}
                     location={newPostForm.location}
                     comments={[]}
                     preview
-                    reactions={{ fire: 12, heart: 34, sunglasses: 567 }}
+                    reactions={{ FIRE: 432, HEART: 1, COOL: 0 }}
                     eventData={
                       /*
                   selectedEvent

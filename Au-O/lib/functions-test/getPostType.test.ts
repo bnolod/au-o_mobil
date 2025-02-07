@@ -1,4 +1,4 @@
-import { MOCK_eventPostData, MOCK_groupPostData, MOCK_nickname, MOCK_username } from "@/constants/mocks";
+import { MOCK_eventPostData, MOCK_groupPostData, MOCK_nickname, MOCK_username } from "@/constants/mocks.test";
 import { getPostType } from "../functions";
 
 test("A bejegyzés típusa USER", () => {

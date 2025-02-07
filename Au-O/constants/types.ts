@@ -132,7 +132,7 @@ export interface PostResponse {
   location: string;
   postId: number;
   postType: PostResponseType;
-  reactionCount: number;
+  reactionTypeMap: Reactions
   text: string;
   user: UserPostResponseType;
   comments: Comment[];
@@ -208,9 +208,9 @@ export interface LoadingModalProps {
   onEnd?: () => void;
 }
 export type Reactions = {
-  fire: number;
-  heart: number;
-  sunglasses: number;
+  FIRE: number;
+  HEART: number;
+  COOL: number;
 };
 export type Geolocation = {
   lat: number;

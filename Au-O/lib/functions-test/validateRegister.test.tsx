@@ -1,4 +1,4 @@
-import { MOCK_validRegisterData } from "@/constants/mocks";
+import { MOCK_validRegisterData } from "@/constants/mocks.test";
 import { validateRegister } from "../functions";
 import { UIErrorTexts } from "@/constants/texts";
 

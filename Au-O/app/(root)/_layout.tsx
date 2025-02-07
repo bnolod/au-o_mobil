@@ -32,7 +32,13 @@ export default function RootLayout() {
          tabBarStyle: {
            backgroundColor:
            Colors[colorScheme!].secondary,
-          },
+           height: 100,
+           display: "flex",
+           alignItems: "center",
+           justifyContent: "center",
+//           borderTopEndRadius: 30,
+//           borderTopStartRadius: 30,
+           },
           
           tabBarActiveTintColor:
           colorScheme === "light"
@@ -43,7 +49,10 @@ export default function RootLayout() {
           tabBarIconStyle: {
             height: "100%",
             width: "100%",
+            aspectRatio: 1,
+
           },
+          
         }}
           >
         <Tabs.Screen
@@ -66,12 +75,27 @@ export default function RootLayout() {
           options={{
             headerShown: false,
             title: "Home",
+            tabBarIconStyle: {
+              height: "100%",
+              width: "100%",
+              aspectRatio: 1,
+
+
+            },
             tabBarIcon: ({ color, focused }) => (
+              <View style={{
+                borderRadius: 15,
+                padding: 4,
+                boxShadow: "0px 5px 5px 0px rgba(0,0,0,0.5)",
+                shadowColor: Colors[colorScheme!].background,
+              }}>
+
               <MaterialCommunityIcons
-              name={focused ? "plus-circle" : "plus-circle-outline"}
+              name={focused ? "plus-circle-outline" : "plus"}
               size={42}
               color={color}
               />
+              </View>
             )
             }}
             />
@@ -82,7 +106,7 @@ export default function RootLayout() {
             headerShown: false,
             title: "Profile",
             tabBarIcon: ({ focused }) => (
-              <View style={focused ? {shadowColor: Colors.highlight.main,  shadowOpacity: 1, shadowRadius: 7.84} : {}}>
+              <View className="mb-2" style={focused ? {shadowColor: Colors.highlight.main,  shadowOpacity: 1, shadowRadius: 7.84} : {}}>
               <Avatar className={`${focused ? "highlight" : "primary"} mt-2`} image={user.profileImg} nickname={user.nickname} />
               </View>
             )

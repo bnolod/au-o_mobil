@@ -3,7 +3,7 @@ import {
   MOCK_invalidLoginData,
   MOCK_invalidPasswordLoginData,
   MOCK_validLoginData,
-} from "@/constants/mocks";
+} from "@/constants/mocks.test";
 import { validateLogin } from "../functions";
 import { UIErrorTexts } from "@/constants/texts";
 
