@@ -9,6 +9,7 @@ import { Text } from "react-native";
 import { CommentTexts } from "@/constants/texts";
 import { deleteReply } from "@/lib/apiClient";
 import Toast from "react-native-toast-message";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 export default function ReplyItem({
   item,
   language,
@@ -67,7 +68,7 @@ export default function ReplyItem({
         </View>
         <View className="comment-user">
           <ThemedText className="text-lg font-semibold">
-            {item.user.nickname}
+            {item.user.nickname} {item.user.id === authorId && <MaterialCommunityIcons name="star" size={16} color="#FFD700" />}
           </ThemedText>
           <Text
             style={{

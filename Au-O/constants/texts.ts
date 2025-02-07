@@ -143,6 +143,23 @@ export const AuthTexts = {
     },
   },
 };
+export const generalTexts = {
+  followers: {
+    followerCount: {
+      EN: "follower",
+      HU: "követő",
+    },
+    followerCountMoreThanOne: {
+      EN: "s",
+      HU: ""
+    }
+  },
+  following: {
+    followingCount: {
+      EN: "following",
+      HU: "követett"}
+  }
+}
 
 export const UIErrorTexts = {
     email: {

@@ -21,6 +21,7 @@ export default function PostPage() {
   const { colorScheme } = useColorScheme();
   const { language } = useLanguage();
   const {user} = useAuthentication()
+
   const [loading, setLoading] = useState<boolean | null>(true);
   function showShareModal() {
     if (Boolean(isNew)) {

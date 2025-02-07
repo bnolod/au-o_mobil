@@ -5,11 +5,9 @@ import {
   Modal,
   Pressable,
   ScrollView,
-  Text,
   TouchableOpacity,
   View,
 } from "react-native";
-import { useAuthentication } from "@/contexts/AuthenticationContext";
 import { apiFetch, updateProfilePicture } from "@/lib/apiClient";
 import { PostResponse, PostResponseType, User, UserResponse } from "@/constants/types";
 import { useEffect, useState } from "react";
@@ -19,7 +17,7 @@ import RootHeader from "@/components/home/RootHeader";
 import { useColorScheme } from "nativewind";
 import { useLanguage } from "@/contexts/LanguageContext";
 import Avatar from "@/components/ui/Avatar";
-import { boros_manifesto } from "@/constants/texts";
+import { boros_manifesto, generalTexts } from "@/constants/texts";
 import { handleShowMore, handleTabSelection } from "@/lib/events";
 import * as ImagePicker from "expo-image-picker";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -28,18 +26,22 @@ import { FlashList } from "@shopify/flash-list";
 
 import { createImageForm, createTimestamp } from "@/lib/functions";
 import Toast from "react-native-toast-message";
+import { useAuthentication } from "@/contexts/AuthenticationContext";
 export default function Profile() {
-  const [user, setUser] = useState<User>();
+  const [profile, setProfile] = useState<User>();
   const { language } = useLanguage();
+  const { user } = useAuthentication();
   const { colorScheme } = useColorScheme();
   const { id } = useLocalSearchParams();
   const [lines, setLines] = useState<number | undefined>(3);
+  const [followers, setFollowers] = useState<User[]>([]);
+  const [following, setFollowing] = useState<User[]>([]);
   const [posts, setPosts] = useState<PostResponse[]>([]);
   const [selectedTab, setSelectedTab] = useState<"POST" | "GROUPS" | "SAVED">("POST");
   async function getUser() {
     const res = await apiFetch<UserResponse>(`users/user/${id}`, "GET", true);
     if (res && res.data) {
-      setUser(res.data);
+      setProfile(res.data);
     } else return;
   }
   async function getUserPosts() {
@@ -55,11 +57,13 @@ export default function Profile() {
   useEffect(() => {
     getUser();
     getUserPosts();
+    console.log(user?.id, id);
+    console.log(isOwner)
   }, []);
 
-  const isOwner = user && user.id.toString() === (id as string);
+  const isOwner = profile && profile.id.toString() === (id as string);
   if (isOwner === undefined) return <UserLoading />;
-  if (user !== undefined && user !== null)
+  if (profile !== undefined && profile !== null)
     return (
       <ScrollView className="primary">
         <RootHeader colorScheme={colorScheme!} language={language} />
@@ -78,8 +82,8 @@ export default function Profile() {
                 if (!res.canceled) {
                   const img = await createImageForm(
                     res.assets[0],
-                    `${user.username}_PROFILEPIC_${createTimestamp()}`,
-                    user!
+                    `${profile.username}_PROFILEPIC_${createTimestamp()}`,
+                    profile!
                   );
 
                   if (img) {
@@ -98,25 +102,25 @@ export default function Profile() {
               }}
             >
               <Avatar
-                image={user.profileImg}
-                nickname={user.nickname}
+                image={profile.profileImg}
+                nickname={profile.nickname}
                 className="h-20 w-20 primary my-4"
               />
             </TouchableOpacity>
             <View>
               <ThemedText className="text-xl text-right">
-                400 followers
+                {followers.length} {generalTexts.followers.followerCount[language]}{followers.length !== 1 && generalTexts.followers.followerCountMoreThanOne[language]}
               </ThemedText>
               <ThemedText className="text-lg text-right">
-                1352 following
+                {following.length} {generalTexts.following.followingCount[language]}
               </ThemedText>
             </View>
           </View>
           <View className="flex flex-row gap-4 items-center px-4">
             <ThemedText className="text-xl font-bold">
-              {user.nickname}
+              {profile.nickname}
             </ThemedText>
-            <ThemedText className="text-gray-500">@{user.username}</ThemedText>
+            <ThemedText className="text-gray-500">@{profile.username}</ThemedText>
           </View>
           <ThemedText
             numberOfLines={lines}

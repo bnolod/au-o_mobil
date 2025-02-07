@@ -379,6 +379,7 @@ export default function NewPost() {
                           [],
                           {
                             userInterfaceStyle: colorScheme,
+                            cancelable: true,
                           }
                         );
                   }}

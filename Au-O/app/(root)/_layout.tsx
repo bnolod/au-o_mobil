@@ -7,7 +7,7 @@ import { Colors } from "@/constants/Colors";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { StatusBar } from "expo-status-bar";
 import Avatar from "@/components/ui/Avatar";
-import { View } from "react-native";
+import { Platform, View } from "react-native";
 
 
 export default function RootLayout() {
@@ -32,7 +32,7 @@ export default function RootLayout() {
          tabBarStyle: {
            backgroundColor:
            Colors[colorScheme!].secondary,
-           height: 100,
+           height: Platform.OS === "ios" ? 100 : 70,
            display: "flex",
            alignItems: "center",
            justifyContent: "center",

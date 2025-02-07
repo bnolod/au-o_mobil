@@ -50,6 +50,7 @@ export default function CommentElement({
       {
         text: CommentTexts.deletePrompt.buttons.cancel[language],
         style: "cancel",
+        
       },
       {
         text: CommentTexts.deletePrompt.buttons.delete[language],
@@ -118,7 +119,7 @@ export default function CommentElement({
         </View>
         <View className="comment-user">
           <ThemedText className="text-lg font-semibold">
-            {item.user.nickname}
+            {item.user.nickname} {item.user.id === authorId && <MaterialCommunityIcons name="star" size={16} color="#FFD700" />}
           </ThemedText>
           <Text style={{ color: "#767676", fontSize: 12 }}>
             @{item.user.username}
