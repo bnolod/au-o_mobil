@@ -6,6 +6,7 @@ import {
   ImageStoreRequest,
   ImageUploadResponse,
   LoginRequest,
+  Reactions,
   RegisterRequest,
   Reply,
   TokenResponse,
@@ -124,8 +125,9 @@ export async function CreatePost(props: CreatePostRequest): Promise<void> {
 }
 export async function addReaction(
   postId: number,
-  reaction: "HEART" | "FIRE" | "COOL"
+  reaction: null | "FIRE" | "HEART" | "COOL"
 ) {
+  if (!reaction) {}
   const res = await fetch(
     `${apiClient.defaults.baseURL}/posts/post/${postId}/addOrRemoveReaction/${reaction}`,
     {

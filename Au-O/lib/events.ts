@@ -18,16 +18,23 @@ export function getReactionEndpoint(reaction: "fire" | "heart" | "sunglasses") {
   }
 }
 export const handleReaction = (
+  type:  "FIRE" | "HEART" | "COOL",
   reactions: Reactions,
-  reactionState: Reactions,
-  type: "FIRE" | "HEART" | "COOL"
-) => {
-  const newReactions = { ...reactionState };
-  newReactions[type] =
-    newReactions[type] === reactions[type]
-      ? reactions[type] + 1
-      : reactions[type];
-  return newReactions;
+  resetCurrentReaction: () => void,
+  initialReaction: null | "FIRE" | "HEART" | "COOL"
+) => {if (initialReaction === type) {
+    resetCurrentReaction()
+    return {
+      ...reactions,
+      [type]: reactions[type] - 1,
+    };
+  } else {
+    return {
+      ...reactions,
+      [type]: reactions[type] + 1,
+    }
+  }
+
 };
 
 export function handleTabSelection(tab: "POST" | "GROUPS" | "SAVED") {

@@ -136,6 +136,7 @@ export interface PostResponse {
   text: string;
   user: UserPostResponseType;
   comments: Comment[];
+  reactedWith: null | "FIRE" | "HEART" | "COOL";
 }
 export interface ImageStoreRequest {
   text: string;
@@ -156,6 +157,7 @@ export interface TapWrapperProps {
 
 export interface PostCardProps {
   postId: number | null;
+  reaction: null | "FIRE" | "HEART" | "COOL";
   preview?: boolean;
   user: UserResponse;
   authorId: number | null;

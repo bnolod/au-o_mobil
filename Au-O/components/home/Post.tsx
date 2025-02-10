@@ -1,7 +1,7 @@
 import { PostCardProps, Reactions, ReactionState, UserResponse } from "@/constants/types";
 import { Modal, Pressable, View } from "react-native";
 import * as Haptics from "expo-haptics";
-import React from "react";
+import React, { useEffect } from "react";
 import ThemedText from "../ui/ThemedText";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import ReactionButton from "../ui/ReactionButton";
@@ -18,8 +18,6 @@ import PostImage from "./PostImage";
 import { handleReaction, handleShowMore } from "@/lib/events";
 import { addReaction, deleteImgurImage } from "@/lib/apiClient";
 import Toast from "react-native-toast-message";
-import EditPost from "@/app/(post)/edit/[id]";
-
 export default function PostCard({
   preview = false,
   authorNickname,
@@ -38,6 +36,7 @@ export default function PostCard({
   colorScheme,
   postId,
   user,
+  reaction
 }: PostCardProps) {
   
   const postType = getPostType(
@@ -62,13 +61,18 @@ export default function PostCard({
       })
     }
   }
+
   const [isDeleted, setIsDeleted] = useState<boolean>(false);
+  const [currentReaction, setCurrentReaction] = useState<null | "FIRE" | "HEART" | "COOL">(reaction)
   const [reactionState, setReactions] = useState<Reactions>({
-    FIRE: reactions.FIRE,
-    HEART: reactions.HEART,
-    COOL: reactions.COOL,
+    FIRE: reactions.FIRE || 0,
+    HEART: reactions.HEART || 0,
+    COOL: reactions.COOL ||  0,
   });
   const [lines, setLines] = useState<number | undefined>(3);
+  useEffect(() => {
+    console.log(currentReaction)
+  }, [currentReaction])
   return (
     <>
 
@@ -123,7 +127,7 @@ export default function PostCard({
             await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
             const reactionResponse = await addReaction(postId!, "FIRE");
             if (reactionResponse === true) {
-              setReactions(handleReaction(reactions, reactionState, "FIRE"));
+              setReactions(handleReaction("FIRE", reactionState, () => setCurrentReaction(null), currentReaction));
             } else
               Toast.show({ text1: "Something went wrong.", type: "error" });
           }}
@@ -154,11 +158,12 @@ export default function PostCard({
         <View className="post-reaction-container">
           <View className=" gap-2 flex flex-row basis-7/12">
             <ReactionButton
+            initialReactionState={currentReaction}
               type="FIRE"
               state={
-                reactionState.FIRE === reactions.FIRE ? "inactive" : "active"
+                currentReaction !== "FIRE" ? "inactive" : "active"
               }
-              count={reactionState.FIRE}
+              count={ currentReaction !== "FIRE" ? reactions.FIRE : 1}
               onPress={
                 !preview
                   ? async () =>
@@ -167,7 +172,11 @@ export default function PostCard({
           await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
           const reactionResponse = await addReaction(postId!, "FIRE")
           if (reactionResponse === true) {
-            setReactions(handleReaction(reactions, reactionState, "FIRE"))
+            setReactions(handleReaction("FIRE", reactionState, () => setCurrentReaction(null), currentReaction))
+            if (currentReaction === "FIRE") {
+              setCurrentReaction(null)
+            } else
+            setCurrentReaction("FIRE")
           }
           else Toast.show({text1: "Something went wrong.", type: "error"})
                       }
@@ -175,6 +184,7 @@ export default function PostCard({
               }
             />
             <ReactionButton
+                        initialReactionState={currentReaction}
               type="HEART"
               count={reactionState.HEART}
               onPress={
@@ -183,17 +193,22 @@ export default function PostCard({
                     await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
                     const reactionResponse = await addReaction(postId!, "HEART")
                     if (reactionResponse === true) {
-                      setReactions(handleReaction(reactions, reactionState, "HEART"))
+                      setReactions(handleReaction("HEART", reactionState, () => setCurrentReaction(null), currentReaction))
+                      if (currentReaction === "HEART") {
+                        setCurrentReaction(null)
+                      } else
+                      setCurrentReaction("HEART")
                     }
                     else Toast.show({text1: "Something went wrong.", type: "error"})}
                       
                   : () => {}
               }
               state={
-                reactionState.HEART === reactions.HEART ? "inactive" : "active"
+                currentReaction !== "HEART" ? "inactive" : "active"
               }
             />
             <ReactionButton
+                        initialReactionState={currentReaction}
               type="COOL"
               count={reactionState.COOL}
               onPress={
@@ -202,13 +217,18 @@ export default function PostCard({
                     await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
                     const reactionResponse = await addReaction(postId!, "COOL")
                     if (reactionResponse === true) {
-                      setReactions(handleReaction(reactions, reactionState, "COOL"))
+                      console.log(reactionState)
+                      setReactions(handleReaction("COOL", reactionState, () => setCurrentReaction(null),  currentReaction))
+                      if (currentReaction === "COOL") {
+                        setCurrentReaction(null)
+                      } else
+                      setCurrentReaction("COOL")
                     }
                     else Toast.show({text1: "Something went wrong.", type: "error"})}
                   : () => {}
               }
               state={
-                reactionState.COOL === reactions.COOL
+                currentReaction !== "COOL"
                   ? "inactive"
                   : "active"
               }

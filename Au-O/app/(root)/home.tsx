@@ -69,6 +69,7 @@ export default function Home() {
                 )}
                 renderItem={({ item }) => (
                   <PostCard
+                  reaction={item.reactedWith}
                     user={user}
                     authorProfileImg={item.user.profileImg}
                     authorId={item.user.id}

@@ -185,6 +185,10 @@ export const generalTexts = {
     bio: {
       EN: "Bio",
       HU: "Bio"
+    },
+    bioEmpty: {
+      EN: "Bio is empty.",
+      HU: "A bio üres."
     }
   }
 }

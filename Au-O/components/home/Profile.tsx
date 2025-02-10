@@ -228,7 +228,7 @@ export default function Profile({
               }}
               onPress={() => setLines(handleShowMore(lines))}
             >
-              {bioValue}
+              {bioValue && bioValue.length > 0 ? bioValue : generalTexts.profileAttributes.bioEmpty[language]}
             </ThemedText>
             {isOwner && <Text className="text-sm text-gray-500">{UserEditTexts.prompts.edit[language]}</Text>}
           </View>
