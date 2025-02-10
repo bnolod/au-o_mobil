@@ -17,6 +17,7 @@ import {
   updateProfilePicture,
 } from "@/lib/apiClient";
 import {
+  CommonStaticElementProps,
   PostResponse,
   PostResponseType,
   User,
@@ -38,22 +39,33 @@ import { FlashList } from "@shopify/flash-list";
 
 import { createImageForm, createTimestamp } from "@/lib/functions";
 import Toast from "react-native-toast-message";
-import { useAuthentication } from "@/contexts/AuthenticationContext";
-export default function Profile() {
-  const [profile, setProfile] = useState<User>();
-  const { language } = useLanguage();
-  const { user } = useAuthentication();
-  const { colorScheme } = useColorScheme();
-  const { id } = useLocalSearchParams();
+export default function Profile({
+  user,
+  language,
+  colorScheme,
+  profile,
+  posts,
+  id,
+  followers,
+  setFollowers,
+  following,
+  setFollowing,
+}: {
+  user: User;
+  profile: User;
+  id: string;
+  followers: User[];
+  following: User[];
+  posts: PostResponse[];
+  setFollowers: (users: User[]) => void;
+  setFollowing: (users: User[]) => void;
+} & CommonStaticElementProps) {
   const [lines, setLines] = useState<number | undefined>(3);
-  const [followers, setFollowers] = useState<User[]>([]);
-  const [following, setFollowing] = useState<User[]>([]);
-  const [posts, setPosts] = useState<PostResponse[]>([]);
   const [selectedTab, setSelectedTab] = useState<"POST" | "GROUPS" | "SAVED">(
     "POST"
   );
   async function handleFollow() {
-    
+    console.log(id);
 
     if (user && !followers.some((follower) => follower.id !== user.id)) {
       console.log("FOLLOWING");
@@ -70,35 +82,9 @@ export default function Profile() {
     }
   }
 
-  async function getUser() {
-    const res = await apiFetch<UserResponse>(`users/user/${id}`, "GET", true);
-    if (res && res.data) {
-      setProfile(res.data);
-    } else return;
-  }
-  async function getUserPosts() {
-    const res = await apiFetch<PostResponse[]>(
-      `users/user/${id}/posts`,
-      "GET",
-      true
-    );
-    if (res) {
-      setPosts(res.data!);
-    } else return;
-  }
   useEffect(() => {
-    setProfile(undefined);
-    getUser();
-    getUserPosts();
-    getFollows(id as string).then((res) => {
-      if (res) {
-        setFollowers(res.followers as User[]);
-        setFollowing(res.following as User[]);
-      }
-    });
-    () => {
-      setProfile(undefined);
-    };
+    
+    
   }, [id]);
   const isOwner =
     profile &&

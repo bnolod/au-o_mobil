@@ -319,11 +319,10 @@ export async function getFollows(userId: string) {
     true
   );
   if (followingRes && followersRes) {
-    const ret = {
+    return {
       following: followingRes.data,
       followers: followersRes.data,
     }
-    return ret
   } else return null;
 }
 export async function followUser(userId: string) {

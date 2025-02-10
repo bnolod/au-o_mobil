@@ -83,7 +83,7 @@ export default function PostCard({
             colorScheme={colorScheme}
             onPress={() => {
               router.push({
-                pathname: "/(root)/profile/[id]",
+                pathname: "/(profile)/[id]",
                 params: { id: authorId!},
               });
             }}
@@ -99,7 +99,7 @@ export default function PostCard({
             colorScheme={colorScheme}
             onPress={() => {
               router.push({
-                pathname: "/(root)/profile/[id]",
+                pathname: "/(profile)/[id]",
                 params: { id: authorId!.toString() },
               });
             }}

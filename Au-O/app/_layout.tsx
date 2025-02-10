@@ -78,6 +78,8 @@ export default function RootLayout() {
                       name="(post)"
                       options={{ headerShown: false }}
                     />
+                    <Stack.Screen name="(profile)"
+                    options={{ headerShown: false }} />
                   </Stack>
                 </BottomSheetModalProvider>
               </GestureHandlerRootView>
