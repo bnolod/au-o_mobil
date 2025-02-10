@@ -2,16 +2,13 @@ import Button from "@/components/ui/Button";
 import ThemedText from "@/components/ui/ThemedText";
 import {
   Image,
-  Modal,
   Pressable,
   ScrollView,
   TouchableOpacity,
   View,
 } from "react-native";
 import {
-  apiFetch,
   followUser,
-  getFollows,
   logout,
   unfollowUser,
   updateProfilePicture,
@@ -19,16 +16,12 @@ import {
 import {
   CommonStaticElementProps,
   PostResponse,
-  PostResponseType,
   User,
-  UserResponse,
 } from "@/constants/types";
-import { useEffect, useState } from "react";
-import { router, useLocalSearchParams } from "expo-router";
+import {  useState } from "react";
+import { router } from "expo-router";
 import UserLoading from "@/components/auth/UserLoading";
 import RootHeader from "@/components/home/RootHeader";
-import { useColorScheme } from "nativewind";
-import { useLanguage } from "@/contexts/LanguageContext";
 import Avatar from "@/components/ui/Avatar";
 import { boros_manifesto, generalTexts } from "@/constants/texts";
 import { handleShowMore, handleTabSelection } from "@/lib/events";
@@ -36,7 +29,6 @@ import * as ImagePicker from "expo-image-picker";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Colors } from "@/constants/Colors";
 import { FlashList } from "@shopify/flash-list";
-
 import { createImageForm, createTimestamp } from "@/lib/functions";
 import Toast from "react-native-toast-message";
 export default function Profile({
@@ -81,11 +73,6 @@ export default function Profile({
       }
     }
   }
-
-  useEffect(() => {
-    
-    
-  }, [id]);
   const isOwner =
     profile &&
     user &&
