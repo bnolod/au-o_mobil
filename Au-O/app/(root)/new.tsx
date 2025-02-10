@@ -313,13 +313,22 @@ export default function NewPost() {
                       colorScheme={colorScheme!}
                       language={language}
                       FlashListProps={{
-                        data: [
-                          { title: "Group 1", memberCount: 12},
-                        ],
-                        renderItem: ({item, index}) => <PostCreationSheetSelectElements onPress={() => console.log(item.title)} group={{title: item.title}} title={item.title}/>,
+                        data: [{ title: "Group 1", memberCount: 12 }],
+                        renderItem: ({ item, index }) => (
+                          <PostCreationSheetSelectElements
+                            onPress={() => console.log(item.title)}
+                            group={{ title: item.title }}
+                            title={item.title}
+                          />
+                        ),
                         estimatedItemSize: 50,
-                        
-                        ListHeaderComponent: () => <FilterBar placeholder="Search groups" onChange={(text: string) => {}} />,
+
+                        ListHeaderComponent: () => (
+                          <FilterBar
+                            placeholder="Search groups"
+                            onChange={(text: string) => {}}
+                          />
+                        ),
                       }}
                     />
                   </View>
@@ -336,14 +345,23 @@ export default function NewPost() {
                       colorScheme={colorScheme!}
                       language={language}
                       FlashListProps={{
-                        data: [
-                          { title: "Event 1", date: "2022.12.12"},
-                        ],
-                        renderItem: ({item, index}) => <PostCreationSheetSelectElements onPress={() => console.log(item.title)} event={{title: item.title}} title={item.title}/>,
+                        data: [{ title: "Event 1", date: "2022.12.12" }],
+                        renderItem: ({ item, index }) => (
+                          <PostCreationSheetSelectElements
+                            onPress={() => console.log(item.title)}
+                            event={{ title: item.title }}
+                            title={item.title}
+                          />
+                        ),
                         estimatedItemSize: 50,
-                        ListHeaderComponent: () => <FilterBar placeholder="Search events" onChange={(text: string) => {}} />,
+                        ListHeaderComponent: () => (
+                          <FilterBar
+                            placeholder="Search events"
+                            onChange={(text: string) => {}}
+                          />
+                        ),
                       }}
-                      />
+                    />
                   </View>
                 </View>
                 <Input
@@ -412,8 +430,9 @@ export default function NewPost() {
                 <BottomSheetView>
                   <PostCard
                     user={user}
+                    reaction={"FIRE"}
                     postId={null}
-authorProfileImg={user!.profileImg}
+                    authorProfileImg={user!.profileImg}
                     authorId={null}
                     authorNickname={user!.nickname}
                     authorUsername={user!.username}
@@ -421,7 +440,7 @@ authorProfileImg={user!.profileImg}
                     date={new Date().toDateString()}
                     description={newPostForm.description}
                     images={images.map((image) => {
-                      return {url: image.uri, deleteHash: ""}
+                      return { url: image.uri, deleteHash: "" };
                     })}
                     language={language}
                     location={newPostForm.location}

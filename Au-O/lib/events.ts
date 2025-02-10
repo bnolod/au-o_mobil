@@ -17,25 +17,6 @@ export function getReactionEndpoint(reaction: "fire" | "heart" | "sunglasses") {
       return "COOL";
   }
 }
-export const handleReaction = (
-  type:  "FIRE" | "HEART" | "COOL",
-  reactions: Reactions,
-  resetCurrentReaction: () => void,
-  initialReaction: null | "FIRE" | "HEART" | "COOL"
-) => {if (initialReaction === type) {
-    resetCurrentReaction()
-    return {
-      ...reactions,
-      [type]: reactions[type] - 1,
-    };
-  } else {
-    return {
-      ...reactions,
-      [type]: reactions[type] + 1,
-    }
-  }
-
-};
 
 export function handleTabSelection(tab: "POST" | "GROUPS" | "SAVED") {
   Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);

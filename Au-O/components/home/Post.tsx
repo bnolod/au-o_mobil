@@ -1,7 +1,7 @@
 import { PostCardProps, Reactions, ReactionState, UserResponse } from "@/constants/types";
-import { Modal, Pressable, View } from "react-native";
+import { Pressable, View } from "react-native";
 import * as Haptics from "expo-haptics";
-import React, { useEffect } from "react";
+import React from "react";
 import ThemedText from "../ui/ThemedText";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import ReactionButton from "../ui/ReactionButton";
@@ -15,9 +15,8 @@ import { router } from "expo-router";
 import TapCountWrapper from "../utility/TapCountWrapper";
 import PostOptionMenu from "./PostOptionMenu";
 import PostImage from "./PostImage";
-import { handleReaction, handleShowMore } from "@/lib/events";
+import { handleShowMore } from "@/lib/events";
 import { addReaction, deleteImgurImage } from "@/lib/apiClient";
-import Toast from "react-native-toast-message";
 export default function PostCard({
   preview = false,
   authorNickname,
@@ -70,9 +69,32 @@ export default function PostCard({
     COOL: reactions.COOL ||  0,
   });
   const [lines, setLines] = useState<number | undefined>(3);
-  useEffect(() => {
-    console.log(currentReaction)
-  }, [currentReaction])
+
+  async function handlePress(type: null | "FIRE" | "HEART" | "COOL") {
+    if (currentReaction === type) {
+      await addReaction(postId!, type)
+      if (type) {
+
+        setReactions({
+          ...reactionState,
+          [type]: reactionState[type] - 1,
+        })
+      }
+      setCurrentReaction(null)
+      
+    }
+    else {
+      await addReaction(postId!, type)
+      setCurrentReaction(type)
+      if (type) {
+
+        setReactions({
+          ...reactionState,
+          [type]: reactionState[type] + 1,
+        })
+      }
+    }
+  }
   return (
     <>
 
@@ -125,11 +147,7 @@ export default function PostCard({
         <TapCountWrapper
           onDoubleTap={async () => {
             await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-            const reactionResponse = await addReaction(postId!, "FIRE");
-            if (reactionResponse === true) {
-              setReactions(handleReaction("FIRE", reactionState, () => setCurrentReaction(null), currentReaction));
-            } else
-              Toast.show({ text1: "Something went wrong.", type: "error" });
+            handlePress("FIRE")
           }}
           onSingleTap={
             postId
@@ -163,23 +181,14 @@ export default function PostCard({
               state={
                 currentReaction !== "FIRE" ? "inactive" : "active"
               }
-              count={ currentReaction !== "FIRE" ? reactions.FIRE : 1}
+              count={ reactionState.FIRE}
               onPress={
                 !preview
                   ? async () =>
                       {
                         
           await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-          const reactionResponse = await addReaction(postId!, "FIRE")
-          if (reactionResponse === true) {
-            setReactions(handleReaction("FIRE", reactionState, () => setCurrentReaction(null), currentReaction))
-            if (currentReaction === "FIRE") {
-              setCurrentReaction(null)
-            } else
-            setCurrentReaction("FIRE")
-          }
-          else Toast.show({text1: "Something went wrong.", type: "error"})
-                      }
+          handlePress("FIRE")}
                   : () => {}
               }
             />
@@ -191,17 +200,9 @@ export default function PostCard({
                 !preview
                   ? async () =>{
                     await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-                    const reactionResponse = await addReaction(postId!, "HEART")
-                    if (reactionResponse === true) {
-                      setReactions(handleReaction("HEART", reactionState, () => setCurrentReaction(null), currentReaction))
-                      if (currentReaction === "HEART") {
-                        setCurrentReaction(null)
-                      } else
-                      setCurrentReaction("HEART")
-                    }
-                    else Toast.show({text1: "Something went wrong.", type: "error"})}
-                      
-                  : () => {}
+                    handlePress("HEART")
+                  } : () => {}
+                    
               }
               state={
                 currentReaction !== "HEART" ? "inactive" : "active"
@@ -215,16 +216,7 @@ export default function PostCard({
                 !preview
                   ? async () =>{
                     await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-                    const reactionResponse = await addReaction(postId!, "COOL")
-                    if (reactionResponse === true) {
-                      console.log(reactionState)
-                      setReactions(handleReaction("COOL", reactionState, () => setCurrentReaction(null),  currentReaction))
-                      if (currentReaction === "COOL") {
-                        setCurrentReaction(null)
-                      } else
-                      setCurrentReaction("COOL")
-                    }
-                    else Toast.show({text1: "Something went wrong.", type: "error"})}
+                    handlePress("COOL")}
                   : () => {}
               }
               state={
