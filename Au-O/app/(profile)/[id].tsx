@@ -74,7 +74,7 @@ export default function UserProfile() {
         posts={posts!}
         followers={followers!}
         following={following!}
-        id={user.id.toString()}
+        id={profile.id.toString()}
         language={language}
       />
     );

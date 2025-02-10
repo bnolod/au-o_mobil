@@ -6,8 +6,6 @@ import {
   ImageStoreRequest,
   ImageUploadResponse,
   LoginRequest,
-  Reactions,
-  ReactionState,
   RegisterRequest,
   Reply,
   TokenResponse,
@@ -17,7 +15,7 @@ import {
 import axios, { AxiosInstance } from "axios";
 import { router } from "expo-router";
 import * as SecureStore from "expo-secure-store";
-import { createImageForm, deleteUser, saveUser } from "./functions";
+import { deleteUser, saveUser } from "./functions";
 import { eventEmitter } from "./events";
 
 const apiClient: AxiosInstance = axios.create({
@@ -307,6 +305,25 @@ export async function updateProfilePicture(imageForm: FormData) {
 
   return false;
 }
+export async function updateBio(bio: string) {
+  const req = await apiFetch<null>("users/user/update", "PUT", true, {
+    bio
+  });
+  if (req && req.status === 200) {
+
+    return true;
+  }
+  return false;
+}
+export async function updateNickname(nickname: string) {
+  const req = await apiFetch<null>("users/user/update", "PUT", true, {
+    nickname
+  });
+  if (req && req.status === 200) {
+    return true;
+  }
+  return false;
+}
 export async function getFollows(userId: string) {
   const followingRes = await apiFetch<UserResponse[]>(
     `users/user/${userId}/following`,
@@ -327,15 +344,12 @@ export async function getFollows(userId: string) {
 }
 export async function followUser(userId: string) {
   const res = await apiFetch<UserResponse>(`users/user/${userId}/follow`, "POST", true);
-  console.log(res);
   if (res && res.status === 200) {
-    
     return true;
   } else return false;
 }
 export async function unfollowUser(userId: string) {
   const res = await apiFetch<UserResponse>(`users/user/${userId}/unfollow`, "DELETE", true);
-  console.log(res);
   if (res && res.status === 200) {
     return true;
   } else return false;

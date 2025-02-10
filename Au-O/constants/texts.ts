@@ -158,6 +158,34 @@ export const generalTexts = {
     followingCount: {
       EN: "following",
       HU: "követett"}
+  },
+  followButton: {
+    follow: {
+      EN: "Follow",
+      HU: "Követés"
+    },
+    unfollow: {
+      EN: "Unfollow",
+      HU: "Kikövetés"
+    }
+  },
+  messageButton: {
+    EN: "Message",
+    HU: "Üzenet"
+  },
+  profileAttributes: {
+    username: {
+      EN: "Username",
+      HU: "Felhasználónév"
+    },
+    nickname: {
+      EN: "Nickname",
+      HU: "Becenév"
+    },
+    bio: {
+      EN: "Bio",
+      HU: "Bio"
+    }
   }
 }
 
@@ -636,5 +664,70 @@ export const CommentTexts = {
       HU: "Mégse",
       EN: "Cancel"
     }
+  }
+}
+export const UserEditTexts = {
+  header: {
+    HU: "Tartsd lenyomva a mezőt a szerkesztéshez",
+    EN: "Press and hold a field to edit its contents."
+  },
+  prompts: {
+    edit: {
+      HU: "Szerkesztés",
+      EN: "Edit"
+    },
+  },
+  success: {
+    bio: {
+      HU: "Bio frissítve!",
+      EN: "Bio updated!"
+    },
+    nickname: {
+      HU: "Becenév frissítve!",
+      EN: "Nickname updated!"
+    },
+    
+    profilePicture: {
+      HU: "Profilkép sikeresen szerkesztve",
+      EN: "Profile picture successfully updated."
+    },
+  },
+  error: {
+    bio: {
+      HU: "Hiba történt a bio frissítése közben.",
+      EN: "An error occurred while updating your bio."
+    },
+    nickname: {
+      HU: "Hiba történt a becenév frissítése közben.",
+      EN: "An error occurred while updating your nickname."
+    },
+    profilePicture: {
+      HU: "Hiba történt a profilkép frissítése közben.",
+      EN: "An error occurred while updating your profile picture."
+    }
+  }
+}
+export const EditModalTexts = {
+  alert: {
+    title: {
+      HU: "Biztosan elveted a módosításokat?",
+      EN: "Are you sure you want to discard your changes?"
+    },
+    subheading: {
+      HU: "Az összes módosítás elveszik.",
+      EN: "All changes will be lost."
+    },
+    discard: {
+      HU: "Elvetés",
+      EN: "Discard"
+    },
+    keepEditing: {
+      HU: "Szerkesztés",
+      EN: "Keep editing"
+    },
+  },
+  save: {
+    HU: "Mentés",
+    EN: "Save"
   }
 }
