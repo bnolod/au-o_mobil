@@ -22,7 +22,7 @@ import {
   PostResponse,
   User,
 } from "@/constants/types";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { router } from "expo-router";
 import UserLoading from "@/components/auth/UserLoading";
 import RootHeader from "@/components/home/RootHeader";
@@ -36,6 +36,8 @@ import { FlashList } from "@shopify/flash-list";
 import { createImageForm, createTimestamp } from "@/lib/functions";
 import Toast from "react-native-toast-message";
 import TextEditModal from "./TextEditModal";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import FollowerSheet from "./FollowerSheet";
 export default function Profile({
   user,
   language,
@@ -66,6 +68,7 @@ export default function Profile({
   const [selectedTab, setSelectedTab] = useState<"POST" | "GROUPS" | "SAVED">(
     "POST"
   );
+  const followerSheetRef = useRef<BottomSheetModal>(null);
   async function handleFollow() {
     if (user && !followers.some((follower) => follower.id === user.id)) {
       const followRes = await followUser(id as string);
@@ -195,18 +198,37 @@ export default function Profile({
               />
             </TouchableOpacity>
             <View>
-              <ThemedText className="text-xl text-right">
+              
+              <ThemedText className="text-xl text-right underline" onPress={() => {followerSheetRef.current?.dismiss(); followerSheetRef.current?.present({
+                followers
+              })}}>
                 {followers.length}{" "}
                 {generalTexts.followers.followerCount[language]}
                 {followers.length !== 1 &&
                   generalTexts.followers.followerCountMoreThanOne[language]}
               </ThemedText>
-              <ThemedText className="text-lg text-right">
+              <ThemedText className="text-lg text-right underline" onPress={() => {followerSheetRef.current?.dismiss(); followerSheetRef.current?.present({
+             following
+              })}}>
                 {following.length}{" "}
                 {generalTexts.following.followingCount[language]}
               </ThemedText>
             </View>
           </View>
+          <BottomSheetModal style={{
+            backgroundColor: Colors[colorScheme!].background,
+          }}
+          handleIndicatorStyle={{
+            backgroundColor: Colors[colorScheme!].text,
+            width: "40%"
+          }}
+
+          
+          backgroundStyle={{
+            backgroundColor: Colors[colorScheme!].background,
+          }} ref={followerSheetRef} index={1} snapPoints={["50%"]}>
+            <FollowerSheet isOwner={isOwner} colorScheme={colorScheme} language={language} followers={followers} following={following} dismissSheet={() => followerSheetRef.current?.dismiss()}/>
+          </BottomSheetModal>
           <View className="flex flex-row gap-4 items-center px-4">
             <ThemedText
               className="text-xl font-bold"
