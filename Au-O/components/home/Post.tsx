@@ -1,4 +1,4 @@
-import { PostCardProps, Reactions, ReactionState, UserResponse } from "@/constants/types";
+import { PostCardProps, Reactions } from "@/constants/types";
 import { Pressable, View } from "react-native";
 import * as Haptics from "expo-haptics";
 import React from "react";

@@ -81,7 +81,7 @@ export default function PostPage() {
   }
   if (post) {
     return (
-      <View className="flex justify-center items-center h-full primary">
+      <View className="flex justify-start items-center h-full">
         <PostCard
         user={user}
         reaction={post.reactedWith}

@@ -1,6 +1,7 @@
 import { AvatarProps } from "@/constants/types";
-import { Image, View } from "react-native";
+import { Image, ImageBackground, View } from "react-native";
 import ThemedText from "./ThemedText";
+import { Images } from "@/lib/staticAssetExports";
 
 export default function Avatar({
   image,
@@ -22,14 +23,22 @@ export default function Avatar({
         className={`${className} ${
           className
             ? className
-            : "bg-backdrop-secondary dark:bg-backdrop-secondary-dark"
+            : "bg-backdrop-secondary dark:bg-backdrop-secondary-dark overflow-hidden"
         } w-${width} h-${height} flex items-center justify-center text-center rounded-full`}
       >
-        <ThemedText className="text-lg font-black">
-          {nickname[0].toUpperCase()}
-          {nickname[1].toUpperCase()}
-          {nickname[2].toUpperCase()}
-        </ThemedText>
+        <ImageBackground
+          source={Images.avatar_placeholder}
+          imageStyle={{ borderRadius: 255 }}
+          resizeMode="cover"
+          
+         className="flex-1 justify-center items-center rounded-full  w-full h-full"
+        >
+          <ThemedText className="text-lg font-black">
+            {nickname[0].toUpperCase()}
+            {nickname[1].toUpperCase()}
+            {nickname[2].toUpperCase()}
+          </ThemedText>
+        </ImageBackground>
       </View>
     );
   } else if (!image && !nickname) {

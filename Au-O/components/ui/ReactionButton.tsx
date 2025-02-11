@@ -1,3 +1,4 @@
+import { formatNumber } from "@/lib/functions";
 import Button from "./Button";
 import ThemedText from "./ThemedText";
 
@@ -34,7 +35,7 @@ export default function ReactionButton({
         {type === "HEART" && "😍"}
         {type === "COOL" && "😎"}
       </ThemedText>
-      <ThemedText className="text-xl">{count > 0 && count}</ThemedText>
+      <ThemedText className="text-xl">{count > 0 && formatNumber(count)}</ThemedText>
     </Button>
   );
 }

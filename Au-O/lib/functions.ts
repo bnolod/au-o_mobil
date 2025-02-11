@@ -243,3 +243,21 @@ export async function createImageForm(element: ImagePicker.ImagePickerAsset, des
     return imageForm
     
   }
+export function formatNumber(number: number, language?: "HU" | "EN") {
+  let lang = language || "EN";
+  if (number < 1000) {
+    return number.toString();
+  }
+  const suffix = {
+    EN: ["K", "M", "B", "T"],
+    HU: ["E", "M", "Mrd", "B"],
+  }
+  let i = -1;
+  let formatted = number;
+
+  while (formatted >= 1000) {
+    formatted /= 1000;
+    i++;
+  }
+  return formatted >= 100 ? Math.round(formatted) + suffix[lang][i] : formatted.toFixed(1) + suffix[lang][i];
+}

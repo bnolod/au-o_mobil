@@ -142,7 +142,7 @@ export default function RootLayout() {
                 }
               >
                 <Avatar
-                  className={`${focused ? "highlight" : "primary"} mt-2`}
+                  className={`${focused ? "highlight" : "primary"}`}
                   image={user.profileImg}
                   nickname={user.nickname}
                   />
