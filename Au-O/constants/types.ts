@@ -2,6 +2,8 @@ import { GestureResponderEvent, TextInputProps, TouchableOpacityProps } from "re
 import { HttpErrorTexts } from "./texts";
 import { ReactNode } from "react";
 import { ImagePickerAsset } from "expo-image-picker";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { IconProps } from "@expo/vector-icons/build/createIconSet";
 
 export interface OnboardingLayoutProps {
   headerText: React.ReactNode;
@@ -320,4 +322,16 @@ export interface TextEditModalProps {
   labelComponent?: ReactNode;
   placeholder?: string;
   lines?: number;
+}
+export interface SettingsAsideProps {
+  userId: string,
+  username: string,
+  availableSettings: SettingsOption[]
+}
+export interface SettingsOption {
+  title: string,
+  icon: keyof typeof MaterialCommunityIcons.glyphMap,
+  onPress: () => void
+  className?: string
+
 }

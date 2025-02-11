@@ -327,7 +327,7 @@ export async function updateNickname(nickname: string) {
   return false;
 }
 export async function removeFollow(followerId: string) {
-  const req = await apiFetch(`users/user${followerId}/remove_follower`, "DELETE", true)
+  const req = await apiFetch(`users/user/${followerId}/remove_follower`, "DELETE", true)
   if (req && req.status === 200) {
     return true
   }

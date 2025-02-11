@@ -31,3 +31,10 @@ export const Colors = {
     light: "#F7898F"
   }
 };
+export const Styles = {
+  buttonShadow: {
+    shadowOffset: { width: 1, height: 10 },
+    shadowOpacity: 1,
+    shadowRadius: 10,
+  }
+}

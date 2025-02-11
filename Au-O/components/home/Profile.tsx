@@ -27,17 +27,22 @@ import { router } from "expo-router";
 import UserLoading from "@/components/auth/UserLoading";
 import RootHeader from "@/components/home/RootHeader";
 import Avatar from "@/components/ui/Avatar";
-import { boros_manifesto, generalTexts, UserEditTexts } from "@/constants/texts";
+import {
+  boros_manifesto,
+  generalTexts,
+  UserEditTexts,
+} from "@/constants/texts";
 import { handleShowMore, handleTabSelection } from "@/lib/events";
 import * as ImagePicker from "expo-image-picker";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Colors } from "@/constants/Colors";
+import { Colors, Styles } from "@/constants/Colors";
 import { FlashList } from "@shopify/flash-list";
 import { createImageForm, createTimestamp } from "@/lib/functions";
 import Toast from "react-native-toast-message";
 import TextEditModal from "./TextEditModal";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import FollowerSheet from "./FollowerSheet";
+import NoPostsFound from "./NoPostsFound";
 export default function Profile({
   user,
   language,
@@ -93,7 +98,7 @@ export default function Profile({
       <ScrollView className="primary">
         <RootHeader colorScheme={colorScheme!} language={language} />
         <TextEditModal
-        language={language}
+          language={language}
           initialValue={bioValue}
           lines={3}
           colorScheme={colorScheme!}
@@ -118,12 +123,14 @@ export default function Profile({
           labelComponent={
             <>
               <MaterialCommunityIcons name="pencil" size={24} />
-              <ThemedText>{generalTexts.profileAttributes.bio[language]}</ThemedText>
+              <ThemedText>
+                {generalTexts.profileAttributes.bio[language]}
+              </ThemedText>
             </>
           }
         />
         <TextEditModal
-        language={language}
+          language={language}
           initialValue={nicknameValue}
           colorScheme={colorScheme!}
           onSave={async (text) => {
@@ -147,7 +154,9 @@ export default function Profile({
           labelComponent={
             <>
               <MaterialCommunityIcons name="account-outline" size={24} />
-              <ThemedText>{generalTexts.profileAttributes.nickname[language]}</ThemedText>
+              <ThemedText>
+                {generalTexts.profileAttributes.nickname[language]}
+              </ThemedText>
             </>
           }
           lines={1}
@@ -181,13 +190,13 @@ export default function Profile({
                         type: "success",
                         text1: UserEditTexts.success.profilePicture[language],
                       });
-                    }
-                    else {
+                    } else {
                       Toast.show({
                         type: "error",
                         text1: UserEditTexts.error.profilePicture[language],
                       });
-                  }}
+                    }
+                  }
                 }
               }}
             >
@@ -198,36 +207,58 @@ export default function Profile({
               />
             </TouchableOpacity>
             <View>
-              
-              <ThemedText className="text-xl text-right underline" onPress={() => {followerSheetRef.current?.dismiss(); followerSheetRef.current?.present({
-                followers
-              })}}>
-                {followers.length}{" "}
+              <ThemedText
+                className="text-xl text-right underline"
+                onPress={() => {
+                  followerSheetRef.current?.dismiss();
+                  followerSheetRef.current?.present({
+                    followers,
+                  });
+                }}
+              >
+                {followers ? followers.length : 0}{" "}
                 {generalTexts.followers.followerCount[language]}
-                {followers.length !== 1 &&
+                {followers &&
+                  followers.length !== 1 &&
                   generalTexts.followers.followerCountMoreThanOne[language]}
               </ThemedText>
-              <ThemedText className="text-lg text-right underline" onPress={() => {followerSheetRef.current?.dismiss(); followerSheetRef.current?.present({
-             following
-              })}}>
-                {following.length}{" "}
+              <ThemedText
+                className="text-lg text-right underline"
+                onPress={() => {
+                  followerSheetRef.current?.dismiss();
+                  followerSheetRef.current?.present({
+                    following,
+                  });
+                }}
+              >
+                {following ? following.length : 0}{" "}
                 {generalTexts.following.followingCount[language]}
               </ThemedText>
             </View>
           </View>
-          <BottomSheetModal style={{
-            backgroundColor: Colors[colorScheme!].background,
-          }}
-          handleIndicatorStyle={{
-            backgroundColor: Colors[colorScheme!].text,
-            width: "40%"
-          }}
-
-          
-          backgroundStyle={{
-            backgroundColor: Colors[colorScheme!].background,
-          }} ref={followerSheetRef} index={1} snapPoints={["50%"]}>
-            <FollowerSheet isOwner={isOwner} colorScheme={colorScheme} language={language} followers={followers} following={following} dismissSheet={() => followerSheetRef.current?.dismiss()}/>
+          <BottomSheetModal
+            style={{
+              backgroundColor: Colors[colorScheme!].background,
+            }}
+            handleIndicatorStyle={{
+              backgroundColor: Colors[colorScheme!].text,
+              width: "40%",
+            }}
+            backgroundStyle={{
+              backgroundColor: Colors[colorScheme!].background,
+            }}
+            ref={followerSheetRef}
+            index={1}
+            snapPoints={["50%"]}
+          >
+            <FollowerSheet
+              isOwner={isOwner}
+              colorScheme={colorScheme}
+              language={language}
+              followers={followers}
+              following={following}
+              dismissSheet={() => followerSheetRef.current?.dismiss()}
+            />
           </BottomSheetModal>
           <View className="flex flex-row gap-4 items-center px-4">
             <ThemedText
@@ -241,18 +272,48 @@ export default function Profile({
             </ThemedText>
           </View>
           <View className="flex flex-row gap-1 items-center">
-            <ThemedText
-              numberOfLines={lines}
-              className="text-lg px-4"
-              onLongPress={() => {
-                if (!isOwner) return;
-                setBioEdit(true);
-              }}
-              onPress={() => setLines(handleShowMore(lines))}
+            <View
+              className={`flex flex-row items-start justify-start ${
+                isOwner && "basis-5/6"
+              }`}
             >
-              {bioValue && bioValue.length > 0 ? bioValue : generalTexts.profileAttributes.bioEmpty[language]}
-            </ThemedText>
-            {isOwner && <Text className="text-sm text-gray-500">{UserEditTexts.prompts.edit[language]}</Text>}
+              <ThemedText
+                numberOfLines={lines}
+                className="text-lg px-4"
+                onLongPress={() => {
+                  if (!isOwner) return;
+                  setBioEdit(true);
+                }}
+                onPress={() => setLines(handleShowMore(lines))}
+              >
+                {bioValue && bioValue.length > 0
+                  ? bioValue
+                  : generalTexts.profileAttributes.bioEmpty[language]}
+              </ThemedText>
+              {isOwner && (
+                <Text className="text-sm text-gray-500">
+                  {UserEditTexts.prompts.edit[language]}
+                </Text>
+              )}
+            </View>
+            {isOwner && (
+              <TouchableOpacity
+                className="text-right mr-4 self-start primary p-2 rounded-xl"
+                style={{
+                  shadowColor: Colors[colorScheme!].background,
+                  shadowOffset: { width: 0, height: 10 },
+                  shadowOpacity: 1,
+                  shadowRadius: 10,
+                }}
+                onPress={() => router.push("/(profile)/settings")}
+              >
+                <MaterialCommunityIcons
+                  name="cog-outline"
+                  size={32}
+                  color={Colors[colorScheme!].text}
+                />
+              </TouchableOpacity>
+            )}
           </View>
           {!isOwner ? (
             <View className="flex flex-row justify-between px-4 items-center w-full">
@@ -264,7 +325,7 @@ export default function Profile({
                 hapticFeedback="medium"
                 style={{
                   shadowColor: Colors[colorScheme!].background,
-                  shadowOffset: { width: 1, height: 10 },
+                  shadowOffset: { width: 0, height: 10 },
                   shadowOpacity: 1,
                   shadowRadius: 10,
                 }}
@@ -286,9 +347,17 @@ export default function Profile({
               {UserEditTexts.header[language]}
             </ThemedText>
           )}
-          <Button onPress={() => logout()}>Logout</Button>
+
           <View className="p-4 secondary h-24 rounded-b-2xl">
-            <View className="primary flex flex-row justify-between items-center m-auto w-full h-full  rounded-xl">
+            <View
+              className="primary flex flex-row justify-between items-center m-auto w-full h-full  rounded-xl"
+              style={{
+                shadowColor: Colors[colorScheme!].background,
+                shadowOffset: { width: 0, height: 10 },
+                shadowOpacity: 1,
+                shadowRadius: 10,
+              }}
+            >
               <MaterialCommunityIcons
                 name="cards-outline"
                 size={42}
@@ -328,14 +397,15 @@ export default function Profile({
         <View className="w-11/12 mx-auto mt-4">
           <FlashList
             estimatedItemSize={200}
+            ListEmptyComponent={() => <NoPostsFound language={language} />}
             data={
-              posts.length > 0
+              posts && posts.length > 0
                 ? posts.sort(
                     (a, b) =>
                       new Date(b.dateOfCreation).getTime() -
                       new Date(a.dateOfCreation).getTime()
                   )
-                : null
+                : []
             }
             renderItem={({ item }) => (
               <Pressable

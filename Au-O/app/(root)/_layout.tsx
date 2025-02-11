@@ -1,13 +1,13 @@
 import React from "react";
 import { useAuthentication } from "@/contexts/AuthenticationContext";
-import { Tabs } from "expo-router";
+import { router, Tabs } from "expo-router";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
 import { Colors } from "@/constants/Colors";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { StatusBar } from "expo-status-bar";
 import Avatar from "@/components/ui/Avatar";
-import { Platform, View } from "react-native";
+import { Platform, Touchable, TouchableOpacity, View } from "react-native";
 
 export default function RootLayout() {
   const { user } = useAuthentication();
@@ -91,11 +91,15 @@ export default function RootLayout() {
         />
         <Tabs.Screen
           name="profile/selfProfile"
+          listeners={({tabLongPress: (e) => {
+            router.push("/(profile)/settings")
+          }})}
           options={{
             headerShown: false,
             title: "Profile",
             tabBarIcon: ({ focused }) => (
               <View
+              
                 className="mb-2"
                 style={
                   focused
@@ -111,7 +115,8 @@ export default function RootLayout() {
                   className={`${focused ? "highlight" : "primary"} mt-2`}
                   image={user.profileImg}
                   nickname={user.nickname}
-                />
+                  />
+                  
               </View>
             ),
           }}

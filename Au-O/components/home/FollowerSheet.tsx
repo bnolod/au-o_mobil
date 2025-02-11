@@ -40,9 +40,7 @@ export default function FollowerSheet({
           </TouchableOpacity>
         </View>
       )}
-      style={{
-        backgroundColor: Colors[colorScheme].background,
-      }}
+      
       contentContainerStyle={{
         backgroundColor: Colors[colorScheme].background,
       }}
