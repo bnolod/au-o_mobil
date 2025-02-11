@@ -62,6 +62,21 @@ export default function RootLayout() {
           }}
         />
         <Tabs.Screen
+          name="(groups)"
+          initialParams={{ colorScheme, language }}
+          options={{
+            headerShown: false,
+            title: "Groups",
+            tabBarIcon: ({ color, focused }) => (
+              <MaterialCommunityIcons
+                name={focused ? "account-group" : "account-group-outline"}
+                size={42}
+                color={color}
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
           name="new"
           options={{
             headerShown: false,
@@ -86,6 +101,21 @@ export default function RootLayout() {
                   color={color}
                 />
               </View>
+            ),
+          }}
+        />
+                <Tabs.Screen
+          name="(events)"
+          initialParams={{ colorScheme, language }}
+          options={{
+            headerShown: false,
+            title: "Groups",
+            tabBarIcon: ({ color, focused }) => (
+              <MaterialCommunityIcons
+                name={focused ? "bookmark" : "bookmark-outline"}
+                size={42}
+                color={color}
+              />
             ),
           }}
         />

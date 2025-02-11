@@ -37,18 +37,18 @@ export default function RootLayout() {
     if (loaded) {
       eventEmitter.on("triggerLogout", () => {
         router.replace("/(auth)/login");
-      })
+      });
       SplashScreen.hideAsync();
     }
     return () => {
       eventEmitter.removeAllListeners("triggerLogout"); //tesztre
-    }
+    };
   }, [loaded]);
 
   if (!loaded) {
     return null;
   }
-  
+
   return (
     <LanguageProvider>
       <OnboardingProvider>
@@ -59,27 +59,34 @@ export default function RootLayout() {
             <FormProvider>
               <GestureHandlerRootView>
                 <BottomSheetModalProvider>
-                  <Stack initialRouteName="onboarding" > 
+                  <Stack initialRouteName="onboarding">
                     <Stack.Screen
                       name="onboarding"
-                      options={{ headerShown: false, navigationBarHidden: true }}
-                      
+                      options={{
+                        headerShown: false,
+                        navigationBarHidden: true,
+                      }}
                     />
                     <Stack.Screen
                       name="(auth)"
                       options={{ headerShown: false }}
                     />
                     <Stack.Screen
-
                       name="(root)"
-                      options={{ headerShown: false, navigationBarColor: Colors[colorScheme!].secondary }}
+                      options={{
+                        headerShown: false,
+                        navigationBarColor: Colors[colorScheme!].secondary,
+                      }}
                     />
                     <Stack.Screen
                       name="(post)"
                       options={{ headerShown: false }}
                     />
-                    <Stack.Screen name="(profile)"
-                    options={{ headerShown: false }} />
+
+                    <Stack.Screen
+                      name="(profile)"
+                      options={{ headerShown: false }}
+                    />
                   </Stack>
                 </BottomSheetModalProvider>
               </GestureHandlerRootView>
