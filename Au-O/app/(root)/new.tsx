@@ -202,12 +202,12 @@ export default function NewPost() {
         keyboardVerticalOffset={40}
         style={{ flex: 1 }}
       >
-        <ScrollView className="primary">
+        <ScrollView>
           <Pressable
             onPress={() => Keyboard.dismiss()}
             className="flex h-screen flex-col"
           >
-            <View className=" basis-3/12 w-full secondary">
+            <View className=" basis-3/12 w-full secondary rounded-b-xl">
               {images.length > 0 ? (
                 <Carousel
                   width={Dimensions.get("screen").width}

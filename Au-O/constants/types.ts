@@ -335,3 +335,14 @@ export interface SettingsOption {
   className?: string
 
 }
+
+export interface Group {
+  id: string,
+  name: string,
+  alias: string,
+  bannerImage: string,
+  memberCount: number,
+  isPublic: boolean,
+  creationDate: string
+  isMember: boolean
+}

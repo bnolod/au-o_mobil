@@ -7,16 +7,19 @@ import { boros_manifesto } from "@/constants/texts";
 import Button from "../ui/Button";
 import { useState } from "react";
 import { handleShowMore } from "@/lib/events";
+import { router } from "expo-router";
 
 export default function SocialCard({
   language,
   colorScheme,
+  id,
   image,
   name,
   type = "GROUP",
   count = null,
 }: CommonStaticElementProps & {
   name: string;
+  id: string;
   image?: string;
   count?: number | null;
   type: "GROUP" | "EVENT";
@@ -36,6 +39,7 @@ export default function SocialCard({
       }}
     >
       <SocialBanner
+        id={id}
         language={language}
         colorScheme={colorScheme}
         name={name}
@@ -52,8 +56,7 @@ export default function SocialCard({
                 {" "}
                 {name.length < 20 && name.split(" ").length < 4
                   ? name
-                  : name.split(" ").map((t) => t[0].toUpperCase())
-                }
+                  : name.split(" ").map((t) => t[0].toUpperCase())}
               </ThemedText>
             </ThemedText>
             <ThemedText
@@ -66,18 +69,28 @@ export default function SocialCard({
           </View>
           <View className="flex  items-start gap-8">
             <Button className="button highlight text-xl mr-0 justify-center">
-              {
-                type === "GROUP"
-                ? "Join"
-                : "Attend"
-              }
+              {type === "GROUP" ? "Join" : "Attend"}
             </Button>
-            <Button className="button secondary text-xl mr-0  justify-center">
-              {
-                type === "GROUP"
-                ? "Visit group"
-                : "Details"
-              }
+            <Button
+              className="button secondary text-xl mr-0  justify-center"
+              onPress={() => {
+                if (type === "EVENT")
+                  router.push({
+                    pathname: `/(root)/(events)/[id]`,
+                    params: {
+                      id,
+                    },
+                  });
+                else
+                  router.push({
+                    pathname: `/(root)/(groups)/[id]`,
+                    params: {
+                      id,
+                    },
+                  });
+              }}
+            >
+              {type === "GROUP" ? "Visit group" : "Details"}
             </Button>
           </View>
         </View>

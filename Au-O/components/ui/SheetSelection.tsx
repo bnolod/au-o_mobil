@@ -7,7 +7,7 @@ import ThemedText from "./ThemedText";
 import { View } from "react-native";
 import { Colors } from "@/constants/Colors";
 import { CommonStaticElementProps } from "@/constants/types";
-export default function SheetSelection({FlashListProps, language, colorScheme}: {FlashListProps: BottomSheetFlashListProps<any>} & CommonStaticElementProps
+export default function SheetSelection({FlashListProps, language, colorScheme, placeholder = "Select"}: {FlashListProps: BottomSheetFlashListProps<any>, placeholder?: string} & CommonStaticElementProps
 ) {
     const [sheetState, setSheetState] = React.useState(false)
     const toggleSheet = () => {
@@ -21,10 +21,10 @@ export default function SheetSelection({FlashListProps, language, colorScheme}: 
     const sheet = useRef<BottomSheetModal>(null)
     return (
         <>        
-          <Button className="button btn-fill mt-2 h-14 w-full secondary justify-between flex-row" onPress={toggleSheet}>
+          <Button className="button flex items-center  btn-fill h-16  secondary justify-between flex-row" onPress={toggleSheet}>
             <View className="flex-row items-center justify-between w-full">
 
-            <ThemedText className="text-lg font-semibold text-white">Select</ThemedText>
+            <ThemedText className="text-lg font-semibold text-white">{placeholder}</ThemedText>
             <MaterialCommunityIcons name="chevron-down" size={34} color={Colors.highlight.main} />
             </View>
         </Button>
