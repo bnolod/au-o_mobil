@@ -24,7 +24,7 @@ export default function SheetSelection({FlashListProps, language, colorScheme, p
           <Button className="button flex items-center  btn-fill h-16  secondary justify-between flex-row" onPress={toggleSheet}>
             <View className="flex-row items-center justify-between w-full">
 
-            <ThemedText className="text-lg font-semibold text-white">{placeholder}</ThemedText>
+            <ThemedText className="text-lg font-semibold opacity-80">{placeholder}</ThemedText>
             <MaterialCommunityIcons name="chevron-down" size={34} color={Colors.highlight.main} />
             </View>
         </Button>

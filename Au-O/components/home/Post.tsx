@@ -15,8 +15,8 @@ import { router } from "expo-router";
 import TapCountWrapper from "../utility/TapCountWrapper";
 import PostOptionMenu from "./PostOptionMenu";
 import PostImage from "./PostImage";
-import { handleShowMore } from "@/lib/events";
 import { addReaction, deleteImgurImage } from "@/lib/apiClient";
+import CollapsibleText from "../ui/CollapsibleText";
 export default function PostCard({
   preview = false,
   authorNickname,
@@ -68,8 +68,6 @@ export default function PostCard({
     HEART: reactions.HEART || 0,
     COOL: reactions.COOL ||  0,
   });
-  const [lines, setLines] = useState<number | undefined>(3);
-
   async function handlePress(type: null | "FIRE" | "HEART" | "COOL") {
     if (currentReaction === type) {
       await addReaction(postId!, type)
@@ -236,17 +234,15 @@ export default function PostCard({
         <View
           className={`px-4 pt-2 pb-5 flex flex-row  dark:bg-backdrop-primary-dark bg-backdrop-secondary`}
         >
-          <ThemedText
-            onPress={() => setLines(handleShowMore(lines))}
-            ellipsizeMode="tail"
+          <CollapsibleText
             className="text-lg leading-tight flex gap-2"
-            numberOfLines={lines}
+            restrictedLineCount={3}
           >
             <ThemedText className="text-highlight-light pr-4 dark:text-highlight font-semibold">
               {authorUsername + "  "}
             </ThemedText>
             {description}
-          </ThemedText>
+          </CollapsibleText>
         </View>
 
         <CommentSheet

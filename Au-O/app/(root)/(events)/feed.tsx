@@ -1,7 +1,6 @@
 import RootHeader from "@/components/home/RootHeader";
 import SocialCard from "@/components/social/SocialCard";
 import SocialSort from "@/components/social/SocialSort";
-import ThemedText from "@/components/ui/ThemedText";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Images } from "@/lib/staticAssetExports";
 import { useColorScheme } from "nativewind";
@@ -17,11 +16,19 @@ export default function EventFeed() {
       <SocialSort language={language} colorScheme={colorScheme!} />
         </View>
       <SocialCard
-      id="1"
-        name="Érdekes találkozó"
-        image={Images.placeholder}
         type="EVENT"
-        count={9090}
+        event={{
+          id: "1",
+          name: "Event 1",
+          bannerImage: Images.placeholder,
+          attendees: 10,
+          isPublic: true,
+          creationDate: "2021-08-01",
+          isAttending: true,
+          endDate: "2021-08-02",
+          location: "Budapest",
+          startDate: "2021-08-01",
+        }}
         language={language}
         colorScheme={colorScheme!}
       />

@@ -5,6 +5,7 @@
 @layer components {
   .button {
     @apply mx-auto px-4 border-0 font-bold py-2 rounded-xl;
+
   }
   .btn-highlight {
     @apply bg-highlight border-highlight;
@@ -157,5 +158,13 @@
   .highlight {
     @apply bg-highlight-light dark:bg-highlight
   }
-  
+  .highlight-dark {
+    @apply bg-highlight-dark dark:bg-highlight-dark
+  }
+  .highlight-light {
+    @apply bg-highlight-light dark:bg-highlight-light
+  }
+  .highlight-themed {
+    @apply bg-highlight-light dark:bg-highlight-dark
+  }
 }

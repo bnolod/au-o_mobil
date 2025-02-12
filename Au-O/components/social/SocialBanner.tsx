@@ -12,10 +12,12 @@ export default function SocialBanner({
   type = "GROUP",
   count = 0,
   language,
+  header = false,
   colorScheme,
 }: {
   name: string;
   id: string;
+  header?: boolean
   image?: any;
   type?: "GROUP" | "EVENT";
 
@@ -32,13 +34,14 @@ export default function SocialBanner({
         }})
       }}
       style={{
-        aspectRatio: 3 / 1,
+        aspectRatio: header ? 1.7 : 3 / 1,
       }}
       className=" justify-center items-center flex w-full overflow-hidden"
     >
       <ImageBackground
         className="w-full h-full flex items-center justify-center secondary rounded-t-xl"
         source={Images.banner_placeholder}
+        resizeMode="cover"
       >
         {count !== null && (
           <ThemedText className=" z-50 p-2 secondary rounded-xl opacity-75 left-3 bottom-3 absolute">

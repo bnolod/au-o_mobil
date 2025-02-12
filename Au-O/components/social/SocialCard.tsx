@@ -1,30 +1,54 @@
 import { View } from "react-native";
 import ThemedText from "@/components/ui/ThemedText";
 import SocialBanner from "./SocialBanner";
-import { CommonStaticElementProps } from "@/constants/types";
+import {
+  CommonStaticElementProps,
+  Group,
+  SocialEvent,
+} from "@/constants/types";
 import { Colors } from "@/constants/Colors";
 import { boros_manifesto } from "@/constants/texts";
 import Button from "../ui/Button";
-import { useState } from "react";
-import { handleShowMore } from "@/lib/events";
 import { router } from "expo-router";
+import LoadingModal from "../ui/LoadingModal";
+import CollapsibleText from "../ui/CollapsibleText";
 
 export default function SocialCard({
   language,
   colorScheme,
-  id,
-  image,
-  name,
+  group,
+  event,
   type = "GROUP",
   count = null,
 }: CommonStaticElementProps & {
-  name: string;
-  id: string;
-  image?: string;
+  group?: Group;
+  event?: SocialEvent;
   count?: number | null;
   type: "GROUP" | "EVENT";
 }) {
-  const [lines, setLines] = useState<number | undefined>(3);
+  if (!group && !event) return null;
+  const item = group && !event ? {
+    id: group.id,
+    name: group.name,
+    bannerImage: group.bannerImage,
+    alias: group.alias,
+    count: group.memberCount,
+    isPublic: group.isPublic,
+    creationDate: group.creationDate,
+    isUserRelated: group.isMember,
+
+  } :  {
+    id: event!.id,
+    name: event!.name,
+    bannerImage: event!.bannerImage,
+    alias: "",
+    count: event!.attendees,
+    isPublic: event!.isPublic,
+    creationDate: event!.creationDate,
+    isUserRelated: event!.isAttending
+  };
+  if (item === undefined) return <LoadingModal loading={true} colorScheme={colorScheme}/>;
+  if (item)
   return (
     <View
       className="my-4"
@@ -39,33 +63,28 @@ export default function SocialCard({
       }}
     >
       <SocialBanner
-        id={id}
+        id={item.id}
         language={language}
         colorScheme={colorScheme}
-        name={name}
-        image={image}
-        count={count}
+        name={item.name}
+        image={item.bannerImage}
+        count={item.count}
         type={type}
       />
       <View className="p-4 primary rounded-b-xl">
         <View className="flex flex-row justify-between">
           <View className="basis-4/6">
             <ThemedText className="text-lg font-bold leading-tight">
-              {name}
-              <ThemedText className="text-sm font-semibold opacity-40">
-                {" "}
-                {name.length < 20 && name.split(" ").length < 4
-                  ? name
-                  : name.split(" ").map((t) => t[0].toUpperCase())}
+              {item.name}
+              <ThemedText className="text-sm p-3 font-semibold opacity-40">
+                {" "}{item.alias}
               </ThemedText>
             </ThemedText>
-            <ThemedText
-              onPress={() => setLines(handleShowMore(lines))}
+            <CollapsibleText
               className="opacity-85"
-              numberOfLines={lines}
             >
               {boros_manifesto.EN}
-            </ThemedText>
+            </CollapsibleText>
           </View>
           <View className="flex  items-start gap-8">
             <Button className="button highlight text-xl mr-0 justify-center">
@@ -78,14 +97,14 @@ export default function SocialCard({
                   router.push({
                     pathname: `/(root)/(events)/[id]`,
                     params: {
-                      id,
+                      id: item.id
                     },
                   });
                 else
                   router.push({
                     pathname: `/(root)/(groups)/[id]`,
                     params: {
-                      id,
+                      id: item.id,
                     },
                   });
               }}

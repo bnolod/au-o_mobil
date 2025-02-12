@@ -19,13 +19,19 @@ export default function GroupFeed() {
       <SocialSort language={language} colorScheme={colorScheme!} />
         </View>
       <SocialCard
-        name="Civic Imádó Csoportos Indulás Közösség"
-        image={Images.placeholder}
         type="GROUP"
-        count={9090}
+        group={{
+          id: "1",
+          name: "Group 1",
+          bannerImage: Images.placeholder,
+          alias: "group1",
+          memberCount: 10,
+          isPublic: true,
+          creationDate: "2021-08-01",
+          isMember: true,
+        }}
         language={language}
         colorScheme={colorScheme!}
-        id={"1"}
       />
 
     </ScrollView>

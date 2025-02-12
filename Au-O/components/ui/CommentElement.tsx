@@ -9,14 +9,12 @@ import {
   View,
 } from "react-native";
 import ThemedText from "./ThemedText";
-import { Comment, CommentElementProps, CommonStaticElementProps, Reply } from "@/constants/types";
-import ReactionButton from "./ReactionButton";
+import { CommentElementProps, CommonStaticElementProps, Reply } from "@/constants/types";
 import Avatar from "./Avatar";
 import { useState } from "react";
 import * as Haptics from "expo-haptics";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Colors } from "@/constants/Colors";
-import { useColorScheme } from "nativewind";
 import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
 import { DeleteComment, sendReply } from "@/lib/apiClient";
 
@@ -25,6 +23,7 @@ import Toast from "react-native-toast-message";
 import { FlashList } from "@shopify/flash-list";
 
 import { CommentTexts } from "@/constants/texts";
+import CollapsibleText from "./CollapsibleText";
 export default function CommentElement({
   item,
   language,
@@ -33,7 +32,6 @@ export default function CommentElement({
   colorScheme,
   onDelete,
 }: CommentElementProps & CommonStaticElementProps) {
-  const [lines, setLines] = useState<number | undefined>(3);
   const [replying, setReplying] = useState<boolean>(false);
   const [replyText, setReplyText] = useState<string>("");
   const [renderedReplies, setRenderedReplies] = useState<Reply[]>(
@@ -126,16 +124,12 @@ export default function CommentElement({
             <View className="comment-reply-line" />
           </View>
           <View className="comment-text-body">
-            <ThemedText
+            <CollapsibleText
               className=" basis-8/12 "
-              numberOfLines={lines}
-              onPress={() => {
-                setLines(!lines ? 3 : undefined);
-                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-              }}
+              restrictedLineCount={3}
             >
               {item.text}
-            </ThemedText>
+            </CollapsibleText>
             <View className="comment-reactions">
               <TouchableOpacity
                 className="w-12 h-12 flex rounded-xl items-center justify-center secondary"
@@ -147,10 +141,14 @@ export default function CommentElement({
                   color={Colors[colorScheme!].text}
                 />
               </TouchableOpacity>
-              <ReactionButton type="FIRE" count={0}></ReactionButton>
-              <ReactionButton type="HEART" count={1}></ReactionButton>
-              <ReactionButton type="COOL" count={23}></ReactionButton>
-            </View>
+              {
+                /*
+                <ReactionButton type="FIRE" count={0}></ReactionButton>
+                <ReactionButton type="HEART" count={1}></ReactionButton>
+                <ReactionButton type="COOL" count={23}></ReactionButton>
+                */
+              }
+                </View>
             {replying && (
               <View className="flex flex-row gap-2 items-center justify-center">
                 <BottomSheetTextInput

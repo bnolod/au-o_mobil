@@ -4,8 +4,8 @@ import * as Haptics from 'expo-haptics'
 export const eventEmitter = new EventEmitter();
 eventEmitter.setMaxListeners(1);
 
-export function handleShowMore(lines: number | undefined): number | undefined {
-  return lines === 3 ? undefined : 3;
+export function handleShowMore(lines: number | undefined, maxLines: number):  number | undefined {
+  return lines === maxLines ? undefined : maxLines;
 }
 export function getReactionEndpoint(reaction: "fire" | "heart" | "sunglasses") {
   switch (reaction) {

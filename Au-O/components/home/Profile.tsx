@@ -43,6 +43,8 @@ import TextEditModal from "./TextEditModal";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import FollowerSheet from "./FollowerSheet";
 import NoPostsFound from "./NoPostsFound";
+import CollapsibleText from "../ui/CollapsibleText";
+import PostGrid from "../social/PostGrid";
 export default function Profile({
   user,
   language,
@@ -64,7 +66,6 @@ export default function Profile({
   setFollowers: (users: User[]) => void;
   setFollowing: (users: User[]) => void;
 } & CommonStaticElementProps) {
-  const [lines, setLines] = useState<number | undefined>(3);
   const [bioEdit, setBioEdit] = useState<boolean>(false);
   const [bioValue, setBioValue] = useState<string>(profile.bio);
 
@@ -95,7 +96,7 @@ export default function Profile({
   if (isOwner === undefined) return <UserLoading />;
   if (user && profile !== undefined && profile !== null)
     return (
-      <ScrollView className="primary">
+      <ScrollView className="primary mx-auto">
         <RootHeader colorScheme={colorScheme!} language={language} />
         <TextEditModal
           language={language}
@@ -277,19 +278,19 @@ export default function Profile({
                 isOwner && "basis-5/6"
               }`}
             >
-              <ThemedText
-                numberOfLines={lines}
+              <CollapsibleText
                 className="text-lg px-4"
-                onLongPress={() => {
-                  if (!isOwner) return;
-                  setBioEdit(true);
+                TextProps={{
+                  onLongPress: () => {
+                    if (!isOwner) return;
+                    setBioEdit(true);
+                  }
                 }}
-                onPress={() => setLines(handleShowMore(lines))}
               >
                 {bioValue && bioValue.length > 0
                   ? bioValue
                   : generalTexts.profileAttributes.bioEmpty[language]}
-              </ThemedText>
+              </CollapsibleText>
               {isOwner && (
                 <Text className="text-sm text-gray-500">
                   {UserEditTexts.prompts.edit[language]}
@@ -300,10 +301,7 @@ export default function Profile({
               <TouchableOpacity
                 className="text-right mr-4 self-start primary p-2 rounded-xl"
                 style={{
-                  shadowColor: Colors[colorScheme!].background,
-                  shadowOffset: { width: 0, height: 10 },
-                  shadowOpacity: 1,
-                  shadowRadius: 10,
+
                 }}
                 onPress={() => router.push("/(profile)/settings")}
               >
@@ -394,46 +392,7 @@ export default function Profile({
             </View>
           </View>
         </View>
-        <View className="w-11/12 mx-auto mt-4">
-          <FlashList
-            estimatedItemSize={200}
-            ListEmptyComponent={() => <NoPostsFound language={language} />}
-            data={
-              posts && posts.length > 0
-                ? posts.sort(
-                    (a, b) =>
-                      new Date(b.dateOfCreation).getTime() -
-                      new Date(a.dateOfCreation).getTime()
-                  )
-                : []
-            }
-            renderItem={({ item }) => (
-              <Pressable
-                className="flex-1"
-                onPress={() =>
-                  router.push({
-                    pathname: "/(post)/page/[id]",
-                    params: { id: item.postId },
-                  })
-                }
-                style={{
-                  shadowColor: Colors[colorScheme!].background,
-                  shadowOffset: { width: 1, height: 10 },
-                  shadowOpacity: 1,
-                  shadowRadius: 10,
-                }}
-              >
-                <Image
-                  resizeMethod="auto"
-                  className="flex-1 h-72 rounded-xl my-2 w-11/12 primary"
-                  resizeMode="cover"
-                  source={{ uri: item.images[0].url }}
-                />
-              </Pressable>
-            )}
-            numColumns={2}
-          />
-        </View>
+<PostGrid colorScheme={colorScheme} language={language} posts={posts} />
       </ScrollView>
     );
 }

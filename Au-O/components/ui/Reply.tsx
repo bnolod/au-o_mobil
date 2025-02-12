@@ -9,6 +9,7 @@ import { CommentTexts } from "@/constants/texts";
 import { deleteReply } from "@/lib/apiClient";
 import Toast from "react-native-toast-message";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import CollapsibleText from "./CollapsibleText";
 export default function ReplyItem({
   item,
   language,
@@ -16,7 +17,6 @@ export default function ReplyItem({
   authorId,
   onDelete,
 }: ReplyProps) {
-  const [lines, setLines] = useState<number | undefined>(3);
   async function handleReplyDelete() {
     const res = await deleteReply(item.id);
     if (res === true) {
@@ -73,15 +73,10 @@ export default function ReplyItem({
           </Text>
         </View>
       </View>
-      <ThemedText
-        numberOfLines={lines}
-        onPress={() => {
-          setLines(!lines ? 3 : undefined);
-          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-        }}
+      <CollapsibleText  
       >
         {item.text}
-      </ThemedText>
+      </CollapsibleText>
       {/* <View className="comment-reactions">
         <ReactionButton type="fire" count={0}></ReactionButton>
         <ReactionButton type="heart" count={1}></ReactionButton>

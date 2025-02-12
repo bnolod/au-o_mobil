@@ -346,3 +346,16 @@ export interface Group {
   creationDate: string
   isMember: boolean
 }
+export interface SocialEvent {
+  id: string,
+  name: string,
+  startDate: string,
+  endDate: string,
+  location: string,
+  attendees: number,
+  groupId?: string,
+  creationDate  : string,
+  bannerImage: string
+  isPublic: boolean
+  isAttending: boolean
+}
