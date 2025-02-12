@@ -5,6 +5,7 @@ import {
   unfollowUser,
 } from "@/lib/apiClient";
 import {
+  Car,
   PostResponse,
   User,
   UserResponse,
@@ -18,6 +19,8 @@ import { useAuthentication } from "@/contexts/AuthenticationContext";
 import Profile from "@/components/home/Profile";
 export default function UserProfile() {
   const [profile, setProfile] = useState<User>();
+    const [garage, setGarage] = useState<Car[]>();
+  
   const { language } = useLanguage();
   const { user } = useAuthentication();
   const { colorScheme } = useColorScheme();
@@ -66,6 +69,7 @@ export default function UserProfile() {
   if (user && profile !== undefined && profile !== null)
     return (
       <Profile
+      garage={garage || []}
         user={user}
         profile={profile || ({} as User)}
         setFollowers={setFollowers}

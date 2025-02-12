@@ -18,6 +18,7 @@ import {
   updateProfilePicture,
 } from "@/lib/apiClient";
 import {
+  Car,
   CommonStaticElementProps,
   PostResponse,
   User,
@@ -45,6 +46,7 @@ import FollowerSheet from "./FollowerSheet";
 import NoPostsFound from "./NoPostsFound";
 import CollapsibleText from "../ui/CollapsibleText";
 import PostGrid from "../social/PostGrid";
+import { Cabriolet, Coupe, Grandcoupe, Hatch, Kombi, Pickup, Roadster, Sedan, Suv } from "../graphics/cars";
 export default function Profile({
   user,
   language,
@@ -53,6 +55,7 @@ export default function Profile({
   posts,
   id,
   followers,
+  garage,
   setFollowers,
   following,
   setFollowing,
@@ -60,6 +63,7 @@ export default function Profile({
   user: User;
   profile: User;
   id: string;
+  garage: Car[];
   followers: User[];
   following: User[];
   posts: PostResponse[];
@@ -71,9 +75,15 @@ export default function Profile({
 
   const [nicknameEdit, setNicknameEdit] = useState<boolean>(false);
   const [nicknameValue, setNicknameValue] = useState<string>(profile.nickname);
-  const [selectedTab, setSelectedTab] = useState<"POST" | "GROUPS" | "SAVED">(
-    "POST"
-  );
+  const [selectedTab, setSelectedTab] = useState<
+    "POST" | "GROUPS" | "SAVED" | "GARAGE"
+  >("POST");
+  const data = {
+    POST: posts,
+    GROUPS: [],
+    GARAGE: garage,
+    SAVED: [],
+  };
   const followerSheetRef = useRef<BottomSheetModal>(null);
   async function handleFollow() {
     if (user && !followers.some((follower) => follower.id === user.id)) {
@@ -284,7 +294,7 @@ export default function Profile({
                   onLongPress: () => {
                     if (!isOwner) return;
                     setBioEdit(true);
-                  }
+                  },
                 }}
               >
                 {bioValue && bioValue.length > 0
@@ -300,9 +310,7 @@ export default function Profile({
             {isOwner && (
               <TouchableOpacity
                 className="text-right mr-4 self-start primary p-2 rounded-xl"
-                style={{
-
-                }}
+                style={{}}
                 onPress={() => router.push("/(profile)/settings")}
               >
                 <MaterialCommunityIcons
@@ -346,7 +354,9 @@ export default function Profile({
             </ThemedText>
           )}
 
-          <View className="p-4 secondary h-24 rounded-b-2xl">
+          <View className="p-4 pt-24 secondary h-24 rounded-b-2xl">
+
+
             <View
               className="primary flex flex-row justify-between items-center m-auto w-full h-full  rounded-xl"
               style={{
@@ -379,6 +389,17 @@ export default function Profile({
                 onPress={() => setSelectedTab(handleTabSelection("GROUPS"))}
               />
               <MaterialCommunityIcons
+                name="car-outline"
+                size={42}
+                className="text-center flex-1 border-x border-x-[#767676]"
+                color={
+                  selectedTab === "GARAGE"
+                    ? Colors.highlight.main
+                    : Colors[colorScheme!].text
+                }
+                onPress={() => setSelectedTab(handleTabSelection("GARAGE"))}
+              />
+              <MaterialCommunityIcons
                 name="bookmark-outline"
                 size={42}
                 className="text-center flex-1 border-l border-l-[#767676]"
@@ -392,7 +413,24 @@ export default function Profile({
             </View>
           </View>
         </View>
-<PostGrid colorScheme={colorScheme} language={language} posts={posts} />
+        {selectedTab === "POST" && posts.length === 0 && (
+          <PostGrid
+            colorScheme={colorScheme}
+            language={language}
+            posts={posts}
+          />
+        )}
+        {selectedTab === "GARAGE" && garage.length === 0 && (
+          <FlashList
+            ListEmptyComponent={<NoPostsFound language={language} />}
+            data={garage}
+            renderItem={({ item }) => (
+              <ThemedText>
+                {item.manufacturer} {item.model}
+              </ThemedText>
+            )}
+          />
+        )}
       </ScrollView>
     );
 }

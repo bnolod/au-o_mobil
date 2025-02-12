@@ -18,7 +18,7 @@ export function getReactionEndpoint(reaction: "fire" | "heart" | "sunglasses") {
   }
 }
 
-export function handleTabSelection(tab: "POST" | "GROUPS" | "SAVED") {
+export function handleTabSelection(tab: "POST" | "GROUPS" | "SAVED" | "GARAGE") {
   Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
   return tab;
 }

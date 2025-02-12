@@ -1,7 +1,7 @@
 import Profile from "@/components/home/Profile";
-import { PostResponse, User, UserResponse } from "@/constants/types";
+import { Car, PostResponse, User, UserResponse } from "@/constants/types";
 import { useAuthentication } from "@/contexts/AuthenticationContext";
-import { apiFetch, getFollows } from "@/lib/apiClient";
+import { apiFetch, getFollows, getOwnGarage } from "@/lib/apiClient";
 import { useEffect, useState } from "react";
 import { useColorScheme } from "nativewind";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -14,6 +14,7 @@ export default function SelfProfile() {
     const [following, setFollowing] = useState<User[]>();
     const {language} = useLanguage()
   const [profile, setProfile] = useState<UserResponse>();
+  const [garage, setGarage] = useState<Car[]>();
     const [posts, setPosts] = useState<PostResponse[]>();
   if (user !== null && user !== undefined) {
     async function getUser() {
@@ -38,9 +39,16 @@ export default function SelfProfile() {
         return res.data;
       } else return;
     }
+    async function getGarage() {
+      const res = await getOwnGarage()
+      if (res) {
+        setGarage(res);
+      }
+    }
     useEffect(() => {
       getUser();
         getUserPosts();
+        getGarage()
         getFollows(user.id.toString()).then((res) => {
             if (res) {
               setFollowers(res.followers as User[]);
@@ -53,6 +61,6 @@ export default function SelfProfile() {
     if (!profile || !posts || !followers || !following) {
         return <UserLoading />;
     }
-    return <Profile user={user} profile={profile || {} as User} setFollowers={setFollowers} setFollowing={setFollowing} colorScheme={colorScheme!} posts={posts!} followers={followers!} following={following!} id={user.id.toString()} language={language}  />;
+    return <Profile garage={garage || []} user={user} profile={profile || {} as User} setFollowers={setFollowers} setFollowing={setFollowing} colorScheme={colorScheme!} posts={posts!} followers={followers!} following={following!} id={user.id.toString()} language={language}  />;
   }
 }

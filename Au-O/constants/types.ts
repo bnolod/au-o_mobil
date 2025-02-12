@@ -359,3 +359,11 @@ export interface SocialEvent {
   isPublic: boolean
   isAttending: boolean
 }
+export interface Car {
+  manufacturer: string,
+  model: string,
+  type: string,
+  horsepower: number,
+  description: string,
+  displacement: string
+}

@@ -1,4 +1,5 @@
 import {
+  Car,
   Comment,
   CreatePostRequest,
   HttpError,
@@ -362,4 +363,11 @@ export async function unfollowUser(userId: string) {
   if (res && res.status === 200) {
     return true;
   } else return false;
+}
+export async function getOwnGarage() {
+  const req = await apiFetch<Car[]>("vehicles/own", "GET", true);
+  if (req && req.status === 200) {
+    return req.data;
+  }
+  return null;
 }

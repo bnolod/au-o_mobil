@@ -18,7 +18,7 @@ export default function GroupFeed() {
 
       <RootHeader language={language} colorScheme={colorScheme!} />
       <SocialSort language={language} colorScheme={colorScheme!} />
-      <NewSocial />
+      <NewSocial text="Create a new group" />
         </View>
       <SocialCard
         type="GROUP"
