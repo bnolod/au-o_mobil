@@ -1,4 +1,5 @@
 import RootHeader from "@/components/home/RootHeader";
+import NewSocial from "@/components/social/NewSocial";
 import SocialCard from "@/components/social/SocialCard";
 import SocialSort from "@/components/social/SocialSort";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -17,6 +18,7 @@ export default function GroupFeed() {
 
       <RootHeader language={language} colorScheme={colorScheme!} />
       <SocialSort language={language} colorScheme={colorScheme!} />
+      <NewSocial />
         </View>
       <SocialCard
         type="GROUP"

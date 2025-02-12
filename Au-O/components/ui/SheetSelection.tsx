@@ -18,7 +18,9 @@ export default function SheetSelection({FlashListProps, language, colorScheme, p
         }
         setSheetState(!sheetState)
         }
+        
     const sheet = useRef<BottomSheetModal>(null)
+
     return (
         <>        
           <Button className="button flex items-center  btn-fill h-16  secondary justify-between flex-row" onPress={toggleSheet}>
