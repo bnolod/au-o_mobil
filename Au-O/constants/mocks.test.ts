@@ -33,8 +33,9 @@ export const MOCK_invalidLoginData: LoginRequest = {
     usernameOrEmail: "e"
 }
 export const MOCK_car: Car = {
+    id: "1",
     description: "igazi erőgép valódi M",
-    type: "Sedan",
+    type: "SEDAN",
     displacement: 1.6,
     horsepower: 120,
     manufacturer: "BMW",

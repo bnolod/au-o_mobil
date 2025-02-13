@@ -46,9 +46,9 @@ import FollowerSheet from "./FollowerSheet";
 import NoPostsFound from "./NoPostsFound";
 import CollapsibleText from "../ui/CollapsibleText";
 import PostGrid from "../social/PostGrid";
-import { Cabriolet, Coupe, Grandcoupe, Hatch, Kombi, Pickup, Roadster, Sedan, Suv } from "../graphics/cars";
 import GarageList from "../garage/GarageList";
 import { MOCK_car } from "@/constants/mocks.test";
+import NewSocial from "../social/NewSocial";
 export default function Profile({
   user,
   language,
@@ -406,7 +406,28 @@ export default function Profile({
             </View>
           </View>
         </View>
-
+        {isOwner && selectedTab !== "SAVED" && (
+          <NewSocial
+            text={
+              selectedTab === "POST"
+                ? "New Post"
+                : selectedTab === "GROUPS"
+                ? "New Group"
+                : selectedTab === "GARAGE"
+                ? "New Car"
+                : "New Event"
+            }
+            onPress={
+              selectedTab === "POST"
+              ? () => router.replace({pathname: "/(root)/new"})
+              : selectedTab === "GROUPS"
+              ? () => {} //to be implemented
+              : selectedTab === "GARAGE"
+              ? () => router.push("/(garage)/new")
+              : () => {} //to be implemented
+            }
+          />
+        )}
         {selectedTab === "POST" && posts.length === 0 && (
           <PostGrid
             colorScheme={colorScheme}
@@ -415,7 +436,11 @@ export default function Profile({
           />
         )}
         {selectedTab === "GARAGE" && garage.length === 0 && (
-          <GarageList colorScheme={colorScheme} cars={[MOCK_car]} language={language}/>
+          <GarageList
+            colorScheme={colorScheme}
+            cars={[MOCK_car]}
+            language={language}
+          />
         )}
       </ScrollView>
     );

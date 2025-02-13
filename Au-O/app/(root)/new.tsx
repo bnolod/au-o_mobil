@@ -283,13 +283,8 @@ export default function NewPost() {
               <View className="w-full flex flex-col justify-center items-center">
                 <Input
                   label={PostCreationTexts.form.description.label[language]}
-                  icon={
-                    <MaterialCommunityIcons
-                      name="pencil"
-                      size={28}
-                      color={Colors[colorScheme!].text}
-                    />
-                  }
+                  icon="pencil"
+                  size={28}
                   TextInputProps={{
                     placeholder:
                       PostCreationTexts.form.description.placeholder[language],
@@ -367,12 +362,9 @@ export default function NewPost() {
                 <Input
                   label={PostCreationTexts.form.location.label[language]}
                   icon={
-                    <MaterialCommunityIcons
-                      name="map-marker-outline"
-                      size={28}
-                      color={Colors[colorScheme!].text}
-                    />
+                    "map-marker-outline"
                   }
+                  size={28}
                   TextInputProps={{
                     placeholder:
                       PostCreationTexts.form.location.placeholder[language],

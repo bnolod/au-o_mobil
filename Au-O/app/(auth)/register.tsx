@@ -82,11 +82,7 @@ export default function Register() {
           placeholder: AuthTexts.signup.placeholders.email[language],
         }}
         icon={
-          <MaterialCommunityIcons
-            name="email"
-            size={24}
-            color={colorScheme === "dark" ? "white" : "black"}
-          />
+          "email"
         }
       />
       <View className="flex  mx-auto w-full flex-row justify-between">
@@ -109,11 +105,7 @@ export default function Register() {
             placeholder: AuthTexts.signup.placeholders.username[language],
           }}
           icon={
-            <MaterialCommunityIcons
-              name="account"
-              size={24}
-              color={colorScheme === "dark" ? "white" : "black"}
-            />
+            "account"
           }
         />
         <Input
@@ -135,11 +127,7 @@ export default function Register() {
             placeholder: AuthTexts.signup.placeholders.nickname[language],
           }}
           icon={
-            <MaterialCommunityIcons
-              name="account"
-              size={24}
-              color={colorScheme === "dark" ? "white" : "black"}
-            />
+            "account"
           }
         />
       </View>
@@ -149,11 +137,7 @@ export default function Register() {
           containerClassName="w-1/2 pl-[4%] pr-[1%]" //kiszámoltam, nem random szám!!
           label={AuthTexts.signup.labels.password[language]}
           icon={
-            <MaterialCommunityIcons
-              name="lock"
-              size={24}
-              color={colorScheme === "dark" ? "white" : "black"}
-            />
+            "lock"
           }
           secureTextEntry
           TextInputProps={{
@@ -191,11 +175,7 @@ export default function Register() {
               AuthTexts.signup.placeholders.confirmPassword[language],
           }}
           icon={
-            <MaterialCommunityIcons
-              name="lock-check"
-              size={24}
-              color={colorScheme === "dark" ? "white" : "black"}
-            />
+            "lock-check"
           }
         />
       </View>

@@ -5,10 +5,11 @@ import { Colors } from "@/constants/Colors";
 import { colorScheme } from "nativewind";
 import { Car } from "@/constants/types";
 import { getCarImage } from "../graphics/cars";
+import { router } from "expo-router";
 export default function GarageItem({
   car,
   language,
-  colorScheme,
+  colorScheme = "dark",
   onSelect,
 }: {
   car: Car;
@@ -19,8 +20,8 @@ export default function GarageItem({
   return (
     <>
       <Pressable
-        onPress={() => {}}
-        className="flex m-2 flex-row overflow-hidden items-center rounded-xl secondary h-24"
+        onPress={() => {router.push({pathname: "/(garage)/[id]", params: {id: car.id}})}}
+        className="flex mx-2 my-2 flex-row overflow-hidden items-center rounded-xl secondary h-24"
       >
         <View className="basis-5/12 h-full  rounded-l-xl">
           <ImageBackground
@@ -41,7 +42,7 @@ export default function GarageItem({
               height: 0,
             },
             shadowOpacity: 1,
-            shadowRadius: 10,
+            shadowRadius: 20,
           }}
         >
           <ThemedText className="text-2xl font-bold">{car.manufacturer}</ThemedText>

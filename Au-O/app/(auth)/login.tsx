@@ -39,11 +39,7 @@ const loginForm = getFormData("login");
           onChangeText: (text) => handleFormInputChange("login", "identifier", text, getFormData, setFormData),
         }}
         icon={
-          <MaterialCommunityIcons
-            name="email"
-            size={24}
-            color={colorScheme === "dark" ? "white" : "black"}
-          />
+          "email"
         }
       />
       <Input
@@ -51,12 +47,7 @@ const loginForm = getFormData("login");
         colorScheme={colorScheme!}
         
         icon={
-          <MaterialCommunityIcons
-          name="lock"
-          size={24}
-          
-          color={colorScheme === "dark" ? "white" : "black"}
-          />
+          "lock"
         }
         secureTextEntry
         TextInputProps={{

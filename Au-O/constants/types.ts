@@ -304,7 +304,8 @@ export interface InputProps {
     secureTextEntry?: boolean;
     TextInputProps?: TextInputProps;
     containerClassName?: string;
-    icon?: any;
+    size?: number,
+    icon?: keyof typeof MaterialCommunityIcons.glyphMap;
     colorScheme: "light" | "dark";
 }
 export interface ReplyProps {
@@ -360,10 +361,21 @@ export interface SocialEvent {
   isAttending: boolean
 }
 export interface Car {
+  id: string,
   manufacturer: string,
   model: string,
-  type: string,
+  type: CarType,
   horsepower: number,
   description: string,
   displacement: number
 }
+export type CarType =
+   "SEDAN"
+  |"COUPE" 
+  |"GRANDCOUPE"
+  |"HATCH"
+  |"KOMBI"
+  |"CABRIOLET"
+  |"PICKUP"
+  |"ROADSTER"
+  |"SUV"

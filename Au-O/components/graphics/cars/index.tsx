@@ -8,6 +8,7 @@ import Pickup from "./Pickup";
 import Roadster from "./Roadster";
 import Sedan from "./Sedan";
 import Suv from "./Suv";
+import { CarType } from "@/constants/types";
 
 export { default as Cabriolet } from "./Cabriolet";
 export { default as Coupe } from "./Coupe";
@@ -20,30 +21,81 @@ export { default as Sedan } from "./Sedan";
 export { default as Suv } from "./Suv";
 
 export function getCarImage(
-  type: string,
+  type: CarType,
   colorScheme: "light" | "dark" = "dark",
-  size: number = 64
+  size: number = 64,
+  height?: number
 ) {
   switch (type) {
-    case "Cabriolet":
-      return <Cabriolet stroke={Colors[colorScheme].text} height={size} width={size} />;
-    case "Coupe":
-      return <Coupe stroke={Colors[colorScheme].text} height={size} width={size}/>;
-    case "Grandcoupe":
-      return <Grandcoupe stroke={Colors[colorScheme].text} height={size} width={size}/>;
-    case "Hatch":
-      return <Hatch stroke={Colors[colorScheme].text} height={size} width={size} />;
-    case "Kombi":
-      return <Kombi stroke={Colors[colorScheme].text} height={size} width={size} />;
-    case "Pickup":
-      return <Pickup stroke={Colors[colorScheme].text} height={size} width={size} />;
-    case "Roadster":
-      return <Roadster stroke={Colors[colorScheme].text} height={size} width={size} />;
-    case "Sedan":
-      return <Sedan stroke={Colors[colorScheme].text} height={size} width={size} />;
-    case "Suv":
-      return <Suv stroke={Colors[colorScheme].text} height={size} />;
+    case "CABRIOLET":
+      return (
+        <Cabriolet
+          stroke={Colors[colorScheme].text}
+          height={height || size}
+          width={size}
+        />
+      );
+    case "COUPE":
+      return (
+        <Coupe
+          stroke={Colors[colorScheme].text}
+          height={height || size}
+          width={size}
+        />
+      );
+    case "GRANDCOUPE":
+      return (
+        <Grandcoupe
+          stroke={Colors[colorScheme].text}
+          height={height || size}
+          width={size}
+        />
+      );
+    case "HATCH":
+      return (
+        <Hatch
+          stroke={Colors[colorScheme].text}
+          height={height || size}
+          width={size}
+        />
+      );
+    case "KOMBI":
+      return (
+        <Kombi
+          stroke={Colors[colorScheme].text}
+          height={height || size}
+          width={size}
+        />
+      );
+    case "PICKUP":
+      return (
+        <Pickup
+          stroke={Colors[colorScheme].text}
+          height={height || size}
+          width={size}
+        />
+      );
+    case "ROADSTER":
+      return (
+        <Roadster
+          stroke={Colors[colorScheme].text}
+          height={height || size}
+          width={size}
+        />
+      );
+    case "SEDAN":
+      return (
+        <Sedan
+          stroke={Colors[colorScheme].text}
+          height={height || size}
+          width={size}
+        />
+      );
+    case "SUV":
+      return <Suv stroke={Colors[colorScheme].text} height={height || size} />;
     default:
-      return <Grandcoupe stroke={Colors[colorScheme].text} height={size} />;
+      return (
+        <Grandcoupe stroke={Colors[colorScheme].text} height={height || size} />
+      );
   }
 }

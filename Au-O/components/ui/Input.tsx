@@ -16,6 +16,7 @@ export default function Input({
   secureTextEntry = false,
   TextInputProps,
   icon,
+  size,
   colorScheme,
 }: InputProps) {
   const [isFocused, setIsFocused] = useState(false);
@@ -51,7 +52,7 @@ export default function Input({
                 {label}
               </ThemedText>
             )}
-            {icon}
+            <MaterialCommunityIcons name={icon} size={size || 24} color={Colors[colorScheme].text} />
           </View>
           <TextInput
             className="text-input"

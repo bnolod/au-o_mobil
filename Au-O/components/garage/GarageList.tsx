@@ -10,6 +10,7 @@ export default function GarageList({cars, language, colorScheme}: {cars: Car[], 
         <FlashList
         ListEmptyComponent={<NoPostsFound language={language} />}
         data={cars}
+        estimatedItemSize={99}
         renderItem={({ item }) => (
           <GarageItem colorScheme={colorScheme} language={language} car={item}  />
         )}

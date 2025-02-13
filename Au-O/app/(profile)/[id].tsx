@@ -74,7 +74,7 @@ export default function UserProfile() {
         profile={profile || ({} as User)}
         setFollowers={setFollowers}
         setFollowing={setFollowing}
-        colorScheme={colorScheme!}
+        colorScheme={colorScheme || "dark"}
         posts={posts!}
         followers={followers!}
         following={following!}
