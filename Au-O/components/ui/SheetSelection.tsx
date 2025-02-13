@@ -1,5 +1,5 @@
 import { BottomSheetFlashList, BottomSheetModal } from "@gorhom/bottom-sheet";
-import React, { ReactNode, useRef } from "react";
+import React, { forwardRef, useImperativeHandle, useRef, useState } from "react";
 import Button from "./Button";
 import { BottomSheetFlashListProps } from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheetScrollable/BottomSheetFlashList";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -7,50 +7,78 @@ import ThemedText from "./ThemedText";
 import { View } from "react-native";
 import { Colors } from "@/constants/Colors";
 import { CommonStaticElementProps } from "@/constants/types";
-export default function SheetSelection({FlashListProps, language, colorScheme, placeholder = "Select"}: {FlashListProps: BottomSheetFlashListProps<any>, placeholder?: string} & CommonStaticElementProps
-) {
-    const [sheetState, setSheetState] = React.useState(false)
+
+export interface SheetSelectionRef {
+  dismissSheet: () => void;
+}
+
+const SheetSelection = forwardRef<SheetSelectionRef, { 
+  FlashListProps: BottomSheetFlashListProps<any>, 
+  placeholder?: string 
+} & CommonStaticElementProps> (
+  ({ FlashListProps, language, colorScheme, placeholder = "Select" }, ref) => {
+    const [sheetState, setSheetState] = useState(false);
+    const sheet = useRef<BottomSheetModal>(null);
+
     const toggleSheet = () => {
+      if (sheetState) {
+        sheet.current?.dismiss();
+      } else {
+        sheet.current?.present();
+        sheet.current?.snapToIndex(1);
+      }
+      setSheetState(!sheetState);
+    };
+    const dismissSheet = () => {
         sheet.current?.dismiss()
-        if (!sheetState) {
-            sheet.current?.present()
-            sheet.current?.snapToIndex(1)
-        }
-        setSheetState(!sheetState)
-        }
-        
-    const sheet = useRef<BottomSheetModal>(null)
+    }
+    useImperativeHandle(ref, () => ({
+      dismissSheet
+    }));
 
     return (
-        <>        
-          <Button className="button flex items-center  btn-fill h-16  secondary justify-between flex-row" onPress={toggleSheet}>
-            <View className="flex-row items-center justify-between w-full">
-
-            <ThemedText className="text-lg font-semibold opacity-80">{placeholder}</ThemedText>
+      <>
+        <Button 
+          className="button flex items-center btn-fill h-16 secondary justify-between flex-row" 
+          onPress={toggleSheet}
+        >
+          <View className="flex-row items-center justify-between w-full">
+            <ThemedText className="text-lg font-semibold opacity-80">
+              {placeholder}
+            </ThemedText>
             <MaterialCommunityIcons name="chevron-down" size={34} color={Colors.highlight.main} />
-            </View>
+          </View>
         </Button>
-            
-        <BottomSheetModal index={2} snapPoints={[1, "40%", "60%"]} enableDismissOnClose onChange={(index) => {
+
+        <BottomSheetModal 
+          index={2} 
+          snapPoints={[1, "40%", "60%"]} 
+          enableDismissOnClose 
+          onChange={(index) => {
             if (index === 1 || index === 0) {
-                sheet.current?.dismiss()
-                setSheetState(false)
+              sheet.current?.dismiss();
+              setSheetState(false);
             }
-        }} handleStyle={{
+          }} 
+          handleStyle={{
             backgroundColor: Colors[colorScheme].primary,
             borderTopEndRadius: 20,
             borderTopStartRadius: 20,
-        }}
-        handleIndicatorStyle={{
+          }}
+          handleIndicatorStyle={{
             backgroundColor: Colors[colorScheme].text,
-            
             width: "33%",
-        }}
-        backgroundStyle={{
+          }}
+          backgroundStyle={{
             backgroundColor: Colors[colorScheme].primary,
-        }} ref={sheet}>
-<BottomSheetFlashList  {...FlashListProps} />
+          }} 
+          ref={sheet}
+        >
+          <BottomSheetFlashList {...FlashListProps} />
         </BottomSheetModal>
-        </>
-    )
-}
+      </>
+    );
+  }
+);
+
+export default SheetSelection;

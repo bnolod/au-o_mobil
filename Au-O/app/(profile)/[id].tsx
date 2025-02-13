@@ -46,9 +46,16 @@ export default function UserProfile() {
       setPosts(res.data!);
     } else return;
   }
+  async function getGarage(id: string) {
+    const res = await apiFetch<Car[]>(`vehicles/user/${id}/all`, "GET", true);
+    if (res) {
+      setGarage(res.data!);
+    } else return;
+  }
   useEffect(() => {
     setProfile(undefined);
     getUser();
+    getGarage(id as string);
     getUserPosts();
     getFollows(id as string).then((res) => {
       if (res) {

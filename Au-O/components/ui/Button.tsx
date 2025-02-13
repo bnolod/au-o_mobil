@@ -11,6 +11,7 @@ export default function Button({
   type,
   hapticFeedback,
   children,
+  innerTextClassName,
   ...props
 }: ButtonProps) {
   const { colorScheme } = useColorScheme();
@@ -76,7 +77,7 @@ export default function Button({
         elevation: 5,
       }}
     >
-      <ThemedText>{children}</ThemedText>
+      <ThemedText className={innerTextClassName}>{children}</ThemedText>
     </TouchableOpacity>
   );
 }

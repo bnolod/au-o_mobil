@@ -32,7 +32,7 @@ export default function GarageHeader({
         }}
       >
         <ImageBackground
-          className="flex-1 flex justify-center items-center"
+          className="flex-1 flex justify-center items-center h-full"
           resizeMode="cover"
           source={Images.banner_placeholder}
         >

@@ -25,6 +25,7 @@ export interface ButtonProps extends TouchableOpacityProps {
     | "fill"; //container szélességéhez igazodik
   children?: React.ReactNode;
   hapticFeedback?: "light" | "medium" | "heavy";
+  innerTextClassName?: string
 }
 
 export interface LoginRequest {
@@ -362,6 +363,17 @@ export interface SocialEvent {
 }
 export interface Car {
   id: string,
+  manufacturer: string,
+  model: string,
+  type: CarType,
+  horsepower: number,
+  description: string,
+  displacement: number
+}
+export interface CarResponse extends Car {
+owner: User
+}
+export interface CarCreationRequest {
   manufacturer: string,
   model: string,
   type: CarType,

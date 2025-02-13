@@ -55,12 +55,13 @@ export default function SelfProfile() {
               setFollowing(res.following as User[]);
             }
           });
+
     },
      []);
     
     if (!profile || !posts || !followers || !following) {
         return <UserLoading />;
     }
-    return <Profile garage={garage || []} user={user} profile={profile || {} as User} setFollowers={setFollowers} setFollowing={setFollowing} colorScheme={colorScheme!} posts={posts!} followers={followers!} following={following!} id={user.id.toString()} language={language}  />;
+    return <Profile garage={garage!} user={user} profile={profile || {} as User} setFollowers={setFollowers} setFollowing={setFollowing} colorScheme={colorScheme!} posts={posts!} followers={followers!} following={following!} id={user.id.toString()} language={language}  />;
   }
 }

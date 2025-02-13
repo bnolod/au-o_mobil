@@ -19,6 +19,7 @@ import {
 } from "@/lib/apiClient";
 import {
   Car,
+  CarResponse,
   CommonStaticElementProps,
   PostResponse,
   User,
@@ -47,7 +48,6 @@ import NoPostsFound from "./NoPostsFound";
 import CollapsibleText from "../ui/CollapsibleText";
 import PostGrid from "../social/PostGrid";
 import GarageList from "../garage/GarageList";
-import { MOCK_car } from "@/constants/mocks.test";
 import NewSocial from "../social/NewSocial";
 export default function Profile({
   user,
@@ -65,7 +65,7 @@ export default function Profile({
   user: User;
   profile: User;
   id: string;
-  garage: Car[];
+  garage: CarResponse[];
   followers: User[];
   following: User[];
   posts: PostResponse[];
@@ -428,17 +428,18 @@ export default function Profile({
             }
           />
         )}
-        {selectedTab === "POST" && posts.length === 0 && (
+        {selectedTab === "POST" && posts.length !== 0 && (
           <PostGrid
             colorScheme={colorScheme}
             language={language}
             posts={posts}
           />
         )}
-        {selectedTab === "GARAGE" && garage.length === 0 && (
+        {selectedTab === "GARAGE" && garage.length !== 0 && (
           <GarageList
+          userId={user.id.toString()}
             colorScheme={colorScheme}
-            cars={[MOCK_car]}
+            cars={garage}
             language={language}
           />
         )}

@@ -6,21 +6,26 @@ import { colorScheme } from "nativewind";
 import { Car } from "@/constants/types";
 import { getCarImage } from "../graphics/cars";
 import { router } from "expo-router";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 export default function GarageItem({
   car,
   language,
   colorScheme = "dark",
+  onPress,
   onSelect,
+  isOwner,
 }: {
   car: Car;
   language: "EN" | "HU";
   colorScheme: "light" | "dark";
   onSelect?: () => void;
+  onPress?: () => void;
+  isOwner?: boolean;
 }) {
   return (
     <>
       <Pressable
-        onPress={() => {router.push({pathname: "/(garage)/[id]", params: {id: car.id}})}}
+        onPress={onPress}
         className="flex mx-2 my-2 flex-row overflow-hidden items-center rounded-xl secondary h-24"
       >
         <View className="basis-5/12 h-full  rounded-l-xl">
@@ -58,6 +63,14 @@ export default function GarageItem({
             </ThemedText>
           </View>
         </View>
+        {
+          isOwner && 
+        <Pressable  className=" p-4 right-2 absolute" hitSlop={14} onPress={() => {router.push({pathname: "/(garage)/edit/[id]", params: {
+          id: car.id
+        }})}} >
+        <MaterialCommunityIcons  name="pencil-outline" size={36} color={Colors[colorScheme].text} />
+        </Pressable>
+        }
       </Pressable>
     </>
   );
