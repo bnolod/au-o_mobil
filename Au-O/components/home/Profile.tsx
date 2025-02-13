@@ -47,6 +47,8 @@ import NoPostsFound from "./NoPostsFound";
 import CollapsibleText from "../ui/CollapsibleText";
 import PostGrid from "../social/PostGrid";
 import { Cabriolet, Coupe, Grandcoupe, Hatch, Kombi, Pickup, Roadster, Sedan, Suv } from "../graphics/cars";
+import GarageList from "../garage/GarageList";
+import { MOCK_car } from "@/constants/mocks.test";
 export default function Profile({
   user,
   language,
@@ -78,12 +80,6 @@ export default function Profile({
   const [selectedTab, setSelectedTab] = useState<
     "POST" | "GROUPS" | "SAVED" | "GARAGE"
   >("POST");
-  const data = {
-    POST: posts,
-    GROUPS: [],
-    GARAGE: garage,
-    SAVED: [],
-  };
   const followerSheetRef = useRef<BottomSheetModal>(null);
   async function handleFollow() {
     if (user && !followers.some((follower) => follower.id === user.id)) {
@@ -353,12 +349,9 @@ export default function Profile({
               {UserEditTexts.header[language]}
             </ThemedText>
           )}
-
-          <View className="p-4 pt-24 secondary h-24 rounded-b-2xl">
-
-
+          <View className="p-4 secondary rounded-b-2xl">
             <View
-              className="primary flex flex-row justify-between items-center m-auto w-full h-full  rounded-xl"
+              className="primary flex flex-row justify-between items-center m-auto w-full py-2  rounded-xl"
               style={{
                 shadowColor: Colors[colorScheme!].background,
                 shadowOffset: { width: 0, height: 10 },
@@ -413,6 +406,7 @@ export default function Profile({
             </View>
           </View>
         </View>
+
         {selectedTab === "POST" && posts.length === 0 && (
           <PostGrid
             colorScheme={colorScheme}
@@ -421,15 +415,7 @@ export default function Profile({
           />
         )}
         {selectedTab === "GARAGE" && garage.length === 0 && (
-          <FlashList
-            ListEmptyComponent={<NoPostsFound language={language} />}
-            data={garage}
-            renderItem={({ item }) => (
-              <ThemedText>
-                {item.manufacturer} {item.model}
-              </ThemedText>
-            )}
-          />
+          <GarageList colorScheme={colorScheme} cars={[MOCK_car]} language={language}/>
         )}
       </ScrollView>
     );

@@ -365,5 +365,5 @@ export interface Car {
   type: string,
   horsepower: number,
   description: string,
-  displacement: string
+  displacement: number
 }

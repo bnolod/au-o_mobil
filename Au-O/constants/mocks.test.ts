@@ -1,4 +1,4 @@
-import { EventPostData, GroupPostData, LoginRequest, RegisterRequest } from "./types"
+import { Car, EventPostData, GroupPostData, LoginRequest, RegisterRequest } from "./types"
 
 export const MOCK_nickname: string = "TesztNickname"
 export const MOCK_invalidNickname: string = "t"
@@ -32,7 +32,14 @@ export const MOCK_invalidLoginData: LoginRequest = {
     password: "teszt",
     usernameOrEmail: "e"
 }
-
+export const MOCK_car: Car = {
+    description: "igazi erőgép valódi M",
+    type: "Sedan",
+    displacement: 1.6,
+    horsepower: 120,
+    manufacturer: "BMW",
+    model: "M316i",
+}
 export const MOCK_validRegisterData: RegisterRequest & {confirmPassword: string} = {
     dateOfBirth: "2004-04-04",
     email: "teszt@bejelentkezes.com",
