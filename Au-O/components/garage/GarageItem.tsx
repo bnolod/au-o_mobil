@@ -7,6 +7,7 @@ import { Car } from "@/constants/types";
 import { getCarImage } from "../graphics/cars";
 import { router } from "expo-router";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { generalTexts } from "@/constants/texts";
 export default function GarageItem({
   car,
   language,
@@ -56,7 +57,7 @@ export default function GarageItem({
             {car.model}
             </ThemedText>
             <ThemedText className="opacity-65 font-semibold">
-            {car.horsepower} HP
+            {car.horsepower} {generalTexts.profileAttributes.cars.horsepower[language]}
             </ThemedText>
             <ThemedText className="opacity-65">
             {car.displacement}l

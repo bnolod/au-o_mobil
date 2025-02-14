@@ -7,6 +7,7 @@ import PostGrid from "../social/PostGrid";
 import CollapsibleText from "../ui/CollapsibleText";
 import { getCarImage } from "../graphics/cars";
 import { Car, CommonStaticElementProps } from "@/constants/types";
+import { generalTexts, SocialTexts } from "@/constants/texts";
 
 export default function GarageItemPage({colorScheme, isOwner, car, language, profileImg} : {car: Car, isOwner: boolean, profileImg: string} & CommonStaticElementProps) {
     return (    
@@ -36,7 +37,7 @@ export default function GarageItemPage({colorScheme, isOwner, car, language, pro
             color={Colors[colorScheme!].text}
           />
           <ThemedText className="text-2xl font-semibold">
-            {car.horsepower} HP
+            {car.horsepower} {generalTexts.profileAttributes.cars.horsepower[language]}
           </ThemedText>
         </View>
         <View className="flex flex-col items-center justify-center highlight-themed aspect-square rounded-xl">
@@ -56,7 +57,7 @@ export default function GarageItemPage({colorScheme, isOwner, car, language, pro
         </CollapsibleText>
         </View>
       <View className="w-11/12 mx-auto border border-black dark:border-white my-2 opacity-50"/>
-      <ThemedText className="mx-auto text-2xl mb-2 font-bold">Starring in</ThemedText>
+      <ThemedText className="mx-auto text-2xl mb-2 font-bold">{SocialTexts.creation.car.featuredPosts[language]}</ThemedText>
       <PostGrid colorScheme={colorScheme!} language={language} posts={[]} />
     </View>
   </View>
