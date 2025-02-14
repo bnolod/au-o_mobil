@@ -23,7 +23,7 @@ export default function Login({route}: any) {
 const loginForm = getFormData("login");
 
   return (
-    <ScrollView>
+    <ScrollView  showsVerticalScrollIndicator={false} overScrollMode="never"  bounces={false}>
       <ThemedText className="text-center text-4xl font-bold mb-5 pt-[50%]">
         {AuthTexts.login.heroText[language]}
       </ThemedText>

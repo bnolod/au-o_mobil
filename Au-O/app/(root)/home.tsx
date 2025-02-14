@@ -44,7 +44,7 @@ export default function Home() {
     return (
       <>
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-          <ScrollView
+          <ScrollView  showsVerticalScrollIndicator={false} className="background"
             refreshControl={
               <RefreshControl refreshing={refreshing} onRefresh={handleRefresh}>
                 <LoadingModal

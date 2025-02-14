@@ -53,7 +53,7 @@ export default function editCarPage() {
   if (savedCar === undefined)
     return <LoadingModal colorScheme={colorScheme!} loading />;
   return (
-    <ScrollView className="background">
+    <ScrollView  showsVerticalScrollIndicator={false} overScrollMode="never"  bounces={false} className="background">
       <View className="w-full justify-evenly flex flex-col pt-safe-offset-1 secondary">
         <Image
           source={

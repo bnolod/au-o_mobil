@@ -68,7 +68,21 @@ export async function convertToBlob(image: any): Promise<any> {
   });
   return base64;
 }
-
+export async function getOneImageFromGallery(aspect?: [number, number]) {
+  let result = await ImagePicker.launchImageLibraryAsync({
+    mediaTypes: ["images"],
+    allowsEditing: true,
+    aspect: aspect || undefined,
+    selectionLimit: 1,
+    preferredAssetRepresentationMode: ImagePicker.UIImagePickerPreferredAssetRepresentationMode.Compatible,
+    exif: false,
+    quality: 0.7,
+    allowsMultipleSelection: false,
+  });
+  if (!result.canceled) {
+    return result.assets[0];
+  }
+}
 export async function handleGallery(
   images: ImagePicker.ImagePickerAsset[],
   language: "HU" | "EN" = "EN"
@@ -78,7 +92,6 @@ export async function handleGallery(
       mediaTypes: ["images"],
       allowsEditing: false,
       exif: false,
-
       quality: 0.7,
       allowsMultipleSelection: true,
       selectionLimit: 10 - images.length,

@@ -54,7 +54,7 @@ export default function Settings() {
   } else
     return (
       <>
-        <ScrollView className="h-full w-full flex-1 primary">
+        <ScrollView  showsVerticalScrollIndicator={false} overScrollMode="never"  bounces={false} className="h-full w-full flex-1 primary">
           <ThemedText className="w-full text-xl text-center p-3">
             {user.username}
           </ThemedText>
@@ -67,7 +67,7 @@ export default function Settings() {
             availableSettings={settings}
           />
         </ScrollView>
-        <Footer colorScheme={colorScheme!} language={language} />
+        <Footer language={language} />
       </>
     );
 }

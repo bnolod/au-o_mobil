@@ -8,17 +8,17 @@ import { ScrollView } from "react-native";
 
 export default function GroupDisplay() {
     return (
-        <ScrollView className="h-screen background" >
+        <ScrollView className="h-screen background"  showsVerticalScrollIndicator={false} overScrollMode="never"  bounces={false}>
             <GroupPage colorScheme={colorScheme.get()!} group={{
                 id: "1",
                 name: "Group 1",
                 bannerImage: Images.placeholder,
                 alias: "group1",
                 memberCount: 10,
-                isPublic: true,
+                public: true,
                 creationDate: "2021-08-01",
-                isMember: true,
-
+                member: true,
+                description: "This is a group"
             }}  language="EN"/>
         </ScrollView>
     )

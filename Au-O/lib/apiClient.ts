@@ -4,6 +4,8 @@ import {
   CarResponse,
   Comment,
   CreatePostRequest,
+  GroupCreationRequest,
+  GroupCreationResponse,
   HttpError,
   HttpMethod,
   ImageStoreRequest,
@@ -426,4 +428,18 @@ export async function deleteCar(carId: string) {
     return true;
   }
   return false;
+}
+export async function createGroup(request: GroupCreationRequest) {
+  const req = await apiFetch<GroupCreationResponse>("groups/group", "POST", true, request);
+  if (req && req.status === 200) {
+    return req.data;
+  }
+  return null
+}
+export async function getGroup(groupId: string) {
+  const req = await apiFetch("groups/group/" + groupId, "GET", true);
+  if (req && req.status === 200) {
+    return req.data;
+  }
+  return null;
 }

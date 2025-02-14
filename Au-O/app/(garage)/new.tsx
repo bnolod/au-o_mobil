@@ -4,7 +4,6 @@ import { useColorScheme } from "nativewind";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Images } from "@/lib/staticAssetExports";
 import GarageItem from "@/components/garage/GarageItem";
-import ThemedText from "@/components/ui/ThemedText";
 import { useState } from "react";
 import { CarType } from "@/constants/types";
 import { CarCreationRequest } from "@/constants/types";
@@ -29,7 +28,7 @@ export default function newCar() {
   const sheet = useRef<SheetSelectionRef>(null)
   return (
 
-    <ScrollView className="background">
+    <ScrollView  showsVerticalScrollIndicator={false} overScrollMode="never"  bounces={false} className="background">
       <View className="w-full justify-evenly flex flex-col pt-safe-offset-1 secondary">
         <Image
           source={

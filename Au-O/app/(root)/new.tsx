@@ -53,9 +53,7 @@ import SheetSelection, {
   SheetSelectionRef,
 } from "@/components/ui/SheetSelection";
 import PostCreationSheetSelectElements from "@/components/new/PostCreationSheetSelectElement";
-import SearchBar from "@/components/ui/SearchBar";
 import FilterBar from "@/components/ui/FilterBar";
-import SheetSelectionListItemToggleWrapper from "@/components/utility/SheetSelectionListToggleItemWrapper";
 import GarageItem from "@/components/garage/GarageItem";
 export default function NewPost() {
   const { language } = useLanguage();
@@ -227,7 +225,7 @@ export default function NewPost() {
         keyboardVerticalOffset={40}
         style={{ flex: 1 }}
       >
-        <ScrollView>
+        <ScrollView  showsVerticalScrollIndicator={false} overScrollMode="never"  bounces={false}>
           <Pressable
             onPress={() => Keyboard.dismiss()}
             className="flex h-screen flex-col"
@@ -323,7 +321,7 @@ export default function NewPost() {
                   colorScheme={colorScheme!}
                   containerClassName="rounded-xl"
                 />
-                <View className="justify-between flex flex-row  ">
+                <View className="justify-between mb-4 flex flex-row  ">
                   <View className=" flex-1 w-6/12 self-start">
                     <ThemedText className="w-full text-lg">
                       <MaterialCommunityIcons name="account-group" size={19} />{" "}
@@ -385,6 +383,7 @@ export default function NewPost() {
                   </View>
                 </View>
                 <SheetSelection
+                
                   ref={sheet}
                   placeholder={
                     carName && carName.length > 0 ? carName : carName

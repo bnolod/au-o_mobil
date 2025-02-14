@@ -60,7 +60,7 @@ export default function Register() {
   };
 
   return (
-    <ScrollView className="max-w-screen">
+    <ScrollView  showsVerticalScrollIndicator={false} overScrollMode="never"  bounces={false} className="max-w-screen">
       <ThemedText className="text-center text-4xl font-bold mb-5 pt-[50%]">
         {AuthTexts.signup.heroText[language]}
       </ThemedText>

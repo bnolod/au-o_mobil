@@ -14,18 +14,19 @@ export default function SocialBanner({
   language,
   header = false,
   colorScheme,
+  onPress,
 }: {
   name: string;
   id: string;
   header?: boolean
-  image?: any;
+  image?: string;
   type?: "GROUP" | "EVENT";
-
+  onPress?: () => void;
   count?: number | null;
 } & CommonStaticElementProps) {
   return (
     <Pressable
-      onPress={() => {
+      onPress={onPress ? onPress : () => {
         if (type === "EVENT") router.push({pathname:`/(root)/(events)/[id]`, params: {
           id
         }});
@@ -62,7 +63,7 @@ export default function SocialBanner({
           <Image
             className="h-full w-full rounded-t-xl"
             resizeMode="cover"
-            source={image}
+            source={{uri: image}}
           />
         )}
       </ImageBackground>

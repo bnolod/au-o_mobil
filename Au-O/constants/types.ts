@@ -170,10 +170,7 @@ export interface PostCardProps {
   authorNickname: string;
   authorUsername: string;
   date: string;
-  images: {
-    url: string;
-    deleteHash: string;
-  }[];
+  images: ImageUploadResponse[];
   description: string;
   location: string;
   reactions: Reactions;
@@ -344,13 +341,15 @@ export interface Group {
   alias: string,
   bannerImage: string,
   memberCount: number,
-  isPublic: boolean,
+  public: boolean,
   creationDate: string
-  isMember: boolean
+  member: boolean
+  description: string
 }
 export interface SocialEvent {
   id: string,
   name: string,
+  description: string,
   startDate: string,
   endDate: string,
   location: string,
@@ -358,7 +357,7 @@ export interface SocialEvent {
   groupId?: string,
   creationDate  : string,
   bannerImage: string
-  isPublic: boolean
+  public: boolean
   isAttending: boolean
 }
 export interface Car {
@@ -391,3 +390,20 @@ export type CarType =
   |"PICKUP"
   |"ROADSTER"
   |"SUV"
+export interface GroupCreationRequest {
+  name: string,
+  description: string,
+  bannerImage: string, //majd backenden mindenképp legyen deletehash
+  alias: string,
+}
+export interface GroupCreationResponse {
+  id: string,
+  name: string,
+  description: string,
+  bannerImage: string,
+  alias: string,
+  memberCount: number,
+  public: boolean,
+  creationDate: string,
+  member: boolean
+}

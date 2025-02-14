@@ -19,12 +19,14 @@ export default function SocialCard({
   group,
   event,
   type = "GROUP",
-  count = null,
+  preview,
+  onCreatePress,
 }: CommonStaticElementProps & {
   group?: Group;
   event?: SocialEvent;
-  count?: number | null;
+  preview?: "CREATE" | "DISPLAY" | undefined;
   type: "GROUP" | "EVENT";
+  onCreatePress?: () => void
 }) {
   if (!group && !event) return null;
   const item = group && !event ? {
@@ -33,19 +35,20 @@ export default function SocialCard({
     bannerImage: group.bannerImage,
     alias: group.alias,
     count: group.memberCount,
-    isPublic: group.isPublic,
+    public: group.public,
     creationDate: group.creationDate,
-    isUserRelated: group.isMember,
-
+    isUserRelated: group.member,
+    description: group.description,
   } :  {
     id: event!.id,
     name: event!.name,
     bannerImage: event!.bannerImage,
     alias: "",
     count: event!.attendees,
-    isPublic: event!.isPublic,
+    public: event!.public,
     creationDate: event!.creationDate,
-    isUserRelated: event!.isAttending
+    isUserRelated: event!.isAttending,
+    description: event!.description
   };
   if (item === undefined) return <LoadingModal loading={true} colorScheme={colorScheme}/>;
   if (item)
@@ -62,15 +65,19 @@ export default function SocialCard({
         shadowRadius: 20,
       }}
     >
+      <View className={`${preview !== "DISPLAY" ? " ": "pointer-events-none"}`}>
+
       <SocialBanner
         id={item.id}
         language={language}
         colorScheme={colorScheme}
-        name={item.name}
+        name={item.alias}
         image={item.bannerImage}
         count={item.count}
         type={type}
-      />
+        onPress={onCreatePress}
+        />
+        </View>
       <View className="p-4 primary rounded-b-xl">
         <View className="flex flex-row justify-between">
           <View className="basis-4/6">
@@ -83,16 +90,19 @@ export default function SocialCard({
             <CollapsibleText
               className="opacity-85"
             >
-              {boros_manifesto.EN}
+              {item.description}
             </CollapsibleText>
           </View>
           <View className="flex  items-start gap-8">
-            <Button className="button highlight text-xl mr-0 justify-center">
+            {
+              !item.isUserRelated &&
+              <Button onPress={!preview ? () => {} : () => {}} className="button highlight text-xl mr-0 justify-center">
               {type === "GROUP" ? "Join" : "Attend"}
             </Button>
+            }
             <Button
               className="button secondary text-xl mr-0  justify-center"
-              onPress={() => {
+              onPress={!preview ? () => {
                 if (type === "EVENT")
                   router.push({
                     pathname: `/(root)/(events)/[id]`,
@@ -107,7 +117,7 @@ export default function SocialCard({
                       id: item.id,
                     },
                   });
-              }}
+              } : () => {}}
             >
               {type === "GROUP" ? "Visit group" : "Details"}
             </Button>

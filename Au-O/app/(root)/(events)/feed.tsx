@@ -9,7 +9,7 @@ export default function EventFeed() {
     const {language} = useLanguage();
     const {colorScheme} = useColorScheme();
   return (
-    <ScrollView stickyHeaderHiddenOnScroll stickyHeaderIndices={[0]}>
+    <ScrollView  stickyHeaderHiddenOnScroll stickyHeaderIndices={[0]}>
         <View className="primary rounded-b-xl">
 
       <RootHeader language={language} colorScheme={colorScheme!} />
@@ -18,11 +18,12 @@ export default function EventFeed() {
       <SocialCard
         type="EVENT"
         event={{
+          description: "This is an event",
           id: "1",
           name: "Event 1",
           bannerImage: Images.placeholder,
           attendees: 10,
-          isPublic: true,
+          public: true,
           creationDate: "2021-08-01",
           isAttending: true,
           endDate: "2021-08-02",
