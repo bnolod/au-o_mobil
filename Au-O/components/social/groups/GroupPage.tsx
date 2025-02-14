@@ -54,7 +54,7 @@ export default function GroupPage({
           className="w-11/12 mx-auto mt-2 text-lg leading-tight"
           restrictedLineCount={5}
         >
-          {boros_manifesto[language]}
+          {group.description}
         </CollapsibleText>
       </View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>

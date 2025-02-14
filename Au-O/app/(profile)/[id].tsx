@@ -6,6 +6,7 @@ import {
 } from "@/lib/apiClient";
 import {
   Car,
+  CarResponse,
   PostResponse,
   User,
   UserResponse,
@@ -19,7 +20,7 @@ import { useAuthentication } from "@/contexts/AuthenticationContext";
 import Profile from "@/components/home/Profile";
 export default function UserProfile() {
   const [profile, setProfile] = useState<User>();
-    const [garage, setGarage] = useState<Car[]>();
+    const [garage, setGarage] = useState<CarResponse[]>();
   
   const { language } = useLanguage();
   const { user } = useAuthentication();
@@ -47,7 +48,7 @@ export default function UserProfile() {
     } else return;
   }
   async function getGarage(id: string) {
-    const res = await apiFetch<Car[]>(`vehicles/user/${id}/all`, "GET", true);
+    const res = await apiFetch<CarResponse[]>(`vehicles/user/${id}/all`, "GET", true);
     if (res) {
       setGarage(res.data!);
     } else return;

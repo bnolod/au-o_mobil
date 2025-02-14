@@ -1,25 +1,61 @@
 import GroupPage from "@/components/social/groups/GroupPage";
 import ThemedText from "@/components/ui/ThemedText";
 import { Images } from "@/lib/staticAssetExports";
-import { colorScheme } from "nativewind";
+import { useColorScheme } from "nativewind";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { ScrollView } from "react-native";
-
+import { useEffect, useState } from "react";
+import { Group } from "@/constants/types";
+import { getGroup } from "@/lib/apiClient";
+import { router, useLocalSearchParams } from "expo-router";
+import { useAuthentication } from "@/contexts/AuthenticationContext";
+import LoadingModal from "@/components/ui/LoadingModal";
 
 export default function GroupDisplay() {
-    return (
-        <ScrollView className="h-screen background"  showsVerticalScrollIndicator={false} overScrollMode="never"  bounces={false}>
-            <GroupPage colorScheme={colorScheme.get()!} group={{
-                id: "1",
-                name: "Group 1",
-                bannerImage: Images.placeholder,
-                alias: "group1",
-                memberCount: 10,
-                public: true,
-                creationDate: "2021-08-01",
-                member: true,
-                description: "This is a group"
-            }}  language="EN"/>
-        </ScrollView>
-    )
+  const { language } = useLanguage();
+  const {user } = useAuthentication();
+  const { id} = useLocalSearchParams()
+  const { colorScheme } = useColorScheme();
+  const [group, setGroup] = useState<Group | undefined | null>(undefined);
+  useEffect(() => {
+fetchGroup()
+  }, []);
+  async function fetchGroup() {
+    if (id) {
+        const res = await getGroup(id as string)
+        if (res) {
+          setGroup(res);
+        }
+        else setGroup(null);
+    }
+  }
+  if (group === undefined) return <LoadingModal loading colorScheme={colorScheme!} />;
+  if (group === null) {
+    router.back()
+  }
+  if (group)
+  return (
+    <ScrollView
+      className="h-screen background"
+      showsVerticalScrollIndicator={false}
+      overScrollMode="never"
+      bounces={false}
+    >
+      <GroupPage
+        colorScheme={colorScheme!}
+        group={{
+          id: group.id,
+          name: group.name,
+          bannerImage: group.bannerImage,
+          alias: group.alias,
+          memberCount: group.memberCount,
+          public: group.public,
+          creationDate: group.creationDate,
+          member: group.member,
+          description: group.description,
+        }}
+        language="EN"
+      />
+    </ScrollView>
+  );
 }

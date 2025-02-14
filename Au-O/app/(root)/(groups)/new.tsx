@@ -11,7 +11,7 @@ import { useColorScheme } from "nativewind";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Images } from "@/lib/staticAssetExports";
 import GarageItem from "@/components/garage/GarageItem";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CarType, GroupCreationRequest } from "@/constants/types";
 import { CarCreationRequest } from "@/constants/types";
 import SheetSelection, {
@@ -42,7 +42,7 @@ import { router } from "expo-router";
 export default function NewPostPage() {
   const { language } = useLanguage();
   const { user } = useAuthentication();
-  const [imagePreview, setImagePreview] = useState<ImagePickerAsset | null>();
+  const [imagePreview, setImagePreview] = useState<ImagePickerAsset | null>(null);
 
   const [newGroupForm, setNewGroupForm] = useState<GroupCreationRequest>({
     name: "",
@@ -51,13 +51,13 @@ export default function NewPostPage() {
     bannerImage: "",
   });
   async function openGallery() {
-    const res = await getOneImageFromGallery([3, 1]);
+    const res = await getOneImageFromGallery();
     if (res) {
       setImagePreview(res);
-      console.log("success");
+      
       return;
     }
-    console.log("fail");
+
   }
   async function handleSubmit() {
     if (imagePreview) {
@@ -67,7 +67,6 @@ export default function NewPostPage() {
         user!
       );
       const upload = await imageUpload(imageForm);
-      console.log(upload);
       if (upload) {
         setNewGroupForm({ ...newGroupForm, bannerImage: upload.url });
         prepareGroup(upload.url);
@@ -78,14 +77,14 @@ export default function NewPostPage() {
   async function prepareGroup(image?: string) {
     const createGroupRes = await createGroup({
       alias: newGroupForm.alias,
-      bannerImage: image && image.length > 0 ?newGroupForm.bannerImage : "",
+      bannerImage: image ? image : "",
       description: newGroupForm.description,
       name: newGroupForm.name,
     });
     if (createGroupRes) {
       Toast.show({
         type: "success",
-        text1: "success",
+        text1: "Group successfully created",
       });
       setNewGroupForm({
         name: "",
@@ -99,7 +98,7 @@ export default function NewPostPage() {
     }
     Toast.show({
       type: "error",
-      text1: "error",
+      text1: "Error creating group.",
     });
   }
   const { colorScheme } = useColorScheme();

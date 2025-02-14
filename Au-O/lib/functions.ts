@@ -68,13 +68,10 @@ export async function convertToBlob(image: any): Promise<any> {
   });
   return base64;
 }
-export async function getOneImageFromGallery(aspect?: [number, number]) {
+export async function getOneImageFromGallery() {
   let result = await ImagePicker.launchImageLibraryAsync({
     mediaTypes: ["images"],
     allowsEditing: true,
-    aspect: aspect || undefined,
-    selectionLimit: 1,
-    preferredAssetRepresentationMode: ImagePicker.UIImagePickerPreferredAssetRepresentationMode.Compatible,
     exif: false,
     quality: 0.7,
     allowsMultipleSelection: false,

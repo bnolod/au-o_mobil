@@ -8,8 +8,10 @@ import { Images } from "@/lib/staticAssetExports";
 import { CommonStaticElementProps } from "@/constants/types";
 import { HomeTexts } from "@/constants/texts";
 import Toast from "react-native-toast-message";
+import { useLanguage } from "@/contexts/LanguageContext";
 export default function RootHeader({language, colorScheme} : CommonStaticElementProps) {
   const { toggleColorScheme } = useColorScheme();
+  const {setLanguage} = useLanguage();
   return (
     <View className={Platform.OS === "ios" ? "root-header-ios" : "root-header-android"} >
       <Image
@@ -25,15 +27,15 @@ export default function RootHeader({language, colorScheme} : CommonStaticElement
         }}
       />
       <Button
-        onPress={() => {toggleColorScheme(); Toast.show({
-          type: "info",
-          text1: "Color scheme changed!",
-          visibilityTime: 3000,
-          autoHide: true,
-          bottomOffset: 40,
-          position: "top",
-          
-        })}}
+        onPress={() => {
+          toggleColorScheme();
+          if (language === "EN") {
+            setLanguage("HU");
+          }
+          else {
+            setLanguage("EN");
+          }
+        }}
         className="h-12 w-12 text-center flex justify-center items-center p-1 rounded-xl secondary"
       >
         <MaterialCommunityIcons
