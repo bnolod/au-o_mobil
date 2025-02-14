@@ -35,6 +35,7 @@ export default function RootHeader({language, colorScheme} : CommonStaticElement
           else {
             setLanguage("EN");
           }
+          console.log(language)
         }}
         className="h-12 w-12 text-center flex justify-center items-center p-1 rounded-xl secondary"
       >

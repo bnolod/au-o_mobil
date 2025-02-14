@@ -32,6 +32,7 @@ import Avatar from "@/components/ui/Avatar";
 import {
   boros_manifesto,
   generalTexts,
+  SocialTexts,
   UserEditTexts,
 } from "@/constants/texts";
 import { handleShowMore, handleTabSelection } from "@/lib/events";
@@ -410,12 +411,13 @@ export default function Profile({
           <NewSocial
             text={
               selectedTab === "POST"
-                ? "New Post"
+                ? SocialTexts.new.post[language]
                 : selectedTab === "GROUPS"
-                ? "New Group"
+                
+                ? SocialTexts.new.group[language]
                 : selectedTab === "GARAGE"
-                ? "New Car"
-                : "New Event"
+                ? SocialTexts.new.car[language]
+                : SocialTexts.new.event[language]
             }
             onPress={
               selectedTab === "POST"

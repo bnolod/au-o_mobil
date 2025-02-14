@@ -16,6 +16,7 @@ export default function GarageItemPage({colorScheme, isOwner, car, language, pro
       <GarageHeader
         colorScheme={colorScheme!}
         car={car}
+        language={language}
         userProfilePic={profileImg}
       />
       <View className="flex flex-row items-center mx-3 py-2">

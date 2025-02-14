@@ -54,7 +54,7 @@ fetchGroup()
           member: group.member,
           description: group.description,
         }}
-        language="EN"
+        language={language}
       />
     </ScrollView>
   );

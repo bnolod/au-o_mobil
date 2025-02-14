@@ -1,18 +1,19 @@
 import { ImageBackground, View } from "react-native";
 import ThemedText from "@/components/ui/ThemedText";
-import { Car } from "@/constants/types";
+import { Car, CommonStaticElementProps } from "@/constants/types";
 import { Images } from "@/lib/staticAssetExports";
 import { Colors } from "@/constants/Colors";
+import { generalTexts } from "@/constants/texts";
 
 export default function GarageHeader({
   userProfilePic,
     car,
   colorScheme,
+  language,
 }: {
   userProfilePic?: string;
   car: Car
-  colorScheme: "light" | "dark";
-}) {
+} & CommonStaticElementProps) {
   return (
     <View className="flex flex-row w-full h-64 rounded-b-xl overflow-hidden">
       {userProfilePic && <ImageBackground
@@ -39,7 +40,7 @@ export default function GarageHeader({
             <ThemedText className="text-3xl font-bold">{car.manufacturer}</ThemedText>
             <ThemedText className="text-xl font-semibold">{car.model}</ThemedText>
             <View>
-                <ThemedText className="text-xl">{car.horsepower} HP</ThemedText>
+                <ThemedText className="text-xl">{car.horsepower} {generalTexts.profileAttributes.cars.horsepower[language]}</ThemedText>
             </View>
         </ImageBackground>
       </View>

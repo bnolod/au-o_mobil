@@ -7,13 +7,16 @@ import GarageItem from "@/components/garage/GarageItem";
 import { useState } from "react";
 import { CarType } from "@/constants/types";
 import { CarCreationRequest } from "@/constants/types";
-import SheetSelection, { SheetSelectionRef } from "@/components/ui/SheetSelection";
+import SheetSelection, {
+  SheetSelectionRef,
+} from "@/components/ui/SheetSelection";
 import CarTypeListItem from "@/components/garage/CarTypeListItem";
 import Button from "@/components/ui/Button";
 import { useRef } from "react";
 import CollapsibleText from "@/components/ui/CollapsibleText";
 import { addCar } from "@/lib/apiClient";
 import Toast from "react-native-toast-message";
+import { SocialTexts } from "@/constants/texts";
 export default function newCar() {
   const { language } = useLanguage();
   const { colorScheme } = useColorScheme();
@@ -24,11 +27,16 @@ export default function newCar() {
     horsepower: 0,
     model: "",
     type: "SEDAN",
+    productionYear: 1900,
   });
-  const sheet = useRef<SheetSelectionRef>(null)
+  const sheet = useRef<SheetSelectionRef>(null);
   return (
-
-    <ScrollView  showsVerticalScrollIndicator={false} overScrollMode="never"  bounces={false} className="background">
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      overScrollMode="never"
+      bounces={false}
+      className="background"
+    >
       <View className="w-full justify-evenly flex flex-col pt-safe-offset-1 secondary">
         <Image
           source={
@@ -68,7 +76,7 @@ export default function newCar() {
           </CollapsibleText>
         </View>
         <Input
-          label="Manufacturer"
+          label={SocialTexts.creation.car.manufacturer[language]}
           icon="wrench-outline"
           TextInputProps={{
             placeholder: "Toyota",
@@ -79,7 +87,7 @@ export default function newCar() {
           colorScheme={colorScheme!}
         />
         <Input
-          label="Model"
+          label={SocialTexts.creation.car.model[language]}
           icon="car-outline"
           TextInputProps={{
             placeholder: "Celica",
@@ -90,10 +98,10 @@ export default function newCar() {
           colorScheme={colorScheme!}
         />
         <Input
-          label="Description"
+          label={SocialTexts.creation.car.description[language]}
           icon="pencil-outline"
           TextInputProps={{
-            placeholder: "My favorite weekend car",
+            placeholder: SocialTexts.creation.car.placeholders.description[language],
             multiline: true,
             numberOfLines: 4,
             value: newCarForm.description,
@@ -102,13 +110,29 @@ export default function newCar() {
           }}
           colorScheme={colorScheme!}
         />
+        <Input
+          colorScheme={colorScheme!}
+          label={SocialTexts.creation.car.year[language]}
+          icon="calendar-outline"
+          TextInputProps={{
+            value: newCarForm.productionYear === 1900 ? "" : newCarForm.productionYear.toString(),
+            placeholder: "1990",
+            onChangeText: (text) =>
+              setNewCarForm({
+                ...newCarForm,
+                productionYear: parseInt(text),
+              }),
+            keyboardType: "number-pad",
+          }}
+        />
         <SheetSelection
           colorScheme={colorScheme!}
           ref={sheet}
-          placeholder={typeof newCarForm.type === "string" ? newCarForm.type : "SEDAN"}
+          placeholder={
+            typeof newCarForm.type === "string" ? newCarForm.type : "SEDAN"
+          }
           language={language}
           FlashListProps={{
-            
             data: [
               "SEDAN",
               "COUPE",
@@ -122,26 +146,25 @@ export default function newCar() {
             ],
             renderItem: ({ item }) => (
               <CarTypeListItem
-                onPress={() =>
-                {
-                  sheet.current?.dismissSheet()
+                onPress={() => {
+                  sheet.current?.dismissSheet();
                   setNewCarForm({
                     ...newCarForm,
                     type: item as CarType,
-                  })
-                }
-              }
-colorScheme={colorScheme!}
+                  });
+                }}
+                colorScheme={colorScheme!}
                 type={item as CarType}
               />
             ),
           }}
         />
+        
         <View className="w-11/12 mx-auto flex flex-row gap-2 ">
           <View className="basis-1/2">
             <Input
               colorScheme={colorScheme!}
-              label="Horsepower"
+              label={SocialTexts.creation.car.horsepower[language]}
               icon="speedometer"
               TextInputProps={{
                 placeholder: "123",
@@ -155,7 +178,7 @@ colorScheme={colorScheme!}
           <View className="basis-1/2">
             <Input
               colorScheme={colorScheme!}
-              label="Displacement"
+              label={SocialTexts.creation.car.displacement[language]}
               icon="engine-outline"
               TextInputProps={{
                 value: newCarForm.displacement.toString(),
@@ -166,23 +189,27 @@ colorScheme={colorScheme!}
                     displacement: parseFloat(text.replace(",", ".")),
                   }),
                 keyboardType: "decimal-pad",
-              
               }}
             />
           </View>
         </View>
-      <Button onPress={async () => {
-        const res = await addCar(newCarForm)
-        if (res) {
-          Toast.show({
-            type: "success",
-            text1: "Car added",
-            text2: "Your car has been added to the garage",
-          })
-        }
-      }} innerTextClassName="text-xl font-bold" className="button highlight btn-fill">
-              Save
-      </Button>
+        
+        <Button
+          onPress={async () => {
+            const res = await addCar(newCarForm);
+            if (res) {
+              Toast.show({
+                type: "success",
+                text1: "Car added",
+                text2: "Your car has been added to the garage",
+              });
+            }
+          }}
+          innerTextClassName="text-xl font-bold"
+          className="button highlight btn-fill"
+        >
+          {SocialTexts.creation.car.save[language]}
+        </Button>
       </Pressable>
     </ScrollView>
   );

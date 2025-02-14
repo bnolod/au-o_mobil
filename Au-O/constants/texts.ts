@@ -26,6 +26,32 @@ export const CallToActionTexts = {
     EN: "Let's Go!",
   },
 };
+export const SettingsTexts = {
+  header: {
+    HU: "Beállítások",
+    EN: "Settings",
+  },
+  personal: {
+    HU: "Személyes információ",
+    EN: "Personal Information",
+  },
+  about: {
+    HU: "Az appról",
+    EN: "About",
+  },
+  savedPosts: {
+    HU: "Mentett posztok",
+    EN: "Saved posts",
+  },
+  logout: {
+    HU: "Kijelentkezés",
+    EN: "Log Out",
+  },
+  deleteAccount: {
+    HU: "Fiók törlése",
+    EN: "Delete Account", 
+  }
+}
 
 export const ButtonTexts = {
   back: {
@@ -189,6 +215,12 @@ export const generalTexts = {
     bioEmpty: {
       EN: "Bio is empty.",
       HU: "A bio üres."
+    },
+    cars: {
+      horsepower: {
+        HU: "LE",
+        EN: "HP"
+      }
     }
   }
 }
@@ -734,4 +766,85 @@ export const EditModalTexts = {
     HU: "Mentés",
     EN: "Save"
   }
+}
+export const SocialTexts = {
+  new: {
+    post: {
+      HU: "Új poszt",
+      EN: "New post"
+    },
+    group: {
+      HU: "Új csoport",
+      EN: "New group"
+    },
+    event: {
+      HU: "Új esemény",
+      EN: "New event"
+    },
+    car: {
+      HU: "Új autó",
+      EN: "New car"
+    }
+  },
+  creation: {
+    car: {
+      manufacturer: {
+        HU: "Márka",
+        EN: "Manufacturer"
+      },
+      model: {
+        HU: "Modell",
+        EN: "Model"
+      },
+      description: {
+        HU: "Leírás",
+        EN: "Description"
+      },
+      year: {
+        HU: "Évjárat",
+        EN: "Production Year"
+      },
+      horsepower: {
+        HU: "Lóerő",
+        EN: "Horsepower"
+      },
+      displacement: {
+        HU: "Hengerűrtartalom",
+        EN: "Displacement"
+      },
+      placeholders: {
+        description: {
+          HU: "A kedvenc hétvégi autóm",
+          EN: "My favourite weekend car"
+        }
+      },
+      save: {
+        HU: "Mentés",
+        EN: "Save"
+      },
+      featuredPosts: {
+        EN: "Starring in",
+        HU: "Megjelenik itt"
+      }
+    }
+  },
+  followers: {
+    selector: {
+      HU: "Követők",
+      EN: "Followers"
+    },
+    generals: {
+      empty: {
+        HU: "Nincs itt senki..",
+        EN: "No one is here..."
+      }
+    }
+  },
+  following: {
+    selector: {
+      HU: "Követett",
+      EN: "Following"
+    }
+  },
+
 }

@@ -3,6 +3,7 @@ import SettingsAside from "@/components/settings/SettingsAside";
 import Button from "@/components/ui/Button";
 import Footer from "@/components/ui/Footer";
 import ThemedText from "@/components/ui/ThemedText";
+import { SettingsTexts } from "@/constants/texts";
 import { SettingsOption } from "@/constants/types";
 import { useAuthentication } from "@/contexts/AuthenticationContext";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -19,30 +20,30 @@ export default function Settings() {
     {
       icon: "account-circle-outline",
       onPress: () => {},
-      title: "Personal Information",
+      title: SettingsTexts.personal[language],
     },
     {
       icon: "bookmark-outline",
       onPress: () => {},
-      title: "Saved Posts",
+      title: SettingsTexts.savedPosts[language],
     },
     {
       icon: "progress-question",
       onPress: () => {},
-      title: "About",
+      title: SettingsTexts.about[language],
     },
     {
       icon: "logout",
       onPress: () => {
         logout();
       },
-      title: "Logout",
+      title: SettingsTexts.logout[language],
       className: "font-bold text-red-500",
     },
     {
       icon: "delete-outline",
       onPress: () => {},
-      title: "Delete Account",
+      title: SettingsTexts.deleteAccount[language],
     },
   ];
   const { user } = useAuthentication();

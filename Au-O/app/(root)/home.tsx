@@ -7,7 +7,7 @@ import PostCard from "@/components/home/Post";
 import { useColorScheme } from "nativewind";
 import { useLanguage } from "@/contexts/LanguageContext";
 import RootHeader from "@/components/home/RootHeader";
-import { UIErrorTexts } from "@/constants/texts";
+import { PostCreationTexts, UIErrorTexts } from "@/constants/texts";
 import { apiFetch } from "@/lib/apiClient";
 import { PostResponse } from "@/constants/types";
 import { FlashList } from "@shopify/flash-list";
@@ -36,6 +36,7 @@ export default function Home() {
   useEffect(() => {
     async function load() {
       setPost(await fetchPosts());
+      console.log(PostCreationTexts.buttons.dismiss[language]);
     }
     load();
   }, [refreshing]);

@@ -8,6 +8,7 @@ import Button from "../ui/Button";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useState } from "react";
 import { BottomSheetModalRef } from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheetModalProvider/types";
+import { SocialTexts } from "@/constants/texts";
 
 export default function FollowerSheet({
   followers,
@@ -28,7 +29,7 @@ export default function FollowerSheet({
               size={32}
               color={data === followers ? Colors.highlight.main : Colors[colorScheme].text}
             />
-            <ThemedText className="text-lg font-bold p-2">Követők</ThemedText>
+            <ThemedText className="text-lg font-bold p-2">{SocialTexts.followers.selector[language]}</ThemedText>
           </TouchableOpacity>
           <TouchableOpacity className="flex items-center flex-col" onPress={() => setData(following)}>
             <MaterialCommunityIcons
@@ -36,7 +37,7 @@ export default function FollowerSheet({
               size={32}
               color={data === following ? Colors.highlight.main : Colors[colorScheme].text}
               />
-            <ThemedText className="text-lg font-bold p-2">Követettek</ThemedText>
+            <ThemedText className="text-lg font-bold p-2">{SocialTexts.following.selector[language]}</ThemedText>
           </TouchableOpacity>
         </View>
       )}
@@ -50,7 +51,7 @@ export default function FollowerSheet({
         ListEmptyComponent={() => (
             <View className="flex justify-center items-center w-full">
                 <MaterialCommunityIcons name="account-search" size={64} color={Colors[colorScheme].text} />
-                <ThemedText className="text-lg mt-24 font-bold text-center p-2">Nincs itt senki...</ThemedText>
+                <ThemedText className="text-lg mt-24 font-bold text-center p-2">{SocialTexts.followers.generals.empty[language]}</ThemedText>
             </View>
         )}
       renderItem={({ item, index }) => (

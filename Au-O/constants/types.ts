@@ -379,6 +379,7 @@ export interface CarCreationRequest {
   horsepower: number,
   description: string,
   displacement: number
+  productionYear: number
 }
 export type CarType =
    "SEDAN"
