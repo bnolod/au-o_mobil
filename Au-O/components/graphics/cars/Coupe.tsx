@@ -18,7 +18,7 @@ const SvgCoupe = (props: SvgProps) => (
         r={0.012}
         fill="#000"
         stroke={props.stroke}
-        strokeWidth={0.79375}
+        strokeWidth={props.strokeWidth as number * 0.79375}
         strokeDasharray="none"
         strokeOpacity={1}
       />
@@ -29,7 +29,7 @@ const SvgCoupe = (props: SvgProps) => (
         fillOpacity={1}
         fillRule="nonzero"
         stroke={props.stroke}
-        strokeWidth={0.653893}
+        strokeWidth={props.strokeWidth as number * 0.653893}
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeDasharray="none"
@@ -43,7 +43,7 @@ const SvgCoupe = (props: SvgProps) => (
         fillOpacity={1}
         fillRule="nonzero"
         stroke={props.stroke}
-        strokeWidth={0.653893}
+        strokeWidth={props.strokeWidth as number * 0.653893}
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeDasharray="none"
@@ -56,7 +56,7 @@ const SvgCoupe = (props: SvgProps) => (
         fillOpacity={1}
         fillRule="nonzero"
         stroke={props.stroke}
-        strokeWidth={0.653893}
+        strokeWidth={props.strokeWidth as number * 0.653893}
         strokeLinecap="round"
         strokeDasharray="none"
         strokeOpacity={1}
@@ -68,7 +68,7 @@ const SvgCoupe = (props: SvgProps) => (
         fillOpacity={1}
         fillRule="nonzero"
         stroke={props.stroke}
-        strokeWidth={0.79375}
+        strokeWidth={props.strokeWidth as number * 0.79375}
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeDasharray="none"
@@ -81,7 +81,7 @@ const SvgCoupe = (props: SvgProps) => (
         fillOpacity={1}
         fillRule="nonzero"
         stroke={props.stroke}
-        strokeWidth={0.653893}
+        strokeWidth={props.strokeWidth as number * 0.653893}
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeDasharray="none"
@@ -91,7 +91,7 @@ const SvgCoupe = (props: SvgProps) => (
         d="m123.696 117.093-3.575-.42-5.298.434 3.031 1.837c1.675.712 4.831.718 5.9.129"
         fill="none"
         stroke={props.stroke}
-        strokeWidth={0.435929}
+        strokeWidth={props.strokeWidth as number * 0.435929}
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeDasharray="none"
@@ -103,7 +103,7 @@ const SvgCoupe = (props: SvgProps) => (
         d="m16.881 113.327 2.474.477 1.202 3.987-3.302.154"
         fill="none"
         stroke={props.stroke}
-        strokeWidth={0.529167}
+        strokeWidth={props.strokeWidth as number * 0.529167}
         strokeLinecap="round"
         strokeDasharray="none"
         strokeOpacity={1}
@@ -114,7 +114,7 @@ const SvgCoupe = (props: SvgProps) => (
         d="M49.526 127.297H94.1M15.525 124.241l10.253 2.05"
         fill="none"
         stroke={props.stroke}
-        strokeWidth={0.435929}
+        strokeWidth={props.strokeWidth as number * 0.435929}
         strokeLinecap="round"
         strokeDasharray="none"
         strokeOpacity={1}
@@ -123,7 +123,7 @@ const SvgCoupe = (props: SvgProps) => (
         d="M117.93 126.55c2.176.022 4.117-.469 4.117-.469"
         fill="none"
         stroke={props.stroke}
-        strokeWidth={0.435929}
+        strokeWidth={props.strokeWidth as number * 0.435929}
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeDasharray="none"
@@ -133,7 +133,7 @@ const SvgCoupe = (props: SvgProps) => (
         d="m18.855 115.604-1.297-.023"
         fill="none"
         stroke={props.stroke}
-        strokeWidth={0.529167}
+        strokeWidth={props.strokeWidth as number * 0.529167}
         strokeLinecap="round"
         strokeDasharray="none"
         strokeOpacity={1}
@@ -144,7 +144,7 @@ const SvgCoupe = (props: SvgProps) => (
         d="m32.335 108.227 8.81 3.046H91.12"
         fill="none"
         stroke={props.stroke}
-        strokeWidth={0.435929}
+        strokeWidth={props.strokeWidth as number * 0.435929}
         strokeLinecap="round"
         strokeMiterlimit={3.9}
         strokeDasharray="none"
@@ -156,7 +156,7 @@ const SvgCoupe = (props: SvgProps) => (
         r={7.976}
         fill="none"
         stroke={props.stroke}
-        strokeWidth={0.653893}
+        strokeWidth={props.strokeWidth as number * 0.653893}
         strokeLinecap="butt"
         strokeDasharray="none"
         strokeOpacity={1}
@@ -167,7 +167,7 @@ const SvgCoupe = (props: SvgProps) => (
         r={6.746}
         fill="none"
         stroke={props.stroke}
-        strokeWidth={0.435929}
+        strokeWidth={props.strokeWidth as number * 0.435929}
         strokeLinecap="butt"
         strokeDasharray="none"
         strokeOpacity={1}
@@ -183,7 +183,7 @@ const SvgCoupe = (props: SvgProps) => (
           r={7.976}
           fill="none"
           stroke={props.stroke}
-          strokeWidth={0.653893}
+          strokeWidth={props.strokeWidth as number * 0.653893}
           strokeLinecap="butt"
           strokeDasharray="none"
           strokeOpacity={1}
@@ -194,7 +194,7 @@ const SvgCoupe = (props: SvgProps) => (
           r={6.746}
           fill="none"
           stroke={props.stroke}
-          strokeWidth={0.553492}
+          strokeWidth={props.strokeWidth as number * 0.553492}
           strokeLinecap="butt"
           strokeDasharray="none"
           strokeOpacity={1}
@@ -209,7 +209,7 @@ const SvgCoupe = (props: SvgProps) => (
           d="M68.385 115.367h5.1"
           fill="none"
           stroke={props.stroke}
-          strokeWidth={0.871857}
+          strokeWidth={props.strokeWidth as number * 0.871857}
           strokeLinecap="round"
           strokeDasharray="none"
           strokeOpacity={1}
@@ -222,7 +222,7 @@ const SvgCoupe = (props: SvgProps) => (
           fill="none"
           fillOpacity={1}
           stroke={props.stroke}
-          strokeWidth={0.687739}
+          strokeWidth={props.strokeWidth as number * 0.687739}
           strokeLinecap="round"
           strokeDasharray="none"
           strokeOpacity={1}
@@ -233,7 +233,7 @@ const SvgCoupe = (props: SvgProps) => (
         fill="none"
         fillOpacity={1}
         stroke={props.stroke}
-        strokeWidth={0.435929}
+        strokeWidth={props.strokeWidth as number * 0.435929}
         strokeLinecap="round"
         strokeDasharray="none"
         strokeOpacity={1}

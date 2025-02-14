@@ -1,5 +1,4 @@
 import { Pressable, View } from "react-native";
-import ThemedText from "@/components/ui/ThemedText";
 import { ReactNode, useState } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Colors } from "@/constants/Colors";

@@ -2,7 +2,7 @@ import { Image, ImageBackground, Pressable, View } from "react-native";
 import ThemedText from "@/components/ui/ThemedText";
 import { Images } from "@/lib/staticAssetExports";
 import { formatNumber } from "@/lib/functions";
-import { CommonStaticElementProps } from "@/constants/types";
+import { CommonStaticElementProps, SocialBannerProps } from "@/constants/types";
 import { router } from "expo-router";
 
 export default function SocialBanner({
@@ -15,15 +15,7 @@ export default function SocialBanner({
   header = false,
   colorScheme,
   onPress,
-}: {
-  name: string;
-  id: string;
-  header?: boolean
-  image?: string;
-  type?: "GROUP" | "EVENT";
-  onPress?: () => void;
-  count?: number | null;
-} & CommonStaticElementProps) {
+}: SocialBannerProps & CommonStaticElementProps) {
   return (
     <Pressable
       onPress={onPress ? onPress : () => {

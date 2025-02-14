@@ -14,8 +14,8 @@ import { FlashList } from "@shopify/flash-list";
 import NoPostsFound from "@/components/home/NoPostsFound";
 import LoadingModal from "@/components/ui/LoadingModal";
 import { Redirect } from "expo-router";
-import * as SecureStore from "expo-secure-store";
-import FontStyleController from "@/components/ui/FontStyleController";
+import { Cabriolet, Coupe, Grandcoupe, Hatch, Kombi, Pickup, Roadster, Sedan, Suv } from "@/components/graphics/cars";
+import { Colors } from "@/constants/Colors";
 
 export default function Home() {
   const { user } = useAuthentication();
@@ -58,7 +58,9 @@ export default function Home() {
             stickyHeaderIndices={[0]}
             stickyHeaderHiddenOnScroll
           >
+            
             <RootHeader language={language} colorScheme={colorScheme!} />
+            <Suv  width={240} height={240} stroke={Colors.dark.text} strokeWidth={3.5} />
             {post && post.length > 0 ? (
               <FlashList
                 key={refreshing ? "refresh" : "list"}

@@ -1,7 +1,6 @@
 import { Alert, Pressable, View } from "react-native";
 import Avatar from "./Avatar";
 import ThemedText from "./ThemedText";
-import { useState } from "react";
 import * as Haptics from "expo-haptics";
 import { ReplyProps } from "@/constants/types";
 import { Text } from "react-native";

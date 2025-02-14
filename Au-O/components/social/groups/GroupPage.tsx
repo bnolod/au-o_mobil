@@ -4,7 +4,6 @@ import SocialBanner from "../SocialBanner";
 import Button from "@/components/ui/Button";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import ThemedText from "@/components/ui/ThemedText";
-import { boros_manifesto } from "@/constants/texts";
 import CollapsibleText from "@/components/ui/CollapsibleText";
 import { useState } from "react";
 

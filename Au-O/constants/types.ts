@@ -1,4 +1,8 @@
-import { GestureResponderEvent, TextInputProps, TouchableOpacityProps } from "react-native";
+import {
+  GestureResponderEvent,
+  TextInputProps,
+  TouchableOpacityProps,
+} from "react-native";
 import { HttpErrorTexts } from "./texts";
 import { ReactNode } from "react";
 import { ImagePickerAsset } from "expo-image-picker";
@@ -25,7 +29,7 @@ export interface ButtonProps extends TouchableOpacityProps {
     | "fill"; //container szélességéhez igazodik
   children?: React.ReactNode;
   hapticFeedback?: "light" | "medium" | "heavy";
-  innerTextClassName?: string
+  innerTextClassName?: string;
 }
 
 export interface LoginRequest {
@@ -266,19 +270,19 @@ export interface PostCarouselElementProps {
   index: number;
 }
 export interface PostOptionMenuProps {
-  preview: boolean,
-  language: "EN" | "HU",
-  postId: number,
-  userId: number | null,
-  authorId: number | null,
-  onDelete?: () => void
+  preview: boolean;
+  language: "EN" | "HU";
+  postId: number;
+  userId: number | null;
+  authorId: number | null;
+  onDelete?: () => void;
 }
 
 export interface PostCreationSheetElementProps {
-    group?: any;
-    event?: any;
-    onPress: (selected: any) => void;
-    title: string;
+  group?: any;
+  event?: any;
+  onPress: (selected: any) => void;
+  title: string;
 }
 export interface OnboardHeaderProps {
   isStatic?: boolean;
@@ -287,10 +291,10 @@ export interface OnboardHeaderProps {
   index?: number;
 }
 export interface CommentElementProps {
-    item: Comment;
-    userId: number;
-    onDelete: (id: number) => void;
-    authorId: number;
+  item: Comment;
+  userId: number;
+  onDelete: (id: number) => void;
+  authorId: number;
 }
 export interface FilterBarProps {
   onChange: (value: string) => void;
@@ -298,20 +302,20 @@ export interface FilterBarProps {
   initialValue?: string;
 }
 export interface InputProps {
-    label?: string | ReactNode;
-    secureTextEntry?: boolean;
-    TextInputProps?: TextInputProps;
-    containerClassName?: string;
-    size?: number,
-    icon?: keyof typeof MaterialCommunityIcons.glyphMap;
-    colorScheme: "light" | "dark";
+  label?: string | ReactNode;
+  secureTextEntry?: boolean;
+  TextInputProps?: TextInputProps;
+  containerClassName?: string;
+  size?: number;
+  icon?: keyof typeof MaterialCommunityIcons.glyphMap;
+  colorScheme: "light" | "dark";
 }
 export interface ReplyProps {
-    item: Reply;
-    language: "HU" | "EN";
-    userId: number;
-    authorId: number;
-    onDelete: (id: number) => void;
+  item: Reply;
+  language: "HU" | "EN";
+  userId: number;
+  authorId: number;
+  onDelete: (id: number) => void;
 }
 export interface TextEditModalProps {
   visible: boolean;
@@ -323,88 +327,159 @@ export interface TextEditModalProps {
   lines?: number;
 }
 export interface SettingsAsideProps {
-  userId: string,
-  username: string,
-  availableSettings: SettingsOption[]
+  userId: string;
+  username: string;
+  availableSettings: SettingsOption[];
 }
 export interface SettingsOption {
-  title: string,
-  icon: keyof typeof MaterialCommunityIcons.glyphMap,
-  onPress: () => void
-  className?: string
-
+  title: string;
+  icon: keyof typeof MaterialCommunityIcons.glyphMap;
+  onPress: () => void;
+  className?: string;
 }
 
 export interface Group {
-  id: string,
-  name: string,
-  alias: string,
-  bannerImage: string,
-  memberCount: number,
-  public: boolean,
-  creationDate: string
-  member: boolean
-  description: string
+  id: string;
+  name: string;
+  alias: string;
+  bannerImage: string;
+  memberCount: number;
+  public: boolean;
+  creationDate: string;
+  member: boolean;
+  description: string;
 }
 export interface SocialEvent {
-  id: string,
-  name: string,
-  description: string,
-  startDate: string,
-  endDate: string,
-  location: string,
-  attendees: number,
-  groupId?: string,
-  creationDate  : string,
-  bannerImage: string
-  public: boolean
-  isAttending: boolean
+  id: string;
+  name: string;
+  description: string;
+  startDate: string;
+  endDate: string;
+  location: string;
+  attendees: number;
+  groupId?: string;
+  creationDate: string;
+  bannerImage: string;
+  public: boolean;
+  isAttending: boolean;
 }
 export interface Car {
-  id: string,
-  manufacturer: string,
-  model: string,
-  type: CarType,
-  horsepower: number,
-  description: string,
-  displacement: number
+  id: string;
+  manufacturer: string;
+  model: string;
+  type: CarType;
+  horsepower: number;
+  description: string;
+  displacement: number;
 }
 export interface CarResponse extends Car {
-owner: User
+  owner: User;
 }
 export interface CarCreationRequest {
-  manufacturer: string,
-  model: string,
-  type: CarType,
-  horsepower: number,
-  description: string,
-  displacement: number
-  productionYear: number
+  manufacturer: string;
+  model: string;
+  type: CarType;
+  horsepower: number;
+  description: string;
+  displacement: number;
+  productionYear: number;
 }
 export type CarType =
-   "SEDAN"
-  |"COUPE" 
-  |"GRANDCOUPE"
-  |"HATCH"
-  |"KOMBI"
-  |"CABRIOLET"
-  |"PICKUP"
-  |"ROADSTER"
-  |"SUV"
+  | "SEDAN"
+  | "COUPE"
+  | "GRANDCOUPE"
+  | "HATCH"
+  | "KOMBI"
+  | "CABRIOLET"
+  | "PICKUP"
+  | "ROADSTER"
+  | "SUV";
 export interface GroupCreationRequest {
-  name: string,
-  description: string,
-  bannerImage: string, //majd backenden mindenképp legyen deletehash
-  alias: string,
+  name: string;
+  description: string;
+  bannerImage: string; //majd backenden mindenképp legyen deletehash
+  alias: string;
 }
 export interface GroupCreationResponse {
-  id: string,
-  name: string,
-  description: string,
-  bannerImage: string,
-  alias: string,
-  memberCount: number,
-  public: boolean,
-  creationDate: string,
-  member: boolean
+  id: string;
+  name: string;
+  description: string;
+  bannerImage: string;
+  alias: string;
+  memberCount: number;
+  public: boolean;
+  creationDate: string;
+  member: boolean;
+}
+export interface NewSocialProps {
+  text: string;
+  onPress?: () => void;
+}
+export interface FollowerSheetProps {
+  followers: User[];
+  following: User[];
+  dismissSheet: () => void;
+  isOwner: boolean;
+}
+export interface GarageItemPageProps {
+  car: Car;
+  isOwner: boolean;
+  profileImg: string;
+}
+export interface GarageItemProps {
+  car: Car;
+  onPress?: () => void;
+  onSelect?: () => void;
+  isOwner: boolean;
+}
+export interface ProfileProps {
+  user: User;
+  profile: User;
+  id: string;
+  garage: CarResponse[];
+  followers: User[];
+  following: User[];
+  setFollowing: (users: User[]) => void;
+  setFollowers: (users: User[]) => void;
+  posts: PostResponse[];
+}
+export interface SocialSortItemProps {
+  bannerImage: string | null;
+  name: string;
+  memberCount: number;
+  onSelect: () => void;
+}
+export interface SocialCardProps {
+  group?: Group;
+  event?: SocialEvent;
+  preview?: "CREATE" | "DISPLAY" | undefined;
+  type: "GROUP" | "EVENT";
+  onCreatePress?: () => void;
+}
+export interface SocialBannerProps {
+  name: string;
+  id: string;
+  header?: boolean;
+  image?: string;
+  type?: "GROUP" | "EVENT";
+  onPress?: () => void;
+  count?: number | null;
+}
+export interface ReactionButtonProps {
+  type: "FIRE" | "HEART" | "COOL";
+  count: number;
+  onPress?: () => void;
+  state: "active" | "inactive";
+  initialReactionState: "FIRE" | "HEART" | "COOL" | null;
+}
+export interface UserListCardProps {
+  user: User;
+  dismissSheet: () => void;
+  isOwner: boolean;
+  type: "follower" | "following";
+}
+export interface CarTypeListItemProps {
+  onPress: () => void;
+  type: CarType;
+  colorScheme: "light" | "dark";
 }

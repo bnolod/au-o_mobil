@@ -1,11 +1,8 @@
 import {
   apiFetch,
-  followUser,
   getFollows,
-  unfollowUser,
 } from "@/lib/apiClient";
 import {
-  Car,
   CarResponse,
   PostResponse,
   User,
@@ -21,7 +18,6 @@ import Profile from "@/components/home/Profile";
 export default function UserProfile() {
   const [profile, setProfile] = useState<User>();
     const [garage, setGarage] = useState<CarResponse[]>();
-  
   const { language } = useLanguage();
   const { user } = useAuthentication();
   const { colorScheme } = useColorScheme();

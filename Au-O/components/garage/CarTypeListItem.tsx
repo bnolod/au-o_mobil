@@ -1,11 +1,11 @@
 import { ImageBackground, Pressable, View } from "react-native";
 import ThemedText from "@/components/ui/ThemedText";
-import { CarType } from "@/constants/types";
+import { CarType, CarTypeListItemProps } from "@/constants/types";
 import { Images } from "@/lib/staticAssetExports";
 import { getCarImage } from "../graphics/cars";
 import { Colors } from "@/constants/Colors";
 
-export default function CarTypeListItem({onPress, type, colorScheme}: {onPress: () => void, type: CarType, colorScheme: "light" | "dark"}) {
+export default function CarTypeListItem({onPress, type, colorScheme}: CarTypeListItemProps ) {
     return (
         <Pressable onPress={onPress} style={{
             shadowColor: Colors[colorScheme].background,

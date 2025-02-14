@@ -1,5 +1,4 @@
 import { View } from "react-native";
-import ThemedText from "@/components/ui/ThemedText";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Button from "../ui/Button";
 import SheetSelection from "../ui/SheetSelection";
@@ -23,7 +22,7 @@ export default function SocialSort({colorScheme, language}: CommonStaticElementP
                         bannerImage: null,
                         name: "My Groups",
                     }] ,
-                    renderItem: ({ item }) => <SocialSortItem bannerImage={item.bannerImage} memberCount={null} name={item.name} onSelect={() => {setSelected(item.name); }} />,
+                    renderItem: ({ item }) => <SocialSortItem bannerImage={item.bannerImage} memberCount={1} name={item.name} onSelect={() => {setSelected(item.name); }} />,
                     keyExtractor: (item) => item,
                     
                 }} 

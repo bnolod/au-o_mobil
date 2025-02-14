@@ -15,16 +15,6 @@ const SvgHatch = (props: SvgProps) => (
       strokeOpacity={1}
       transform="matrix(1.21388 0 0 1.21388 -16.397 -76.368)"
     >
-      <Circle
-        cx={111.577}
-        cy={128.028}
-        r={0.015}
-        fill="#000"
-        stroke={props.stroke}
-        strokeWidth={0.957967}
-        strokeDasharray="none"
-        strokeOpacity={1}
-      />
       <Path
         d="m89.877 131.5-40.49.046"
         opacity={1}
@@ -32,7 +22,7 @@ const SvgHatch = (props: SvgProps) => (
         fillOpacity={1}
         fillRule="nonzero"
         stroke={props.stroke}
-        strokeWidth={0.789175}
+        strokeWidth={props.strokeWidth as number * 0.789175}
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeDasharray="none"
@@ -45,7 +35,7 @@ const SvgHatch = (props: SvgProps) => (
         fillOpacity={1}
         fillRule="nonzero"
         stroke={props.stroke}
-        strokeWidth={0.957967}
+        strokeWidth={props.strokeWidth as number * 0.957967}
         strokeDasharray="none"
         strokeOpacity={1}
       />
@@ -56,7 +46,7 @@ const SvgHatch = (props: SvgProps) => (
         fillOpacity={1}
         fillRule="nonzero"
         stroke={props.stroke}
-        strokeWidth={0.789175}
+        strokeWidth={props.strokeWidth as number * 0.789175}
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeDasharray="none"
@@ -69,7 +59,7 @@ const SvgHatch = (props: SvgProps) => (
         fillOpacity={1}
         fillRule="nonzero"
         stroke={props.stroke}
-        strokeWidth={0.789175}
+        strokeWidth={props.strokeWidth as number * 0.789175}
         strokeLinecap="round"
         strokeDasharray="none"
         strokeOpacity={1}
@@ -81,7 +71,7 @@ const SvgHatch = (props: SvgProps) => (
         fillOpacity={1}
         fillRule="nonzero"
         stroke={props.stroke}
-        strokeWidth={0.957967}
+        strokeWidth={props.strokeWidth as number * 0.957967}
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeDasharray="none"
@@ -94,7 +84,7 @@ const SvgHatch = (props: SvgProps) => (
         fillOpacity={1}
         fillRule="nonzero"
         stroke={props.stroke}
-        strokeWidth={0.789175}
+        strokeWidth={props.strokeWidth as number * 0.789175}
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeDasharray="none"
@@ -104,7 +94,7 @@ const SvgHatch = (props: SvgProps) => (
         d="m123.152 117.08-4.315-.506-6.395.524 3.66 2.217c2.02.86 5.83.866 7.119.156"
         fill="none"
         stroke={props.stroke}
-        strokeWidth={0.526117}
+        strokeWidth={props.strokeWidth as number * 0.526117}
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeDasharray="none"
@@ -114,7 +104,7 @@ const SvgHatch = (props: SvgProps) => (
         d="m17.506 114.891 2.986.576 1.45 4.812-3.985.186"
         fill="none"
         stroke={props.stroke}
-        strokeWidth={0.638645}
+        strokeWidth={props.strokeWidth as number * 0.638645}
         strokeLinecap="round"
         strokeDasharray="none"
         strokeOpacity={1}
@@ -123,7 +113,7 @@ const SvgHatch = (props: SvgProps) => (
         d="M52.174 129.397h35.258M16.847 127.273l6.049.893"
         fill="none"
         stroke={props.stroke}
-        strokeWidth={0.526117}
+        strokeWidth={props.strokeWidth as number * 0.526117}
         strokeLinecap="round"
         strokeDasharray="none"
         strokeOpacity={1}
@@ -132,7 +122,7 @@ const SvgHatch = (props: SvgProps) => (
         d="M116.193 128.493a21.8 21.8 0 0 0 4.968-.564"
         fill="none"
         stroke={props.stroke}
-        strokeWidth={0.526117}
+        strokeWidth={props.strokeWidth as number * 0.526117}
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeDasharray="none"
@@ -142,7 +132,7 @@ const SvgHatch = (props: SvgProps) => (
         d="m19.564 117.919-1.567-.028"
         fill="none"
         stroke={props.stroke}
-        strokeWidth={0.638645}
+        strokeWidth={props.strokeWidth as number * 0.638645}
         strokeLinecap="round"
         strokeDasharray="none"
         strokeOpacity={1}
@@ -151,7 +141,7 @@ const SvgHatch = (props: SvgProps) => (
         d="m20 108.939 18.91 1.118 59.156.324"
         fill="none"
         stroke={props.stroke}
-        strokeWidth={0.526117}
+        strokeWidth={props.strokeWidth as number * 0.526117}
         strokeLinecap="round"
         strokeMiterlimit={3.9}
         strokeDasharray="none"
@@ -163,7 +153,7 @@ const SvgHatch = (props: SvgProps) => (
         r={9.626}
         fill="none"
         stroke={props.stroke}
-        strokeWidth={0.789175}
+        strokeWidth={props.strokeWidth as number * 0.789175}
         strokeLinecap="butt"
         strokeDasharray="none"
         strokeOpacity={1}
@@ -174,7 +164,7 @@ const SvgHatch = (props: SvgProps) => (
         r={8.141}
         fill="none"
         stroke={props.stroke}
-        strokeWidth={0.526117}
+        strokeWidth={props.strokeWidth as number * 0.526117}
         strokeLinecap="butt"
         strokeDasharray="none"
         strokeOpacity={1}
@@ -190,7 +180,7 @@ const SvgHatch = (props: SvgProps) => (
           r={7.976}
           fill="none"
           stroke={props.stroke}
-          strokeWidth={0.653893}
+          strokeWidth={props.strokeWidth as number * 0.653893}
           strokeLinecap="butt"
           strokeDasharray="none"
           strokeOpacity={1}
@@ -201,7 +191,7 @@ const SvgHatch = (props: SvgProps) => (
           r={6.746}
           fill="none"
           stroke={props.stroke}
-          strokeWidth={0.553492}
+          strokeWidth={props.strokeWidth as number * 0.553492}
           strokeLinecap="butt"
           strokeDasharray="none"
           strokeOpacity={1}
@@ -216,7 +206,7 @@ const SvgHatch = (props: SvgProps) => (
           d="M68.385 115.367h5.1"
           fill="none"
           stroke={props.stroke}
-          strokeWidth={0.871857}
+          strokeWidth={props.strokeWidth as number * 0.871857}
           strokeLinecap="round"
           strokeDasharray="none"
           strokeOpacity={1}
@@ -229,7 +219,7 @@ const SvgHatch = (props: SvgProps) => (
           fill="none"
           fillOpacity={1}
           stroke={props.stroke}
-          strokeWidth={0.687739}
+          strokeWidth={props.strokeWidth as number * 0.687739}
           strokeLinecap="round"
           strokeDasharray="none"
           strokeOpacity={1}
@@ -240,7 +230,7 @@ const SvgHatch = (props: SvgProps) => (
         fill="none"
         fillOpacity={1}
         stroke={props.stroke}
-        strokeWidth={0.526117}
+        strokeWidth={props.strokeWidth as number * 0.526117}
         strokeLinecap="round"
         strokeDasharray="none"
         strokeOpacity={1}
@@ -254,7 +244,7 @@ const SvgHatch = (props: SvgProps) => (
           d="M68.385 115.367h5.1"
           fill="none"
           stroke={props.stroke}
-          strokeWidth={0.871857}
+          strokeWidth={props.strokeWidth as number * 0.871857}
           strokeLinecap="round"
           strokeDasharray="none"
           strokeOpacity={1}
@@ -267,7 +257,7 @@ const SvgHatch = (props: SvgProps) => (
           fill="none"
           fillOpacity={1}
           stroke={props.stroke}
-          strokeWidth={0.687739}
+          strokeWidth={props.strokeWidth as number * 0.687739}
           strokeLinecap="round"
           strokeDasharray="none"
           strokeOpacity={1}

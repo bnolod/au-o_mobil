@@ -1,9 +1,6 @@
 import Button from "@/components/ui/Button";
 import ThemedText from "@/components/ui/ThemedText";
 import {
-  Image,
-  Modal,
-  Pressable,
   ScrollView,
   Text,
   TouchableOpacity,
@@ -11,17 +8,16 @@ import {
 } from "react-native";
 import {
   followUser,
-  logout,
   unfollowUser,
   updateBio,
   updateNickname,
   updateProfilePicture,
 } from "@/lib/apiClient";
 import {
-  Car,
   CarResponse,
   CommonStaticElementProps,
   PostResponse,
+  ProfileProps,
   User,
 } from "@/constants/types";
 import { useRef, useState } from "react";
@@ -30,22 +26,19 @@ import UserLoading from "@/components/auth/UserLoading";
 import RootHeader from "@/components/home/RootHeader";
 import Avatar from "@/components/ui/Avatar";
 import {
-  boros_manifesto,
   generalTexts,
   SocialTexts,
   UserEditTexts,
 } from "@/constants/texts";
-import { handleShowMore, handleTabSelection } from "@/lib/events";
+import {  handleTabSelection } from "@/lib/events";
 import * as ImagePicker from "expo-image-picker";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Colors, Styles } from "@/constants/Colors";
-import { FlashList } from "@shopify/flash-list";
 import { createImageForm, createTimestamp } from "@/lib/functions";
 import Toast from "react-native-toast-message";
 import TextEditModal from "./TextEditModal";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import FollowerSheet from "./FollowerSheet";
-import NoPostsFound from "./NoPostsFound";
 import CollapsibleText from "../ui/CollapsibleText";
 import PostGrid from "../social/PostGrid";
 import GarageList from "../garage/GarageList";
@@ -62,17 +55,9 @@ export default function Profile({
   setFollowers,
   following,
   setFollowing,
-}: {
-  user: User;
-  profile: User;
-  id: string;
-  garage: CarResponse[];
-  followers: User[];
-  following: User[];
-  posts: PostResponse[];
-  setFollowers: (users: User[]) => void;
-  setFollowing: (users: User[]) => void;
-} & CommonStaticElementProps) {
+}: 
+  ProfileProps
+ & CommonStaticElementProps) {
   const [bioEdit, setBioEdit] = useState<boolean>(false);
   const [bioValue, setBioValue] = useState<string>(profile.bio);
 

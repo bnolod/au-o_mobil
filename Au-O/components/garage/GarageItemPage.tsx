@@ -6,10 +6,11 @@ import { Colors } from "@/constants/Colors";
 import PostGrid from "../social/PostGrid";
 import CollapsibleText from "../ui/CollapsibleText";
 import { getCarImage } from "../graphics/cars";
-import { Car, CommonStaticElementProps } from "@/constants/types";
+import { CommonStaticElementProps, GarageItemPageProps } from "@/constants/types";
 import { generalTexts, SocialTexts } from "@/constants/texts";
+import { router } from "expo-router";
 
-export default function GarageItemPage({colorScheme, isOwner, car, language, profileImg} : {car: Car, isOwner: boolean, profileImg: string} & CommonStaticElementProps) {
+export default function GarageItemPage({colorScheme, isOwner, car, language, profileImg} : GarageItemPageProps & CommonStaticElementProps) {
     return (    
     <View className="flex-col h-screen flex background">
     <View className="secondary">
@@ -28,6 +29,14 @@ export default function GarageItemPage({colorScheme, isOwner, car, language, pro
           <ThemedText className="text-xl font-semibold">
             {car.model}
           </ThemedText>
+          {
+            isOwner && (
+              <MaterialCommunityIcons
+                name="pencil"
+                size={24}
+                color={Colors[colorScheme!].text} onPress={() => router.push({pathname: "/(garage)/edit/[id]", params: {id: car.id}})}/>
+            )
+          }
         </View>
       </View>
       <View className=" flex flex-row justify-evenly py-3">

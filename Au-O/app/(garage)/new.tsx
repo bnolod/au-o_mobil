@@ -52,6 +52,7 @@ export default function newCar() {
       >
         <View>
           <GarageItem
+          isOwner={false}
             car={{
               description: "PLACEHOLDER",
               displacement:

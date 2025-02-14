@@ -1,10 +1,7 @@
-import { Text, TouchableOpacity, View } from "react-native";
-import ThemedText from "./ThemedText";
+import { View } from "react-native";
 import { Comment } from "@/constants/types";
 
 import Avatar from "./Avatar";
-import { useState } from "react";
-import * as Haptics from 'expo-haptics'
 import CollapsibleText from "./CollapsibleText";
 export default function CommentDisplayElement({
   item

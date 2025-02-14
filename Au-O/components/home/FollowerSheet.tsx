@@ -1,13 +1,11 @@
 import { BottomSheetFlashList, BottomSheetModal } from "@gorhom/bottom-sheet";
 import UserListCard from "../ui/UserListCard";
-import { CommonStaticElementProps, User } from "@/constants/types";
+import { CommonStaticElementProps, FollowerSheetProps, User } from "@/constants/types";
 import { Colors } from "@/constants/Colors";
 import ThemedText from "../ui/ThemedText";
 import { TouchableOpacity, View } from "react-native";
-import Button from "../ui/Button";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useState } from "react";
-import { BottomSheetModalRef } from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheetModalProvider/types";
 import { SocialTexts } from "@/constants/texts";
 
 export default function FollowerSheet({
@@ -17,7 +15,7 @@ export default function FollowerSheet({
   language,
   isOwner,
   dismissSheet
-}: { followers: User[]; following: User[], dismissSheet: () => void, isOwner: boolean } & CommonStaticElementProps) {
+}: FollowerSheetProps  & CommonStaticElementProps) {
     const [data, setData] = useState<User[]>(followers);
   return (
     <BottomSheetFlashList
@@ -54,7 +52,7 @@ export default function FollowerSheet({
                 <ThemedText className="text-lg mt-24 font-bold text-center p-2">{SocialTexts.followers.generals.empty[language]}</ThemedText>
             </View>
         )}
-      renderItem={({ item, index }) => (
+      renderItem={({ item }) => (
         <UserListCard
         isOwner={isOwner}
         dismissSheet={dismissSheet}

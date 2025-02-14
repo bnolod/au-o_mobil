@@ -9,7 +9,6 @@ import { useState } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Colors } from "@/constants/Colors";
 import { InputProps } from "@/constants/types";
-
 export default function Input({
   label,
   containerClassName,

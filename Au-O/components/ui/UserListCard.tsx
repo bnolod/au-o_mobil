@@ -1,4 +1,4 @@
-import { CommonStaticElementProps, User } from "@/constants/types";
+import { CommonStaticElementProps, User, UserListCardProps } from "@/constants/types";
 import {
   Alert,
   AlertButton,
@@ -8,11 +8,9 @@ import {
 } from "react-native";
 import Avatar from "./Avatar";
 import ThemedText from "./ThemedText";
-import Button from "./Button";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Colors } from "@/constants/Colors";
 import { router } from "expo-router";
-import { BottomSheetModalRef } from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheetModalProvider/types";
 import { removeFollow, unfollowUser } from "@/lib/apiClient";
 import Toast from "react-native-toast-message";
 import { useState } from "react";
@@ -24,12 +22,7 @@ export default function UserListCard({
   isOwner,
   type,
   dismissSheet,
-}: {
-  user: User;
-  dismissSheet: () => void;
-  isOwner: boolean;
-  type: "follower" | "following";
-} & CommonStaticElementProps) {
+}: UserListCardProps & CommonStaticElementProps) {
   const [isVisible, setVisible] = useState(true);
   const buttons: AlertButton[][] = [
     [

@@ -1,9 +1,8 @@
-import { Image, ImageBackground, Pressable, View } from "react-native";
+import { ImageBackground, Pressable, View } from "react-native";
 import ThemedText from "@/components/ui/ThemedText";
 import { Images } from "@/lib/staticAssetExports";
 import { Colors } from "@/constants/Colors";
-import { colorScheme } from "nativewind";
-import { Car } from "@/constants/types";
+import { CommonStaticElementProps, GarageItemProps } from "@/constants/types";
 import { getCarImage } from "../graphics/cars";
 import { router } from "expo-router";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -15,14 +14,7 @@ export default function GarageItem({
   onPress,
   onSelect,
   isOwner,
-}: {
-  car: Car;
-  language: "EN" | "HU";
-  colorScheme: "light" | "dark";
-  onSelect?: () => void;
-  onPress?: () => void;
-  isOwner?: boolean;
-}) {
+}: GarageItemProps & CommonStaticElementProps) {
   return (
     <>
       <Pressable

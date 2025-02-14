@@ -12,16 +12,7 @@ const SvgPickup = (props: SvgProps) => (
   >
     <Defs></Defs>
     <G transform="matrix(1.21388 0 0 1.21388 -16.397 -76.439)">
-      <Circle
-      cx={114.106}
-      cy={128.739}
-      r={0.012}
-      fill="none"
-      stroke={props.stroke}
-      strokeWidth={0.79375}
-      strokeDasharray="none"
-      strokeOpacity={1}
-      />
+      
       <Path
       d="m96.126 131.616-48.425.037"
       opacity={1}
@@ -29,7 +20,7 @@ const SvgPickup = (props: SvgProps) => (
       fillOpacity={1}
       fillRule="nonzero"
       stroke={props.stroke}
-      strokeWidth={0.653893}
+      strokeWidth={props.strokeWidth as number * 0.653893}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeDasharray="none"
@@ -42,7 +33,7 @@ const SvgPickup = (props: SvgProps) => (
       fillOpacity={1}
       fillRule="nonzero"
       stroke={props.stroke}
-      strokeWidth={0.79375}
+      strokeWidth={props.strokeWidth as number * 0.79375}
       strokeDasharray="none"
       strokeOpacity={1}
       />
@@ -53,7 +44,7 @@ const SvgPickup = (props: SvgProps) => (
       fillOpacity={1}
       fillRule="nonzero"
       stroke={props.stroke}
-      strokeWidth={0.653893}
+      strokeWidth={props.strokeWidth as number * 0.653893}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeDasharray="none"
@@ -66,7 +57,7 @@ const SvgPickup = (props: SvgProps) => (
       fillOpacity={1}
       fillRule="nonzero"
       stroke={props.stroke}
-      strokeWidth={0.653893}
+      strokeWidth={props.strokeWidth as number * 0.653893}
       strokeLinecap="round"
       strokeDasharray="none"
       strokeOpacity={1}
@@ -78,7 +69,7 @@ const SvgPickup = (props: SvgProps) => (
       fillOpacity={1}
       fillRule="nonzero"
       stroke={props.stroke}
-      strokeWidth={0.79375}
+      strokeWidth={props.strokeWidth as number * 0.79375}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeDasharray="none"
@@ -90,7 +81,7 @@ const SvgPickup = (props: SvgProps) => (
       fill="none"
       fillOpacity={1}
       stroke={props.stroke}
-      strokeWidth={0.653893}
+      strokeWidth={props.strokeWidth as number * 0.653893}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeDasharray="none"
@@ -100,7 +91,7 @@ const SvgPickup = (props: SvgProps) => (
       d="m123.696 119.668-3.575-.42-1.675.843-.592 1.429c1.675.712 4.831.717 5.9.128"
       fill="none"
       stroke={props.stroke}
-      strokeWidth={0.435929}
+      strokeWidth={props.strokeWidth as number * 0.435929}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeDasharray="none"
@@ -112,7 +103,7 @@ const SvgPickup = (props: SvgProps) => (
       d="m16.881 115.903 2.474.477 1.202 3.987-3.302.154"
       fill="none"
       stroke={props.stroke}
-      strokeWidth={0.529167}
+      strokeWidth={props.strokeWidth as number * 0.529167}
       strokeLinecap="round"
       strokeDasharray="none"
       strokeOpacity={1}
@@ -123,7 +114,7 @@ const SvgPickup = (props: SvgProps) => (
       d="M49.526 129.873H94.1M15.525 126.817l10.253 2.05"
       fill="none"
       stroke={props.stroke}
-      strokeWidth={0.435929}
+      strokeWidth={props.strokeWidth as number * 0.435929}
       strokeLinecap="round"
       strokeDasharray="none"
       strokeOpacity={1}
@@ -132,7 +123,7 @@ const SvgPickup = (props: SvgProps) => (
       d="M117.93 129.125c2.176.023 4.117-.468 4.117-.468"
       fill="none"
       stroke={props.stroke}
-      strokeWidth={0.435929}
+      strokeWidth={props.strokeWidth as number * 0.435929}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeDasharray="none"
@@ -142,7 +133,7 @@ const SvgPickup = (props: SvgProps) => (
       d="m18.855 118.18-1.297-.023"
       fill="none"
       stroke={props.stroke}
-      strokeWidth={0.529167}
+      strokeWidth={props.strokeWidth as number * 0.529167}
       strokeLinecap="round"
       strokeDasharray="none"
       strokeOpacity={1}
@@ -153,7 +144,7 @@ const SvgPickup = (props: SvgProps) => (
       d="m31.805 113.394 9.312.182 50.003.272"
       fill="none"
       stroke={props.stroke}
-      strokeWidth={0.653893}
+      strokeWidth={props.strokeWidth as number * 0.653893}
       strokeLinecap="round"
       strokeMiterlimit={3.9}
       strokeDasharray="none"
@@ -165,7 +156,7 @@ const SvgPickup = (props: SvgProps) => (
       r={7.976}
       fill="none"
       stroke={props.stroke}
-      strokeWidth={0.653893}
+      strokeWidth={props.strokeWidth as number * 0.653893}
       strokeLinecap="butt"
       strokeDasharray="none"
       strokeOpacity={1}
@@ -176,7 +167,7 @@ const SvgPickup = (props: SvgProps) => (
       r={6.746}
       fill="none"
       stroke={props.stroke}
-      strokeWidth={0.435929}
+      strokeWidth={props.strokeWidth as number * 0.435929}
       strokeLinecap="butt"
       strokeDasharray="none"
       strokeOpacity={1}
@@ -193,7 +184,7 @@ const SvgPickup = (props: SvgProps) => (
         r={7.976}
         fill="none"
         stroke={props.stroke}
-        strokeWidth={0.653893}
+        strokeWidth={props.strokeWidth as number * 0.653893}
         strokeLinecap="butt"
         strokeDasharray="none"
         strokeOpacity={1}
@@ -204,7 +195,7 @@ const SvgPickup = (props: SvgProps) => (
         r={6.746}
         fill="none"
         stroke={props.stroke}
-        strokeWidth={0.553492}
+        strokeWidth={props.strokeWidth as number * 0.553492}
         strokeLinecap="butt"
         strokeDasharray="none"
         strokeOpacity={1}
@@ -220,7 +211,7 @@ const SvgPickup = (props: SvgProps) => (
         d="M68.385 115.367h5.1"
         fill="none"
         stroke={props.stroke}
-        strokeWidth={0.871857}
+        strokeWidth={props.strokeWidth as number * 0.871857}
         strokeLinecap="round"
         strokeDasharray="none"
         strokeOpacity={1}
@@ -233,7 +224,7 @@ const SvgPickup = (props: SvgProps) => (
         fill="none"
         fillOpacity={1}
         stroke={props.stroke}
-        strokeWidth={0.687739}
+        strokeWidth={props.strokeWidth as number * 0.687739}
         strokeLinecap="round"
         strokeDasharray="none"
         strokeOpacity={1}
@@ -246,7 +237,7 @@ const SvgPickup = (props: SvgProps) => (
       fillOpacity={1}
       fillRule="nonzero"
       stroke={props.stroke}
-      strokeWidth={0.653893}
+      strokeWidth={props.strokeWidth as number * 0.653893}
       strokeLinecap="round"
       strokeDasharray="none"
       strokeOpacity={1}
@@ -256,7 +247,7 @@ const SvgPickup = (props: SvgProps) => (
       fill="none"
       fillOpacity={1}
       stroke={props.stroke}
-      strokeWidth={0.793965}
+      strokeWidth={props.strokeWidth as number * 0.793965}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeMiterlimit={3.9}

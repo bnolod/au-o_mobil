@@ -2,7 +2,6 @@ import {
   Alert,
   Dimensions,
   Keyboard,
-  KeyboardAvoidingView,
   Pressable,
   Text,
   TouchableOpacity,
@@ -17,11 +16,9 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Colors } from "@/constants/Colors";
 import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
 import { DeleteComment, sendReply } from "@/lib/apiClient";
-
 import ReplyItem from "./Reply";
 import Toast from "react-native-toast-message";
 import { FlashList } from "@shopify/flash-list";
-
 import { CommentTexts } from "@/constants/texts";
 import CollapsibleText from "./CollapsibleText";
 export default function CommentElement({

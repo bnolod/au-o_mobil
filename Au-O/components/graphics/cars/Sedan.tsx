@@ -16,7 +16,7 @@ const SvgSedan = (props: SvgProps) => (
       cy={126.905}
       r={0.012}
       stroke={props.stroke}
-      strokeWidth={0.79375}
+      strokeWidth={props.strokeWidth as number * 0.79375}
       strokeDasharray="none"
       strokeOpacity={1}
       />
@@ -27,7 +27,7 @@ const SvgSedan = (props: SvgProps) => (
       fillOpacity={1}
       fillRule="nonzero"
       stroke={props.stroke}
-      strokeWidth={0.653893}
+      strokeWidth={props.strokeWidth as number * 0.653893}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeDasharray="none"
@@ -40,7 +40,7 @@ const SvgSedan = (props: SvgProps) => (
       fillOpacity={1}
       fillRule="nonzero"
       stroke={props.stroke}
-      strokeWidth={0.79375}
+      strokeWidth={props.strokeWidth as number * 0.79375}
       strokeDasharray="none"
       strokeOpacity={1}
       />
@@ -51,7 +51,7 @@ const SvgSedan = (props: SvgProps) => (
       fillOpacity={1}
       fillRule="nonzero"
       stroke={props.stroke}
-      strokeWidth={0.653893}
+      strokeWidth={props.strokeWidth as number * 0.653893}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeDasharray="none"
@@ -64,7 +64,7 @@ const SvgSedan = (props: SvgProps) => (
       fillOpacity={1}
       fillRule="nonzero"
       stroke={props.stroke}
-      strokeWidth={0.653893}
+      strokeWidth={props.strokeWidth as number * 0.653893}
       strokeLinecap="round"
       strokeDasharray="none"
       strokeOpacity={1}
@@ -76,7 +76,7 @@ const SvgSedan = (props: SvgProps) => (
       fillOpacity={1}
       fillRule="nonzero"
       stroke={props.stroke}
-      strokeWidth={0.79375}
+      strokeWidth={props.strokeWidth as number * 0.79375}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeDasharray="none"
@@ -89,7 +89,7 @@ const SvgSedan = (props: SvgProps) => (
       fillOpacity={1}
       fillRule="nonzero"
       stroke={props.stroke}
-      strokeWidth={0.653893}
+      strokeWidth={props.strokeWidth as number * 0.653893}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeDasharray="none"
@@ -99,7 +99,7 @@ const SvgSedan = (props: SvgProps) => (
       d="m123.749 117.834-3.575-.42-5.3.434 3.033 1.837c1.674.713 4.83.718 5.899.13"
       fill="none"
       stroke={props.stroke}
-      strokeWidth={0.435929}
+      strokeWidth={props.strokeWidth as number * 0.435929}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeDasharray="none"
@@ -111,7 +111,7 @@ const SvgSedan = (props: SvgProps) => (
       d="m16.933 114.068 2.474.477 1.202 3.988-3.302.154"
       fill="none"
       stroke={props.stroke}
-      strokeWidth={0.529167}
+      strokeWidth={props.strokeWidth as number * 0.529167}
       strokeLinecap="round"
       strokeDasharray="none"
       strokeOpacity={1}
@@ -122,7 +122,7 @@ const SvgSedan = (props: SvgProps) => (
       d="M49.578 128.039h44.574M15.577 124.983l10.253 2.05"
       fill="none"
       stroke={props.stroke}
-      strokeWidth={0.435929}
+      strokeWidth={props.strokeWidth as number * 0.435929}
       strokeLinecap="round"
       strokeDasharray="none"
       strokeOpacity={1}
@@ -131,7 +131,7 @@ const SvgSedan = (props: SvgProps) => (
       d="M117.983 127.29c2.175.024 4.116-.467 4.116-.467"
       fill="none"
       stroke={props.stroke}
-      strokeWidth={0.435929}
+      strokeWidth={props.strokeWidth as number * 0.435929}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeDasharray="none"
@@ -141,7 +141,7 @@ const SvgSedan = (props: SvgProps) => (
       d="m18.908 116.346-1.298-.024"
       fill="none"
       stroke={props.stroke}
-      strokeWidth={0.529167}
+      strokeWidth={props.strokeWidth as number * 0.529167}
       strokeLinecap="round"
       strokeDasharray="none"
       strokeOpacity={1}
@@ -152,7 +152,7 @@ const SvgSedan = (props: SvgProps) => (
       d="m33.695 109.187 7.502 2.827h49.976"
       fill="none"
       stroke={props.stroke}
-      strokeWidth={0.435929}
+      strokeWidth={props.strokeWidth as number * 0.435929}
       strokeLinecap="round"
       strokeMiterlimit={3.9}
       strokeDasharray="none"
@@ -164,7 +164,7 @@ const SvgSedan = (props: SvgProps) => (
       r={7.976}
       fill="none"
       stroke={props.stroke}
-      strokeWidth={0.653893}
+      strokeWidth={props.strokeWidth as number * 0.653893}
       strokeLinecap="butt"
       strokeDasharray="none"
       strokeOpacity={1}
@@ -175,7 +175,7 @@ const SvgSedan = (props: SvgProps) => (
       r={6.746}
       fill="none"
       stroke={props.stroke}
-      strokeWidth={0.435929}
+      strokeWidth={props.strokeWidth as number * 0.435929}
       strokeLinecap="butt"
       strokeDasharray="none"
       strokeOpacity={1}
@@ -191,7 +191,7 @@ const SvgSedan = (props: SvgProps) => (
         r={7.976}
         fill="none"
         stroke={props.stroke}
-        strokeWidth={0.653893}
+        strokeWidth={props.strokeWidth as number * 0.653893}
         strokeLinecap="butt"
         strokeDasharray="none"
         strokeOpacity={1}
@@ -202,7 +202,7 @@ const SvgSedan = (props: SvgProps) => (
         r={6.746}
         fill="none"
         stroke={props.stroke}
-        strokeWidth={0.553492}
+        strokeWidth={props.strokeWidth as number * 0.553492}
         strokeLinecap="butt"
         strokeDasharray="none"
         strokeOpacity={1}
@@ -216,7 +216,7 @@ const SvgSedan = (props: SvgProps) => (
         d="M68.385 115.367h5.1"
         fill="none"
         stroke={props.stroke}
-        strokeWidth={0.871857}
+        strokeWidth={props.strokeWidth as number * 0.871857}
         strokeLinecap="round"
         strokeDasharray="none"
         strokeOpacity={1}
@@ -229,7 +229,7 @@ const SvgSedan = (props: SvgProps) => (
         fill="none"
         fillOpacity={1}
         stroke={props.stroke}
-        strokeWidth={0.687739}
+        strokeWidth={props.strokeWidth as number * 0.687739}
         strokeLinecap="round"
         strokeDasharray="none"
         strokeOpacity={1}
@@ -244,7 +244,7 @@ const SvgSedan = (props: SvgProps) => (
         d="M68.385 115.367h5.1"
         fill="none"
         stroke={props.stroke}
-        strokeWidth={0.871857}
+        strokeWidth={props.strokeWidth as number * 0.871857}
         strokeLinecap="round"
         strokeDasharray="none"
         strokeOpacity={1}
@@ -257,7 +257,7 @@ const SvgSedan = (props: SvgProps) => (
         fill="none"
         fillOpacity={1}
         stroke={props.stroke}
-        strokeWidth={0.687739}
+        strokeWidth={props.strokeWidth as number * 0.687739}
         strokeLinecap="round"
         strokeDasharray="none"
         strokeOpacity={1}
@@ -268,7 +268,7 @@ const SvgSedan = (props: SvgProps) => (
       fill="none"
       fillOpacity={1}
       stroke={props.stroke}
-      strokeWidth={0.435929}
+      strokeWidth={props.strokeWidth as number * 0.435929}
       strokeLinecap="round"
       strokeDasharray="none"
       strokeOpacity={1}

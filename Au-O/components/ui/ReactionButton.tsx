@@ -1,6 +1,7 @@
 import { formatNumber } from "@/lib/functions";
 import Button from "./Button";
 import ThemedText from "./ThemedText";
+import { ReactionButtonProps } from "@/constants/types";
 
 export default function ReactionButton({
   type = "FIRE",
@@ -8,13 +9,7 @@ export default function ReactionButton({
   onPress,
   state = "inactive",
   initialReactionState,
-}: {
-  type: "FIRE" | "HEART" | "COOL";
-  count?: number;
-  onPress?: () => void;
-  state?: "active" | "inactive";
-  initialReactionState: null | "FIRE" | "HEART" | "COOL";
-}) {
+}: ReactionButtonProps) {
   const disabled =
     initialReactionState !== null && initialReactionState !== type;
   return (

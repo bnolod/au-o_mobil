@@ -18,7 +18,7 @@ const SvgRoadster = (props: SvgProps) => (
       fill="none"
       fillOpacity={1}
       stroke={props.stroke}
-      strokeWidth={0.79375}
+      strokeWidth={props.strokeWidth as number * 0.79375}
       strokeDasharray="none"
       strokeOpacity={1}
       />
@@ -29,7 +29,7 @@ const SvgRoadster = (props: SvgProps) => (
       fillOpacity={1}
       fillRule="nonzero"
       stroke={props.stroke}
-      strokeWidth={0.653893}
+      strokeWidth={props.strokeWidth as number * 0.653893}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeDasharray="none"
@@ -42,7 +42,7 @@ const SvgRoadster = (props: SvgProps) => (
       fillOpacity={1}
       fillRule="nonzero"
       stroke={props.stroke}
-      strokeWidth={0.79375}
+      strokeWidth={props.strokeWidth as number * 0.79375}
       strokeDasharray="none"
       strokeOpacity={1}
       />
@@ -53,7 +53,7 @@ const SvgRoadster = (props: SvgProps) => (
       fillOpacity={1}
       fillRule="nonzero"
       stroke={props.stroke}
-      strokeWidth={0.653893}
+      strokeWidth={props.strokeWidth as number * 0.653893}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeDasharray="none"
@@ -66,7 +66,7 @@ const SvgRoadster = (props: SvgProps) => (
       fillOpacity={1}
       fillRule="nonzero"
       stroke={props.stroke}
-      strokeWidth={0.653893}
+      strokeWidth={props.strokeWidth as number * 0.653893}
       strokeLinecap="round"
       strokeDasharray="none"
       strokeOpacity={1}
@@ -78,7 +78,7 @@ const SvgRoadster = (props: SvgProps) => (
       fillOpacity={1}
       fillRule="nonzero"
       stroke={props.stroke}
-      strokeWidth={0.79375}
+      strokeWidth={props.strokeWidth as number * 0.79375}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeDasharray="none"
@@ -91,7 +91,7 @@ const SvgRoadster = (props: SvgProps) => (
       fillOpacity={1}
       fillRule="nonzero"
       stroke={props.stroke}
-      strokeWidth={0.653893}
+      strokeWidth={props.strokeWidth as number * 0.653893}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeDasharray="none"
@@ -102,7 +102,7 @@ const SvgRoadster = (props: SvgProps) => (
       fill="none"
       fillOpacity={1}
       stroke={props.stroke}
-      strokeWidth={0.435929}
+      strokeWidth={props.strokeWidth as number * 0.435929}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeDasharray="none"
@@ -115,7 +115,7 @@ const SvgRoadster = (props: SvgProps) => (
       fill="none"
       fillOpacity={1}
       stroke={props.stroke}
-      strokeWidth={0.529167}
+      strokeWidth={props.strokeWidth as number * 0.529167}
       strokeLinecap="round"
       strokeDasharray="none"
       strokeOpacity={1}
@@ -127,7 +127,7 @@ const SvgRoadster = (props: SvgProps) => (
       fill="none"
       fillOpacity={1}
       stroke={props.stroke}
-      strokeWidth={0.435929}
+      strokeWidth={props.strokeWidth as number * 0.435929}
       strokeLinecap="round"
       strokeDasharray="none"
       strokeOpacity={1}
@@ -137,7 +137,7 @@ const SvgRoadster = (props: SvgProps) => (
       fill="none"
       fillOpacity={1}
       stroke={props.stroke}
-      strokeWidth={0.435929}
+      strokeWidth={props.strokeWidth as number * 0.435929}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeDasharray="none"
@@ -148,7 +148,7 @@ const SvgRoadster = (props: SvgProps) => (
       fill="none"
       fillOpacity={1}
       stroke={props.stroke}
-      strokeWidth={0.529167}
+      strokeWidth={props.strokeWidth as number * 0.529167}
       strokeLinecap="round"
       strokeDasharray="none"
       strokeOpacity={1}
@@ -160,7 +160,7 @@ const SvgRoadster = (props: SvgProps) => (
       fill="none"
       fillOpacity={1}
       stroke={props.stroke}
-      strokeWidth={0.435929}
+      strokeWidth={props.strokeWidth as number * 0.435929}
       strokeLinecap="round"
       strokeMiterlimit={3.9}
       strokeDasharray="none"
@@ -173,7 +173,7 @@ const SvgRoadster = (props: SvgProps) => (
       fill="none"
       fillOpacity={1}
       stroke={props.stroke}
-      strokeWidth={0.653893}
+      strokeWidth={props.strokeWidth as number * 0.653893}
       strokeLinecap="butt"
       strokeDasharray="none"
       strokeOpacity={1}
@@ -185,7 +185,7 @@ const SvgRoadster = (props: SvgProps) => (
       fill="none"
       fillOpacity={1}
       stroke={props.stroke}
-      strokeWidth={0.435929}
+      strokeWidth={props.strokeWidth as number * 0.435929}
       strokeLinecap="butt"
       strokeDasharray="none"
       strokeOpacity={1}
@@ -204,7 +204,7 @@ const SvgRoadster = (props: SvgProps) => (
         fill="none"
         fillOpacity={1}
         stroke={props.stroke}
-        strokeWidth={0.653893}
+        strokeWidth={props.strokeWidth as number * 0.653893}
         strokeLinecap="butt"
         strokeDasharray="none"
         strokeOpacity={1}
@@ -216,7 +216,7 @@ const SvgRoadster = (props: SvgProps) => (
         fill="none"
         fillOpacity={1}
         stroke={props.stroke}
-        strokeWidth={0.553492}
+        strokeWidth={props.strokeWidth as number * 0.553492}
         strokeLinecap="butt"
         strokeDasharray="none"
         strokeOpacity={1}
@@ -234,7 +234,7 @@ const SvgRoadster = (props: SvgProps) => (
         fill="none"
         fillOpacity={1}
         stroke={props.stroke}
-        strokeWidth={0.871857}
+        strokeWidth={props.strokeWidth as number * 0.871857}
         strokeLinecap="round"
         strokeDasharray="none"
         strokeOpacity={1}
@@ -247,7 +247,7 @@ const SvgRoadster = (props: SvgProps) => (
         fill="none"
         fillOpacity={1}
         stroke={props.stroke}
-        strokeWidth={0.687739}
+        strokeWidth={props.strokeWidth as number * 0.687739}
         strokeLinecap="round"
         strokeDasharray="none"
         strokeOpacity={1}
@@ -258,7 +258,7 @@ const SvgRoadster = (props: SvgProps) => (
       fill="none"
       fillOpacity={1}
       stroke={props.stroke}
-      strokeWidth={0.435929}
+      strokeWidth={props.strokeWidth as number * 0.435929}
       strokeLinecap="round"
       strokeDasharray="none"
       strokeOpacity={1}

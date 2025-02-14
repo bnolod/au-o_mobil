@@ -1,12 +1,11 @@
 import { Image, Pressable, View } from "react-native";
-import ThemedText from "@/components/ui/ThemedText";
 import { router } from "expo-router";
 import { FlashList } from "@shopify/flash-list";
 import NoPostsFound from "../home/NoPostsFound";
-import { PostResponse } from "@/constants/types";
+import { CommonStaticElementProps, PostResponse } from "@/constants/types";
 import { Colors } from "@/constants/Colors";
 
-export default function PostGrid({colorScheme, language, posts} : {colorScheme: "light" | "dark", language: "EN" | "HU", posts: PostResponse[]}) {
+export default function PostGrid({colorScheme, language, posts} : {posts: PostResponse[]} & CommonStaticElementProps) {
 
     return (
         <View className=" ml-2  mt-4">

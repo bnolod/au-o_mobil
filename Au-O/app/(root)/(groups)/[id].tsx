@@ -1,6 +1,4 @@
 import GroupPage from "@/components/social/groups/GroupPage";
-import ThemedText from "@/components/ui/ThemedText";
-import { Images } from "@/lib/staticAssetExports";
 import { useColorScheme } from "nativewind";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { ScrollView } from "react-native";
@@ -8,12 +6,10 @@ import { useEffect, useState } from "react";
 import { Group } from "@/constants/types";
 import { getGroup } from "@/lib/apiClient";
 import { router, useLocalSearchParams } from "expo-router";
-import { useAuthentication } from "@/contexts/AuthenticationContext";
 import LoadingModal from "@/components/ui/LoadingModal";
 
 export default function GroupDisplay() {
   const { language } = useLanguage();
-  const {user } = useAuthentication();
   const { id} = useLocalSearchParams()
   const { colorScheme } = useColorScheme();
   const [group, setGroup] = useState<Group | undefined | null>(undefined);
