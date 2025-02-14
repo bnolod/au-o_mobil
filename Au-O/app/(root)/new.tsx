@@ -27,7 +27,11 @@ import { BottomSheetModal, BottomSheetView } from "@gorhom/bottom-sheet";
 import { PostCreationTexts } from "@/constants/texts";
 import ImageNotFound from "@/components/new/ImageNotFound";
 import PostCard from "@/components/home/Post";
-import { ImageStoreRequest, ImageUploadResponse } from "@/constants/types";
+import {
+  CarResponse,
+  ImageStoreRequest,
+  ImageUploadResponse,
+} from "@/constants/types";
 import { useAuthentication } from "@/contexts/AuthenticationContext";
 import {
   cleanupInvalidImageUploads,
@@ -36,31 +40,46 @@ import {
   createTimestamp,
   handleGallery,
 } from "@/lib/functions";
-import { imageUpload, storeImages } from "@/lib/apiClient";
+import {
+  getOwnCars,
+  getOwnGarage,
+  imageUpload,
+  storeImages,
+} from "@/lib/apiClient";
 import Toast from "react-native-toast-message";
 import LoadingModal from "@/components/ui/LoadingModal";
 import { router } from "expo-router";
-import SheetSelection from "@/components/ui/SheetSelection";
+import SheetSelection, {
+  SheetSelectionRef,
+} from "@/components/ui/SheetSelection";
 import PostCreationSheetSelectElements from "@/components/new/PostCreationSheetSelectElement";
 import SearchBar from "@/components/ui/SearchBar";
 import FilterBar from "@/components/ui/FilterBar";
+import SheetSelectionListItemToggleWrapper from "@/components/utility/SheetSelectionListToggleItemWrapper";
+import GarageItem from "@/components/garage/GarageItem";
 export default function NewPost() {
   const { language } = useLanguage();
   const { user } = useAuthentication();
   const { colorScheme } = useColorScheme();
 
+  const sheet = useRef<SheetSelectionRef>(null);
   const [selectedGroup, setSelectedGroup] = useState<string | null>(null);
   const [selectedEvent, setSelectedEvent] = useState<string | null>(null);
   const [images, setImages] = useState<ImagePicker.ImagePickerAsset[]>([]);
   const [loading, setLoading] = useState(false);
+  const [carName, setCarName] = useState<string>();
   const [newPostForm, setNewPostForm] = useState({
     description: "",
     location: "",
     group: selectedGroup,
     event: selectedEvent,
     images: images,
+    car: "",
   });
-
+  const [cars, setCars] = useState<CarResponse[]>([]);
+  useEffect(() => {
+    getCars();
+  }, []);
   useEffect(() => {
     setNewPostForm({
       ...newPostForm,
@@ -72,7 +91,12 @@ export default function NewPost() {
   function handlePresent() {
     bottomSheetRef.current?.present();
   }
-
+  async function getCars() {
+    const res = await getOwnGarage();
+    if (res) {
+      setCars(res);
+    }
+  }
   async function handleSubmit() {
     setLoading(true);
     const uploadedImages: ImageUploadResponse[] = [];
@@ -108,6 +132,7 @@ export default function NewPost() {
           group: selectedGroup,
           event: selectedEvent,
           images: [],
+          car: "",
         });
         setLoading(false);
         router.replace("/(root)/home");
@@ -298,7 +323,7 @@ export default function NewPost() {
                   colorScheme={colorScheme!}
                   containerClassName="rounded-xl"
                 />
-                <View className="w-11/12 justify-between gap-2 flex flex-row  ">
+                <View className="justify-between flex flex-row  ">
                   <View className=" flex-1 w-6/12 self-start">
                     <ThemedText className="w-full text-lg">
                       <MaterialCommunityIcons name="account-group" size={19} />{" "}
@@ -359,11 +384,42 @@ export default function NewPost() {
                     />
                   </View>
                 </View>
+                <SheetSelection
+                  ref={sheet}
+                  placeholder={
+                    carName && carName.length > 0 ? carName : carName
+                  }
+                  language={language}
+                  colorScheme={colorScheme!}
+                  FlashListProps={{
+                    data: cars,
+
+                    ListHeaderComponent: () => (
+                      <Button
+                        onPress={() => sheet.current?.dismissSheet()}
+                        className="button highlight-themed outline"
+                      >
+                        Close
+                      </Button>
+                    ),
+                    renderItem: ({ item }) => (
+                      <Pressable onPress={() => {
+                        sheet.current?.dismissSheet()
+                      }}>
+                        <View className="pointer-events-none">
+                          <GarageItem
+                            colorScheme={colorScheme!}
+                            language={language}
+                            car={item}
+                          />
+                        </View>
+                      </Pressable>
+                    ),
+                  }}
+                />
                 <Input
                   label={PostCreationTexts.form.location.label[language]}
-                  icon={
-                    "map-marker-outline"
-                  }
+                  icon={"map-marker-outline"}
                   size={28}
                   TextInputProps={{
                     placeholder:

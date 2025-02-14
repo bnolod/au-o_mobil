@@ -199,6 +199,7 @@ export default function editCarPage() {
           </View>
         </View>
         <Button
+            className="button outline btn-highlight"
           onPress={async () => {
             const res = await editCar(id as string, {
                 description: editCarForm.description,
@@ -218,12 +219,13 @@ export default function editCarPage() {
             }
           }}
           innerTextClassName="text-xl font-bold"
-          className="button highlight btn-fill"
+          
         >
           Save
         </Button>
         <View className="w-10/12 my-3 justify-between flex mx-auto flex-row gap-2 ">
           <Button
+          className="button outline btn-highlight"
             onPress={async () => {
              Alert.alert("Are you sure you want to discard changes?", "", [
                 {
