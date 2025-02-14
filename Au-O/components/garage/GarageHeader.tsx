@@ -23,17 +23,12 @@ export default function GarageHeader({
       <View
         className={`flex primary z-20 ${userProfilePic && "basis-5/12"} w-full flex-col h-full`}
         style={{
-          shadowColor: Colors[colorScheme].primary,
-          shadowOffset: {
-            width: -50,
-            height: 0,
-          },
-          shadowOpacity: 1,
-          shadowRadius: 20,
+          boxShadow: `0px 10px 50px 50px ${Colors[colorScheme].primary}`,
+          
         }}
       >
         <ImageBackground
-          className="flex-1 flex justify-center items-center h-full"
+          className="flex-1 flex justify-center items-center "
           resizeMode="cover"
           source={Images.banner_placeholder}
         >

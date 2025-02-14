@@ -371,6 +371,7 @@ export interface Car {
   horsepower: number;
   description: string;
   displacement: number;
+  productionYear: number;
 }
 export interface CarResponse extends Car {
   owner: User;

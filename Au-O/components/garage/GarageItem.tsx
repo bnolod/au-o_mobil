@@ -24,11 +24,14 @@ export default function GarageItem({
         <View className="basis-5/12 h-full  rounded-l-xl">
           <ImageBackground
             resizeMode="cover"
-            className="flex-1 flex justify-center items-center"
+            className="flex-1 flex  justify-center items-center"
             source={Images.banner_placeholder}
-            >
-              <View className="absolute">{getCarImage(car.type, colorScheme, 140)}</View>
-            </ImageBackground>
+          >
+        <View className=" ml-3 h-fit flex-1 items-center flex justify-center">
+          {getCarImage(car.type, colorScheme, 180, 200, 4.5)}
+        </View>
+
+          </ImageBackground>
         </View>
 
         <View
@@ -43,27 +46,43 @@ export default function GarageItem({
             shadowRadius: 20,
           }}
         >
-          <ThemedText className="text-2xl font-bold">{car.manufacturer}</ThemedText>
+          <ThemedText className="text-2xl font-bold">
+            {car.manufacturer}
+          <ThemedText className="text-lg font-light opacity-65">
+            {" "}{" "}{car.productionYear}
+          </ThemedText>
+          </ThemedText>
           <View className="flex flex-row items-center gap-2">
             <ThemedText className="text-lg font-semibold">
-            {car.model}
+              {car.model}
             </ThemedText>
             <ThemedText className="opacity-65 font-semibold">
-            {car.horsepower} {generalTexts.profileAttributes.cars.horsepower[language]}
+              {car.horsepower}{" "}
+              {generalTexts.profileAttributes.cars.horsepower[language]}
             </ThemedText>
-            <ThemedText className="opacity-65">
-            {car.displacement}l
-            </ThemedText>
+            <ThemedText className="opacity-65">{car.displacement}l</ThemedText>
           </View>
         </View>
-        {
-          isOwner && 
-        <Pressable  className=" p-4 right-2 absolute" hitSlop={14} onPress={() => {router.push({pathname: "/(garage)/edit/[id]", params: {
-          id: car.id
-        }})}} >
-        <MaterialCommunityIcons  name="pencil-outline" size={36} color={Colors[colorScheme].text} />
-        </Pressable>
-        }
+        {isOwner && (
+          <Pressable
+            className=" p-4 right-2 absolute"
+            hitSlop={14}
+            onPress={() => {
+              router.push({
+                pathname: "/(garage)/edit/[id]",
+                params: {
+                  id: car.id,
+                },
+              });
+            }}
+          >
+            <MaterialCommunityIcons
+              name="pencil-outline"
+              size={36}
+              color={Colors[colorScheme].text}
+            />
+          </Pressable>
+        )}
       </Pressable>
     </>
   );

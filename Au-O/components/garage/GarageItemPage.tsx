@@ -21,7 +21,7 @@ export default function GarageItemPage({colorScheme, isOwner, car, language, pro
         userProfilePic={profileImg}
       />
       <View className="flex flex-row items-center mx-3 py-2">
-        <View className="">{getCarImage(car.type, colorScheme, 90)}</View>
+        <View className="mb-5">{getCarImage(car.type, colorScheme, 140, 85, 4)}</View>
         <View className="flex justify-evenly w-11/12 flex-row items-center gap-1">
           <ThemedText className="text-3xl font-bold">
             {car.manufacturer}

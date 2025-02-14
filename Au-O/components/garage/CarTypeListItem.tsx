@@ -24,7 +24,7 @@ export default function CarTypeListItem({onPress, type, colorScheme}: CarTypeLis
                         className="flex-1 flex justify-center items-center"
                         source={Images.banner_placeholder}
                         >
-                          <View className="absolute">{getCarImage(type, colorScheme, 140)}</View>
+                          <View className="absolute left-2">{getCarImage(type, colorScheme, 170, 140, 3.5)}</View>
                         </ImageBackground>
                     </View>
             

@@ -1,4 +1,11 @@
-import { Alert, Image, Keyboard, Pressable, ScrollView, View } from "react-native";
+import {
+  Alert,
+  Image,
+  Keyboard,
+  Pressable,
+  ScrollView,
+  View,
+} from "react-native";
 import Input from "@/components/ui/Input";
 import { useColorScheme } from "nativewind";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -24,9 +31,11 @@ export default function editCarPage() {
   const { colorScheme } = useColorScheme();
   const { id } = useLocalSearchParams();
   const [savedCar, setSavedCar] = useState<Car | undefined>(undefined);
+  const [displacement, setDisplacement] = useState<string>();
   const [editCarForm, setEditCarForm] = useState<CarCreationRequest>({
     manufacturer: "",
     description: "",
+    productionYear: 0,
     displacement: 0,
     horsepower: 0,
     model: "",
@@ -37,9 +46,11 @@ export default function editCarPage() {
     const res = await getCarByCarId(id as string);
     if (res) {
       setSavedCar(res);
+      setDisplacement(res.displacement.toString());
       setEditCarForm({
         manufacturer: res.manufacturer,
         description: res.description,
+        productionYear: res.productionYear,
         displacement: res.displacement,
         horsepower: res.horsepower,
         model: res.model,
@@ -50,10 +61,21 @@ export default function editCarPage() {
   useEffect(() => {
     getPrevCar();
   }, []);
+  useEffect(() => {
+    setEditCarForm({
+      ...editCarForm,
+      displacement:  displacement ? parseFloat(displacement.replace(",", ".")) : 0,
+    })
+  }, [displacement])
   if (savedCar === undefined)
     return <LoadingModal colorScheme={colorScheme!} loading />;
   return (
-    <ScrollView  showsVerticalScrollIndicator={false} overScrollMode="never"  bounces={false} className="background">
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      overScrollMode="never"
+      bounces={false}
+      className="background"
+    >
       <View className="w-full justify-evenly flex flex-col pt-safe-offset-1 secondary">
         <Image
           source={
@@ -83,7 +105,13 @@ export default function editCarPage() {
                 editCarForm.horsepower === 0 ? 123 : editCarForm.horsepower,
               id: "1",
               type: editCarForm.type,
+
+              productionYear:
+                editCarForm.productionYear > 0
+                  ? editCarForm.productionYear
+                  : new Date().getFullYear(),
             }}
+            isOwner
             colorScheme={colorScheme!}
             language={language}
             onSelect={() => {}}
@@ -125,6 +153,24 @@ export default function editCarPage() {
             numberOfLines: 4,
             onChangeText: (text) =>
               setEditCarForm({ ...editCarForm, description: text }),
+          }}
+          colorScheme={colorScheme!}
+        />
+        <Input
+          label="Year"
+          icon="calendar-outline"
+          TextInputProps={{
+            placeholder: "My favorite weekend car",
+            value: editCarForm.productionYear
+              ? editCarForm.productionYear.toString()
+              : "2020",
+            maxLength: 4,
+            keyboardType: "number-pad",
+            onChangeText: (text) =>
+              setEditCarForm({
+                ...editCarForm,
+                productionYear: parseInt(text),
+              }),
           }}
           colorScheme={colorScheme!}
         />
@@ -186,29 +232,30 @@ export default function editCarPage() {
               label="Displacement"
               icon="engine-outline"
               TextInputProps={{
+                 
+
+                value: displacement,
                 placeholder: "2.0",
-                value: editCarForm.displacement.toString(),
-                onChangeText: (text) =>
-                  setEditCarForm({
-                    ...editCarForm,
-                    displacement: parseFloat(text.replace(",", ".")),
-                  }),
+                onChangeText: (text) => {
+                  setDisplacement(text);
+                  console.log(parseFloat(text.replace(",", ".")));
+                },
                 keyboardType: "decimal-pad",
               }}
             />
           </View>
         </View>
         <Button
-            className="button outline btn-highlight"
+          className="button outline btn-fill btn-highlight"
           onPress={async () => {
             const res = await editCar(id as string, {
-                description: editCarForm.description,
-                displacement: editCarForm.displacement,
-                horsepower: editCarForm.horsepower,
-                manufacturer: editCarForm.manufacturer,
-                model: editCarForm.model,
-                type: editCarForm.type,
-
+              description: editCarForm.description,
+              displacement: editCarForm.displacement,
+              horsepower: editCarForm.horsepower,
+              manufacturer: editCarForm.manufacturer,
+              model: editCarForm.model,
+              type: editCarForm.type,
+              productionYear: editCarForm.productionYear,
             });
             if (res) {
               Toast.show({
@@ -219,40 +266,50 @@ export default function editCarPage() {
             }
           }}
           innerTextClassName="text-xl font-bold"
-          
         >
           Save
         </Button>
         <View className="w-10/12 my-3 justify-between flex mx-auto flex-row gap-2 ">
           <Button
-          className="button outline btn-highlight"
+            className="button outline btn-highlight"
             onPress={async () => {
-             Alert.alert("Are you sure you want to discard changes?", "", [
+              Alert.alert("Are you sure you want to discard changes?", "", [
                 {
-                    "text": "Keep Editing",
-                    onPress: () => {return},
-                    isPreferred: true
+                  text: "Keep Editing",
+                  onPress: () => {
+                    return;
+                  },
+                  isPreferred: true,
                 },
                 {
-                    "text": "Discard Changes",
-                    onPress: () => {router.back()},
-                    isPreferred: false,
-                    style: "destructive"
-                }
-            ])}}
+                  text: "Discard Changes",
+                  onPress: () => {
+                    router.back();
+                  },
+                  isPreferred: false,
+                  style: "destructive",
+                },
+              ]);
+            }}
           >
             Cancel Edit
           </Button>
           <Button
+            className="button border-2 border-highlight"
             onPress={async () => {
-             Alert.alert("Are you sure you want to delete this car?", "This cannot be undone.", [
-                {
-                    "text": "Keep Car",
-                    onPress: () => {return},
-                    isPreferred: true
-                },
-                {
-                    "text": "Delete Car",
+              Alert.alert(
+                "Are you sure you want to delete this car?",
+                "This cannot be undone.",
+                [
+                  {
+                    text: "Keep Car",
+                    onPress: () => {
+                      return;
+                    },
+                    isPreferred: true,
+                  },
+                  {
+                    text: "Delete Car",
                     onPress: async () => {
                       const res = await deleteCar(id as string);
                       if (res) {
@@ -264,9 +321,10 @@ export default function editCarPage() {
                       }
                     },
                     isPreferred: false,
-                    style: "destructive"
-                }
-             ])
+                    style: "destructive",
+                  },
+                ]
+              );
             }}
           >
             Delete Car

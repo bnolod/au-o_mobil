@@ -4,7 +4,7 @@ import { useColorScheme } from "nativewind";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Images } from "@/lib/staticAssetExports";
 import GarageItem from "@/components/garage/GarageItem";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CarType } from "@/constants/types";
 import { CarCreationRequest } from "@/constants/types";
 import SheetSelection, {
@@ -20,6 +20,7 @@ import { SocialTexts } from "@/constants/texts";
 export default function newCar() {
   const { language } = useLanguage();
   const { colorScheme } = useColorScheme();
+  const [displacement, setDisplacement] = useState("");
   const [newCarForm, setNewCarForm] = useState<CarCreationRequest>({
     manufacturer: "",
     description: "",
@@ -29,7 +30,17 @@ export default function newCar() {
     type: "SEDAN",
     productionYear: 1900,
   });
+  useEffect(() => {
+    console.log(parseFloat(displacement.replace(",", ".")));
+    setNewCarForm({
+      ...newCarForm,
+      displacement: parseFloat(displacement.replace(",", ".")),
+    })
+  }, [displacement])
   const sheet = useRef<SheetSelectionRef>(null);
+  const handleDisplacementChange = (text: string) => {
+    setDisplacement(text);
+  };
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -54,9 +65,10 @@ export default function newCar() {
           <GarageItem
           isOwner={false}
             car={{
+              productionYear: newCarForm.productionYear ? newCarForm.productionYear : 1990,
               description: "PLACEHOLDER",
               displacement:
-                newCarForm.displacement === 0 ? 1.2 : newCarForm.displacement,
+                !newCarForm.displacement ? 1.2 : newCarForm.displacement,
               manufacturer:
                 newCarForm.manufacturer === ""
                   ? "Preview"
@@ -182,13 +194,10 @@ export default function newCar() {
               label={SocialTexts.creation.car.displacement[language]}
               icon="engine-outline"
               TextInputProps={{
-                value: newCarForm.displacement.toString(),
+                value: displacement,
                 placeholder: "2.0",
-                onChangeText: (text) =>
-                  setNewCarForm({
-                    ...newCarForm,
-                    displacement: parseFloat(text.replace(",", ".")),
-                  }),
+                onChangeText: handleDisplacementChange,
+                
                 keyboardType: "decimal-pad",
               }}
             />

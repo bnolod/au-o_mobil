@@ -4,9 +4,9 @@ import Svg, { Defs, G, Circle, Path, Ellipse } from "react-native-svg";
 import type { SvgProps } from "react-native-svg";
 const SvgHatch = (props: SvgProps) => (
   <Svg
-    width={512}
-    height={512}
-    viewBox="0 0 135.467 135.467"
+    width={props.width || 155}
+    height={props.width || 100}
+    viewBox="0 12 155 100"
     {...props}
   >
     <Defs></Defs>
@@ -29,7 +29,7 @@ const SvgHatch = (props: SvgProps) => (
         strokeOpacity={1}
       />
       <Path
-        d="M32.52 131.206a.014.092 0 0 1 .015-.092.014.092 0 0 1 .014.092"
+        
         opacity={1}
         fill="none"
         fillOpacity={1}

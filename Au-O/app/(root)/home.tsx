@@ -60,7 +60,8 @@ export default function Home() {
           >
             
             <RootHeader language={language} colorScheme={colorScheme!} />
-            <Suv  width={240} height={240} stroke={Colors.dark.text} strokeWidth={3.5} />
+            
+            
             {post && post.length > 0 ? (
               <FlashList
                 key={refreshing ? "refresh" : "list"}

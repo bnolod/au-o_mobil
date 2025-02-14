@@ -4,10 +4,9 @@ import Svg, { Defs, G, Circle, Path, Ellipse } from "react-native-svg";
 import type { SvgProps } from "react-native-svg";
 const SvgCoupe = (props: SvgProps) => (
   <Svg
-
-    width={props.width}
-    height={props.height}
-    viewBox="0 0 135.467 135.467"
+  width={props.width || 155}
+  height={props.width || 100}
+  viewBox="0 12 155 100"
     {...props}
   >
     <Defs></Defs>

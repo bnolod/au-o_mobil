@@ -4,9 +4,9 @@ import Svg, { Defs, G, Circle, Path, Ellipse } from "react-native-svg";
 import type { SvgProps } from "react-native-svg";
 const SvgSedan = (props: SvgProps) => (
   <Svg
-    width={512}
-    height={512}
-    viewBox="0 0 135.467 135.467"
+  width={props.width || 155}
+  height={props.width || 100}
+  viewBox="0 12 155 100"
     {...props}
   >
     <Defs></Defs>
@@ -34,8 +34,8 @@ const SvgSedan = (props: SvgProps) => (
       strokeOpacity={1}
       />
       <Path
-      d="M33.805 129.552a.012.076 0 0 1 .011-.076.012.076 0 0 1 .012.076"
-      opacity={1}
+      d=""
+      opacity={0}
       fill="none"
       fillOpacity={1}
       fillRule="nonzero"
