@@ -60,7 +60,7 @@ export default function GarageItem({
               {car.horsepower}{" "}
               {generalTexts.profileAttributes.cars.horsepower[language]}
             </ThemedText>
-            <ThemedText className="opacity-65">{car.displacement}l</ThemedText>
+            <ThemedText className="opacity-65">{car.displacement/10}l</ThemedText>
           </View>
         </View>
         {isOwner && (

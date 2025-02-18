@@ -35,8 +35,8 @@ export default function newCar() {
     setNewCarForm({
       ...newCarForm,
       displacement: parseFloat(displacement.replace(",", ".")),
-    })
-  }, [displacement])
+    });
+  }, [displacement]);
   const sheet = useRef<SheetSelectionRef>(null);
   const handleDisplacementChange = (text: string) => {
     setDisplacement(text);
@@ -63,12 +63,16 @@ export default function newCar() {
       >
         <View>
           <GarageItem
-          isOwner={false}
+            isOwner={false}
             car={{
-              productionYear: newCarForm.productionYear ? newCarForm.productionYear : 1990,
+              productionYear:
+                newCarForm.productionYear > 1900
+                  ? newCarForm.productionYear
+                  : 1990,
               description: "PLACEHOLDER",
-              displacement:
-                !newCarForm.displacement ? 1.2 : newCarForm.displacement,
+              displacement: !newCarForm.displacement
+                ? 1.2
+                : newCarForm.displacement,
               manufacturer:
                 newCarForm.manufacturer === ""
                   ? "Preview"
@@ -114,7 +118,8 @@ export default function newCar() {
           label={SocialTexts.creation.car.description[language]}
           icon="pencil-outline"
           TextInputProps={{
-            placeholder: SocialTexts.creation.car.placeholders.description[language],
+            placeholder:
+              SocialTexts.creation.car.placeholders.description[language],
             multiline: true,
             numberOfLines: 4,
             value: newCarForm.description,
@@ -128,7 +133,10 @@ export default function newCar() {
           label={SocialTexts.creation.car.year[language]}
           icon="calendar-outline"
           TextInputProps={{
-            value: newCarForm.productionYear === 1900 ? "" : newCarForm.productionYear.toString(),
+            value:
+              newCarForm.productionYear === 1900
+                ? ""
+                : newCarForm.productionYear.toString(),
             placeholder: "1990",
             onChangeText: (text) =>
               setNewCarForm({
@@ -172,7 +180,7 @@ export default function newCar() {
             ),
           }}
         />
-        
+
         <View className="w-11/12 mx-auto flex flex-row gap-2 ">
           <View className="basis-1/2">
             <Input
@@ -197,16 +205,19 @@ export default function newCar() {
                 value: displacement,
                 placeholder: "2.0",
                 onChangeText: handleDisplacementChange,
-                
+
                 keyboardType: "decimal-pad",
               }}
             />
           </View>
         </View>
-        
+
         <Button
           onPress={async () => {
-            const res = await addCar(newCarForm);
+            const res = await addCar({
+              ...newCarForm,
+              displacement: parseFloat(displacement.replace(",", ".")) * 10,
+            });
             if (res) {
               Toast.show({
                 type: "success",

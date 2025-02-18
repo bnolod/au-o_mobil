@@ -46,12 +46,12 @@ export default function editCarPage() {
     const res = await getCarByCarId(id as string);
     if (res) {
       setSavedCar(res);
-      setDisplacement(res.displacement.toString());
+      setDisplacement((res.displacement/10).toString());
       setEditCarForm({
         manufacturer: res.manufacturer,
         description: res.description,
         productionYear: res.productionYear,
-        displacement: res.displacement,
+        displacement: res.displacement/10,
         horsepower: res.horsepower,
         model: res.model,
         type: res.type,
@@ -94,7 +94,7 @@ export default function editCarPage() {
             car={{
               description: "PLACEHOLDER",
               displacement:
-                editCarForm.displacement === 0 ? 1.2 : editCarForm.displacement,
+                editCarForm.displacement === 0 ? 12 : editCarForm.displacement * 10,
               manufacturer:
                 editCarForm.manufacturer === ""
                   ? "Preview"
@@ -250,7 +250,7 @@ export default function editCarPage() {
           onPress={async () => {
             const res = await editCar(id as string, {
               description: editCarForm.description,
-              displacement: editCarForm.displacement,
+              displacement: displacement ? parseFloat(displacement.replace(",", ".")) * 10 : 1,
               horsepower: editCarForm.horsepower,
               manufacturer: editCarForm.manufacturer,
               model: editCarForm.model,
