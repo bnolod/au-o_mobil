@@ -14,8 +14,6 @@ import { FlashList } from "@shopify/flash-list";
 import NoPostsFound from "@/components/home/NoPostsFound";
 import LoadingModal from "@/components/ui/LoadingModal";
 import { Redirect } from "expo-router";
-import { Cabriolet, Coupe, Grandcoupe, Hatch, Kombi, Pickup, Roadster, Sedan, Suv } from "@/components/graphics/cars";
-import { Colors } from "@/constants/Colors";
 
 export default function Home() {
   const { user } = useAuthentication();
@@ -76,6 +74,7 @@ export default function Home() {
                     user={user}
                     authorProfileImg={item.user.profileImg}
                     authorId={item.user.id}
+                    vehicle={item.vehicle}
                     postId={item.postId}
                     key={item.postId}
                     authorNickname={item.user.nickname}

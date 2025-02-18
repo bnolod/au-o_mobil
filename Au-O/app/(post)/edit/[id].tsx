@@ -1,59 +1,75 @@
+import GarageItem from "@/components/garage/GarageItem";
+import { getCarImage } from "@/components/graphics/cars";
 import PostCard from "@/components/home/Post";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import LoadingModal from "@/components/ui/LoadingModal";
+import SheetSelection, { SheetSelectionRef } from "@/components/ui/SheetSelection";
 import ThemedText from "@/components/ui/ThemedText";
 import { Colors } from "@/constants/Colors";
 import { PostCreationTexts, PostEditTexts } from "@/constants/texts";
-import { PostResponse } from "@/constants/types";
+import { Car, CarResponse, PostResponse } from "@/constants/types";
 import { useAuthentication } from "@/contexts/AuthenticationContext";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { apiFetch, editPost } from "@/lib/apiClient";
+import {
+  apiFetch,
+  editPost,
+  getCarsByUserId,
+  getOwnCars,
+} from "@/lib/apiClient";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { BottomSheetModal, BottomSheetView } from "@gorhom/bottom-sheet";
 import { router, useLocalSearchParams } from "expo-router";
 import { useColorScheme } from "nativewind";
 import { useEffect, useRef, useState } from "react";
-import {  Keyboard, Pressable, View } from "react-native";
+import { Keyboard, Pressable, View } from "react-native";
 import Toast from "react-native-toast-message";
 
 export default function EditPost() {
   const bottomSheetRef = useRef<BottomSheetModal>(null);
+  const sheet = useRef<SheetSelectionRef>(null)
   const [loading, setLoading] = useState<boolean | null>(true);
   const { user } = useAuthentication();
   const { language } = useLanguage();
-  const {id}  = useLocalSearchParams();
+  const { id } = useLocalSearchParams();
   const { colorScheme } = useColorScheme();
   const [post, setPost] = useState<PostResponse>();
+  const [cars, setCars] = useState<CarResponse[]>();
+  const [car, setCar] = useState<Car>()
+
   const [editPostForm, setEditPostForm] = useState({
     description: "",
     groupData: "",
     eventData: "",
+    vehicleId: null as string | null,
     location: "",
   });
   async function handleSubmit() {
-    
-    const res = await editPost(editPostForm.description, editPostForm.location, id as string);
+    const res = await editPost(
+      editPostForm.description,
+      editPostForm.location,
+      editPostForm.vehicleId ? editPostForm.vehicleId  : null,
+      id as string
+    );
     if (res) {
       bottomSheetRef.current?.dismiss();
       Toast.show({
         type: "success",
         text1: PostEditTexts.success.title[language],
         text2: PostEditTexts.success.message[language],
-      })
-      router.replace("/(root)/home")
+      });
+      router.replace("/(root)/home");
       router.push({
         pathname: "/(post)/page/[id]",
         params: { id: id as string, isNew: "true" },
-      })
-    }
-    else {
+      });
+    } else {
       bottomSheetRef.current?.dismiss();
       Toast.show({
         type: "error",
         text1: PostEditTexts.error.title[language],
         text2: PostEditTexts.error.message[language],
-      })
+      });
     }
   }
   async function getPost() {
@@ -68,12 +84,22 @@ export default function EditPost() {
         ...editPostForm,
         description: postResponse.data!.text,
         location: postResponse.data!.location,
+        vehicleId: postResponse.data!.vehicle
+          ? postResponse.data!.vehicle.id
+          : null,
       });
       setLoading(false);
     } else setLoading(null);
   }
+  async function getCars() {
+    const res = await getOwnCars();
+    if (res) {
+      setCars(res);
+    }
+  }
   useEffect(() => {
     getPost();
+    getCars();
   }, []);
   if (loading === null) {
     return (
@@ -91,50 +117,59 @@ export default function EditPost() {
     );
   }
   if (loading) {
-    return <LoadingModal colorScheme={colorScheme!} loading={loading} text={"Loading post..."} />;
+    return (
+      <LoadingModal
+        colorScheme={colorScheme!}
+        loading={loading}
+        text={"Loading post..."}
+      />
+    );
   }
   if (post)
-  return (
-    <Pressable
-      onPress={() => {Keyboard.dismiss()}}
-      className="flex-1 h-full justify-center items-center bg-black/25"
-    >
-      <View className="secondary p-4 w-11/12 rounded-xl flex gap-4">
-        <ThemedText className="mx-auto text-center text-xl font-bold">
-          {PostEditTexts.header[language]}
-        </ThemedText>
-        <Input
-          colorScheme={colorScheme!}
-          label={
-            <ThemedText>
-              <MaterialCommunityIcons name="pencil" size={19} />{" "}
-              {PostCreationTexts.form.description.label[language]}
-            </ThemedText>
-          }
-          TextInputProps={{
-            value: editPostForm.description,
-            placeholder:
-              PostCreationTexts.form.description.placeholder[language],
-            onChangeText: (text) =>
-              setEditPostForm({ ...editPostForm, description: text }),
-          }}
-        />
-        <Input
-          colorScheme={colorScheme!}
-          label={
-            <ThemedText>
-              <MaterialCommunityIcons name="map-marker-outline" size={19} />{" "}
-              {PostCreationTexts.form.location.label[language]}
-            </ThemedText>
-          }
-          TextInputProps={{
-            value: editPostForm.location,
-            placeholder: PostCreationTexts.form.location.placeholder[language],
-            onChangeText: (text) =>
-              setEditPostForm({ ...editPostForm, location: text }),
-          }}
-        />
-        {/*Platform.OS === "android" ? (
+    return (
+      <Pressable
+        onPress={() => {
+          Keyboard.dismiss();
+        }}
+        className="flex-1 h-full justify-center items-center bg-black/25"
+      >
+        <View className="secondary p-4 w-11/12 rounded-xl flex gap-4">
+          <ThemedText className="mx-auto text-center text-xl font-bold">
+            {PostEditTexts.header[language]}
+          </ThemedText>
+          <Input
+            colorScheme={colorScheme!}
+            label={
+              <ThemedText>
+                <MaterialCommunityIcons name="pencil" size={19} />{" "}
+                {PostCreationTexts.form.description.label[language]}
+              </ThemedText>
+            }
+            TextInputProps={{
+              value: editPostForm.description,
+              placeholder:
+                PostCreationTexts.form.description.placeholder[language],
+              onChangeText: (text) =>
+                setEditPostForm({ ...editPostForm, description: text }),
+            }}
+          />
+          <Input
+            colorScheme={colorScheme!}
+            label={
+              <ThemedText>
+                <MaterialCommunityIcons name="map-marker-outline" size={19} />{" "}
+                {PostCreationTexts.form.location.label[language]}
+              </ThemedText>
+            }
+            TextInputProps={{
+              value: editPostForm.location,
+              placeholder:
+                PostCreationTexts.form.location.placeholder[language],
+              onChangeText: (text) =>
+                setEditPostForm({ ...editPostForm, location: text }),
+            }}
+          />
+          {/*Platform.OS === "android" ? (
                   <Picker
                     selectedValue={selectedGroup}
                     onValueChange={(itemValue) => setSelectedGroup(itemValue)}
@@ -157,56 +192,101 @@ export default function EditPost() {
                     </ThemedText>
                   </TouchableOpacity>
                 )*/}
-        <Button
-          variant="highlight"
-          type="fill"
-          onPress={() => {
-            Keyboard.dismiss();
-            bottomSheetRef.current?.present();
-          }}
-        >
-          {PostCreationTexts.confirmPost[language]}
-        </Button>
-        <BottomSheetModal
-          ref={bottomSheetRef}
-          enablePanDownToClose={true}
-          backgroundStyle={{
-            backgroundColor: Colors[colorScheme!].secondary,
-          }}
-          snapPoints={["80%", "90%"]}
-          handleIndicatorStyle={{
-            backgroundColor: Colors[colorScheme!].text,
-            width: "33%",
-            height: 5,
-          }}
-          handleStyle={{
-            backgroundColor: Colors[colorScheme!].secondary,
+                <SheetSelection
+                  ref={sheet}
+                  placeholder={<View className="flex flex-row items-center">
+                    {car && getCarImage( car.type, colorScheme!, 90, 52, 3.3)}
+                    <ThemedText className="text-lg font-semibold">
+                      {car ? car.manufacturer + " " + car.model : "Select a vehicle"}
+                      </ThemedText>
+                  </View>}
+                  language={language}
+                  colorScheme={colorScheme!}
+                  key={car ? car.model : "0"}
+                  FlashListProps={{
+                    data: cars,
 
-            borderTopRightRadius: 10,
-            borderTopLeftRadius: 10,
-          }}
-          index={1}
-        >
-          <BottomSheetView>
-            <PostCard
-            user={user}
-              postId={null}
-authorProfileImg={user!.profileImg}
-              authorId={user!.id}
-              authorNickname={user!.nickname}
-              authorUsername={user!.username}
-              colorScheme={colorScheme!}
-              date={new Date().toDateString()}
-              description={editPostForm.description}
-              images={post?.images || []}
-              language={language}
-              location={editPostForm.location}
-              comments={[]}
-              preview
-              reaction={"FIRE"}
-              reactions={{ FIRE: 12, HEART: 34, COOL: 567 }}
-              eventData={
-                /*
+                    ListHeaderComponent: () => (
+                      <Button
+                        onPress={() => sheet.current?.dismissSheet()}
+                        className="button highlight-themed outline"
+                      >
+                        Close
+                      </Button>
+                    ),
+                    renderItem: ({ item }) => (
+                      <Pressable
+                        onPress={() => {
+                          sheet.current?.dismissSheet();
+                          setCar(item);
+                          setEditPostForm({ ...editPostForm, vehicleId: item.id });
+                          console.log(item.manufacturer + " " + item.model);
+                        }}
+                      >
+                        <View className="pointer-events-none">
+                          <GarageItem
+                            isOwner={true}
+                            colorScheme={colorScheme!}
+                            language={language}
+                            car={item}
+                          />
+                        </View>
+                      </Pressable>
+                    ),
+                  }}
+                />
+                
+          <Button
+            variant="highlight"
+            type="fill"
+            onPress={() => {
+              Keyboard.dismiss();
+              bottomSheetRef.current?.present();
+            }}
+          >
+            {PostCreationTexts.confirmPost[language]}
+          </Button>
+          <BottomSheetModal
+            ref={bottomSheetRef}
+            enablePanDownToClose={true}
+            backgroundStyle={{
+              backgroundColor: Colors[colorScheme!].secondary,
+            }}
+            snapPoints={["80%", "90%"]}
+            handleIndicatorStyle={{
+              backgroundColor: Colors[colorScheme!].text,
+              width: "33%",
+              height: 5,
+            }}
+            handleStyle={{
+              backgroundColor: Colors[colorScheme!].secondary,
+
+              borderTopRightRadius: 10,
+              borderTopLeftRadius: 10,
+            }}
+            index={1}
+          >
+            <BottomSheetView>
+              <PostCard
+                user={user}
+                vehicle={post?.vehicle ? post.vehicle : null}
+                postId={null}
+                authorProfileImg={user!.profileImg}
+                authorId={user!.id}
+                authorNickname={user!.nickname}
+                authorUsername={user!.username}
+                colorScheme={colorScheme!}
+                date={new Date().toDateString()}
+                description={editPostForm.description}
+                images={post?.images || []}
+                language={language}
+                location={editPostForm.location}
+                comments={[]}
+                preview
+                reaction={"FIRE"}
+                reactions={{ FIRE: 12, HEART: 34, COOL: 567 }}
+                eventData={
+                  /*
                   selectedEvent
                     ? ({
                         event_name: selectedEvent,
@@ -218,9 +298,9 @@ authorProfileImg={user!.profileImg}
                       } as EventPostData)
                     : undefined
                 */ undefined
-              }
-              groupData={
-                /*
+                }
+                groupData={
+                  /*
                   selectedGroup
                     ? {
                         group_icon: null,
@@ -229,23 +309,23 @@ authorProfileImg={user!.profileImg}
                       }
                     : undefined
                 */ undefined
-              }
-            />
-            <Button
-              onPress={() => bottomSheetRef.current?.dismiss()}
-              className=" my-2 btn-highlight button btn-fill btn-outline"
-            >
-              Dismiss
-            </Button>
-            <Button
-              onPress={handleSubmit}
-              className=" mt-2 btn-highlight button btn-fill"
-            >
-              Post
-            </Button>
-          </BottomSheetView>
-        </BottomSheetModal>
-      </View>
-    </Pressable>
-  );
+                }
+              />
+              <Button
+                onPress={() => bottomSheetRef.current?.dismiss()}
+                className=" my-2 btn-highlight button btn-fill btn-outline"
+              >
+                Dismiss
+              </Button>
+              <Button
+                onPress={handleSubmit}
+                className=" mt-2 btn-highlight button btn-fill"
+              >
+                Post
+              </Button>
+            </BottomSheetView>
+          </BottomSheetModal>
+        </View>
+      </Pressable>
+    );
 }

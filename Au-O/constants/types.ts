@@ -150,6 +150,7 @@ export interface ImageStoreRequest {
   text: string;
   postImages: ImageUploadResponse[];
   location: string;
+  vehicleId: number | null
 }
 
 export interface ModalState {
@@ -179,6 +180,7 @@ export interface PostCardProps {
   description: string;
   location: string;
   reactions: Reactions;
+  vehicle: Car | null;
   comments: Comment[];
   language: "EN" | "HU";
   colorScheme: "light" | "dark";

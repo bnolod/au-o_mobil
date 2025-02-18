@@ -125,10 +125,10 @@ export async function storeImages(request: ImageStoreRequest): Promise<any> {
   } else return null;
 }
 export async function CreatePost(props: CreatePostRequest): Promise<void> {
-  await apiFetch<CreatePostRequest>("post/new", "POST", true, {
-    ...props,
-    vehicle: props.vehicleId
-  });
+  console.log(props)
+  //await apiFetch<CreatePostRequest>("post/new", "POST", true, {
+  //  ...props
+  //});
 }
 export async function addReaction(
   postId: number,
@@ -148,10 +148,12 @@ export async function addReaction(
   if (res.status === 200) return true;
   return false;
 }
-export async function editPost(text: string, location: string, id: string) {
+export async function editPost(text: string, location: string, vehicleId: string | null, id: string) {
+  console.log(vehicleId)
   const res = await apiFetch(`/posts/post/${id}`, "PUT", true, {
     text,
     location,
+    vehicleId
   });
   if (res) {
     return res.data;
@@ -403,7 +405,7 @@ export async function getOwnCars() {
   }
   return null;
 }
-export async function getCarsByUserId(userId: string) {
+export async function getCarsByUserId(userId: number) {
   const req = await apiFetch<CarResponse[]>("vehicles/user/" + userId, "GET", true);
   if (req && req.status === 200) {
     return req.data;

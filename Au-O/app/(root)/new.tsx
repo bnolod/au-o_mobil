@@ -118,6 +118,7 @@ export default function NewPost() {
         text: newPostForm.description || "",
         location: newPostForm.location || "",
         postImages: uploadedImages,
+        vehicleId: newPostForm.vehicleId,
       };
       const storeRes = await storeImages(imageStoreRequest);
       bottomSheetRef.current?.dismiss();
@@ -503,6 +504,7 @@ export default function NewPost() {
                     authorProfileImg={user!.profileImg}
                     authorId={null}
                     authorNickname={user!.nickname}
+                    vehicle={car ? car : null}
                     authorUsername={user!.username}
                     colorScheme={colorScheme!}
                     date={new Date().toDateString()}
