@@ -28,7 +28,9 @@ import { PostCreationTexts } from "@/constants/texts";
 import ImageNotFound from "@/components/new/ImageNotFound";
 import PostCard from "@/components/home/Post";
 import {
+  Car,
   CarResponse,
+  CreatePostRequest,
   ImageStoreRequest,
   ImageUploadResponse,
 } from "@/constants/types";
@@ -55,6 +57,7 @@ import SheetSelection, {
 import PostCreationSheetSelectElements from "@/components/new/PostCreationSheetSelectElement";
 import FilterBar from "@/components/ui/FilterBar";
 import GarageItem from "@/components/garage/GarageItem";
+import { getCarImage } from "@/components/graphics/cars";
 export default function NewPost() {
   const { language } = useLanguage();
   const { user } = useAuthentication();
@@ -65,14 +68,15 @@ export default function NewPost() {
   const [selectedEvent, setSelectedEvent] = useState<string | null>(null);
   const [images, setImages] = useState<ImagePicker.ImagePickerAsset[]>([]);
   const [loading, setLoading] = useState(false);
-  const [carName, setCarName] = useState<string>();
-  const [newPostForm, setNewPostForm] = useState({
+  const [car, setCar] = useState<Car>();
+  const [newPostForm, setNewPostForm] = useState<CreatePostRequest>({
     description: "",
     location: "",
-    group: selectedGroup,
-    event: selectedEvent,
+    userId: user!.id,
+    group: null,
+    event: null,
     images: images,
-    car: "",
+    vehicleId: null,
   });
   const [cars, setCars] = useState<CarResponse[]>([]);
   useEffect(() => {
@@ -127,10 +131,11 @@ export default function NewPost() {
         setNewPostForm({
           description: "",
           location: "",
+          userId: user!.id,
           group: selectedGroup,
           event: selectedEvent,
           images: [],
-          car: "",
+          vehicleId: null,
         });
         setLoading(false);
         router.replace("/(root)/home");
@@ -204,6 +209,7 @@ export default function NewPost() {
       }
     );
   };*/
+  if (user === undefined) return <LoadingModal loading={true} colorScheme={colorScheme!}/>;
   return (
     <>
       <LoadingModal
@@ -225,7 +231,11 @@ export default function NewPost() {
         keyboardVerticalOffset={40}
         style={{ flex: 1 }}
       >
-        <ScrollView  showsVerticalScrollIndicator={false} overScrollMode="never"  bounces={false}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          overScrollMode="never"
+          bounces={false}
+        >
           <Pressable
             onPress={() => Keyboard.dismiss()}
             className="flex h-screen flex-col"
@@ -329,6 +339,7 @@ export default function NewPost() {
                     </ThemedText>
                     <SheetSelection
                       colorScheme={colorScheme!}
+                      placeholder={newPostForm.group || "Select a group"}
                       language={language}
                       FlashListProps={{
                         data: [{ title: "Group 1", memberCount: 12 }],
@@ -361,6 +372,7 @@ export default function NewPost() {
 
                     <SheetSelection
                       colorScheme={colorScheme!}
+                      placeholder="Select an event"
                       language={language}
                       FlashListProps={{
                         data: [{ title: "Event 1", date: "2022.12.12" }],
@@ -383,13 +395,16 @@ export default function NewPost() {
                   </View>
                 </View>
                 <SheetSelection
-                
                   ref={sheet}
-                  placeholder={
-                    carName && carName.length > 0 ? carName : carName
-                  }
+                  placeholder={<View className="flex flex-row items-center">
+                    {car && getCarImage( car.type, colorScheme!, 90, 52, 3.3)}
+                    <ThemedText className="text-lg font-semibold">
+                      {car ? car.manufacturer + " " + car.model : "Select a vehicle"}
+                      </ThemedText>
+                  </View>}
                   language={language}
                   colorScheme={colorScheme!}
+                  key={car ? car.model : "0"}
                   FlashListProps={{
                     data: cars,
 
@@ -402,11 +417,17 @@ export default function NewPost() {
                       </Button>
                     ),
                     renderItem: ({ item }) => (
-                      <Pressable onPress={() => {
-                        sheet.current?.dismissSheet()
-                      }}>
+                      <Pressable
+                        onPress={() => {
+                          sheet.current?.dismissSheet();
+                          setCar(item);
+                          setNewPostForm({ ...newPostForm, vehicleId: item.id });
+                          console.log(item.manufacturer + " " + item.model);
+                        }}
+                      >
                         <View className="pointer-events-none">
                           <GarageItem
+                            isOwner={true}
                             colorScheme={colorScheme!}
                             language={language}
                             car={item}

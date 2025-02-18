@@ -1,5 +1,5 @@
 import { BottomSheetFlashList, BottomSheetModal } from "@gorhom/bottom-sheet";
-import React, { forwardRef, useImperativeHandle, useRef, useState } from "react";
+import React, { forwardRef, ReactNode, useImperativeHandle, useRef, useState } from "react";
 import Button from "./Button";
 import { BottomSheetFlashListProps } from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheetScrollable/BottomSheetFlashList";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -14,10 +14,11 @@ export interface SheetSelectionRef {
 
 const SheetSelection = forwardRef<SheetSelectionRef, { 
   FlashListProps: BottomSheetFlashListProps<any>, 
-  placeholder?: string 
+  placeholder?: string | ReactNode 
 } & CommonStaticElementProps> (
-  ({ FlashListProps, language, colorScheme, placeholder = "Select" }, ref) => {
+  ({ FlashListProps, language, colorScheme, placeholder }, ref) => {
     const [sheetState, setSheetState] = useState(false);
+    const [element, setElement] = useState(placeholder)
     const sheet = useRef<BottomSheetModal>(null);
 
     const toggleSheet = () => {
@@ -44,7 +45,7 @@ const SheetSelection = forwardRef<SheetSelectionRef, {
         >
           <View className="flex-row items-center justify-between w-full">
             <ThemedText className="text-lg font-semibold opacity-80">
-              {placeholder}
+             {element}
             </ThemedText>
             <MaterialCommunityIcons name="chevron-down" size={34} color={Colors.highlight.main} />
           </View>
@@ -59,7 +60,8 @@ const SheetSelection = forwardRef<SheetSelectionRef, {
               sheet.current?.dismiss();
               setSheetState(false);
             }
-          }} 
+          }}
+           
           handleStyle={{
             backgroundColor: Colors[colorScheme].primary,
             borderTopEndRadius: 20,

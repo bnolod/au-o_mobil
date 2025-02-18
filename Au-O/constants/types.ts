@@ -144,6 +144,7 @@ export interface PostResponse {
   user: UserPostResponseType;
   comments: Comment[];
   reactedWith: null | "FIRE" | "HEART" | "COOL";
+  vehicle: Car | null
 }
 export interface ImageStoreRequest {
   text: string;
@@ -201,12 +202,13 @@ export interface Reply {
   text: string;
 }
 export interface CreatePostRequest {
-  userId: string;
+  userId: number;
   description: string;
-  images: string[];
-  group: string;
+  images: ImagePickerAsset[];
+  group: string | null;
   location: string;
-  event: string;
+  event: string | null;
+  vehicleId: number | null;
 }
 export interface LoadingModalProps {
   loading: boolean;

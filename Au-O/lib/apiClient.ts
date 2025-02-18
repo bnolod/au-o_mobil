@@ -127,6 +127,7 @@ export async function storeImages(request: ImageStoreRequest): Promise<any> {
 export async function CreatePost(props: CreatePostRequest): Promise<void> {
   await apiFetch<CreatePostRequest>("post/new", "POST", true, {
     ...props,
+    vehicle: props.vehicleId
   });
 }
 export async function addReaction(
