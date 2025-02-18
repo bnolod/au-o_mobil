@@ -389,11 +389,11 @@ export async function getOwnGarage() {
   return null;
 }
 export async function addCar(car: CarCreationRequest) {
-  const req = await apiFetch("vehicles/vehicle/create", "POST", true, car);
+  const req = await apiFetch<CarResponse>("vehicles/vehicle/create", "POST", true, car);
   if (req && req.status === 200) {
-    return true;
+    return req.data;
   }
-  return false;
+  return null;
 }
 export async function getOwnCars() {
   const req = await apiFetch<CarResponse[]>("vehicles/own", "GET", true);

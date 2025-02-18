@@ -57,7 +57,7 @@ export default function GarageItemPage({colorScheme, isOwner, car, language, pro
             color={Colors[colorScheme!].text}
           />
           <ThemedText className="text-2xl font-semibold">
-            {car.displacement} l
+            {car.displacement/10} l
           </ThemedText>
         </View>
       </View>

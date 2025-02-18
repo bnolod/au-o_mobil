@@ -825,6 +825,80 @@ export const SocialTexts = {
       featuredPosts: {
         EN: "Starring in",
         HU: "Megjelenik itt"
+      },
+      added: {
+        header: {
+          EN: "Car added",
+          HU: "Autó hozzáadva"
+        },
+        body: {
+          EN: "Your car has successfully been added to your profile",
+          HU: "Az autód hozzá lett adva a profilodhoz."
+        }
+      },
+      edited: {
+        header: {
+          EN: "Car edited",
+          HU: "Autó szerkesztve"
+        },
+        body: {
+          EN: "Your car has been successfully updated."
+          ,HU: "Sikeresen frissítetted az autód adatait."
+        }
+      },
+      deleted: {
+        header: {
+          EN: "Car deleted",
+          HU: "Autó törölve"
+        },
+        body: {
+          EN: "Car deleted successfully.",
+          HU: "Sikeresen törölted az autót."
+        },
+        button: {
+          HU: "Autó törlése",
+          EN: "Delete Car",
+        }
+      },
+      prompts: {
+        discard: {
+          EN: "Are you sure you want to discard your changes?",
+          HU: "Biztosan elveted a változtatásokat?"
+        },
+        discardTexts: {
+          confirm: {
+            EN: "Discard",
+            HU: "Elvetés"
+          },
+          cancel: {
+            EN: "Keep Editing",
+            HU: "Szerkesztés"
+          }
+        },
+        cancel: {
+          EN: "Discard edit",
+          HU: "Elvetés"
+        },
+        delete: {
+          header: {
+            EN: "Are you sure you would like to delete this car?"
+            ,HU: "Biztosan ki szeretnéd törölni ezt az autót?"
+          },
+          body: {
+            EN: "This cannot be undone,"
+            ,HU: "Ezt nem lehet visszavonni."
+          },
+          buttons: {
+            delete: {
+              EN: "Delete",
+              HU: "Törlés"
+            },
+            cancel: {
+              EN: "Keep",
+              HU: "Megtartás"
+            }
+          }
+        }
       }
     }
   },

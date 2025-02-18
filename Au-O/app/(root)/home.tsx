@@ -36,7 +36,6 @@ export default function Home() {
   useEffect(() => {
     async function load() {
       setPost(await fetchPosts());
-      console.log(PostCreationTexts.buttons.dismiss[language]);
     }
     load();
   }, [refreshing]);

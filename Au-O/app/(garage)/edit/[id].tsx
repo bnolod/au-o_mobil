@@ -26,6 +26,7 @@ import { addCar, deleteCar, editCar, getCarByCarId } from "@/lib/apiClient";
 import Toast from "react-native-toast-message";
 import LoadingModal from "@/components/ui/LoadingModal";
 import { router, useLocalSearchParams } from "expo-router";
+import { SocialTexts } from "@/constants/texts";
 export default function editCarPage() {
   const { language } = useLanguage();
   const { colorScheme } = useColorScheme();
@@ -122,7 +123,7 @@ export default function editCarPage() {
           </CollapsibleText>
         </View>
         <Input
-          label="Manufacturer"
+          label={SocialTexts.creation.car.manufacturer[language]}
           icon="wrench-outline"
           TextInputProps={{
             placeholder: "Toyota",
@@ -133,7 +134,7 @@ export default function editCarPage() {
           colorScheme={colorScheme!}
         />
         <Input
-          label="Model"
+          label={SocialTexts.creation.car.model[language]}
           icon="car-outline"
           TextInputProps={{
             placeholder: "Celica",
@@ -144,10 +145,10 @@ export default function editCarPage() {
           colorScheme={colorScheme!}
         />
         <Input
-          label="Description"
+          label={SocialTexts.creation.car.description[language]}
           icon="pencil-outline"
           TextInputProps={{
-            placeholder: "My favorite weekend car",
+            placeholder: SocialTexts.creation.car.placeholders.description[language],
             multiline: true,
             value: editCarForm.description,
             numberOfLines: 4,
@@ -157,10 +158,10 @@ export default function editCarPage() {
           colorScheme={colorScheme!}
         />
         <Input
-          label="Year"
+          label={SocialTexts.creation.car.year[language]}
           icon="calendar-outline"
           TextInputProps={{
-            placeholder: "My favorite weekend car",
+            placeholder: "1990",
             value: editCarForm.productionYear
               ? editCarForm.productionYear.toString()
               : "2020",
@@ -212,7 +213,7 @@ export default function editCarPage() {
           <View className="basis-1/2">
             <Input
               colorScheme={colorScheme!}
-              label="Horsepower"
+              label={SocialTexts.creation.car.horsepower[language]}
               icon="speedometer"
               TextInputProps={{
                 placeholder: "123",
@@ -229,7 +230,7 @@ export default function editCarPage() {
           <View className="basis-1/2">
             <Input
               colorScheme={colorScheme!}
-              label="Displacement"
+              label={SocialTexts.creation.car.displacement[language]}
               icon="engine-outline"
               TextInputProps={{
                  
@@ -260,29 +261,31 @@ export default function editCarPage() {
             if (res) {
               Toast.show({
                 type: "success",
-                text1: "Car added",
-                text2: "Your car has been added to the garage",
+                text1: SocialTexts.creation.car.edited.header[language],
+                text2: SocialTexts.creation.car.edited.body[language],
               });
+              router.replace("/(root)/home")
+              router.push({pathname: "/(garage)/[id]", params: {id: savedCar.id}})
             }
           }}
           innerTextClassName="text-xl font-bold"
         >
-          Save
+          {SocialTexts.creation.car.save[language]}
         </Button>
         <View className="w-10/12 my-3 justify-between flex mx-auto flex-row gap-2 ">
           <Button
             className="button outline btn-highlight"
             onPress={async () => {
-              Alert.alert("Are you sure you want to discard changes?", "", [
+              Alert.alert(SocialTexts.creation.car.prompts.discard[language], "", [
                 {
-                  text: "Keep Editing",
+                  text: SocialTexts.creation.car.prompts.discardTexts.cancel[language],
                   onPress: () => {
                     return;
                   },
                   isPreferred: true,
                 },
                 {
-                  text: "Discard Changes",
+                  text: SocialTexts.creation.car.prompts.discardTexts.confirm[language],
                   onPress: () => {
                     router.back();
                   },
@@ -292,32 +295,34 @@ export default function editCarPage() {
               ]);
             }}
           >
-            Cancel Edit
+            {SocialTexts.creation.car.prompts.cancel[language]}
           </Button>
           <Button
             className="button border-2 border-highlight"
             onPress={async () => {
               Alert.alert(
-                "Are you sure you want to delete this car?",
-                "This cannot be undone.",
+                SocialTexts.creation.car.prompts.delete.header[language],
+                SocialTexts.creation.car.prompts.delete.body[language],
+                
                 [
                   {
-                    text: "Keep Car",
+                    text: SocialTexts.creation.car.prompts.delete.buttons.cancel[language],
                     onPress: () => {
                       return;
                     },
                     isPreferred: true,
                   },
                   {
-                    text: "Delete Car",
+                    text: SocialTexts.creation.car.prompts.delete.buttons.delete[language],
                     onPress: async () => {
                       const res = await deleteCar(id as string);
                       if (res) {
                         Toast.show({
                           type: "success",
-                          text1: "Car deleted",
-                          text2: "Your car has been removed from the garage",
+                          text1: SocialTexts.creation.car.deleted.header[language],
+                          text2: SocialTexts.creation.car.deleted.body[language],
                         });
+                        router.back()
                       }
                     },
                     isPreferred: false,
@@ -327,7 +332,7 @@ export default function editCarPage() {
               );
             }}
           >
-            Delete Car
+            {SocialTexts.creation.car.deleted.button[language]}
           </Button>
         </View>
       </Pressable>

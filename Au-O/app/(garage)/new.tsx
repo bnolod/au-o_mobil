@@ -17,6 +17,7 @@ import CollapsibleText from "@/components/ui/CollapsibleText";
 import { addCar } from "@/lib/apiClient";
 import Toast from "react-native-toast-message";
 import { SocialTexts } from "@/constants/texts";
+import { router } from "expo-router";
 export default function newCar() {
   const { language } = useLanguage();
   const { colorScheme } = useColorScheme();
@@ -71,8 +72,8 @@ export default function newCar() {
                   : 1990,
               description: "PLACEHOLDER",
               displacement: !newCarForm.displacement
-                ? 1.2
-                : newCarForm.displacement,
+                ? 12
+                : newCarForm.displacement * 10,
               manufacturer:
                 newCarForm.manufacturer === ""
                   ? "Preview"
@@ -221,9 +222,11 @@ export default function newCar() {
             if (res) {
               Toast.show({
                 type: "success",
-                text1: "Car added",
-                text2: "Your car has been added to the garage",
+                text1: SocialTexts.creation.car.added.header[language],
+                text2: SocialTexts.creation.car.added.body[language],
               });
+              router.replace("/(root)/home")
+              router.push({pathname: "/(garage)/[id]", params: {id: res.id}})
             }
           }}
           innerTextClassName="text-xl font-bold"
