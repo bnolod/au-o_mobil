@@ -8,7 +8,7 @@ import SheetSelection, { SheetSelectionRef } from "@/components/ui/SheetSelectio
 import ThemedText from "@/components/ui/ThemedText";
 import { Colors } from "@/constants/Colors";
 import { PostCreationTexts, PostEditTexts } from "@/constants/texts";
-import { Car, CarResponse, PostResponse } from "@/constants/types";
+import { Car, CarResponse, PostEditRequest, PostResponse } from "@/constants/types";
 import { useAuthentication } from "@/contexts/AuthenticationContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 import {
@@ -17,12 +17,13 @@ import {
   getCarsByUserId,
   getOwnCars,
 } from "@/lib/apiClient";
+import { Images } from "@/lib/staticAssetExports";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { BottomSheetModal, BottomSheetView } from "@gorhom/bottom-sheet";
 import { router, useLocalSearchParams } from "expo-router";
 import { useColorScheme } from "nativewind";
 import { useEffect, useRef, useState } from "react";
-import { Keyboard, Pressable, View } from "react-native";
+import { ImageBackground, Keyboard, Pressable, View } from "react-native";
 import Toast from "react-native-toast-message";
 
 export default function EditPost() {
@@ -35,15 +36,19 @@ export default function EditPost() {
   const { colorScheme } = useColorScheme();
   const [post, setPost] = useState<PostResponse>();
   const [cars, setCars] = useState<CarResponse[]>();
-  const [car, setCar] = useState<Car>()
-
-  const [editPostForm, setEditPostForm] = useState({
+  const [car, setCar] = useState<Car | null>()
+  
+  const [editPostForm, setEditPostForm] = useState<PostEditRequest>({
     description: "",
-    groupData: "",
-    eventData: "",
-    vehicleId: null as string | null,
+    groupData: null,
+    eventData: null,
+    vehicleId:  null,
     location: "",
   });
+  useEffect(() => {
+    console.log(car)
+    console.log(editPostForm);
+  }, [car, editPostForm]);
   async function handleSubmit() {
     const res = await editPost(
       editPostForm.description,
@@ -78,16 +83,17 @@ export default function EditPost() {
       "GET",
       true
     );
-    if (postResponse) {
-      setPost(postResponse?.data!);
+    if (postResponse && postResponse.data) {
+      setPost(postResponse.data);
       setEditPostForm({
         ...editPostForm,
         description: postResponse.data!.text,
-        location: postResponse.data!.location,
-        vehicleId: postResponse.data!.vehicle
-          ? postResponse.data!.vehicle.id
+        location: postResponse.data.location,
+        vehicleId: postResponse.data.vehicle
+          ? postResponse.data.vehicle.id
           : null,
       });
+      setCar(postResponse.data.vehicle ? postResponse.data.vehicle : null)
       setLoading(false);
     } else setLoading(null);
   }
@@ -207,12 +213,30 @@ export default function EditPost() {
                     data: cars,
 
                     ListHeaderComponent: () => (
+                      <View>
                       <Button
                         onPress={() => sheet.current?.dismissSheet()}
                         className="button highlight-themed outline"
                       >
                         Close
                       </Button>
+
+                      <Pressable className="w-11/12 my-2 mx-auto rounded-l overflow-hidden flex justify-center items-center" onPress={() => {
+                        sheet.current?.dismissSheet();
+                        setCar(null);
+                        setEditPostForm({
+                          ...editPostForm,
+                          vehicleId: null
+                        })
+                      }}>
+                          <ImageBackground className="w-full secondary rounded-xl mx-auto" resizeMode="repeat" source={Images.banner_placeholder}>
+                        <ThemedText className="font-bold w-full mx-auto text-center text-lg p-3 rounded-xl">
+                          Unassign vehicle
+                        </ThemedText>
+                        </ImageBackground>
+                      </Pressable>
+                      </View>
+
                     ),
                     renderItem: ({ item }) => (
                       <Pressable
@@ -269,7 +293,7 @@ export default function EditPost() {
             <BottomSheetView>
               <PostCard
                 user={user}
-                vehicle={post?.vehicle ? post.vehicle : null}
+                vehicle={car ? car : null}
                 postId={null}
                 authorProfileImg={user!.profileImg}
                 authorId={user!.id}

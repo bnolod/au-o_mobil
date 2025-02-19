@@ -169,7 +169,7 @@ export default function PostCard({
             </View>
           </TapCountWrapper>
           {vehicle && (
-            <Pressable onPress={() => router.push({pathname: "/(garage)/[id]", params: {id: vehicle.id}})} className="w-full h-12 primary rounded-t-xl " >
+            <Pressable onPress={preview ? () => {} : () => router.push({pathname: "/(garage)/[id]", params: {id: vehicle.id}})} className="w-full h-12 primary rounded-t-xl " >
 
             <View className="w-11/12 m-auto  flex-row  flex justify-between items-center">
               <View className="scale-125">

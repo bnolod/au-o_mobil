@@ -203,6 +203,13 @@ export interface Reply {
   user: UserPostResponseType;
   text: string;
 }
+export interface PostEditRequest {
+  description: string;
+  groupData: GroupPostData | null;
+  eventData: EventPostData | null;
+  location: string;
+  vehicleId: number | null;
+}
 export interface CreatePostRequest {
   userId: number;
   description: string;
@@ -368,7 +375,7 @@ export interface SocialEvent {
   isAttending: boolean;
 }
 export interface Car {
-  id: string;
+  id: number;
   manufacturer: string;
   model: string;
   type: CarType;

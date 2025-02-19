@@ -10,6 +10,7 @@ import {
   Alert,
   Dimensions,
   Image,
+  ImageBackground,
   Keyboard,
   KeyboardAvoidingView,
   Platform,
@@ -68,7 +69,7 @@ export default function NewPost() {
   const [selectedEvent, setSelectedEvent] = useState<string | null>(null);
   const [images, setImages] = useState<ImagePicker.ImagePickerAsset[]>([]);
   const [loading, setLoading] = useState(false);
-  const [car, setCar] = useState<Car>();
+  const [car, setCar] = useState<Car | null>();
   const [newPostForm, setNewPostForm] = useState<CreatePostRequest>({
     description: "",
     location: "",
@@ -210,7 +211,8 @@ export default function NewPost() {
       }
     );
   };*/
-  if (user === undefined) return <LoadingModal loading={true} colorScheme={colorScheme!}/>;
+  if (user === undefined)
+    return <LoadingModal loading={true} colorScheme={colorScheme!} />;
   return (
     <>
       <LoadingModal
@@ -397,12 +399,16 @@ export default function NewPost() {
                 </View>
                 <SheetSelection
                   ref={sheet}
-                  placeholder={<View className="flex flex-row items-center">
-                    {car && getCarImage( car.type, colorScheme!, 90, 52, 3.3)}
-                    <ThemedText className="text-lg font-semibold">
-                      {car ? car.manufacturer + " " + car.model : "Select a vehicle"}
+                  placeholder={
+                    <View className="flex flex-row items-center">
+                      {car && getCarImage(car.type, colorScheme!, 90, 52, 3.3)}
+                      <ThemedText className="text-lg font-semibold">
+                        {car
+                          ? car.manufacturer + " " + car.model
+                          : "Select a vehicle"}
                       </ThemedText>
-                  </View>}
+                    </View>
+                  }
                   language={language}
                   colorScheme={colorScheme!}
                   key={car ? car.model : "0"}
@@ -410,19 +416,46 @@ export default function NewPost() {
                     data: cars,
 
                     ListHeaderComponent: () => (
-                      <Button
-                        onPress={() => sheet.current?.dismissSheet()}
-                        className="button highlight-themed outline"
-                      >
-                        Close
-                      </Button>
+                      <View>
+                        <Button
+                          onPress={() => sheet.current?.dismissSheet()}
+                          className="button highlight-themed outline"
+                        >
+                          Close
+                        </Button>
+
+                        <Pressable
+                          className="w-11/12 my-2 mx-auto rounded-l overflow-hidden flex justify-center items-center"
+                          onPress={() => {
+                            sheet.current?.dismissSheet();
+                            setCar(null);
+                            setNewPostForm({
+                              ...newPostForm,
+                              vehicleId: null,
+                            });
+                          }}
+                        >
+                          <ImageBackground
+                            className="w-full secondary rounded-xl mx-auto"
+                            resizeMode="repeat"
+                            source={Images.banner_placeholder}
+                          >
+                            <ThemedText className="font-bold w-full mx-auto text-center text-lg p-3 rounded-xl">
+                              Unassign vehicle
+                            </ThemedText>
+                          </ImageBackground>
+                        </Pressable>
+                      </View>
                     ),
                     renderItem: ({ item }) => (
                       <Pressable
                         onPress={() => {
                           sheet.current?.dismissSheet();
                           setCar(item);
-                          setNewPostForm({ ...newPostForm, vehicleId: item.id });
+                          setNewPostForm({
+                            ...newPostForm,
+                            vehicleId: item.id,
+                          });
                           console.log(item.manufacturer + " " + item.model);
                         }}
                       >

@@ -145,11 +145,11 @@ export async function addReaction(
       },
     }
   );
-  if (res.status === 200) return true;
-  return false;
+  return res.status === 200
 }
-export async function editPost(text: string, location: string, vehicleId: string | null, id: string) {
+export async function editPost(text: string, location: string, vehicleId: number | null, id: string) {
   console.log(vehicleId)
+
   const res = await apiFetch(`/posts/post/${id}`, "PUT", true, {
     text,
     location,
