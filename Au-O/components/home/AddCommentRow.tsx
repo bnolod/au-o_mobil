@@ -8,6 +8,7 @@ import { useState } from "react";
 import { AddCommentToPost } from "@/lib/apiClient";
 import Toast from "react-native-toast-message";
 import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
+import ApiCallButton from "../ui/ApiCallButton";
 
 export default function AddCommentRow({
   authorNickname,
@@ -59,16 +60,17 @@ export default function AddCommentRow({
         />
       </View>
       <View className="basis-1/12">
-        <Button
-          className="primary h-12 w-12 rounded-xl justify-center items-center"
-          onPress={handleSubmitComment}
+        <ApiCallButton
+          className="highlight h-12 w-12 rounded-xl justify-center items-center disabled:opacity-50"
+          apiCall={handleSubmitComment}
+          delay={1000}
         >
           <MaterialCommunityIcons
             name="send"
             size={24}
             color={Colors[colorScheme].text}
           />
-        </Button>
+        </ApiCallButton>
       </View>
     </View>
   );

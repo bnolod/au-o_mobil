@@ -238,6 +238,9 @@ export async function AddCommentToPost(
   postId: string,
   comment: string
 ): Promise<Comment | null> {
+  if (comment.length === 0) {
+    return null;
+  }
   const res = await apiFetch<Comment>(
     `posts/post/${postId}/comment`,
     "POST",
@@ -266,6 +269,7 @@ export async function sendReply(
   commentId: string,
   text: string
 ): Promise<Reply | null> {
+  if (text.length === 0) return null
   const res = await apiFetch<Reply>(
     `posts/post/comment/${commentId}/reply`,
     "POST",

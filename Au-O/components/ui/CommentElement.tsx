@@ -22,6 +22,7 @@ import { FlashList } from "@shopify/flash-list";
 import { CommentTexts } from "@/constants/texts";
 import CollapsibleText from "./CollapsibleText";
 import ReactionButton from "./ReactionButton";
+import ApiCallButton from "./ApiCallButton";
 export default function CommentElement({
   item,
   language,
@@ -237,16 +238,18 @@ async function handlePress(type: null | "FIRE" | "HEART" | "COOL") {
                   }}
                   placeholderTextColor={"#767676"}
                 />
-                <TouchableOpacity
+                <ApiCallButton
                   className="w-12 h-12 flex rounded-xl items-center justify-center secondary"
-                  onPress={handleReplySend}
+                  apiCall={handleReplySend}
+                  delay={1000}
+
                 >
                   <MaterialCommunityIcons
                     name="send"
                     size={32}
                     color={Colors[colorScheme!].text}
                   />
-                </TouchableOpacity>
+                </ApiCallButton>
               </View>
             )}
             <View></View>
