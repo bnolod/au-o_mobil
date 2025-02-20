@@ -193,12 +193,16 @@ export type ImageUploadType = {
 export interface Comment {
   id: number;
   time: string;
+  reactionTypeMap: Reactions;
+  reactedWith: null | "FIRE" | "HEART" | "COOL";
   user: UserPostResponseType;
   text: string;
   replies: Reply[] | null;
 }
 export interface Reply {
   id: number;
+  reactedWith: null | "FIRE" | "HEART" | "COOL";
+  reactionTypeMap: Reactions;
   time: string;
   user: UserPostResponseType;
   text: string;
@@ -303,6 +307,7 @@ export interface OnboardHeaderProps {
 }
 export interface CommentElementProps {
   item: Comment;
+  preview?: boolean;
   userId: number;
   onDelete: (id: number) => void;
   authorId: number;
@@ -325,6 +330,7 @@ export interface ReplyProps {
   item: Reply;
   language: "HU" | "EN";
   userId: number;
+  preview?: boolean
   authorId: number;
   onDelete: (id: number) => void;
 }

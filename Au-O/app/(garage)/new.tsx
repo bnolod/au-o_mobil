@@ -32,7 +32,6 @@ export default function newCar() {
     productionYear: 1900,
   });
   useEffect(() => {
-    console.log(parseFloat(displacement.replace(",", ".")));
     setNewCarForm({
       ...newCarForm,
       displacement: parseFloat(displacement.replace(",", ".")),
@@ -81,7 +80,7 @@ export default function newCar() {
               model: newCarForm.model === "" ? "Placeholder" : newCarForm.model,
               horsepower:
                 newCarForm.horsepower === 0 ? 123 : newCarForm.horsepower,
-              id: "1",
+              id: 0,
               type: newCarForm.type,
             }}
             colorScheme={colorScheme!}

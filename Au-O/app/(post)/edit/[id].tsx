@@ -14,7 +14,6 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import {
   apiFetch,
   editPost,
-  getCarsByUserId,
   getOwnCars,
 } from "@/lib/apiClient";
 import { Images } from "@/lib/staticAssetExports";
@@ -45,10 +44,6 @@ export default function EditPost() {
     vehicleId:  null,
     location: "",
   });
-  useEffect(() => {
-    console.log(car)
-    console.log(editPostForm);
-  }, [car, editPostForm]);
   async function handleSubmit() {
     const res = await editPost(
       editPostForm.description,
@@ -244,7 +239,6 @@ export default function EditPost() {
                           sheet.current?.dismissSheet();
                           setCar(item);
                           setEditPostForm({ ...editPostForm, vehicleId: item.id });
-                          console.log(item.manufacturer + " " + item.model);
                         }}
                       >
                         <View className="pointer-events-none">

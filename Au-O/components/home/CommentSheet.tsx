@@ -41,7 +41,7 @@ export default function CommentSheet({
 
   const renderItem = useCallback(
     ({ item }: { item: Comment; index: number }) => {
-      return <CommentElement colorScheme={colorScheme} onDelete={(id) => setRenderedComments(renderedComments.filter((item) => id !== item.id))} userId={userId} key={item.id} item={item} language={language} authorId={authorId} />;
+      return <CommentElement preview={preview} colorScheme={colorScheme} onDelete={(id) => setRenderedComments(renderedComments.filter((item) => id !== item.id))} userId={userId} key={item.id} item={item} language={language} authorId={authorId} />;
     },
     []
   );

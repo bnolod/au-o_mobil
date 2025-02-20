@@ -97,6 +97,7 @@ export default function PostPage() {
           language={language}
           location={post.location}
           postId={post.postId}
+          vehicle={post.vehicle}
           reactions={post.reactionTypeMap}
         />
       </View>

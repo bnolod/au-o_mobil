@@ -8,29 +8,39 @@ import {
   View,
 } from "react-native";
 import ThemedText from "./ThemedText";
-import { CommentElementProps, CommonStaticElementProps, Reply } from "@/constants/types";
+import { CommentElementProps, CommonStaticElementProps, Reactions, ReactionState, Reply } from "@/constants/types";
 import Avatar from "./Avatar";
 import { useState } from "react";
 import * as Haptics from "expo-haptics";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Colors } from "@/constants/Colors";
 import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
-import { DeleteComment, sendReply } from "@/lib/apiClient";
+import { addReaction, DeleteComment, sendReply } from "@/lib/apiClient";
 import ReplyItem from "./Reply";
 import Toast from "react-native-toast-message";
 import { FlashList } from "@shopify/flash-list";
 import { CommentTexts } from "@/constants/texts";
 import CollapsibleText from "./CollapsibleText";
+import ReactionButton from "./ReactionButton";
 export default function CommentElement({
   item,
   language,
   userId,
   authorId,
+  preview,
   colorScheme,
   onDelete,
 }: CommentElementProps & CommonStaticElementProps) {
   const [replying, setReplying] = useState<boolean>(false);
   const [replyText, setReplyText] = useState<string>("");
+  const [currentReaction, setCurrentReaction] = useState<
+  null | "FIRE" | "HEART" | "COOL"
+  >(item.reactedWith)
+  const [reactionState, setReactions] = useState<Reactions>({
+    FIRE: item.reactionTypeMap && item.reactionTypeMap.FIRE ? item.reactionTypeMap.FIRE  : 0,
+    HEART: item.reactionTypeMap && item.reactionTypeMap.HEART ? item.reactionTypeMap.HEART  : 0,
+    COOL: item.reactionTypeMap && item.reactionTypeMap.COOL ? item.reactionTypeMap.COOL  : 0,
+  });
   const [renderedReplies, setRenderedReplies] = useState<Reply[]>(
     item.replies ? item.replies : []
   );
@@ -72,7 +82,28 @@ export default function CommentElement({
         type: "error",
       });
   }
-
+async function handlePress(type: null | "FIRE" | "HEART" | "COOL") {
+    if (currentReaction === type) {
+      await addReaction("comment", item.id, type);
+      if (type) {
+        setReactions({
+          ...reactionState,
+          [type]: reactionState[type] - 1,
+        });
+      }
+      setCurrentReaction(null);
+    } else {
+      await addReaction("comment", item.id!, type);
+      setCurrentReaction(type);
+      if (type) {
+        setReactions({
+          ...reactionState,
+          [type]: reactionState[type] + 1,
+        });
+      }
+    }
+  }
+  
   return (
     <Pressable
       onLongPress={() => {
@@ -138,13 +169,54 @@ export default function CommentElement({
                   color={Colors[colorScheme!].text}
                 />
               </TouchableOpacity>
-              {
-                /*
-                <ReactionButton type="FIRE" count={0}></ReactionButton>
-                <ReactionButton type="HEART" count={1}></ReactionButton>
-                <ReactionButton type="COOL" count={23}></ReactionButton>
-                */
-              }
+              <ReactionButton
+                              initialReactionState={currentReaction}
+                              type="FIRE"
+                              state={currentReaction !== "FIRE" ? "inactive" : "active"}
+                              count={reactionState.FIRE || 0}
+                              onPress={
+                                !preview
+                                  ? async () => {
+                                      await Haptics.impactAsync(
+                                        Haptics.ImpactFeedbackStyle.Heavy
+                                      );
+                                      handlePress("FIRE");
+                                    }
+                                  : () => {}
+                              }
+                            />
+                            <ReactionButton
+                              initialReactionState={currentReaction}
+                              type="HEART"
+                              count={reactionState.HEART || 0}
+                              onPress={
+                                !preview
+                                  ? async () => {
+                                      await Haptics.impactAsync(
+                                        Haptics.ImpactFeedbackStyle.Heavy
+                                      );
+                                      handlePress("HEART");
+                                    }
+                                  : () => {}
+                              }
+                              state={currentReaction !== "HEART" ? "inactive" : "active"}
+                            />
+                            <ReactionButton
+                              initialReactionState={currentReaction}
+                              type="COOL"
+                              count={reactionState.COOL || 0}
+                              onPress={
+                                !preview
+                                  ? async () => {
+                                      await Haptics.impactAsync(
+                                        Haptics.ImpactFeedbackStyle.Heavy
+                                      );
+                                      handlePress("COOL");
+                                    }
+                                  : () => {}
+                              }
+                              state={currentReaction !== "COOL" ? "inactive" : "active"}
+                            />
                 </View>
             {replying && (
               <View className="flex flex-row gap-2 items-center justify-center">
@@ -183,7 +255,7 @@ export default function CommentElement({
                 estimatedItemSize={100}
                 data={renderedReplies}
                 renderItem={({ item }) => (
-                  <ReplyItem userId={userId} authorId={authorId} language={language} onDelete={(id) => setRenderedReplies(renderedReplies.filter((item) => item.id !== id ))} key={item.id} item={item} />
+                  <ReplyItem preview={preview} userId={userId} authorId={authorId} language={language} onDelete={(id) => setRenderedReplies(renderedReplies.filter((item) => item.id !== id ))} key={item.id} item={item} />
                 )}
               />
             )}

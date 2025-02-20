@@ -64,7 +64,7 @@ export default function PostCard({
 
   const [isDeleted, setIsDeleted] = useState<boolean>(false);
   const [currentReaction, setCurrentReaction] = useState<
-    null | "FIRE" | "HEART" | "COOL"
+  null | "FIRE" | "HEART" | "COOL"
   >(reaction);
   const [reactionState, setReactions] = useState<Reactions>({
     FIRE: reactions.FIRE || 0,
@@ -73,7 +73,7 @@ export default function PostCard({
   });
   async function handlePress(type: null | "FIRE" | "HEART" | "COOL") {
     if (currentReaction === type) {
-      await addReaction(postId!, type);
+      await addReaction("post", postId!, type);
       if (type) {
         setReactions({
           ...reactionState,
@@ -82,7 +82,7 @@ export default function PostCard({
       }
       setCurrentReaction(null);
     } else {
-      await addReaction(postId!, type);
+      await addReaction("post", postId!, type);
       setCurrentReaction(type);
       if (type) {
         setReactions({

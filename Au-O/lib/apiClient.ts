@@ -124,20 +124,15 @@ export async function storeImages(request: ImageStoreRequest): Promise<any> {
     return res.data;
   } else return null;
 }
-export async function CreatePost(props: CreatePostRequest): Promise<void> {
-  console.log(props)
-  //await apiFetch<CreatePostRequest>("post/new", "POST", true, {
-  //  ...props
-  //});
-}
 export async function addReaction(
+  target: "post" | "comment" | "reply",
   postId: number,
   reaction: null | "FIRE" | "HEART" | "COOL"
-) {
+) {    
   if (!reaction) {
   }
   const res = await fetch(
-    `${apiClient.defaults.baseURL}/posts/post/${postId}/addOrRemoveReaction/${reaction}`,
+    `${apiClient.defaults.baseURL}/posts/${target}/${postId}/addOrRemoveReaction/${reaction}`,
     {
       method: "POST",
       headers: {
@@ -148,8 +143,6 @@ export async function addReaction(
   return res.status === 200
 }
 export async function editPost(text: string, location: string, vehicleId: number | null, id: string) {
-  console.log(vehicleId)
-
   const res = await apiFetch(`/posts/post/${id}`, "PUT", true, {
     text,
     location,
@@ -434,7 +427,6 @@ export async function deleteCar(carId: string) {
   return false;
 }
 export async function createGroup(request: GroupCreationRequest) {
-  console.log(request)
   const req = await apiFetch<GroupCreationResponse>("groups/group", "POST", true, request);
   if (req && req.status === 200) {
     return req.data;

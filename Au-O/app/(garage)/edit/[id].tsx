@@ -104,7 +104,7 @@ export default function editCarPage() {
                 editCarForm.model === "" ? "Placeholder" : editCarForm.model,
               horsepower:
                 editCarForm.horsepower === 0 ? 123 : editCarForm.horsepower,
-              id: "1",
+              id: 0,
               type: editCarForm.type,
 
               productionYear:
@@ -239,7 +239,6 @@ export default function editCarPage() {
                 placeholder: "2.0",
                 onChangeText: (text) => {
                   setDisplacement(text);
-                  console.log(parseFloat(text.replace(",", ".")));
                 },
                 keyboardType: "decimal-pad",
               }}
