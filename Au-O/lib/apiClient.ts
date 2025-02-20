@@ -4,6 +4,7 @@ import {
   CarResponse,
   Comment,
   CreatePostRequest,
+  FeedResponse,
   Group,
   GroupCreationRequest,
   GroupCreationResponse,
@@ -12,6 +13,7 @@ import {
   ImageStoreRequest,
   ImageUploadResponse,
   LoginRequest,
+  PostResponse,
   Reactions,
   RegisterRequest,
   Reply,
@@ -327,6 +329,17 @@ export async function updateNickname(nickname: string) {
     return true;
   }
   return false;
+}
+export async function loadFeed(index: number, timestamp: string) {
+  const req = await apiFetch<FeedResponse>(
+    `posts/feed?page=${index}&time=${timestamp}`,
+    "GET",
+    true
+  );
+  if (req && req.status === 200) {
+    return req.data;
+  }
+  return null;
 }
 export async function removeFollow(followerId: string) {
   const req = await apiFetch(

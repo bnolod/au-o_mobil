@@ -313,9 +313,16 @@ export interface CommentElementProps {
   authorId: number;
 }
 export interface FilterBarProps {
-  onChange: (value: string) => void;
+  className?: string
+  onChange: (text: string) => void;
   placeholder?: string;
   initialValue?: string;
+}
+export interface FeedResponse {
+  content: PostResponse[],
+  pageNumber: number,
+  pageSize: number,
+  totalElements: number
 }
 export interface InputProps {
   label?: string | ReactNode;

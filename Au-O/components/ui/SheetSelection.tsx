@@ -7,6 +7,7 @@ import ThemedText from "./ThemedText";
 import { View } from "react-native";
 import { Colors } from "@/constants/Colors";
 import { CommonStaticElementProps } from "@/constants/types";
+import FilterBar from "./FilterBar";
 
 export interface SheetSelectionRef {
   dismissSheet: () => void;
@@ -14,7 +15,7 @@ export interface SheetSelectionRef {
 
 const SheetSelection = forwardRef<SheetSelectionRef, { 
   FlashListProps: BottomSheetFlashListProps<any>, 
-  placeholder?: string | ReactNode 
+  placeholder?: string | ReactNode,
 } & CommonStaticElementProps> (
   ({ FlashListProps, language, colorScheme, placeholder }, ref) => {
     const [sheetState, setSheetState] = useState(false);
@@ -31,6 +32,7 @@ const SheetSelection = forwardRef<SheetSelectionRef, {
       setSheetState(!sheetState);
     };
     const dismissSheet = () => {
+        sheet.current?.dismiss()
         sheet.current?.dismiss()
     }
     useImperativeHandle(ref, () => ({
@@ -76,7 +78,13 @@ const SheetSelection = forwardRef<SheetSelectionRef, {
           }} 
           ref={sheet}
         >
-          <BottomSheetFlashList {...FlashListProps} />
+          <BottomSheetFlashList ListHeaderComponent={ () => (
+            <View className="flex flex-col highlight">
+              {FlashListProps.ListHeaderComponent ? (
+                FlashListProps.ListHeaderComponent as ReactNode
+              ) : <></>}
+            </View>
+          ) }{...FlashListProps} />
         </BottomSheetModal>
       </>
     );

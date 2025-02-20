@@ -47,12 +47,12 @@ export default function editCarPage() {
     const res = await getCarByCarId(id as string);
     if (res) {
       setSavedCar(res);
-      setDisplacement((res.displacement/10).toString());
+      setDisplacement((res.displacement / 10).toString());
       setEditCarForm({
         manufacturer: res.manufacturer,
         description: res.description,
         productionYear: res.productionYear,
-        displacement: res.displacement/10,
+        displacement: res.displacement / 10,
         horsepower: res.horsepower,
         model: res.model,
         type: res.type,
@@ -65,9 +65,11 @@ export default function editCarPage() {
   useEffect(() => {
     setEditCarForm({
       ...editCarForm,
-      displacement:  displacement ? parseFloat(displacement.replace(",", ".")) : 0,
-    })
-  }, [displacement])
+      displacement: displacement
+        ? parseFloat(displacement.replace(",", "."))
+        : 0,
+    });
+  }, [displacement]);
   if (savedCar === undefined)
     return <LoadingModal colorScheme={colorScheme!} loading />;
   return (
@@ -95,7 +97,9 @@ export default function editCarPage() {
             car={{
               description: "PLACEHOLDER",
               displacement:
-                editCarForm.displacement === 0 ? 12 : editCarForm.displacement * 10,
+                editCarForm.displacement === 0
+                  ? 12
+                  : editCarForm.displacement * 10,
               manufacturer:
                 editCarForm.manufacturer === ""
                   ? "Preview"
@@ -148,7 +152,8 @@ export default function editCarPage() {
           label={SocialTexts.creation.car.description[language]}
           icon="pencil-outline"
           TextInputProps={{
-            placeholder: SocialTexts.creation.car.placeholders.description[language],
+            placeholder:
+              SocialTexts.creation.car.placeholders.description[language],
             multiline: true,
             value: editCarForm.description,
             numberOfLines: 4,
@@ -218,12 +223,14 @@ export default function editCarPage() {
               TextInputProps={{
                 placeholder: "123",
                 keyboardType: "number-pad",
-                value: editCarForm.horsepower.toString(),
-                onChangeText: (text) =>
+                value: editCarForm.horsepower + "",
+                onChangeText: (text) => {
+                  console.log("text");
                   setEditCarForm({
                     ...editCarForm,
-                    horsepower: parseInt(text),
-                  }),
+                    horsepower: !parseInt(text) ? 0 : parseInt(text),
+                  });
+                },
               }}
             />
           </View>
@@ -233,8 +240,6 @@ export default function editCarPage() {
               label={SocialTexts.creation.car.displacement[language]}
               icon="engine-outline"
               TextInputProps={{
-                 
-
                 value: displacement,
                 placeholder: "2.0",
                 onChangeText: (text) => {
@@ -250,7 +255,9 @@ export default function editCarPage() {
           onPress={async () => {
             const res = await editCar(id as string, {
               description: editCarForm.description,
-              displacement: displacement ? parseFloat(displacement.replace(",", ".")) * 10 : 1,
+              displacement: displacement
+                ? parseFloat(displacement.replace(",", ".")) * 10
+                : 1,
               horsepower: editCarForm.horsepower,
               manufacturer: editCarForm.manufacturer,
               model: editCarForm.model,
@@ -263,8 +270,11 @@ export default function editCarPage() {
                 text1: SocialTexts.creation.car.edited.header[language],
                 text2: SocialTexts.creation.car.edited.body[language],
               });
-              router.replace("/(root)/home")
-              router.push({pathname: "/(garage)/[id]", params: {id: savedCar.id}})
+              router.replace("/(root)/home");
+              router.push({
+                pathname: "/(garage)/[id]",
+                params: { id: savedCar.id },
+              });
             }
           }}
           innerTextClassName="text-xl font-bold"
@@ -275,23 +285,31 @@ export default function editCarPage() {
           <Button
             className="button outline btn-highlight"
             onPress={async () => {
-              Alert.alert(SocialTexts.creation.car.prompts.discard[language], "", [
-                {
-                  text: SocialTexts.creation.car.prompts.discardTexts.cancel[language],
-                  onPress: () => {
-                    return;
+              Alert.alert(
+                SocialTexts.creation.car.prompts.discard[language],
+                "",
+                [
+                  {
+                    text: SocialTexts.creation.car.prompts.discardTexts.cancel[
+                      language
+                    ],
+                    onPress: () => {
+                      return;
+                    },
+                    isPreferred: true,
                   },
-                  isPreferred: true,
-                },
-                {
-                  text: SocialTexts.creation.car.prompts.discardTexts.confirm[language],
-                  onPress: () => {
-                    router.back();
+                  {
+                    text: SocialTexts.creation.car.prompts.discardTexts.confirm[
+                      language
+                    ],
+                    onPress: () => {
+                      router.back();
+                    },
+                    isPreferred: false,
+                    style: "destructive",
                   },
-                  isPreferred: false,
-                  style: "destructive",
-                },
-              ]);
+                ]
+              );
             }}
           >
             {SocialTexts.creation.car.prompts.cancel[language]}
@@ -302,26 +320,30 @@ export default function editCarPage() {
               Alert.alert(
                 SocialTexts.creation.car.prompts.delete.header[language],
                 SocialTexts.creation.car.prompts.delete.body[language],
-                
+
                 [
                   {
-                    text: SocialTexts.creation.car.prompts.delete.buttons.cancel[language],
+                    text: SocialTexts.creation.car.prompts.delete.buttons
+                      .cancel[language],
                     onPress: () => {
                       return;
                     },
                     isPreferred: true,
                   },
                   {
-                    text: SocialTexts.creation.car.prompts.delete.buttons.delete[language],
+                    text: SocialTexts.creation.car.prompts.delete.buttons
+                      .delete[language],
                     onPress: async () => {
                       const res = await deleteCar(id as string);
                       if (res) {
                         Toast.show({
                           type: "success",
-                          text1: SocialTexts.creation.car.deleted.header[language],
-                          text2: SocialTexts.creation.car.deleted.body[language],
+                          text1:
+                            SocialTexts.creation.car.deleted.header[language],
+                          text2:
+                            SocialTexts.creation.car.deleted.body[language],
                         });
-                        router.back()
+                        router.back();
                       }
                     },
                     isPreferred: false,

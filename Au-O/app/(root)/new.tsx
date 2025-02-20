@@ -42,6 +42,7 @@ import {
   createImageForm,
   createTimestamp,
   handleGallery,
+  searchFilter,
 } from "@/lib/functions";
 import {
   getOwnCars,
@@ -411,10 +412,8 @@ export default function NewPost() {
                   }
                   language={language}
                   colorScheme={colorScheme!}
-                  key={car ? car.model : "0"}
                   FlashListProps={{
                     data: cars,
-
                     ListHeaderComponent: () => (
                       <View>
                         <Button
@@ -423,7 +422,6 @@ export default function NewPost() {
                         >
                           Close
                         </Button>
-
                         <Pressable
                           className="w-11/12 my-2 mx-auto rounded-l overflow-hidden flex justify-center items-center"
                           onPress={() => {

@@ -141,7 +141,7 @@ export default function newCar() {
             onChangeText: (text) =>
               setNewCarForm({
                 ...newCarForm,
-                productionYear: parseInt(text),
+                productionYear:  !parseInt(text) ? 0 : parseInt(text),
               }),
             keyboardType: "number-pad",
           }}
@@ -189,11 +189,12 @@ export default function newCar() {
               icon="speedometer"
               TextInputProps={{
                 placeholder: "123",
-                value: newCarForm.horsepower.toString(),
+                value: newCarForm.horsepower + "",
                 keyboardType: "number-pad",
-                onChangeText: (text) =>
-                  setNewCarForm({ ...newCarForm, horsepower: parseInt(text) }),
-              }}
+                onChangeText: (text) =>{
+                  setNewCarForm({ ...newCarForm, horsepower: !parseInt(text) ? 0 : parseInt(text)})
+                }}
+              }
             />
           </View>
           <View className="basis-1/2">
