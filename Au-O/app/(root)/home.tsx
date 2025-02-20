@@ -13,6 +13,7 @@ import { FlashList } from "@shopify/flash-list";
 import NoPostsFound from "@/components/home/NoPostsFound";
 import LoadingModal from "@/components/ui/LoadingModal";
 import { Redirect } from "expo-router";
+import RootHeader from "@/components/home/RootHeader";
 
 export default function Home() {
   const { user } = useAuthentication();
@@ -80,6 +81,9 @@ export default function Home() {
   if (user)
     return (
       <>
+      <View className="sticky top-0 z-10">
+      <RootHeader colorScheme={colorScheme!} language={language} />
+      </View>
         {post && post.length > 0 ? (
           <FlashList
             refreshControl={

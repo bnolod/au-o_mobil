@@ -408,7 +408,7 @@ export default function Profile({
               selectedTab === "POST"
               ? () => router.replace({pathname: "/(root)/new"})
               : selectedTab === "GROUPS"
-              ? () => {} //to be implemented
+              ? () => router.replace({pathname: "/(root)/(groups)/new"})
               : selectedTab === "GARAGE"
               ? () => router.push("/(garage)/new")
               : () => {} //to be implemented

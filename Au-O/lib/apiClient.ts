@@ -168,7 +168,11 @@ export async function getUser(token: string): Promise<User | null | undefined> {
     return null;
   }
 }
-
+export async function getOwnGroups() {
+  const req = await apiFetch<Group[]>("groups/own", "GET", true);
+  if (req && req.status === 200) return req.data
+  else return null
+}
 export async function apiFetch<T>(
   endpoint: string,
   method: HttpMethod = "GET",

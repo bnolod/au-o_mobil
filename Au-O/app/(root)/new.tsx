@@ -32,8 +32,10 @@ import {
   Car,
   CarResponse,
   CreatePostRequest,
+  Group,
   ImageStoreRequest,
   ImageUploadResponse,
+  SocialEvent,
 } from "@/constants/types";
 import { useAuthentication } from "@/contexts/AuthenticationContext";
 import {
@@ -47,6 +49,7 @@ import {
 import {
   getOwnCars,
   getOwnGarage,
+  getOwnGroups,
   imageUpload,
   storeImages,
 } from "@/lib/apiClient";
@@ -60,14 +63,19 @@ import PostCreationSheetSelectElements from "@/components/new/PostCreationSheetS
 import FilterBar from "@/components/ui/FilterBar";
 import GarageItem from "@/components/garage/GarageItem";
 import { getCarImage } from "@/components/graphics/cars";
+import GroupListItem from "@/components/social/groups/GroupListItem";
 export default function NewPost() {
   const { language } = useLanguage();
   const { user } = useAuthentication();
   const { colorScheme } = useColorScheme();
 
   const sheet = useRef<SheetSelectionRef>(null);
-  const [selectedGroup, setSelectedGroup] = useState<string | null>(null);
-  const [selectedEvent, setSelectedEvent] = useState<string | null>(null);
+  const groupSheet = useRef<SheetSelectionRef>(null);
+  const eventSheet = useRef<SheetSelectionRef>(null);
+  const [selectedGroup, setSelectedGroup] = useState<Group | null>(null);
+  const [userGroups, setUserGroups] = useState<Group[]>([])
+
+  const [selectedEvent, setSelectedEvent] = useState<SocialEvent | null>(null);
   const [images, setImages] = useState<ImagePicker.ImagePickerAsset[]>([]);
   const [loading, setLoading] = useState(false);
   const [car, setCar] = useState<Car | null>();
@@ -75,20 +83,21 @@ export default function NewPost() {
     description: "",
     location: "",
     userId: user!.id,
-    group: null,
-    event: null,
+    groupId: null,
+    eventId: null,
     images: images,
     vehicleId: null,
   });
   const [cars, setCars] = useState<CarResponse[]>([]);
   useEffect(() => {
     getCars();
+    getGroups()
   }, []);
   useEffect(() => {
     setNewPostForm({
       ...newPostForm,
-      group: selectedGroup,
-      event: selectedEvent,
+      groupId: selectedGroup ? selectedGroup.id : null,
+      eventId: selectedEvent ? selectedEvent.id : null,
       images: images,
     });
   }, [images, selectedEvent, selectedGroup]);
@@ -100,6 +109,10 @@ export default function NewPost() {
     if (res) {
       setCars(res);
     }
+  }
+  async function getGroups() {
+    const res = await getOwnGroups()
+    if (res) setUserGroups(res)
   }
   async function handleSubmit() {
     setLoading(true);
@@ -135,8 +148,8 @@ export default function NewPost() {
           description: "",
           location: "",
           userId: user!.id,
-          group: selectedGroup,
-          event: selectedEvent,
+          groupId: selectedGroup ? selectedGroup.id : null,
+          eventId: selectedEvent ? selectedEvent.id : null,
           images: [],
           vehicleId: null,
         });
@@ -168,50 +181,6 @@ export default function NewPost() {
   }
 
   const bottomSheetRef = useRef<BottomSheetModal>(null);
-  /*const openGroupSheetIOS = () => {
-    retIOS.showActionSheetWithOptions(
-      {
-        options: [
-          PostCreationTexts.cancel[language ? language : "EN"],
-          ...groups,
-        ],
-        cancelButtonIndex: 0,
-        destructiveButtonIndex: 1,
-      },
-      (buttonIndex) => {
-        if (buttonIndex === 0) {
-          return;
-        }
-        if (buttonIndex === 1) {
-          setSelectedGroup(null);
-        } else {
-          setSelectedGroup(groups[buttonIndex - 1]);
-        }
-      }
-    );
-  };
-  const openEventSheetIOS = () => {
-    ActionSheetIOS.showActionSheetWithOptions(
-      {
-        options: [
-          PostCreationTexts.cancel[language ? language : "EN"],
-          ...events,
-        ],
-        cancelButtonIndex: 0,
-        destructiveButtonIndex: 1,
-      },
-      (buttonIndex) => {
-        if (buttonIndex === 0) {
-          return;
-        }
-        if (buttonIndex === 1) {
-          setSelectedEvent(null);
-        } else {
-          setSelectedEvent(events[buttonIndex - 1]);
-        }
-      }
-    );
-  };*/
   if (user === undefined)
     return <LoadingModal loading={true} colorScheme={colorScheme!} />;
   return (
@@ -342,17 +311,22 @@ export default function NewPost() {
                       {PostCreationTexts.form.group[language]}
                     </ThemedText>
                     <SheetSelection
+                      ref={groupSheet}
                       colorScheme={colorScheme!}
-                      placeholder={newPostForm.group || "Select a group"}
+                      placeholder={selectedGroup ? selectedGroup.name : "Select a group"}
                       language={language}
                       FlashListProps={{
-                        data: [{ title: "Group 1", memberCount: 12 }],
+                        data: userGroups,
                         renderItem: ({ item, index }) => (
-                          <PostCreationSheetSelectElements
-                            onPress={() => console.log(item.title)}
-                            group={{ title: item.title }}
-                            title={item.title}
-                          />
+                        <GroupListItem group={item} colorScheme={colorScheme!} language={language} onPress={() => {
+                          groupSheet.current?.dismissSheet();
+                          setSelectedGroup(item);
+                          setNewPostForm({
+                            ...newPostForm,
+                            groupId: item.id,
+                          });
+
+                        }} />
                         ),
                         estimatedItemSize: 50,
 
@@ -454,7 +428,6 @@ export default function NewPost() {
                             ...newPostForm,
                             vehicleId: item.id,
                           });
-                          console.log(item.manufacturer + " " + item.model);
                         }}
                       >
                         <View className="pointer-events-none">

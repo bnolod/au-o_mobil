@@ -218,9 +218,9 @@ export interface CreatePostRequest {
   userId: number;
   description: string;
   images: ImagePickerAsset[];
-  group: string | null;
+  groupId: number | null;
   location: string;
-  event: string | null;
+  eventId: number | null;
   vehicleId: number | null;
 }
 export interface LoadingModalProps {
@@ -363,7 +363,7 @@ export interface SettingsOption {
 }
 
 export interface Group {
-  id: string;
+  id: number;
   name: string;
   alias: string;
   bannerImage: string;
@@ -374,7 +374,7 @@ export interface Group {
   description: string;
 }
 export interface SocialEvent {
-  id: string;
+  id: number;
   name: string;
   description: string;
   startDate: string;
@@ -483,7 +483,7 @@ export interface SocialCardProps {
 }
 export interface SocialBannerProps {
   name: string;
-  id: string;
+  id: number;
   header?: boolean;
   image?: string;
   type?: "GROUP" | "EVENT";
