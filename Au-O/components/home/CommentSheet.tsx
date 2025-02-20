@@ -67,7 +67,7 @@ export default function CommentSheet({
           <TouchableWithoutFeedback
             onPress={() => {
               handlePresent();
-              setFocused(true);
+              // setFocused(true);
             }}
           >
             <View className="post-comment-input-trigger">
@@ -85,7 +85,9 @@ export default function CommentSheet({
           <TouchableOpacity
             className="post-comment-input"
             onPress={() => {
-              bottomSheetModalRef.current?.present();
+              // bottomSheetModalRef.current?.present();
+              handlePresent();
+              // setFocused(true);
             }}
           >
             <MaterialCommunityIcons
@@ -117,7 +119,7 @@ export default function CommentSheet({
               backgroundStyle={{
                 backgroundColor: Colors[colorScheme].secondary,
               }}
-              snapPoints={[1, "60%", "90%"]}
+              snapPoints={[1, "90%", "90%"]}
               handleIndicatorStyle={{
                 backgroundColor: Colors[colorScheme].text,
                 width: "33%",
