@@ -130,7 +130,7 @@ export default function NewPostPage() {
             alias: newGroupForm.alias.length > 0 ? newGroupForm.alias : "NEW",
             bannerImage: imagePreview?.uri!,
             creationDate: Date.now().toString(),
-            id: "123",
+            id: 123,
             description:
               newGroupForm.description.length > 0
                 ? newGroupForm.description
