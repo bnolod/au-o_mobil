@@ -260,7 +260,7 @@ export default function Profile({
               @{profile.username}
             </ThemedText>
           </View>
-          <View className="">
+          <View className="profile-description">
             <View
               className={`profile-description-text ${
                 isOwner && "basis-5/6"

@@ -376,7 +376,7 @@
     @apply w-full secondary rounded-b-xl;
   }
   .profile-data {
-    @apply follower-sheet-empty-container;
+    @apply flex flex-row justify-between items-center px-4;
   }
   .profile-descriptions {
     @apply flex flex-row gap-4 items-center px-4;

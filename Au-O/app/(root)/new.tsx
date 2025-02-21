@@ -29,7 +29,6 @@ import { PostCreationTexts } from "@/constants/texts";
 import ImageNotFound from "@/components/new/ImageNotFound";
 import PostCard from "@/components/Post/Post";
 import {
-
   CreatePostRequest,
   Group,
   ImageStoreRequest,
@@ -45,11 +44,7 @@ import {
   handleGallery,
   searchFilter,
 } from "@/lib/functions";
-import {
-  getOwnGroups,
-  imageUpload,
-  storeImages,
-} from "@/lib/apiClient";
+import { getOwnGroups, imageUpload, storeImages } from "@/lib/apiClient";
 import Toast from "react-native-toast-message";
 import LoadingModal from "@/components/ui/LoadingModal";
 import { router } from "expo-router";
@@ -72,7 +67,7 @@ export default function NewPost() {
   const groupSheet = useRef<SheetSelectionRef>(null);
   const eventSheet = useRef<SheetSelectionRef>(null);
   const [selectedGroup, setSelectedGroup] = useState<Group | null>(null);
-  const [userGroups, setUserGroups] = useState<Group[]>([])
+  const [userGroups, setUserGroups] = useState<Group[]>([]);
 
   const [selectedEvent, setSelectedEvent] = useState<SocialEvent | null>(null);
   const [images, setImages] = useState<ImagePicker.ImagePickerAsset[]>([]);
@@ -90,7 +85,7 @@ export default function NewPost() {
   const [cars, setCars] = useState<Car[]>([]);
   useEffect(() => {
     getCars();
-    getGroups()
+    getGroups();
   }, []);
   useEffect(() => {
     setNewPostForm({
@@ -110,8 +105,8 @@ export default function NewPost() {
     }
   }
   async function getGroups() {
-    const res = await getOwnGroups()
-    if (res) setUserGroups(res)
+    const res = await getOwnGroups();
+    if (res) setUserGroups(res);
   }
   async function handleSubmit() {
     setLoading(true);
@@ -312,20 +307,26 @@ export default function NewPost() {
                     <SheetSelection
                       ref={groupSheet}
                       colorScheme={colorScheme!}
-                      placeholder={selectedGroup ? selectedGroup.name : "Select a group"}
+                      placeholder={
+                        selectedGroup ? selectedGroup.name : "Select a group"
+                      }
                       language={language}
                       FlashListProps={{
                         data: userGroups,
-                        renderItem: ({ item, index }) => (
-                        <GroupListItem group={item} colorScheme={colorScheme!} language={language} onPress={() => {
-                          groupSheet.current?.dismissSheet();
-                          setSelectedGroup(item);
-                          setNewPostForm({
-                            ...newPostForm,
-                            groupId: item.id,
-                          });
-
-                        }} />
+                        renderItem: ({ item }) => (
+                          <GroupListItem
+                            group={item}
+                            colorScheme={colorScheme!}
+                            language={language}
+                            onPress={() => {
+                              groupSheet.current?.dismissSheet();
+                              setSelectedGroup(item);
+                              setNewPostForm({
+                                ...newPostForm,
+                                groupId: item.id,
+                              });
+                            }}
+                          />
                         ),
                         estimatedItemSize: 50,
 
@@ -456,7 +457,8 @@ export default function NewPost() {
                   containerClassName="rounded-xl"
                 />
                 <Button
-                  variant="highlight"
+                  className="highlight button btn-fill"
+                  innerTextClassName="tlg"
                   type="fill"
                   style={{ marginTop: 20 }}
                   hapticFeedback="light"
@@ -547,16 +549,17 @@ export default function NewPost() {
                     }
                   />
                   <Button
-                    onPress={() => bottomSheetRef.current?.dismiss()}
-                    className=" my-2 p-1 btn-highlight button btn-fill btn-outline"
-                  >
-                    {PostCreationTexts.buttons.dismiss[language]}
-                  </Button>
-                  <Button
                     onPress={handleSubmit}
-                    className=" mt-2 p-2 btn-highlight button btn-fill"
+                    innerTextClassName="txl"
+                    className=" my-2 p-2 highlight button btn-fill"
                   >
                     {PostCreationTexts.buttons.post[language]}
+                  </Button>
+                  <Button
+                    onPress={() => bottomSheetRef.current?.dismiss()}
+                    className=" mt-4 p-1 secondary button btn-fill"
+                  >
+                    {PostCreationTexts.buttons.dismiss[language]}
                   </Button>
                 </BottomSheetView>
               </BottomSheetModal>
