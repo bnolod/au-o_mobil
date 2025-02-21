@@ -1,6 +1,6 @@
 import { Reactions } from "@/constants/types";
 import { PostCardProps } from "./props";
-import { Pressable, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import * as Haptics from "expo-haptics";
 import React from "react";
 import ThemedText from "../ui/ThemedText";
@@ -11,7 +11,7 @@ import { formatDate, getPostType } from "@/lib/functions";
 import CommentSheet from "../home/CommentSheet";
 import PostHeaderElement from "./base/PostHeaderElement";
 import PostAuthorDisplayElement from "./base/PostAuthorDisplayElement";
-import { generalTexts, HomeTexts, SocialTexts } from "@/constants/texts";
+import { generalTexts, HomeTexts } from "@/constants/texts";
 import { router } from "expo-router";
 import TapCountWrapper from "../utility/TapCountWrapper";
 import PostOptionMenu from "./base/PostOptionMenu";
@@ -251,9 +251,9 @@ export default function PostCard({
               />
             </View>
             <View className="post-data-container">
-              <ThemedText className="highlight-themed">
+              <Text className="post-location-text">
                 {location}
-              </ThemedText>
+              </Text>
               <ThemedText>{formatDate(date)}</ThemedText>
             </View>
           </View>
@@ -264,9 +264,9 @@ export default function PostCard({
               className="post-description"
               restrictedLineCount={3}
             >
-              <ThemedText className="pr-4 highlight-themed font-semibold">
+              <Text className="post-author-text">
                 {authorUsername + "  "}
-              </ThemedText>
+              </Text>
               {description}
             </CollapsibleText>
           </View>

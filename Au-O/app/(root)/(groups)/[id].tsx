@@ -4,9 +4,9 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { ScrollView } from "react-native";
 import { useEffect, useState } from "react";
 import { Group } from "@/constants/types";
-import { getGroup } from "@/lib/apiClient";
 import { router, useLocalSearchParams } from "expo-router";
 import LoadingModal from "@/components/ui/LoadingModal";
+import { getGroup } from "@/lib/ApiCalls/GroupApiCalls";
 
 export default function GroupDisplay() {
   const { language } = useLanguage();

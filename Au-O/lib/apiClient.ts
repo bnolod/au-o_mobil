@@ -1,7 +1,5 @@
 import {
   Group,
-  GroupCreationRequest,
-  GroupCreationResponse,
   HttpError,
   HttpMethod,
   ImageStoreRequest,
@@ -17,6 +15,7 @@ import { deleteUser, saveUser } from "./functions";
 import { eventEmitter } from "./events";
 import { User } from "./entity/User";
 import { Feed } from "./entity/Feed";
+import { Reply } from "./entity/Reply";
 
 
 const apiClient: AxiosInstance = axios.create({
@@ -24,7 +23,7 @@ const apiClient: AxiosInstance = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
-  validateStatus: function (status) {
+  validateStatus: function (_) {
     return true;
   },
 });
@@ -61,7 +60,7 @@ export async function logout() {
   eventEmitter.emit("triggerLogout");
 }
 export async function deleteImgurImage(deleteHash: string) {
-  const req = await fetch(`https://api.imgur.com/3/image/${deleteHash}`, {
+  const req = await fetch(`https:api.imgur.com/3/image/${deleteHash}`, {
     method: "DELETE",
     headers: {
       Authorization: `Client-ID ${process.env.EXPO_PUBLIC_IMGUR_CLIENT_ID}`,
@@ -91,7 +90,7 @@ export async function validateToken(token: string, path: string) {
 export const imageUpload = async (
   image: FormData
 ): Promise<ImageUploadResponse | null> => {
-  const endpoint = "https://api.imgur.com/3/image";
+  const endpoint = "https:api.imgur.com/3/image";
   const headers = {
     Authorization: `Client-ID ${process.env.EXPO_PUBLIC_IMGUR_CLIENT_ID}`,
     "Content-Type": "multipart/form-data",
@@ -118,34 +117,34 @@ export async function storeImages(request: ImageStoreRequest): Promise<any> {
     return res.data;
   } else return null;
 }
-// export async function addReaction(
-//   target: "post" | "comment" | "reply",
-//   postId: number,
-//   reaction: null | "FIRE" | "HEART" | "COOL"
-// ) {    
-//   if (!reaction) {
-//   }
-//   const res = await fetch(
-//     `${apiClient.defaults.baseURL}/posts/${target}/${postId}/addOrRemoveReaction/${reaction}`,
-//     {
-//       method: "POST",
-//       headers: {
-//         Authorization: `Bearer ${await SecureStore.getItemAsync("jwtToken")}`,
-//       },
-//     }
-//   );
-//   return res.status === 200
-// }
-// export async function editPost(text: string, location: string, vehicleId: number | null, id: string) {
-//   const res = await apiFetch(`/posts/post/${id}`, "PUT", true, {
-//     text,
-//     location,
-//     vehicleId
-//   });
-//   if (res) {
-//     return res.data;
-//   } else return null;
-// }
+ export async function addReaction(
+   target: "post" | "comment" | "reply",
+   postId: number,
+   reaction: null | "FIRE" | "HEART" | "COOL"
+ ) {    
+   if (!reaction) {
+   }
+   const res = await fetch(
+     `${apiClient.defaults.baseURL}/posts/${target}/${postId}/addOrRemoveReaction/${reaction}`,
+     {
+       method: "POST",
+       headers: {
+         Authorization: `Bearer ${await SecureStore.getItemAsync("jwtToken")}`,
+       },
+     }
+   );
+   return res.status === 200
+ }
+ export async function editPost(text: string, location: string, vehicleId: number | null, id: string) {
+   const res = await apiFetch(`/posts/post/${id}`, "PUT", true, {
+     text,
+     location,
+     vehicleId
+   });
+   if (res) {
+     return res.data;
+   } else return null;
+ }
 export async function getUser(token: string): Promise<User | null | undefined> {
   try {
     if (!token) {
@@ -212,13 +211,7 @@ export async function handleRegister(
     throw new HttpError(500, "No token in response");
   }
 }
-async function refreshUser() {
-  const token = await SecureStore.getItemAsync("jwtToken");
-  const res = await getUser(token!);
-  if (res) {
-    await saveUser(res);
-  }
-}
+
 export async function handleLogin(request: LoginRequest): Promise<string> {
   const response = await apiFetch<TokenResponse>(
     "auth/login",
@@ -230,66 +223,66 @@ export async function handleLogin(request: LoginRequest): Promise<string> {
   return response!.data!.token;
 }
 
-// export async function AddCommentToPost(
-//   postId: string,
-//   comment: string
-// ): Promise<Comment | null> {
-//   if (comment.length === 0) {
-//     return null;
-//   }
-//   const res = await apiFetch<Comment>(
-//     `posts/post/${postId}/comment`,
-//     "POST",
-//     true,
-//     {
-//       text: comment,
-//     }
-//   );
-//   if (res) return res.data;
-//   return null;
-// }
-// export async function DeleteComment(commentId: string): Promise<boolean> {
-//   const res = await fetch(
-//     `${apiClient.defaults.baseURL}/posts/post/comment/${commentId}`,
-//     {
-//       method: "DELETE",
-//       headers: {
-//         Authorization: `Bearer ${await SecureStore.getItemAsync("jwtToken")}`,
-//       },
-//     }
-//   );
-//   if (res.status === 200) return true;
-//   else return false;
-// }
-// export async function sendReply(
-//   commentId: string,
-//   text: string
-// ): Promise<Reply | null> {
-//   if (text.length === 0) return null
-//   const res = await apiFetch<Reply>(
-//     `posts/post/comment/${commentId}/reply`,
-//     "POST",
-//     true,
-//     {
-//       text,
-//     }
-//   );
-//   if (res) return res.data;
-//   return null;
-// }
-// export async function deleteReply(replyId: number) {
-//   const res = await fetch(
-//     `${apiClient.defaults.baseURL}/posts/post/comment/reply/${replyId}`,
-//     {
-//       method: "DELETE",
-//       headers: {
-//         Authorization: `Bearer ${await SecureStore.getItemAsync("jwtToken")}`,
-//       },
-//     }
-//   );
-//   if (res.status === 200) return true;
-//   else return false;
-// }
+ export async function AddCommentToPost(
+   postId: string,
+   comment: string
+ ): Promise<Comment | null> {
+   if (comment.length === 0) {
+     return null;
+   }
+   const res = await apiFetch<Comment>(
+     `posts/post/${postId}/comment`,
+     "POST",
+     true,
+     {
+       text: comment,
+     }
+   );
+   if (res) return res.data;
+   return null;
+ }
+ export async function DeleteComment(commentId: string): Promise<boolean> {
+   const res = await fetch(
+     `${apiClient.defaults.baseURL}/posts/post/comment/${commentId}`,
+     {
+       method: "DELETE",
+       headers: {
+         Authorization: `Bearer ${await SecureStore.getItemAsync("jwtToken")}`,
+       },
+     }
+   );
+   if (res.status === 200) return true;
+   else return false;
+ }
+ export async function sendReply(
+   commentId: string,
+   text: string
+ ): Promise<Reply | null> {
+   if (text.length === 0) return null
+   const res = await apiFetch<Reply>(
+     `posts/post/comment/${commentId}/reply`,
+     "POST",
+     true,
+     {
+       text,
+     }
+   );
+   if (res) return res.data;
+   return null;
+ }
+ export async function deleteReply(replyId: number) {
+   const res = await fetch(
+     `${apiClient.defaults.baseURL}/posts/post/comment/reply/${replyId}`,
+     {
+       method: "DELETE",
+       headers: {
+         Authorization: `Bearer ${await SecureStore.getItemAsync("jwtToken")}`,
+       },
+     }
+   );
+   if (res.status === 200) return true;
+   else return false;
+ }
 
 export async function updateProfilePicture(imageForm: FormData) {
   const image = await imageUpload(imageForm);
@@ -342,24 +335,3 @@ export async function loadFeed(index: number, timestamp: string) {
   return null;
 }
 
-export async function createGroup(request: GroupCreationRequest) {
-  const req = await apiFetch<GroupCreationResponse>("groups/group", "POST", true, request);
-  if (req && req.status === 200) {
-    return req.data;
-  }
-  return null
-}
-export async function getGroup(groupId: string) {
-  const req = await apiFetch<Group>("groups/group/" + groupId, "GET", true);
-  if (req && req.status === 200) {
-    return req.data;
-  }
-  return null;
-}
-export async function getAllGroups() { //temporary
-  const req = await apiFetch<Group[]>("groups/all", "GET", true);
-  if (req && req.status === 200) {
-    return req.data;
-  }
-  return null;
-}

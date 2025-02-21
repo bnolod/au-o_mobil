@@ -218,6 +218,12 @@
   .post-image-index {
     @apply px-3 z-50 py-1 font-semibold left-4 top-4 absolute primary rounded-xl;
   }
+  .post-author-text {
+    @apply text-highlight-light dark:text-highlight pr-4 font-semibold;
+  }
+  .post-location-text {
+    @apply text-highlight-light dark:text-highlight ;
+  }
   /* Social */
   .new-social-button {
     @apply button w-11/12 my-2 mx-auto highlight-themed;

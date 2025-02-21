@@ -18,8 +18,7 @@ export default function CallToAction({
     <View className=" w-full items-end justify-end flex flex-col pb-12 basis-2/12">
       <Button
         hapticFeedback="medium"
-        variant="highlight"
-        type="fill"
+    className="highlight button btn-fill"
         onPress={onPress}
       >
         <ThemedText

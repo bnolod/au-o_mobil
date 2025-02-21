@@ -194,20 +194,20 @@ export default function NewPost() {
         />
       </View>
       <KeyboardAvoidingView
-        behavior="position"
-        keyboardVerticalOffset={40}
+        behavior="padding"
         style={{ flex: 1 }}
       >
         <ScrollView
           showsVerticalScrollIndicator={false}
           overScrollMode="never"
           bounces={false}
+          className="h-fit primary"
         >
           <Pressable
             onPress={() => Keyboard.dismiss()}
-            className="flex h-screen flex-col"
+            className="flex flex-col"
           >
-            <View className=" basis-3/12 w-full secondary rounded-b-xl">
+            <View className="h-64 basis-3/12 w-full secondary rounded-b-xl">
               {images.length > 0 ? (
                 <Carousel
                   width={Dimensions.get("screen").width}

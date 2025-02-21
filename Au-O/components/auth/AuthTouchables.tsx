@@ -71,8 +71,8 @@ export default function AuthTouchables({
   return (
     <View className="w-full basis-2/12 sticky flex flex-col my-6 bg-transparent justify-evenly items-center">
       <Button
-        variant="highlight"
-        type="fill"
+      className="button highlight btn-fill"
+      innerTextClassName="txl"
         hapticFeedback="heavy"
         onPress={
           mode === "LOGIN"
@@ -84,11 +84,9 @@ export default function AuthTouchables({
               }
         }
       >
-        <ThemedText className="text-white font-semibold text-lg">
           {mode === "LOGIN"
             ? AuthTexts.login.confirm[language]
             : AuthTexts.signup.confirm[language]}
-        </ThemedText>
       </Button>
       <View className="flex items-center flex-row">
         <ThemedText>
