@@ -60,7 +60,7 @@ export default function TextEditModal({
         >
         <TouchableOpacity
           onPress={handleCancel}
-          className="w-screen z-50 h-screen flex justify-center items-center bg-black/50"
+          className="text-edit-modal"
         >
             
           <Input

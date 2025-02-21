@@ -10,7 +10,8 @@ import { useEffect, useState } from "react";
 // import { Car, CarResponse } from "@/constants/types";
 import { Car } from "@/lib/entity/Car";
 import { useLocalSearchParams } from "expo-router";
-import { getCarByCarId } from "@/lib/apiClient";
+import { getCarByCarId } from "@/lib/ApiCalls/CarApiCalls";
+// import { getCarByCarId } from "@/lib/apiClient";
 export default function CarPage() {
   const { language } = useLanguage();
   const [car, setCar] = useState<Car>();

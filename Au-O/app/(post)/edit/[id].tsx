@@ -8,14 +8,16 @@ import SheetSelection, { SheetSelectionRef } from "@/components/ui/SheetSelectio
 import ThemedText from "@/components/ui/ThemedText";
 import { Colors } from "@/constants/Colors";
 import { PostCreationTexts, PostEditTexts } from "@/constants/texts";
-import { Car, CarResponse, PostEditRequest, PostResponse } from "@/constants/types";
+import { PostEditRequest } from "@/constants/types";
 import { useAuthentication } from "@/contexts/AuthenticationContext";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { getOwnCars } from "@/lib/ApiCalls/CarApiCalls";
+import { editPost } from "@/lib/ApiCalls/PostApiCalls";
 import {
-  apiFetch,
-  editPost,
-  getOwnCars,
+  apiFetch
 } from "@/lib/apiClient";
+import { Car } from "@/lib/entity/Car";
+import { Post } from "@/lib/entity/Post";
 import { Images } from "@/lib/staticAssetExports";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { BottomSheetModal, BottomSheetView } from "@gorhom/bottom-sheet";
@@ -33,8 +35,8 @@ export default function EditPost() {
   const { language } = useLanguage();
   const { id } = useLocalSearchParams();
   const { colorScheme } = useColorScheme();
-  const [post, setPost] = useState<PostResponse>();
-  const [cars, setCars] = useState<CarResponse[]>();
+  const [post, setPost] = useState<Post>();
+  const [cars, setCars] = useState<Car[]>();
   const [car, setCar] = useState<Car | null>()
   
   const [editPostForm, setEditPostForm] = useState<PostEditRequest>({
@@ -73,7 +75,7 @@ export default function EditPost() {
     }
   }
   async function getPost() {
-    const postResponse = await apiFetch<PostResponse>(
+    const postResponse = await apiFetch<Post>(
       `posts/post/${id}`,
       "GET",
       true
@@ -216,7 +218,7 @@ export default function EditPost() {
                         Close
                       </Button>
 
-                      <Pressable className="w-11/12 my-2 mx-auto rounded-l overflow-hidden flex justify-center items-center" onPress={() => {
+                      <Pressable className="post-edit-sheet-unset-car" onPress={() => {
                         sheet.current?.dismissSheet();
                         setCar(null);
                         setEditPostForm({
@@ -224,8 +226,8 @@ export default function EditPost() {
                           vehicleId: null
                         })
                       }}>
-                          <ImageBackground className="w-full secondary rounded-xl mx-auto" resizeMode="repeat" source={Images.banner_placeholder}>
-                        <ThemedText className="font-bold w-full mx-auto text-center text-lg p-3 rounded-xl">
+                          <ImageBackground className="post-edit-sheet-unset-background" resizeMode="repeat" source={Images.banner_placeholder}>
+                        <ThemedText className="post-edit-sheet-unset-text">
                           Unassign vehicle
                         </ThemedText>
                         </ImageBackground>
@@ -331,13 +333,13 @@ export default function EditPost() {
               />
               <Button
                 onPress={() => bottomSheetRef.current?.dismiss()}
-                className=" my-2 btn-highlight button btn-fill btn-outline"
+                className="post-dismiss-button"
               >
                 Dismiss
               </Button>
               <Button
                 onPress={handleSubmit}
-                className=" mt-2 btn-highlight button btn-fill"
+                className="post-dismiss-button"
               >
                 Post
               </Button>

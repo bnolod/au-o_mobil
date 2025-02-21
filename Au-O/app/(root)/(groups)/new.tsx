@@ -13,7 +13,7 @@ import { Images } from "@/lib/staticAssetExports";
 import GarageItem from "@/components/garage/GarageItem";
 import { useEffect, useState } from "react";
 import { CarType, GroupCreationRequest } from "@/constants/types";
-import { CarCreationRequest } from "@/constants/types";
+
 import SheetSelection, {
   SheetSelectionRef,
 } from "@/components/ui/SheetSelection";
@@ -21,7 +21,7 @@ import CarTypeListItem from "@/components/garage/CarTypeListItem";
 import Button from "@/components/ui/Button";
 import { useRef } from "react";
 import CollapsibleText from "@/components/ui/CollapsibleText";
-import { addCar, createGroup, imageUpload } from "@/lib/apiClient";
+import {createGroup, imageUpload } from "@/lib/apiClient";
 import Toast from "react-native-toast-message";
 import SocialCard from "@/components/social/SocialCard";
 import NewSocial from "@/components/social/NewSocial";

@@ -74,6 +74,9 @@
   .input-body {
     @apply flex flex-row justify-start items-center secondary relative rounded-xl border 
   }
+  .text-edit-modal {
+    @apply w-screen z-50 h-screen flex justify-center items-center bg-black/50
+  }
 /* Post */
   .post-container {
     @apply flex flex-col w-full   shadow-md my-2
@@ -96,11 +99,26 @@
   .post-vehicle-container {
     @apply w-11/12 m-auto flex-row  flex justify-between items-center
   }
+  .post-edit-sheet-unset-car {
+    @apply w-11/12 my-2 mx-auto rounded-l overflow-hidden flex justify-center items-center
+  }
+  .post-edit-sheet-unset-background {
+    @apply w-full secondary rounded-xl mx-auto
+  }
+  .post-edit-sheet-unset-text {
+    @apply font-bold w-full mx-auto text-center text-lg p-3 rounded-xl
+  }
   .post-vehicle-data {
     @apply flex justify-center flex-row items-center gap-3
   }
+  .post-dismiss-button {
+    @apply my-2 btn-highlight button btn-fill btn-outline
+  }
+  .post-submit-button {
+    @apply mt-2 btn-highlight button btn-fill
+  }
   .post-vehicle-misc-data {
-    @apply flex justify-center flex-row opacity-50 items-center gap-3
+    @apply flex justify-center flex-row muted  items-center gap-3
   }
   .post-description-container {
    @apply px-4 pt-2 pb-5 flex flex-row  dark:bg-backdrop-primary-dark bg-backdrop-secondary
@@ -122,6 +140,15 @@
   }
   .post-comment-container {
     @apply flex flex-row py-2 px-4 rounded-b-xl secondary items-center justify-between
+  }
+  .post-comment-add {
+    @apply flex flex-row mb-2 rounded-xl mx-auto justify-between gap-4 items-center
+  }
+  .post-comment-send-reply-button {
+    @apply secondary h-12 w-12 rounded-xl justify-center items-center disabled:muted 
+  }
+  .post-comment-sheet {
+    @apply basis-1/12 flex justify-center items-center
   }
   .post-comment-input {
     @apply h-12 p-0 gap-2 flex flex-row items-center rounded-xl justify-center primary
@@ -148,7 +175,7 @@
   }
   /* Comment */
   .root-comment-empty-container {
-    @apply flex opacity-50 justify-center flex-col items-center mt-4
+    @apply flex muted  justify-center flex-col items-center mt-4
   }
   .comment {
     @apply  primary w-full py-2 px-4 flex flex-col items-start gap-2 justify-between
@@ -185,10 +212,10 @@
   }
   /* Post creation */
   .new-post-image-upload-prompt {
-    @apply w-full h-full opacity-40 flex justify-center items-center
+    @apply w-full h-full muted  flex justify-center items-center
   }
   .new-post-pop-image {
-    @apply bg-highlight z-50 rounded-full opacity-40 w-14 h-14 flex justify-center items-center m-3 absolute bottom-0
+    @apply bg-highlight z-50 rounded-full muted  w-14 h-14 flex justify-center items-center m-3 absolute bottom-0
   }
   .new-post-gallery-opener {
     @apply my-2 secondary py-4 highlight-themed text-center w-11/12 flex flex-row items-center justify-between px-6 rounded-xl
@@ -303,6 +330,12 @@
   .garage-page-attribute {
     @apply flex flex-col items-center justify-center p-2 highlight-themed aspect-square rounded-xl
   }
+  .garage-description-container {
+    @apply flex flex-col mx-3 gap-2
+  }
+  .garage-featured-header {
+
+  }
 
   /* Groups */
   .group-list-item-container {
@@ -338,6 +371,52 @@
   .post-grid-image {
     @apply flex-1 h-72 rounded-xl my-2 w-11/12 primary
   }
+  .follower-sheet-header {
+    @apply flex flex-row items-center justify-evenly
+  }
+  .follower-sheet-selector {
+    @apply flex items-center flex-col
+  }
+  .follower-sheet-empty-container {
+    @apply flex justify-center items-center w-full
+  }
+  .profile {
+    @apply w-full secondary rounded-b-xl
+  }
+  .profile-data {
+    @apply follower-sheet-empty-container
+  }
+  .profile-descriptions {
+    @apply flex flex-row gap-4 items-center px-4
+  }
+  .profile-description {
+    @apply flex flex-row gap-1 items-center
+  }
+  .profile-description-text {
+    @apply flex flex-row items-start justify-start
+  }
+  .profile-settings {
+    @apply text-right mr-4 self-start primary p-2 rounded-xl
+  }
+  .follows {
+    @apply flex flex-row justify-between px-4 items-center w-full
+  }
+  .follow-button {
+    @apply w-1/3 button highlight ml-0 items-center py-3
+  }
+  .misc-button-container {
+    @apply flex items-center justify-around gap-2 flex-row  my-3
+  }
+  .profile-misc-button {
+    @apply button primary w-fit
+  }
+  .profile-selector-container {
+    @apply primary flex flex-row justify-between items-center m-auto w-full py-2  rounded-xl
+  }
+  .chat-button {
+    @apply h-12 w-12 text-center flex justify-center items-center p-1 rounded-xl secondary
+  }
+
 
 } 
 @layer base {
@@ -362,7 +441,13 @@
   .highlight-themed {
     @apply bg-highlight-light dark:bg-highlight-dark
   }
+  .divider {
+    @apply w-11/12 mx-auto border border-black dark:border-white my-2 muted 
+  }
   .stroke {
     @apply border border-black dark:border-white
+  }
+  .muted {
+    @apply opacity-65
   }
 }

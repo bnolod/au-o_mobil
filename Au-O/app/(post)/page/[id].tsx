@@ -3,7 +3,7 @@ import Button from "@/components/ui/Button";
 import LoadingModal from "@/components/ui/LoadingModal";
 import ThemedText from "@/components/ui/ThemedText";
 import { Colors } from "@/constants/Colors";
-import { PostResponse } from "@/constants/types";
+// import { PostResponse } from "@/constants/types";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { apiFetch } from "@/lib/apiClient";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -14,9 +14,10 @@ import { Alert, View } from "react-native";
 import * as Clipboard from 'expo-clipboard'
 import { PostStatusTexts } from "@/constants/texts";
 import { useAuthentication } from "@/contexts/AuthenticationContext";
+import { Post } from "@/lib/entity/Post";
 
 export default function PostPage() {
-  const [post, setPost] = useState<PostResponse>();
+  const [post, setPost] = useState<Post>();
   const { id, isNew } = useLocalSearchParams<{id: string; isNew?: string}>();
   const { colorScheme } = useColorScheme();
   const { language } = useLanguage();
@@ -44,7 +45,7 @@ export default function PostPage() {
   useEffect(() => {
     async function getPost() {
       
-      const res = await apiFetch<PostResponse>(`posts/post/${id}`, "GET", true);
+      const res = await apiFetch<Post>(`posts/post/${id}`, "GET", true);
       if (res) {
         setPost(res?.data!);
         setLoading(false);

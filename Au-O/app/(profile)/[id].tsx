@@ -1,9 +1,7 @@
 import {
   apiFetch,
-  getFollows,
 } from "@/lib/apiClient";
 import {
-  PostResponse,
   UserResponse,
 } from "@/constants/types";
 import { useEffect, useState } from "react";
@@ -15,6 +13,8 @@ import { useAuthentication } from "@/contexts/AuthenticationContext";
 import Profile from "@/components/home/Profile";
 import { Car } from "@/lib/entity/Car";
 import { User } from "@/lib/entity/User";
+import { Post } from "@/lib/entity/Post";
+import { getFollows } from "@/lib/ApiCalls/UserApiCalls";
 
 
 export default function UserProfile() {
@@ -27,7 +27,7 @@ export default function UserProfile() {
 
   const [followers, setFollowers] = useState<User[]>([]);
   const [following, setFollowing] = useState<User[]>([]);
-  const [posts, setPosts] = useState<PostResponse[]>([]);
+  const [posts, setPosts] = useState<Post[]>([]);
   
   async function getUser() {
     const res = await apiFetch<UserResponse>(`users/user/${id}`, "GET", true);
@@ -36,7 +36,7 @@ export default function UserProfile() {
     } else return;
   }
   async function getUserPosts() {
-    const res = await apiFetch<PostResponse[]>(
+    const res = await apiFetch<Post[]>(
       `users/user/${id}/posts`,
       "GET",
       true

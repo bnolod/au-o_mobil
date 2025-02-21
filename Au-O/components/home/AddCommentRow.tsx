@@ -37,7 +37,7 @@ export default function AddCommentRow({
     }
   }
   return (
-    <View className="flex flex-row mb-2 rounded-xl mx-auto justify-between gap-4 items-center">
+    <View className="post-comment-add">
       <View className="basis-10/12 rounded-xl">
         <BottomSheetTextInput
           value={commentText}
@@ -61,7 +61,7 @@ export default function AddCommentRow({
       </View>
       <View className="basis-1/12">
         <ApiCallButton
-          className="highlight h-12 w-12 rounded-xl justify-center items-center disabled:opacity-50"
+          className="post-comment-send-reply-button"
           apiCall={handleSubmitComment}
           delay={1000}
         >

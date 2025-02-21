@@ -7,10 +7,9 @@ import { HttpErrorTexts } from "./texts";
 import { ReactNode } from "react";
 import { ImagePickerAsset } from "expo-image-picker";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { IconProps } from "@expo/vector-icons/build/createIconSet";
 import { User } from "@/lib/entity/User";
 import { Car } from "@/lib/entity/Car";
-import { CarResponse } from "@/lib/response/CarResponse";
+import { Comment } from "@/lib/entity/Comment";
 
 export interface OnboardingLayoutProps {
   headerText: React.ReactNode;
@@ -103,7 +102,6 @@ export interface EventPostData {
   startDate: string;
   endDate: string;
 }
-export type PostType = "USER" | "GROUP" | "EVENT" | "INVALID";
 export interface PostDispayElementProps {
   onPress: () => void;
   postType: string;
@@ -118,8 +116,8 @@ export interface ImageUploadResponse {
   url: string;
   deleteHash: string;
 }
-export type PostResponseType = "USERPOST" | "GROUPOST" | "EVENTPOST";
-export type UserPostResponseType = {
+export type PostType = "USERPOST" | "GROUPOST" | "EVENTPOST";
+export type PostUser = {
   isPublic: boolean;
   bio: string;
   dateOfSignup: string;
@@ -134,21 +132,7 @@ export type ImagePostResponseType = {
   index: number;
   deleteHash: string;
 };
-export interface PostResponse {
-  dateOfCreation: string;
-  dateOfUpdate: string;
-  group: any;
-  images: ImageUploadResponse[];
-  location: string;
-  postId: number;
-  postType: PostResponseType;
-  reactionTypeMap: Reactions;
-  text: string;
-  user: UserPostResponseType;
-  comments: Comment[];
-  reactedWith: null | "FIRE" | "HEART" | "COOL";
-  vehicle: Car | null
-}
+
 export interface ImageStoreRequest {
   text: string;
   postImages: ImageUploadResponse[];
@@ -193,23 +177,16 @@ export type ImageUploadType = {
   image: string;
   type: string;
 };
-export interface Comment {
-  id: number;
-  time: string;
-  reactionTypeMap: Reactions;
-  reactedWith: null | "FIRE" | "HEART" | "COOL";
-  user: UserPostResponseType;
-  text: string;
-  replies: Reply[] | null;
-}
-export interface Reply {
-  id: number;
-  reactedWith: null | "FIRE" | "HEART" | "COOL";
-  reactionTypeMap: Reactions;
-  time: string;
-  user: UserPostResponseType;
-  text: string;
-}
+// export interface Comment {
+//   id: number;
+//   time: string;
+//   reactionTypeMap: Reactions;
+//   reactedWith: null | "FIRE" | "HEART" | "COOL";
+//   user: UserPostResponseType;
+//   text: string;
+//   replies: Reply[] | null;
+// }
+
 export interface PostEditRequest {
   description: string;
   groupData: GroupPostData | null;

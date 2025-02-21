@@ -36,7 +36,7 @@ export default function RootHeader({language, colorScheme} : CommonStaticElement
             setLanguage("EN");
           }
         }}
-        className="h-12 w-12 text-center flex justify-center items-center p-1 rounded-xl secondary"
+        className="chat-button"
       >
         <MaterialCommunityIcons
           name="chat-outline"

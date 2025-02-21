@@ -8,14 +8,16 @@ import {
   View,
 } from "react-native";
 import ThemedText from "./ThemedText";
-import { CommentElementProps, CommonStaticElementProps, Reactions, ReactionState, Reply } from "@/constants/types";
+import { CommentElementProps, CommonStaticElementProps, Reactions} from "@/constants/types";
 import Avatar from "./Avatar";
 import { useState } from "react";
 import * as Haptics from "expo-haptics";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Colors } from "@/constants/Colors";
 import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
-import { addReaction, DeleteComment, sendReply } from "@/lib/apiClient";
+import { addReaction } from "@/lib/apiClient";
+import { DeleteComment } from "@/lib/ApiCalls/CommentApiCalls";
+import { sendReply } from "@/lib/ApiCalls/ReplyApiCalls";
 import ReplyItem from "./Reply";
 import Toast from "react-native-toast-message";
 import { FlashList } from "@shopify/flash-list";
@@ -23,6 +25,7 @@ import { CommentTexts } from "@/constants/texts";
 import CollapsibleText from "./CollapsibleText";
 import ReactionButton from "./ReactionButton";
 import ApiCallButton from "./ApiCallButton";
+import { Reply } from "@/lib/entity/Reply";
 export default function CommentElement({
   item,
   language,

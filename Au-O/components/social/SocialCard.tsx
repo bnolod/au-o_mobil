@@ -77,7 +77,7 @@ export default function SocialCard({
             <View className="basis-4/6">
               <ThemedText className="tlg leading-tight">
                 {item.name}
-                <ThemedText className="tsm p-3 font-semibold opacity-40">
+                <ThemedText className="tsm p-3 font-semibold muted ">
                   {" "}
                   {item.alias}
                 </ThemedText>

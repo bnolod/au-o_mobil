@@ -19,7 +19,7 @@ export default function EventFeed() {
         type="EVENT"
         event={{
           description: "This is an event",
-          id: "1",
+          id: 1,
           name: "Event 1",
           bannerImage: Images.placeholder,
           attendees: 10,

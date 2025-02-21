@@ -7,19 +7,14 @@ import {
   View,
 } from "react-native";
 import {
-  followUser,
-  unfollowUser,
   updateBio,
   updateNickname,
   updateProfilePicture,
 } from "@/lib/apiClient";
 import {
   CommonStaticElementProps,
-  PostResponse,
   ProfileProps,
 } from "@/constants/types";
-import { CarResponse } from "@/lib/response/CarResponse";
-import { User } from "@/lib/entity/User";
 import { useRef, useState } from "react";
 import { router } from "expo-router";
 import UserLoading from "@/components/auth/UserLoading";
@@ -43,6 +38,7 @@ import CollapsibleText from "../ui/CollapsibleText";
 import PostGrid from "../social/PostGrid";
 import GarageList from "../garage/GarageList";
 import NewSocial from "../social/NewSocial";
+import { followUser, unfollowUser } from "@/lib/ApiCalls/UserApiCalls";
 export default function Profile({
   user,
   language,
@@ -154,8 +150,8 @@ export default function Profile({
           }
           lines={1}
         />
-        <View className="w-full secondary rounded-b-xl">
-          <View className="flex flex-row justify-between items-center px-4">
+        <View className="profile">
+          <View className="profile-data">
             <TouchableOpacity
               onLongPress={async () => {
                 if (!isOwner) return;
@@ -253,20 +249,20 @@ export default function Profile({
               dismissSheet={() => followerSheetRef.current?.dismiss()}
             />
           </BottomSheetModal>
-          <View className="flex flex-row gap-4 items-center px-4">
+          <View className="profile-descriptions">
             <ThemedText
-              className="text-xl font-bold"
+              className="txl"
               onLongPress={() => setNicknameEdit(true)}
             >
               {nicknameValue}
             </ThemedText>
-            <ThemedText className="text-gray-500">
+            <ThemedText className="muted">
               @{profile.username}
             </ThemedText>
           </View>
-          <View className="flex flex-row gap-1 items-center">
+          <View className="">
             <View
-              className={`flex flex-row items-start justify-start ${
+              className={`profile-description-text ${
                 isOwner && "basis-5/6"
               }`}
             >
@@ -284,14 +280,14 @@ export default function Profile({
                   : generalTexts.profileAttributes.bioEmpty[language]}
               </CollapsibleText>
               {isOwner && (
-                <Text className="tsm text-gray-500">
+                <Text className="tsm muted">
                   {UserEditTexts.prompts.edit[language]}
                 </Text>
               )}
             </View>
             {isOwner && (
               <TouchableOpacity
-                className="text-right mr-4 self-start primary p-2 rounded-xl"
+                className="profile-settings"
                 style={{}}
                 onPress={() => router.push("/(profile)/settings")}
               >
@@ -304,9 +300,9 @@ export default function Profile({
             )}
           </View>
           {!isOwner ? (
-            <View className="flex flex-row justify-between px-4 items-center w-full">
+            <View className="">
               <Button
-                className={`w-1/3 button highlight ml-0 items-center py-3 ${
+                className={`follow-button ${
                   followers.some((follower) => follower.id === user.id) &&
                   "bg-transparent button"
                 } `}
@@ -323,9 +319,9 @@ export default function Profile({
                   ? generalTexts.followButton.unfollow[language]
                   : generalTexts.followButton.follow[language]}
               </Button>
-              <View className="flex items-center justify-around gap-2 flex-row  my-3">
-                <Button className="button primary w-fit py-3">Message</Button>
-                <Button className="button primary w-fit">
+              <View className="misc-button-container">
+                <Button className="profile-misc-button py-3">Message</Button>
+                <Button className="profile-misc-button">
                   <MaterialCommunityIcons name="dots-horizontal" size={24} />
                 </Button>
               </View>
@@ -337,7 +333,7 @@ export default function Profile({
           )}
           <View className="p-4 secondary rounded-b-2xl">
             <View
-              className="primary flex flex-row justify-between items-center m-auto w-full py-2  rounded-xl"
+              className="profile-selector-container"
               style={{
                 shadowColor: Colors[colorScheme!].background,
                 shadowOffset: { width: 0, height: 10 },

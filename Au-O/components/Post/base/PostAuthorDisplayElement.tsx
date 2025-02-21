@@ -13,11 +13,11 @@ export default function PostAuthorDisplayElement({
     <View className={`flex  ${postType !== "USER" ? "post-author-display-true" : " post-author-display-false" }`}>
       <ThemedText className="txl">
         {postType === "USER" && authorNickname}
-        {postType === "GROUP" && <ThemedText><ThemedText>{groupData?.groupNickname}{" "} </ThemedText><ThemedText className="tsm font-normal opacity-40">{groupData?.groupNickname.split(" ")[0].toUpperCase()}</ThemedText></ThemedText>}
+        {postType === "GROUP" && <ThemedText><ThemedText>{groupData?.groupNickname}{" "} </ThemedText><ThemedText className="tsm font-normal muted ">{groupData?.groupNickname.split(" ")[0].toUpperCase()}</ThemedText></ThemedText>}
         {postType === "EVENT" && eventData?.eventName}
         {postType === "INVALID" && "Invalid"}
       </ThemedText>
-      <ThemedText className={`tsm flex-wrap flex opacity-40`}>
+      <ThemedText className={`tsm flex-wrap flex muted `}>
         {postType === "USER" && "@" + authorUsername}
         
       </ThemedText>

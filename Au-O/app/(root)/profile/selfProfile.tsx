@@ -1,11 +1,16 @@
 import Profile from "@/components/home/Profile";
-import { Car, PostResponse, User, UserResponse } from "@/constants/types";
+// import { Car, PostResponse, User, UserResponse } from "@/constants/types";
 import { useAuthentication } from "@/contexts/AuthenticationContext";
-import { apiFetch, getFollows, getOwnGarage } from "@/lib/apiClient";
+import { apiFetch} from "@/lib/apiClient";
 import { useEffect, useState } from "react";
 import { useColorScheme } from "nativewind";
 import { useLanguage } from "@/contexts/LanguageContext";
 import UserLoading from "@/components/auth/UserLoading";
+import { User } from "@/lib/entity/User";
+import { Car } from "@/lib/entity/Car";
+import { Post } from "@/lib/entity/Post";
+import { getOwnGarage } from "@/lib/ApiCalls/CarApiCalls";
+import { getFollows } from "@/lib/ApiCalls/UserApiCalls";
 
 export default function SelfProfile() {
   const { user } = useAuthentication();
@@ -13,23 +18,23 @@ export default function SelfProfile() {
     const [followers, setFollowers] = useState<User[]>();
     const [following, setFollowing] = useState<User[]>();
     const {language} = useLanguage()
-  const [profile, setProfile] = useState<UserResponse>();
+  const [profile, setProfile] = useState<User>();
   const [garage, setGarage] = useState<Car[]>();
-    const [posts, setPosts] = useState<PostResponse[]>();
+    const [posts, setPosts] = useState<Post[]>();
   if (user !== null && user !== undefined) {
     async function getUser() {
-      const res = await apiFetch<UserResponse>(
+      const res = await apiFetch<User>(
         `users/user/${user!.id}`,
         "GET",
         true
       );
       if (res && res.status === 200) {
-        setProfile(res.data);
+        setProfile(res.data!);
         return res.data;
       } else return;
     }
     async function getUserPosts() {
-      const res = await apiFetch<PostResponse[]>(
+      const res = await apiFetch<Post[]>(
         `users/user/${user!.id}/posts`,
         "GET",
         true

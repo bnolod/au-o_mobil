@@ -37,7 +37,7 @@ export default function GroupPage({
             className="text-2xl basis-7/12 font-bold"
           >
             {group.name}{" "}
-            <ThemedText className="tsm font-light opacity-60">
+            <ThemedText className="tsm font-light muted ">
               {group.alias}
             </ThemedText>
           </ThemedText>

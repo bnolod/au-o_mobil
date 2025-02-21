@@ -54,7 +54,7 @@ export default function CommentSheet({
       }}
     >
       <View className="post-comment-container">
-        <View className="basis-1/12 flex justify-center items-center">
+        <View className="post-comment-sheet">
           <Avatar
             className="primary"
             image={userProfileImg}
@@ -71,7 +71,7 @@ export default function CommentSheet({
             }}
           >
             <View className="post-comment-input-trigger">
-              <ThemedText className="opacity-40">
+              <ThemedText className="muted ">
                 {HomeTexts.post.comment_1[language]}
                 <ThemedText className="font-bold">
                   {" " + authorNickname}
