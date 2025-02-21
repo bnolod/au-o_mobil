@@ -1,7 +1,7 @@
 import { Image, Pressable, View } from "react-native";
 import { router } from "expo-router";
 import { FlashList } from "@shopify/flash-list";
-import NoPostsFound from "../home/NoPostsFound";
+import NoPostsFound from "../Post/base/NoPostsFound";
 import { CommonStaticElementProps, PostResponse } from "@/constants/types";
 import { Colors } from "@/constants/Colors";
 

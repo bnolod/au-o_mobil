@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import ThemedText from "../ui/ThemedText";
+import ThemedText from "../../ui/ThemedText";
 import { PostDispayElementProps } from "@/constants/types";
 
 export default function PostAuthorDisplayElement({

@@ -1,5 +1,5 @@
 import { Image } from "react-native";
-import ThemedText from "../ui/ThemedText";
+import ThemedText from "../../ui/ThemedText";
 import React from "react";
 import { PostCarouselElementProps } from "@/constants/types";
 export default function PostCarouselElement({

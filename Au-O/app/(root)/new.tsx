@@ -27,7 +27,7 @@ import Carousel from "react-native-reanimated-carousel";
 import { BottomSheetModal, BottomSheetView } from "@gorhom/bottom-sheet";
 import { PostCreationTexts } from "@/constants/texts";
 import ImageNotFound from "@/components/new/ImageNotFound";
-import PostCard from "@/components/home/Post";
+import PostCard from "@/components/Post/Post";
 import {
   Car,
   CarResponse,

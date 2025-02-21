@@ -1,6 +1,6 @@
 import GarageItem from "@/components/garage/GarageItem";
 import { getCarImage } from "@/components/graphics/cars";
-import PostCard from "@/components/home/Post";
+import PostCard from "@/components/Post/Post";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import LoadingModal from "@/components/ui/LoadingModal";

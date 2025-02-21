@@ -1,4 +1,4 @@
-import PostCard from "@/components/home/Post";
+import PostCard from "@/components/Post/Post";
 import Button from "@/components/ui/Button";
 import LoadingModal from "@/components/ui/LoadingModal";
 import ThemedText from "@/components/ui/ThemedText";

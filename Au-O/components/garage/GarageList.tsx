@@ -1,7 +1,7 @@
 import { View } from "react-native";
 import ThemedText from "@/components/ui/ThemedText";
 import { FlashList } from "@shopify/flash-list";
-import NoPostsFound from "../home/NoPostsFound";
+import NoPostsFound from "../Post/base/NoPostsFound";
 import { Car, CarResponse } from "@/constants/types";
 import GarageItem from "./GarageItem";
 import { router } from "expo-router";

@@ -1,8 +1,8 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import Button from "../ui/Button";
+import Button from "../../ui/Button";
 import { TouchableOpacity } from "react-native";
 import { Colors } from "@/constants/Colors";
-import Avatar from "../ui/Avatar";
+import Avatar from "../../ui/Avatar";
 import { EventPostData, GroupPostData, PostDispayElementProps } from "@/constants/types";
 
 export default function PostHeaderElement({
