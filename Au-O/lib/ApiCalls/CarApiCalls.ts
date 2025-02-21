@@ -1,9 +1,9 @@
 import { apiFetch } from "@/lib/apiClient";
-import { CarResponse } from "@/lib/response/CarResponse";
 import { CarCreationRequest } from "@/lib/request/CarCreationRequest";
+import { Car } from "../entity/Car";
 
-export async function getOwnGarage(): Promise<CarResponse[] | null> {
-    const req = await apiFetch<CarResponse[]>("vehicles/own", "GET", true);
+export async function getOwnGarage(): Promise<Car[] | null> {
+    const req = await apiFetch<Car[]>("vehicles/own", "GET", true);
     if (req && req.status === 200) {
         return req.data;
     }
@@ -13,8 +13,8 @@ export async function getOwnGarage(): Promise<CarResponse[] | null> {
 
 export async function addCar(
     car: CarCreationRequest
-): Promise<CarResponse | null> {
-    const req = await apiFetch<CarResponse>(
+): Promise<Car | null> {
+    const req = await apiFetch<Car>(
         "vehicles/vehicle/create",
         "POST",
         true,
@@ -27,8 +27,8 @@ export async function addCar(
 }
 
 
-export async function getOwnCars(): Promise<CarResponse[] | null> {
-    const req = await apiFetch<CarResponse[]>("vehicles/own", "GET", true);
+export async function getOwnCars(): Promise<Car[] | null> {
+    const req = await apiFetch<Car[]>("vehicles/own", "GET", true);
     if (req && req.status === 200) {
         return req.data;
     }
@@ -38,8 +38,8 @@ export async function getOwnCars(): Promise<CarResponse[] | null> {
 
 export async function getCarsByUserId(
     userId: number
-): Promise<CarResponse[] | null> {
-    const req = await apiFetch<CarResponse[]>(
+): Promise<Car[] | null> {
+    const req = await apiFetch<Car[]>(
         "vehicles/user/" + userId,
         "GET",
         true
@@ -53,8 +53,8 @@ export async function getCarsByUserId(
 
 export async function getCarByCarId(
     carId: string
-): Promise<CarResponse | null> {
-    const req = await apiFetch<CarResponse>(
+): Promise<Car | null> {
+    const req = await apiFetch<Car>(
         "vehicles/vehicle/" + carId,
         "GET",
         true

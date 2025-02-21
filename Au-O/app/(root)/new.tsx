@@ -29,8 +29,7 @@ import { PostCreationTexts } from "@/constants/texts";
 import ImageNotFound from "@/components/new/ImageNotFound";
 import PostCard from "@/components/Post/Post";
 import {
-  Car,
-  CarResponse,
+
   CreatePostRequest,
   Group,
   ImageStoreRequest,
@@ -47,8 +46,6 @@ import {
   searchFilter,
 } from "@/lib/functions";
 import {
-  getOwnCars,
-  getOwnGarage,
   getOwnGroups,
   imageUpload,
   storeImages,
@@ -64,6 +61,8 @@ import FilterBar from "@/components/ui/FilterBar";
 import GarageItem from "@/components/garage/GarageItem";
 import { getCarImage } from "@/components/graphics/cars";
 import GroupListItem from "@/components/social/groups/GroupListItem";
+import { Car } from "@/lib/entity/Car";
+import { getOwnGarage } from "@/lib/ApiCalls/CarApiCalls";
 export default function NewPost() {
   const { language } = useLanguage();
   const { user } = useAuthentication();
@@ -88,7 +87,7 @@ export default function NewPost() {
     images: images,
     vehicleId: null,
   });
-  const [cars, setCars] = useState<CarResponse[]>([]);
+  const [cars, setCars] = useState<Car[]>([]);
   useEffect(() => {
     getCars();
     getGroups()
@@ -502,7 +501,7 @@ export default function NewPost() {
               >
                 <BottomSheetView>
                   <PostCard
-                    user={user}
+                    user={user!}
                     reaction={"FIRE"}
                     postId={null}
                     authorProfileImg={user!.profileImg}

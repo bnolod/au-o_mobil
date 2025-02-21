@@ -10,6 +10,8 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { User } from "@/lib/entity/User";
 import { Car } from "@/lib/entity/Car";
 import { Comment } from "@/lib/entity/Comment";
+import { Post } from "@/lib/entity/Post";
+import { Reply } from "@/lib/entity/Reply";
 
 export interface OnboardingLayoutProps {
   headerText: React.ReactNode;
@@ -237,7 +239,7 @@ export interface DropdownWrapperProps {
   width: number;
   children: ReactNode;
 }
-export type UserResponse = User | null | undefined;
+// export type UserResponse = User | null | undefined;
 
 export type ReactionState = {
   fire: number;
@@ -298,12 +300,12 @@ export interface FilterBarProps {
   placeholder?: string;
   initialValue?: string;
 }
-export interface FeedResponse {
-  content: PostResponse[],
-  pageNumber: number,
-  pageSize: number,
-  totalElements: number
-}
+// export interface FeedResponse {
+//   content: Post[],
+//   pageNumber: number,
+//   pageSize: number,
+//   totalElements: number
+// }
 export interface InputProps {
   label?: string | ReactNode;
   secureTextEntry?: boolean;
@@ -438,7 +440,7 @@ export interface ProfileProps {
   following: User[];
   setFollowing: (users: User[]) => void;
   setFollowers: (users: User[]) => void;
-  posts: PostResponse[];
+  posts: Post[];
 }
 export interface SocialSortItemProps {
   bannerImage: string | null;

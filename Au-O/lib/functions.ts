@@ -2,13 +2,13 @@ import { PostCreationTexts, UIErrorTexts } from "@/constants/texts";
 import {
   EventPostData,
   GroupPostData,
-  ImageUploadResponse,
-  User,
+  ImageUploadResponse
 } from "@/constants/types";
 import * as SecureStore from "expo-secure-store";
 import * as FileSystem from "expo-file-system";
 import * as ImagePicker from "expo-image-picker";
 import Toast from "react-native-toast-message";
+import { User } from "./entity/User";
 
 export function handleFormInputChange(
   formKey: string,

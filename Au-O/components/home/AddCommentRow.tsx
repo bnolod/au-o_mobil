@@ -3,12 +3,12 @@ import { Keyboard, TextInput, View } from "react-native";
 import Button from "../ui/Button";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Colors } from "@/constants/Colors";
-import { AddCommentRowProps, Comment, CommonStaticElementProps } from "@/constants/types";
+import { AddCommentRowProps, CommonStaticElementProps } from "@/constants/types";
 import { useState } from "react";
-import { AddCommentToPost } from "@/lib/apiClient";
 import Toast from "react-native-toast-message";
 import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
 import ApiCallButton from "../ui/ApiCallButton";
+import { AddCommentToPost } from "@/lib/ApiCalls/CommentApiCalls";
 
 export default function AddCommentRow({
   authorNickname,

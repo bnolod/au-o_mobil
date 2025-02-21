@@ -9,8 +9,9 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Comment, CommentSheetProps, CommonStaticElementProps } from "@/constants/types";
+import { CommentSheetProps, CommonStaticElementProps } from "@/constants/types";
 import Avatar from "../ui/Avatar";
+import { Comment } from "@/lib/entity/Comment";
 import { HomeTexts } from "@/constants/texts";
 import { Colors } from "@/constants/Colors";
 import AddCommentRow from "./AddCommentRow";

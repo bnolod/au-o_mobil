@@ -16,9 +16,11 @@ import { router } from "expo-router";
 import TapCountWrapper from "../utility/TapCountWrapper";
 import PostOptionMenu from "./base/PostOptionMenu";
 import PostImage from "./base/PostImage";
-import { addReaction, deleteImgurImage } from "@/lib/apiClient";
+import {deleteImgurImage } from "@/lib/apiClient";
+
 import CollapsibleText from "../ui/CollapsibleText";
 import { getCarImage } from "../graphics/cars";
+import { addReaction } from "@/lib/ApiCalls/ReactionApiCalls";
 export default function PostCard({
   preview = false,
   authorNickname,

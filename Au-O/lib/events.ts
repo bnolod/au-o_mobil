@@ -1,4 +1,4 @@
-import { PostResponse, Reactions, ReactionState } from "@/constants/types";
+// import { PostResponse, Reactions, ReactionState } from "@/constants/types";
 import { EventEmitter } from "events";
 import * as Haptics from 'expo-haptics'
 export const eventEmitter = new EventEmitter();

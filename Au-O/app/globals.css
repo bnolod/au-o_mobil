@@ -5,35 +5,33 @@
 @layer components {
   /* Texts */
   .tsm {
-    @apply text-sm font-light
+    @apply text-sm font-light;
   }
   .tlg {
-    @apply text-lg font-semibold
+    @apply text-lg font-semibold;
   }
   .txl {
-    @apply text-xl font-semibold
+    @apply text-xl font-semibold;
   }
   .t2x {
-    @apply text-2xl font-bold
+    @apply text-2xl font-bold;
   }
-
 
   /* Button */
   .button {
     @apply mx-auto px-4 border-0 font-bold py-2 rounded-xl;
-
   }
   .btn-highlight {
     @apply bg-highlight border-highlight;
-    & > * {
-      @apply text-white;
-    }
+  }
+  .btn-highlight > * {
+    @apply text-white;
   }
   .btn-highlight-dark {
     @apply bg-highlight-dark border-highlight-dark;
-    & > * {
-      @apply text-white;
-    }
+  }
+  .btn-highlight-dark > * {
+    @apply text-white;
   }
   .btn-highlight-light {
     @apply bg-highlight-light border-highlight-light;
@@ -44,410 +42,184 @@
   .btn-transparent {
     @apply bg-transparent border-0;
   }
-
   .btn-icon {
     @apply flex items-center justify-center rounded-full;
     width: 3rem;
     height: 3rem;
-    & > * {
-      @apply h-2 mx-auto text-center p-0 m-0;
-      line-height: 0;
-      
-    }
   }
-  
+  .btn-icon > * {
+    @apply h-2 mx-auto text-center p-0 m-0;
+    line-height: 0;
+  }
   .btn-fill {
-    @apply flex items-center justify-center w-5/6
+    @apply flex items-center justify-center w-5/6;
   }
   .btn-fit {
-    @apply flex items-center justify-center w-fit
+    @apply flex items-center justify-center w-fit;
   }
-
 
   /* Input */
   .text-input {
-    @apply rounded-full mb-1 p-4 w-3/4 text-left font-semibold dark:text-background
+    @apply rounded-full mb-1 p-4 w-3/4 text-left font-semibold dark:text-background;
   }
   .input-container {
-    @apply m-2  w-11/12 gap-x-2 flex justify-between  mx-auto
+    @apply m-2 w-11/12 gap-x-2 flex justify-between mx-auto;
   }
   .input-body {
-    @apply flex flex-row justify-start items-center secondary relative rounded-xl border 
+    @apply flex flex-row justify-start items-center secondary relative rounded-xl border;
   }
   .text-edit-modal {
-    @apply w-screen z-50 h-screen flex justify-center items-center bg-black/50
+    @apply w-screen z-50 h-screen flex justify-center items-center bg-black/50;
   }
-/* Post */
+
+  /* Post */
   .post-container {
-    @apply flex flex-col w-full   shadow-md my-2
+    @apply flex flex-col w-full shadow-md my-2;
   }
   .post-header-container {
-    @apply flex flex-row rounded-t-xl primary items-center w-full p-2 justify-between
+    @apply flex flex-row rounded-t-xl primary items-center w-full p-2 justify-between;
   }
   .post-header {
-    @apply flex-row flex items-center basis-11/12
+    @apply flex-row flex items-center basis-11/12;
   }
   .post-header-social-container {
-    @apply w-12 h-12 secondary rounded-xl flex justify-center items-center
+    @apply w-12 h-12 secondary rounded-xl flex justify-center items-center;
   }
   .post-options {
-    @apply flex flex-row basis-1/12 justify-end text-right
+    @apply flex flex-row basis-1/12 justify-end text-right;
   }
   .post-event-data {
-   @apply w-1/2 h-8 secondary absolute z-50 top-6 left-6 flex justify-center items-center rounded-xl
+    @apply w-1/2 h-8 secondary absolute z-50 top-6 left-6 flex justify-center items-center rounded-xl;
   }
   .post-vehicle-container {
-    @apply w-11/12 m-auto flex-row  flex justify-between items-center
+    @apply w-11/12 m-auto flex-row flex justify-between items-center;
   }
   .post-edit-sheet-unset-car {
-    @apply w-11/12 my-2 mx-auto rounded-l overflow-hidden flex justify-center items-center
+    @apply w-11/12 my-2 mx-auto rounded-l overflow-hidden flex justify-center items-center;
   }
   .post-edit-sheet-unset-background {
-    @apply w-full secondary rounded-xl mx-auto
+    @apply w-full secondary rounded-xl mx-auto;
   }
   .post-edit-sheet-unset-text {
-    @apply font-bold w-full mx-auto text-center text-lg p-3 rounded-xl
+    @apply font-bold w-full mx-auto text-center text-lg p-3 rounded-xl;
   }
   .post-vehicle-data {
-    @apply flex justify-center flex-row items-center gap-3
+    @apply flex justify-center flex-row items-center gap-3;
   }
   .post-dismiss-button {
-    @apply my-2 btn-highlight button btn-fill btn-outline
+    @apply my-2 btn-highlight button btn-fill btn-outline;
   }
   .post-submit-button {
-    @apply mt-2 btn-highlight button btn-fill
+    @apply mt-2 btn-highlight button btn-fill;
   }
   .post-vehicle-misc-data {
-    @apply flex justify-center flex-row muted  items-center gap-3
+    @apply flex justify-center flex-row muted items-center gap-3;
   }
   .post-description-container {
-   @apply px-4 pt-2 pb-5 flex flex-row  dark:bg-backdrop-primary-dark bg-backdrop-secondary
+    @apply px-4 pt-2 pb-5 flex flex-row dark:bg-backdrop-primary-dark bg-backdrop-secondary;
   }
   .post-description {
-    @apply text-lg leading-tight flex gap-2
+    @apply text-lg leading-tight flex gap-2;
   }
   .post-image {
-    @apply py-2 background aspect-square mx-auto
+    @apply py-2 background aspect-square mx-auto;
   }
   .post-footer {
-    @apply flex flex-col w-full h-fit
+    @apply flex flex-col w-full h-fit;
   }
   .post-reaction-container {
-    @apply py-2 px-4 w-full flex primary flex-row justify-between
+    @apply py-2 px-4 w-full flex primary flex-row justify-between;
   }
   .post-data-container {
-    @apply basis-5/12 flex flex-col items-end gap-2 justify-evenly
+    @apply basis-5/12 flex flex-col items-end gap-2 justify-evenly;
   }
   .post-comment-container {
-    @apply flex flex-row py-2 px-4 rounded-b-xl secondary items-center justify-between
+    @apply flex flex-row py-2 px-4 rounded-b-xl secondary items-center justify-between;
   }
   .post-comment-add {
-    @apply flex flex-row mb-2 rounded-xl mx-auto justify-between gap-4 items-center
+    @apply flex flex-row mb-2 rounded-xl mx-auto justify-between gap-4 items-center;
   }
   .post-comment-send-reply-button {
-    @apply secondary h-12 w-12 rounded-xl justify-center items-center disabled:muted 
+    @apply secondary h-12 w-12 rounded-xl justify-center items-center disabled:muted;
   }
   .post-comment-sheet {
-    @apply basis-1/12 flex justify-center items-center
+    @apply basis-1/12 flex justify-center items-center;
   }
   .post-comment-input {
-    @apply h-12 p-0 gap-2 flex flex-row items-center rounded-xl justify-center primary
+    @apply h-12 p-0 gap-2 flex flex-row items-center rounded-xl justify-center primary;
   }
   .post-comment-input-trigger {
-    @apply h-12 primary flex items-start px-2 justify-center rounded-xl
+    @apply h-12 primary flex items-start px-2 justify-center rounded-xl;
   }
   .no-posts-container {
-    @apply flex m-auto justify-center items-center
+    @apply flex m-auto justify-center items-center;
   }
-  .post-author-display-true {
-   @apply flex-row items-center gap-2 basis-6/12
-  }
-  .post-author-display-false {
-    @apply basis-5/12 flex-col justify-center
-  }
+
   /* Feed */
   .root-header-ios {
-    @apply pt-16 pb-4  w-screen primary flex items-center px-3 flex-row gap-2
+    @apply pt-16 pb-4 w-screen primary flex items-center px-3 flex-row gap-2;
   }
   .root-header-android {
-    @apply pt-7 pb-4 w-screen primary flex items-center px-3 flex-row gap-2
-
-  }
-  /* Comment */
-  .root-comment-empty-container {
-    @apply flex muted  justify-center flex-col items-center mt-4
-  }
-  .comment {
-    @apply  primary w-full py-2 px-4 flex flex-col items-start gap-2 justify-between
-  }
-  .comment-header {
-    @apply flex flex-row items-center  justify-center gap-1
-  }
-  .comment-avatar {
-    @apply basis-2/12 flex justify-center items-center
-  }
-  .comment-user {
-    @apply flex flex-col items-start justify-center
-  }
-  .comment-body {
-    @apply flex flex-col self-end
-  }
-  .comment-reply-line-container {
-    @apply basis-2/12 flex h-auto  items-center justify-center
-  }
-  .comment-reply-line {
-    @apply w-1 h-full secondary px-1 my-5 flex-1 rounded-full mx-auto
-  }
-  .comment-text-body {
-    @apply basis-10/12 flex flex-col
-  }
-  .comment-reactions {
-    @apply flex flex-row mt-2 gap-2
-  }
-  .reply {
-    @apply primary w-full mt-2 gap-2 flex flex-col items-start justify-between
-  }
-  .reply-avatar {
-    @apply flex flex-row items-center 
-  }
-  /* Post creation */
-  .new-post-image-upload-prompt {
-    @apply w-full h-full muted  flex justify-center items-center
-  }
-  .new-post-pop-image {
-    @apply bg-highlight z-50 rounded-full muted  w-14 h-14 flex justify-center items-center m-3 absolute bottom-0
-  }
-  .new-post-gallery-opener {
-    @apply my-2 secondary py-4 highlight-themed text-center w-11/12 flex flex-row items-center justify-between px-6 rounded-xl
-  }
-  .post-image-index {
-    @apply px-3 z-50 py-1 font-semibold left-4 top-4 absolute primary rounded-xl
-  }
-  /* Social */
-  .new-social-button {
-    @apply button w-11/12 my-2 mx-auto highlight-themed
-  }
-  .new-social-button-text-continer {
-    @apply flex flex-col w-full mx-auto text-center gap-2 justify-center items-center
-  }
-  .social-banner-container {
-    @apply justify-center items-center flex w-full overflow-hidden
-  }
-  .social-banner-image-placeholder {
-    @apply w-full h-full flex items-center justify-center secondary rounded-t-xl
-  }
-  .social-banner-image {
-    @apply h-full w-full rounded-t-xl
-  }
-  .social-banner-image-text {
-   @apply z-50 p-2 secondary rounded-xl opacity-75 left-3 bottom-3 absolute 
-  }
-  .social-card {
-    @apply p-4 primary rounded-b-xl
-  }
-  .social-card-container {
-    @apply flex flex-row justify-between
-  }
-  .social-card-action-button {
-    @apply button highlight text-xl mr-0 justify-center
-  }
-  .social-card-secondary-button {
-    @apply button secondary text-xl mr-0  justify-center
-  }
-  .social-sort {
-    @apply flex h-20 flex-row items-center gap-4 pr-4 mx-auto ml-2 justify-between
-  }
-  .social-sort-button {
-    @apply button secondary items-center p-0 h-16 justify-center
-  }
-  .social-sort-item-container {
-    @apply flex flex-row overflow-hidden items-center rounded-xl secondary h-24
-  }
-  .social-sort-image {
-@apply basis-1/3 h-full rounded-l-xl
-  }
-  .social-sort-item-data {
-@apply flex secondary  h-full items-start justify-center flex-col gap-1
+    @apply pt-7 pb-4 w-screen primary flex items-center px-3 flex-row gap-2;
   }
 
   /* Garage */
-  .car-type-list-item {
-    @apply flex my-2 mx-2 flex-row overflow-hidden items-center rounded-xl secondary h-24
-  }
-  .car-type-list-item-image-container {
-    @apply basis-5/12 h-full overflow-hidden rounded-l-xl
-  }
-  .car-type-list-item-placeholder-banner {
-    @apply flex-1 flex justify-center items-center
-  }
-  .car-type-list-item-name {
-    @apply flex secondary  h-full items-start justify-center flex-col gap-1
-  }
-  .garage-header {
-    @apply flex flex-row w-full h-64 rounded-b-xl overflow-hidden
-  }
-  .garage-profile-display {
-    @apply h-full basis-7/12 opacity-70 
-  }
-  .garage-profile-display-image {
-    @apply flex primary z-20 w-full flex-col h-full
-  }
-  .garage-profile-car-type-display {
-    @apply flex-1 flex justify-center items-center
-  }
-
-  .garage-item {
-    @apply flex mx-2 my-2 flex-row overflow-hidden items-center rounded-xl secondary h-24
-  }
-  .garage-item-display {
-    @apply basis-5/12 h-full rounded-l-xl
-  }
-  .garage-item-banner {
-    @apply flex-1 flex  justify-center items-center
-  }
-  .garage-item-car-type-display {
-    @apply ml-3 h-fit flex-1 items-center flex justify-center
-  }
-  .garage-item-data-container {
-    @apply flex secondary  h-full items-start justify-center flex-col gap-1
-  }
-  .garage-item-misc-data {
-    @apply flex flex-row items-center gap-2
-  }
-  
   .garage-page {
-    @apply flex-col h-screen flex background
+    @apply flex-col h-screen flex background;
   }
   .garage-page-container {
-    @apply flex flex-row items-center mx-3 py-2
+    @apply flex flex-row items-center mx-3 py-2;
   }
   .garage-page-data-container {
-   @apply flex justify-evenly w-11/12 flex-row items-center gap-1
-  }
-  .garage-page-attribute-container {
-    @apply flex flex-row justify-evenly py-3
-  }
-  .garage-page-attribute {
-    @apply flex flex-col items-center justify-center p-2 highlight-themed aspect-square rounded-xl
-  }
-  .garage-description-container {
-    @apply flex flex-col mx-3 gap-2
-  }
-  .garage-featured-header {
-
+    @apply flex justify-evenly w-11/12 flex-row items-center gap-1;
   }
 
   /* Groups */
-  .group-list-item-container {
-    @apply flex my-2 mx-2 flex-row overflow-hidden justify-between pr-3 items-center rounded-xl secondary h-24
-  }
-
-  .group-list-item {
-   @apply basis-5/12 h-full overflow-hidden rounded-l-xl
-  }
-  .group-list-image {
-    @apply flex-1 opacity-80 flex justify-center items-center
-  }
-  .group-list-item-data-container {
-    @apply flex flex-1 h-full items-center flex-row
-  }
-  .group-list-item-data-group-name {
-    @apply text-2xl justify-self-start self-center font-bold 
-  }
-  .group-list-item-misc-data-container {
-    @apply flex-col opacity-60 flex items-center
-  }
-  .group-list-item-misc-vertical-container {
-    @apply flex flex-row justify-center items-center gap-1
-  }
-  
   .group-page {
-    @apply primary pb-4 rounded-b-xl
+    @apply primary pb-4 rounded-b-xl;
   }
   .group-page-container {
-    @apply flex flex-row gap-2 justify-between items-center py-2 mx-auto w-11/12
+    @apply flex flex-row gap-2 justify-between items-center py-2 mx-auto w-11/12;
   }
+
   /* Profile */
-  .post-grid-image {
-    @apply flex-1 h-72 rounded-xl my-2 w-11/12 primary
-  }
-  .follower-sheet-header {
-    @apply flex flex-row items-center justify-evenly
-  }
-  .follower-sheet-selector {
-    @apply flex items-center flex-col
-  }
-  .follower-sheet-empty-container {
-    @apply flex justify-center items-center w-full
-  }
   .profile {
-    @apply w-full secondary rounded-b-xl
+    @apply w-full secondary rounded-b-xl;
   }
   .profile-data {
-    @apply follower-sheet-empty-container
+    @apply flex justify-center items-center w-full;
   }
-  .profile-descriptions {
-    @apply flex flex-row gap-4 items-center px-4
-  }
-  .profile-description {
-    @apply flex flex-row gap-1 items-center
-  }
-  .profile-description-text {
-    @apply flex flex-row items-start justify-start
-  }
-  .profile-settings {
-    @apply text-right mr-4 self-start primary p-2 rounded-xl
-  }
-  .follows {
-    @apply flex flex-row justify-between px-4 items-center w-full
-  }
-  .follow-button {
-    @apply w-1/3 button highlight ml-0 items-center py-3
-  }
-  .misc-button-container {
-    @apply flex items-center justify-around gap-2 flex-row  my-3
-  }
-  .profile-misc-button {
-    @apply button primary w-fit
-  }
-  .profile-selector-container {
-    @apply primary flex flex-row justify-between items-center m-auto w-full py-2  rounded-xl
-  }
-  .chat-button {
-    @apply h-12 w-12 text-center flex justify-center items-center p-1 rounded-xl secondary
-  }
+}
 
-
-} 
 @layer base {
   .secondary {
-    @apply bg-backdrop-secondary dark:bg-backdrop-secondary-dark
+    @apply bg-backdrop-secondary dark:bg-backdrop-secondary-dark;
   }
   .primary {
-    @apply bg-backdrop-primary dark:bg-backdrop-primary-dark
+    @apply bg-backdrop-primary dark:bg-backdrop-primary-dark;
   }
   .background {
-    @apply bg-background dark:bg-background-dark
+    @apply bg-background dark:bg-background-dark;
   }
   .highlight {
-    @apply bg-highlight-light dark:bg-highlight
+    @apply bg-highlight-light dark:bg-highlight;
   }
   .highlight-dark {
-    @apply bg-highlight-dark dark:bg-highlight-dark
+    @apply bg-highlight-dark dark:bg-highlight-dark;
   }
   .highlight-light {
-    @apply bg-highlight-light dark:bg-highlight-light
+    @apply bg-highlight-light dark:bg-highlight-light;
   }
   .highlight-themed {
-    @apply bg-highlight-light dark:bg-highlight-dark
+    @apply bg-highlight-light dark:bg-highlight-dark;
   }
   .divider {
-    @apply w-11/12 mx-auto border border-black dark:border-white my-2 muted 
+    @apply w-11/12 mx-auto border border-black dark:border-white my-2 muted;
   }
   .stroke {
-    @apply border border-black dark:border-white
+    @apply border border-black dark:border-white;
   }
   .muted {
-    @apply opacity-65
+    @apply opacity-65;
   }
 }

@@ -84,7 +84,7 @@ export default function PostPage() {
     return (
       <View className="flex justify-start items-center h-full">
         <PostCard
-        user={user}
+        user={user!}
         reaction={post.reactedWith}
           authorId={post.user.id}
           authorProfileImg={post.user.profileImg}

@@ -10,13 +10,13 @@ import {
   HttpError,
   LoginRequest,
   RegisterRequest,
-  UserResponse,
 } from "@/constants/types";
 import UserLoading from "@/components/auth/UserLoading";
 import { deleteUser, saveUser } from "@/lib/functions";
+import { User } from "@/lib/entity/User";
 
 interface AuthenticationContextType {
-  user: UserResponse;
+  user: User | null | undefined;
   login?: (request: LoginRequest) => Promise<boolean>;
   logout?: () => Promise<void>;
   register?: (
@@ -32,7 +32,7 @@ export const AuthenticationProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
 
-  const [user, setUser] = useState<UserResponse>(null);
+  const [user, setUser] = useState<User | null | undefined>(null);
 
   async function register(request: RegisterRequest): Promise<string> {
     try {

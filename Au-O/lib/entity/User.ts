@@ -6,4 +6,9 @@ export interface User {
   profileImg: string;
   bio: string;
   dateOfSignup: string;
+
+  password: string;
+            role: string;
+            email: string;
+            dateOfBirth: string;
 }

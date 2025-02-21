@@ -1,9 +1,6 @@
 import {
   apiFetch,
 } from "@/lib/apiClient";
-import {
-  UserResponse,
-} from "@/constants/types";
 import { useEffect, useState } from "react";
 import { useLocalSearchParams } from "expo-router";
 import UserLoading from "@/components/auth/UserLoading";
@@ -30,7 +27,7 @@ export default function UserProfile() {
   const [posts, setPosts] = useState<Post[]>([]);
   
   async function getUser() {
-    const res = await apiFetch<UserResponse>(`users/user/${id}`, "GET", true);
+    const res = await apiFetch<User | null | undefined>(`users/user/${id}`, "GET", true);
     if (res && res.data) {
       setProfile(res.data);
     } else return;

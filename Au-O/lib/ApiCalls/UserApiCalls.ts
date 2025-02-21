@@ -1,15 +1,15 @@
-import { UserResponse } from "../response/UserResponse";
 import { apiFetch } from "../apiClient";
+import { User } from "../entity/User";
 
 export async function getFollows(
     userId: string
-): Promise<{ following: UserResponse[]; followers: UserResponse[] } | null> {
-    const followingRes = await apiFetch<UserResponse[]>(
+): Promise<{ following: User[]; followers: User[] } | null> {
+    const followingRes = await apiFetch<User[]>(
         `users/user/${userId}/following`,
         "GET",
         true
     );
-    const followersRes = await apiFetch<UserResponse[]>(
+    const followersRes = await apiFetch<User[]>(
         `users/user/${userId}/followers`,
         "GET",
         true
@@ -24,7 +24,7 @@ export async function getFollows(
 }
 
 export async function followUser(userId: string) {
-    const res = await apiFetch<UserResponse>(
+    const res = await apiFetch<User>(
         `users/user/${userId}/follow`,
         "POST",
         true
@@ -34,7 +34,7 @@ export async function followUser(userId: string) {
     } else return false;
 }
 export async function unfollowUser(userId: string) {
-    const res = await apiFetch<UserResponse>(
+    const res = await apiFetch<User>(
         `users/user/${userId}/unfollow`,
         "DELETE",
         true

@@ -1,6 +1,8 @@
-import { PostType, PostUser, Reactions } from "@/constants/types";
+import { PostType, Reactions } from "@/constants/types";
 import { Image } from "./Image";
 import { Car } from "./Car";
+import { Comment } from "./Comment";
+import { User } from "./User";
 
 export interface Post {
   dateOfCreation: string;
@@ -12,7 +14,7 @@ export interface Post {
   postType: PostType;
   reactionTypeMap: Reactions;
   text: string;
-  user: PostUser;
+  user: User;
   comments: Comment[];
   reactedWith: null | "FIRE" | "HEART" | "COOL";
   vehicle: Car | null

@@ -1,5 +1,6 @@
 import { View } from "react-native";
-import { Comment } from "@/constants/types";
+// import { Comment } from "@/constants/types";
+import { Comment } from "@/lib/entity/Comment";
 
 import Avatar from "./Avatar";
 import CollapsibleText from "./CollapsibleText";

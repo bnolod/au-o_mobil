@@ -1,5 +1,4 @@
 import Profile from "@/components/home/Profile";
-// import { Car, PostResponse, User, UserResponse } from "@/constants/types";
 import { useAuthentication } from "@/contexts/AuthenticationContext";
 import { apiFetch} from "@/lib/apiClient";
 import { useEffect, useState } from "react";

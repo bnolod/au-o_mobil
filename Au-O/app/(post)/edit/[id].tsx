@@ -288,7 +288,7 @@ export default function EditPost() {
           >
             <BottomSheetView>
               <PostCard
-                user={user}
+                user={user!}
                 vehicle={car ? car : null}
                 postId={null}
                 authorProfileImg={user!.profileImg}

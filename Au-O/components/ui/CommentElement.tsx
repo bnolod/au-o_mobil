@@ -15,7 +15,6 @@ import * as Haptics from "expo-haptics";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Colors } from "@/constants/Colors";
 import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
-import { addReaction } from "@/lib/apiClient";
 import { DeleteComment } from "@/lib/ApiCalls/CommentApiCalls";
 import { sendReply } from "@/lib/ApiCalls/ReplyApiCalls";
 import ReplyItem from "./Reply";
@@ -26,6 +25,7 @@ import CollapsibleText from "./CollapsibleText";
 import ReactionButton from "./ReactionButton";
 import ApiCallButton from "./ApiCallButton";
 import { Reply } from "@/lib/entity/Reply";
+import { addReaction } from "@/lib/ApiCalls/ReactionApiCalls";
 export default function CommentElement({
   item,
   language,

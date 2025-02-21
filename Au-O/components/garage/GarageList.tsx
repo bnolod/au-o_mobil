@@ -2,9 +2,11 @@ import { View } from "react-native";
 import ThemedText from "@/components/ui/ThemedText";
 import { FlashList } from "@shopify/flash-list";
 import NoPostsFound from "../Post/base/NoPostsFound";
-import { Car, CarResponse } from "@/constants/types";
+// import { Car, CarResponse } from "@/constants/types";
+
 import GarageItem from "./GarageItem";
 import { router } from "expo-router";
+import { Car } from "@/lib/entity/Car";
 
 export default function GarageList({
     cars,
@@ -12,7 +14,7 @@ export default function GarageList({
     language,
     colorScheme,
 }: {
-    cars: CarResponse[];
+    cars: Car[];
     userId: string;
     language: "EN" | "HU";
     colorScheme: "light" | "dark";
@@ -24,7 +26,7 @@ export default function GarageList({
             estimatedItemSize={99}
             renderItem={({ item }) => (
                 <GarageItem
-                    isOwner={userId.toString() === item.owner.id.toString()}
+                    isOwner={userId.toString() === item.owner?.id.toString()}
                     colorScheme={colorScheme}
                     language={language}
                     car={item}

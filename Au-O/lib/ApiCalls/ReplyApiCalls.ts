@@ -17,3 +17,13 @@ export async function sendReply(
     if (res) return res.data;
     return null;
 }
+
+export async function deleteReply(replyId: number) {
+            const res = await apiFetch<Reply>(
+              `posts/post/comment/reply/${replyId}`,
+              "DELETE",
+              true
+            );
+            if (res?.status === 200) return true;
+            else return false;
+          }

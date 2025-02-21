@@ -5,12 +5,13 @@ import * as Haptics from "expo-haptics";
 import { Reactions, ReplyProps } from "@/constants/types";
 import { Text } from "react-native";
 import { CommentTexts } from "@/constants/texts";
-import { addReaction, deleteReply } from "@/lib/apiClient";
 import Toast from "react-native-toast-message";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import CollapsibleText from "./CollapsibleText";
 import { useState } from "react";
 import ReactionButton from "./ReactionButton";
+import { deleteReply } from "@/lib/ApiCalls/ReplyApiCalls";
+import { addReaction } from "@/lib/ApiCalls/ReactionApiCalls";
 export default function ReplyItem({
   item,
   language,

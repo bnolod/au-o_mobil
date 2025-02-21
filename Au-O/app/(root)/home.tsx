@@ -8,12 +8,13 @@ import { useColorScheme } from "nativewind";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { UIErrorTexts } from "@/constants/texts";
 import { loadFeed } from "@/lib/apiClient";
-import { PostResponse } from "@/constants/types";
+// import { PostResponse } from "@/constants/types";
 import { FlashList } from "@shopify/flash-list";
 import NoPostsFound from "@/components/Post/base/NoPostsFound";
 import LoadingModal from "@/components/ui/LoadingModal";
 import { Redirect } from "expo-router";
 import RootHeader from "@/components/home/RootHeader";
+import { Post } from "@/lib/entity/Post";
 
 export default function Home() {
   const { user } = useAuthentication();
@@ -27,7 +28,7 @@ export default function Home() {
   );
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [isFetching, setIsFetching] = useState<boolean>(false);
-  const [post, setPost] = useState<PostResponse[]>([]);
+  const [post, setPost] = useState<Post[]>([]);
 
   async function handleFetching(i: number) {
     setIsFetching(true);

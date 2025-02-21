@@ -1,9 +1,10 @@
 import { ImageBackground, View } from "react-native";
 import ThemedText from "@/components/ui/ThemedText";
-import { Car, CommonStaticElementProps } from "@/constants/types";
+import {CommonStaticElementProps } from "@/constants/types";
 import { Images } from "@/lib/staticAssetExports";
 import { Colors } from "@/constants/Colors";
 import { generalTexts } from "@/constants/texts";
+import { Car } from "@/lib/entity/Car";
 
 export default function GarageHeader({
     userProfilePic,

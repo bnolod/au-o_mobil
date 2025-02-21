@@ -1,5 +1,4 @@
 import {
-  FeedResponse,
   Group,
   GroupCreationRequest,
   GroupCreationResponse,
@@ -17,6 +16,7 @@ import * as SecureStore from "expo-secure-store";
 import { deleteUser, saveUser } from "./functions";
 import { eventEmitter } from "./events";
 import { User } from "./entity/User";
+import { Feed } from "./entity/Feed";
 
 
 const apiClient: AxiosInstance = axios.create({
@@ -118,24 +118,24 @@ export async function storeImages(request: ImageStoreRequest): Promise<any> {
     return res.data;
   } else return null;
 }
-export async function addReaction(
-  target: "post" | "comment" | "reply",
-  postId: number,
-  reaction: null | "FIRE" | "HEART" | "COOL"
-) {    
-  if (!reaction) {
-  }
-  const res = await fetch(
-    `${apiClient.defaults.baseURL}/posts/${target}/${postId}/addOrRemoveReaction/${reaction}`,
-    {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${await SecureStore.getItemAsync("jwtToken")}`,
-      },
-    }
-  );
-  return res.status === 200
-}
+// export async function addReaction(
+//   target: "post" | "comment" | "reply",
+//   postId: number,
+//   reaction: null | "FIRE" | "HEART" | "COOL"
+// ) {    
+//   if (!reaction) {
+//   }
+//   const res = await fetch(
+//     `${apiClient.defaults.baseURL}/posts/${target}/${postId}/addOrRemoveReaction/${reaction}`,
+//     {
+//       method: "POST",
+//       headers: {
+//         Authorization: `Bearer ${await SecureStore.getItemAsync("jwtToken")}`,
+//       },
+//     }
+//   );
+//   return res.status === 200
+// }
 // export async function editPost(text: string, location: string, vehicleId: number | null, id: string) {
 //   const res = await apiFetch(`/posts/post/${id}`, "PUT", true, {
 //     text,
@@ -277,19 +277,19 @@ export async function handleLogin(request: LoginRequest): Promise<string> {
 //   if (res) return res.data;
 //   return null;
 // }
-export async function deleteReply(replyId: number) {
-  const res = await fetch(
-    `${apiClient.defaults.baseURL}/posts/post/comment/reply/${replyId}`,
-    {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${await SecureStore.getItemAsync("jwtToken")}`,
-      },
-    }
-  );
-  if (res.status === 200) return true;
-  else return false;
-}
+// export async function deleteReply(replyId: number) {
+//   const res = await fetch(
+//     `${apiClient.defaults.baseURL}/posts/post/comment/reply/${replyId}`,
+//     {
+//       method: "DELETE",
+//       headers: {
+//         Authorization: `Bearer ${await SecureStore.getItemAsync("jwtToken")}`,
+//       },
+//     }
+//   );
+//   if (res.status === 200) return true;
+//   else return false;
+// }
 
 export async function updateProfilePicture(imageForm: FormData) {
   const image = await imageUpload(imageForm);
@@ -331,7 +331,7 @@ export async function updateNickname(nickname: string) {
   return false;
 }
 export async function loadFeed(index: number, timestamp: string) {
-  const req = await apiFetch<FeedResponse>(
+  const req = await apiFetch<Feed>(
     `posts/feed?page=${index}&time=${timestamp}`,
     "GET",
     true

@@ -1,7 +1,4 @@
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Button from "../../ui/Button";
-import { TouchableOpacity } from "react-native";
-import { Colors } from "@/constants/Colors";
 import Avatar from "../../ui/Avatar";
 import {
     EventPostData,

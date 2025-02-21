@@ -32,7 +32,7 @@ useEffect(() => {
       <SocialSort language={language} colorScheme={colorScheme!} />
       <NewSocial text="Create a new group" onPress={() => router.push("/(groups)/new")}/>
         </View>
-        <FlashList estimatedFirstItemOffset={250} data={groups} keyExtractor={(item) => item.id} renderItem={({item}) => (
+        <FlashList estimatedFirstItemOffset={250} data={groups} keyExtractor={(item) => item.id + ""} renderItem={({item}) => (
           <SocialCard type="GROUP" group={item} colorScheme={colorScheme!} language={language}/>
         )} />
         
