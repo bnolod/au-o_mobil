@@ -33,7 +33,7 @@ export default function GarageHeader({
           source={Images.banner_placeholder}
         >
             <ThemedText className="text-3xl font-bold">{car.manufacturer}</ThemedText>
-            <ThemedText className="text-xl font-semibold">{car.model}</ThemedText>
+            <ThemedText className="txl">{car.model}</ThemedText>
             <View>
                 <ThemedText className="text-xl">{car.horsepower} {generalTexts.profileAttributes.cars.horsepower[language]}</ThemedText>
             </View>

@@ -72,12 +72,12 @@ export default function SocialCard({
             onPress={onCreatePress}
           />
         </View>
-        <View className="p-4 primary rounded-b-xl">
-          <View className="flex flex-row justify-between">
+        <View className="social-card">
+          <View className="social-card-container">
             <View className="basis-4/6">
-              <ThemedText className="text-lg font-bold leading-tight">
+              <ThemedText className="tlg leading-tight">
                 {item.name}
-                <ThemedText className="text-sm p-3 font-semibold opacity-40">
+                <ThemedText className="tsm p-3 font-semibold opacity-40">
                   {" "}
                   {item.alias}
                 </ThemedText>
@@ -90,13 +90,13 @@ export default function SocialCard({
               {!item.isUserRelated && (
                 <Button
                   onPress={!preview ? () => {} : () => {}}
-                  className="button highlight text-xl mr-0 justify-center"
+                  className="social-card-action-button"
                 >
                   {type === "GROUP" ? "Join" : "Attend"}
                 </Button>
               )}
               <Button
-                className="button secondary text-xl mr-0  justify-center"
+                className="social-card-secondary-button"
                 onPress={
                   !preview
                     ? () => {

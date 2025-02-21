@@ -197,7 +197,7 @@ export default function EditPost() {
                   ref={sheet}
                   placeholder={<View className="flex flex-row items-center">
                     {car && getCarImage( car.type, colorScheme!, 90, 52, 3.3)}
-                    <ThemedText className="text-lg font-semibold">
+                    <ThemedText className="tlg">
                       {car ? car.manufacturer + " " + car.model : "Select a vehicle"}
                       </ThemedText>
                   </View>}

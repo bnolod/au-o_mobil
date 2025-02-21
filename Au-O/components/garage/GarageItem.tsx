@@ -53,7 +53,7 @@ export default function GarageItem({
           </ThemedText>
           </ThemedText>
           <View className="flex flex-row items-center gap-2">
-            <ThemedText className="text-lg font-semibold">
+            <ThemedText className="tlg">
               {car.model}
             </ThemedText>
             <ThemedText className="opacity-65 font-semibold">

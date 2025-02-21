@@ -93,7 +93,7 @@ export default function ReplyItem({
           <Avatar image={item.user.profileImg} nickname={item.user.nickname} />
         </View>
         <View className="comment-user">
-          <ThemedText className="text-lg font-semibold">
+          <ThemedText className="tlg">
             {item.user.nickname}{" "}
             {item.user.id === authorId && (
               <MaterialCommunityIcons name="star" size={16} color="#FFD700" />

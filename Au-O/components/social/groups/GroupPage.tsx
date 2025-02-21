@@ -23,8 +23,8 @@ export default function GroupPage({
         colorScheme={colorScheme}
         language={language}
       />
-      <View className="primary pb-4 rounded-b-xl">
-        <View className="flex flex-row gap-2 justify-between items-center py-2 mx-auto w-11/12">
+      <View className="group-page">
+        <View className="group-page-container">
           <Button className=" button secondary ml-0 basis-2/12 aspect-square items-center justify-center">
             <MaterialCommunityIcons
               name="account-group-outline"
@@ -37,7 +37,7 @@ export default function GroupPage({
             className="text-2xl basis-7/12 font-bold"
           >
             {group.name}{" "}
-            <ThemedText className="text-sm font-light opacity-60">
+            <ThemedText className="tsm font-light opacity-60">
               {group.alias}
             </ThemedText>
           </ThemedText>

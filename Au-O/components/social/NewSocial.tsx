@@ -6,8 +6,8 @@ import { NewSocialProps } from "@/constants/types";
 
 export default function NewSocial({text, onPress}: NewSocialProps) {
     return (
-        <Button className="button w-11/12 my-2 mx-auto highlight-themed" hapticFeedback="light" onPress={onPress}>
-            <View className="flex flex-col w-full mx-auto text-center gap-2 justify-center items-center">
+        <Button className="new-social-button" hapticFeedback="light" onPress={onPress}>
+            <View className="new-social-button-text-continer">
                 <View>
 
             <MaterialCommunityIcons name="plus" size={32} color="white" />

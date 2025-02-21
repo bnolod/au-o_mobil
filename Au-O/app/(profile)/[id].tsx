@@ -3,9 +3,7 @@ import {
   getFollows,
 } from "@/lib/apiClient";
 import {
-  CarResponse,
   PostResponse,
-  User,
   UserResponse,
 } from "@/constants/types";
 import { useEffect, useState } from "react";
@@ -15,9 +13,13 @@ import { useColorScheme } from "nativewind";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useAuthentication } from "@/contexts/AuthenticationContext";
 import Profile from "@/components/home/Profile";
+import { Car } from "@/lib/entity/Car";
+import { User } from "@/lib/entity/User";
+
+
 export default function UserProfile() {
   const [profile, setProfile] = useState<User>();
-    const [garage, setGarage] = useState<CarResponse[]>();
+    const [garage, setGarage] = useState<Car[]>();
   const { language } = useLanguage();
   const { user } = useAuthentication();
   const { colorScheme } = useColorScheme();
@@ -44,7 +46,7 @@ export default function UserProfile() {
     } else return;
   }
   async function getGarage(id: string) {
-    const res = await apiFetch<CarResponse[]>(`vehicles/user/${id}/all`, "GET", true);
+    const res = await apiFetch<Car[]>(`vehicles/user/${id}/all`, "GET", true);
     if (res) {
       setGarage(res.data!);
     } else return;

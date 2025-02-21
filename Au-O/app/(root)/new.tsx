@@ -267,10 +267,10 @@ export default function NewPost() {
                   size={36}
                 />
               </View>
-              <ThemedText className="text-xl font-semibold">
+              <ThemedText className="txl">
                 {PostCreationTexts.upload[language]}
               </ThemedText>
-              <ThemedText className="text-sm flex items-center">
+              <ThemedText className="tlg flex items-center">
                 {images.length || 0}{" "}
                 {PostCreationTexts.selectedImages[language]}
               </ThemedText>
@@ -377,7 +377,7 @@ export default function NewPost() {
                   placeholder={
                     <View className="flex flex-row items-center">
                       {car && getCarImage(car.type, colorScheme!, 90, 52, 3.3)}
-                      <ThemedText className="text-lg font-semibold">
+                      <ThemedText className="tlg">
                         {car
                           ? car.manufacturer + " " + car.model
                           : "Select a vehicle"}

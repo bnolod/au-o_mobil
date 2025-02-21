@@ -7,12 +7,13 @@ import { useColorScheme } from "nativewind";
 import { useLanguage } from "@/contexts/LanguageContext";
 import GarageItemPage from "@/components/garage/GarageItemPage";
 import { useEffect, useState } from "react";
-import { Car, CarResponse } from "@/constants/types";
+// import { Car, CarResponse } from "@/constants/types";
+import { Car } from "@/lib/entity/Car";
 import { useLocalSearchParams } from "expo-router";
 import { getCarByCarId } from "@/lib/apiClient";
 export default function CarPage() {
   const { language } = useLanguage();
-  const [car, setCar] = useState<CarResponse>();
+  const [car, setCar] = useState<Car>();
   const { colorScheme } = useColorScheme();
   const {id} = useLocalSearchParams()
   const { user } = useAuthentication();

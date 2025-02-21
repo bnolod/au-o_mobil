@@ -8,6 +8,9 @@ import { ReactNode } from "react";
 import { ImagePickerAsset } from "expo-image-picker";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { IconProps } from "@expo/vector-icons/build/createIconSet";
+import { User } from "@/lib/entity/User";
+import { Car } from "@/lib/entity/Car";
+import { CarResponse } from "@/lib/response/CarResponse";
 
 export interface OnboardingLayoutProps {
   headerText: React.ReactNode;
@@ -36,19 +39,19 @@ export interface LoginRequest {
   usernameOrEmail: string;
   password: string;
 }
-export interface User {
-  id: number;
-  username: string;
-  password: string;
-  nickname: string;
-  role: string;
-  email: string;
-  isPublic: boolean;
-  profileImg: string;
-  bio: string;
-  dateOfBirth: string;
-  dateOfSignup: string;
-}
+// export interface User {
+//   id: number;
+//   username: string;
+//   password: string;
+//   nickname: string;
+//   role: string;
+//   email: string;
+//   isPublic: boolean;
+//   profileImg: string;
+//   bio: string;
+//   dateOfBirth: string;
+//   dateOfSignup: string;
+// }
 export interface LoginResponse {
   token?: string;
 }
@@ -164,27 +167,27 @@ export interface TapWrapperProps {
   children: React.ReactNode;
 }
 
-export interface PostCardProps {
-  postId: number | null;
-  reaction: null | "FIRE" | "HEART" | "COOL";
-  preview?: boolean;
-  user: UserResponse;
-  authorId: number | null;
-  groupData?: GroupPostData;
-  authorProfileImg: string;
-  eventData?: EventPostData;
-  authorNickname: string;
-  authorUsername: string;
-  date: string;
-  images: ImageUploadResponse[];
-  description: string;
-  location: string;
-  reactions: Reactions;
-  vehicle: Car | null;
-  comments: Comment[];
-  language: "EN" | "HU";
-  colorScheme: "light" | "dark";
-}
+// export interface PostCardProps {
+//   postId: number | null;
+//   reaction: null | "FIRE" | "HEART" | "COOL";
+//   preview?: boolean;
+//   user: UserResponse;
+//   authorId: number | null;
+//   groupData?: GroupPostData;
+//   authorProfileImg: string;
+//   eventData?: EventPostData;
+//   authorNickname: string;
+//   authorUsername: string;
+//   date: string;
+//   images: ImageUploadResponse[];
+//   description: string;
+//   location: string;
+//   reactions: Reactions;
+//   vehicle: Car | null;
+//   comments: Comment[];
+//   language: "EN" | "HU";
+//   colorScheme: "light" | "dark";
+// }
 
 export type ImageUploadType = {
   image: string;
@@ -387,19 +390,19 @@ export interface SocialEvent {
   public: boolean;
   isAttending: boolean;
 }
-export interface Car {
-  id: number;
-  manufacturer: string;
-  model: string;
-  type: CarType;
-  horsepower: number;
-  description: string;
-  displacement: number;
-  productionYear: number;
-}
-export interface CarResponse extends Car {
-  owner: User;
-}
+// export interface Car {
+//   id: number;
+//   manufacturer: string;
+//   model: string;
+//   type: CarType;
+//   horsepower: number;
+//   description: string;
+//   displacement: number;
+//   productionYear: number;
+// }
+// export interface CarResponse extends Car {
+//   owner: User;
+// }
 export interface CarCreationRequest {
   manufacturer: string;
   model: string;
@@ -422,7 +425,7 @@ export type CarType =
 export interface GroupCreationRequest {
   name: string;
   description: string;
-  bannerImage: string; //majd backenden mindenképp legyen deletehash
+  bannerImage: string;
   alias: string;
 }
 export interface GroupCreationResponse {

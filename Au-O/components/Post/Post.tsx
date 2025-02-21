@@ -1,4 +1,5 @@
-import { PostCardProps, Reactions } from "@/constants/types";
+import { Reactions } from "@/constants/types";
+import { PostCardProps } from "./props";
 import { Pressable, View } from "react-native";
 import * as Haptics from "expo-haptics";
 import React from "react";
@@ -95,8 +96,8 @@ export default function PostCard({
   return (
     <>
       <View className={isDeleted ? "hidden" : "post-container"}>
-        <View className="post-header justify-between">
-          <View className="flex-row flex items-center basis-11/12">
+        <View className="post-header-container">
+          <View className="post-header">
             <PostHeaderElement
               authorProfileImg={authorProfileImg}
               authorUsername={authorUsername}
@@ -129,7 +130,7 @@ export default function PostCard({
               groupData={groupData || null}
             />
           </View>
-          <View className="flex flex-row basis-1/12 justify-end text-right">
+          <View className="post-options">
             <MaterialCommunityIcons
               name="dots-horizontal"
               size={36}
@@ -159,7 +160,7 @@ export default function PostCard({
           >
             <View className="post-image">
               {eventData && (
-                <View className="w-1/2 h-8 secondary absolute z-50 top-6 left-6 flex justify-center items-center rounded-xl">
+                <View className="post-event-data">
                   <ThemedText className=" font-semibold text-lg">
                     {eventData.attendees} {HomeTexts.post.attendees[language]}
                   </ThemedText>
@@ -171,20 +172,20 @@ export default function PostCard({
           {vehicle && (
             <Pressable onPress={preview ? () => {} : () => router.push({pathname: "/(garage)/[id]", params: {id: vehicle.id}})} className="w-full h-12 primary rounded-t-xl " >
 
-            <View className="w-11/12 m-auto  flex-row  flex justify-between items-center">
+            <View className="post-vehicle-container">
               <View className="scale-125">
                 {getCarImage(vehicle.type, colorScheme, 52, 36, 3)}
               </View>
-              <View className="flex justify-center flex-row items-center gap-3">
+              <View className="post-vehicle-data">
 
-              <ThemedText className="text-lg font-semibold text-highlight-light">
+              <ThemedText className="tlg text-highlight-light">
                 {vehicle.manufacturer}
               </ThemedText>
               <ThemedText className="text-lg text-highlight-light">
                 {vehicle.model}
               </ThemedText>
               </View>
-              <View className="flex justify-center flex-row opacity-50 items-center gap-3">
+              <View className="post-vehicle-misc-data">
                 <ThemedText>{vehicle.productionYear}</ThemedText>
                 <ThemedText>{vehicle.horsepower} {generalTexts.profileAttributes.cars.horsepower[language]}</ThemedText>
                 <ThemedText>{vehicle.displacement/10} l</ThemedText>
@@ -248,20 +249,20 @@ export default function PostCard({
               />
             </View>
             <View className="post-data-container">
-              <ThemedText className=" text-highlight-light dark:text-highlight">
+              <ThemedText className="highlight-themed">
                 {location}
               </ThemedText>
               <ThemedText>{formatDate(date)}</ThemedText>
             </View>
           </View>
           <View
-            className={`px-4 pt-2 pb-5 flex flex-row  dark:bg-backdrop-primary-dark bg-backdrop-secondary`}
+            className="post-description-container"
           >
             <CollapsibleText
-              className="text-lg leading-tight flex gap-2"
+              className="post-description"
               restrictedLineCount={3}
             >
-              <ThemedText className="text-highlight-light pr-4 dark:text-highlight font-semibold">
+              <ThemedText className="pr-4 highlight-themed font-semibold">
                 {authorUsername + "  "}
               </ThemedText>
               {description}

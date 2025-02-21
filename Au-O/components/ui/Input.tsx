@@ -46,7 +46,7 @@ export default function Input({
         >
           <View className="absolute  text-gray-500 -top-3 -left-3 flex flex-row-reverse justify-center items-center">
             {label && (
-              <ThemedText className="text-lg font-semibold  text-gray-500">
+              <ThemedText className="tlg  text-gray-500">
                 {" "}
                 {label}
               </ThemedText>

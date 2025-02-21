@@ -29,15 +29,15 @@ export default function SocialBanner({
       style={{
         aspectRatio: header ? 1.7 : 3 / 1,
       }}
-      className=" justify-center items-center flex w-full overflow-hidden"
+      className="social-banner-container"
     >
       <ImageBackground
-        className="w-full h-full flex items-center justify-center secondary rounded-t-xl"
+        className="social-banner-image-placeholder"
         source={Images.banner_placeholder}
         resizeMode="cover"
       >
         {count !== null && (
-          <ThemedText className=" z-50 p-2 secondary rounded-xl opacity-75 left-3 bottom-3 absolute">
+          <ThemedText className="social-banner-image-text">
             {formatNumber(count, language)}{" "}
             {type === "EVENT" ? "attendees" : "members"}
           </ThemedText>
@@ -53,7 +53,7 @@ export default function SocialBanner({
         )}
         {image && name && (
           <Image
-            className="h-full w-full rounded-t-xl"
+            className="social-banner-image"
             resizeMode="cover"
             source={{uri: image}}
           />

@@ -29,8 +29,6 @@ import { PostCreationTexts } from "@/constants/texts";
 import ImageNotFound from "@/components/new/ImageNotFound";
 import PostCard from "@/components/Post/Post";
 import {
-    Car,
-    CarResponse,
     CreatePostRequest,
     Group,
     ImageStoreRequest,
@@ -64,6 +62,9 @@ import FilterBar from "@/components/ui/FilterBar";
 import GarageItem from "@/components/garage/GarageItem";
 import { getCarImage } from "@/components/graphics/cars";
 import GroupListItem from "@/components/social/groups/GroupListItem";
+import { Car } from "@/lib/entity/Car";
+import { CarResponse } from "@/lib/response/CarResponse";
+
 export default function NewPost() {
     const { language } = useLanguage();
     const { user } = useAuthentication();
@@ -301,10 +302,10 @@ export default function NewPost() {
                                     size={36}
                                 />
                             </View>
-                            <ThemedText className="text-xl font-semibold">
+                            <ThemedText className="txl">
                                 {PostCreationTexts.upload[language]}
                             </ThemedText>
-                            <ThemedText className="text-sm flex items-center">
+                            <ThemedText className="tsm flex items-center">
                                 {images.length || 0}{" "}
                                 {PostCreationTexts.selectedImages[language]}
                             </ThemedText>
@@ -470,7 +471,7 @@ export default function NewPost() {
                                                     52,
                                                     3.3
                                                 )}
-                                            <ThemedText className="text-lg font-semibold">
+                                            <ThemedText className="tlg">
                                                 {car
                                                     ? car.manufacturer +
                                                       " " +

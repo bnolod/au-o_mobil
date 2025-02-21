@@ -1,4 +1,5 @@
-import { CommonStaticElementProps, User, UserListCardProps } from "@/constants/types";
+import { CommonStaticElementProps, UserListCardProps } from "@/constants/types";
+import { User } from "@/lib/entity/User";
 import {
   Alert,
   AlertButton,
@@ -124,7 +125,7 @@ export default function UserListCard({
             <ThemedText className="text-base font-bold">
               {user.nickname}
             </ThemedText>
-            <ThemedText className="text-sm font-light">
+            <ThemedText className="tsm">
               @{user.username}
             </ThemedText>
           </View>

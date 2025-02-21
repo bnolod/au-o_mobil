@@ -46,7 +46,7 @@ const SheetSelection = forwardRef<SheetSelectionRef, {
           onPress={toggleSheet}
         >
           <View className="flex-row items-center justify-between w-full">
-            <ThemedText className="text-lg font-semibold opacity-80">
+            <ThemedText className="tlg opacity-80">
              {element}
             </ThemedText>
             <MaterialCommunityIcons name="chevron-down" size={34} color={Colors.highlight.main} />

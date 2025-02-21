@@ -8,7 +8,7 @@ import { Colors } from "@/constants/Colors";
 export default function PostGrid({colorScheme, language, posts} : {posts: PostResponse[]} & CommonStaticElementProps) {
 
     return (
-        <View className=" ml-2  mt-4">
+        <View className="ml-2 mt-4">
           <FlashList
             estimatedItemSize={200}
             
@@ -41,7 +41,7 @@ export default function PostGrid({colorScheme, language, posts} : {posts: PostRe
               >
                 <Image
                   resizeMethod="auto"
-                  className="flex-1 h-72 rounded-xl my-2 w-11/12 primary"
+                  className="post-grid-image"
                   resizeMode="cover"
                   source={{ uri: item.images[0].url }}
                 />

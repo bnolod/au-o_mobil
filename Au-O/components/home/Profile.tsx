@@ -14,12 +14,12 @@ import {
   updateProfilePicture,
 } from "@/lib/apiClient";
 import {
-  CarResponse,
   CommonStaticElementProps,
   PostResponse,
   ProfileProps,
-  User,
 } from "@/constants/types";
+import { CarResponse } from "@/lib/response/CarResponse";
+import { User } from "@/lib/entity/User";
 import { useRef, useState } from "react";
 import { router } from "expo-router";
 import UserLoading from "@/components/auth/UserLoading";
@@ -284,7 +284,7 @@ export default function Profile({
                   : generalTexts.profileAttributes.bioEmpty[language]}
               </CollapsibleText>
               {isOwner && (
-                <Text className="text-sm text-gray-500">
+                <Text className="tsm text-gray-500">
                   {UserEditTexts.prompts.edit[language]}
                 </Text>
               )}

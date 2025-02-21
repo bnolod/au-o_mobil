@@ -14,9 +14,9 @@ export default function SocialSortItem({
   return (
     <Pressable
       onPress={onSelect}
-      className="flex flex-row overflow-hidden items-center rounded-xl secondary h-24"
+      className="social-sort-item-container"
     >
-      <View className="basis-1/3 h-full rounded-l-xl" style={{}}>
+      <View className="social-sort-image">
         <ImageBackground
           resizeMode="cover"
           className="flex-1"
@@ -26,7 +26,7 @@ export default function SocialSortItem({
         />
       </View>
       <View
-        className="flex secondary  h-full items-start justify-center flex-col gap-1"
+        className="social-sort-item-data"
         style={{
           shadowColor: Colors[colorScheme.get()!].secondary,
           shadowOffset: {
@@ -38,7 +38,7 @@ export default function SocialSortItem({
         }}
       >
         <ThemedText className="text-2xl">{name}</ThemedText>
-        <ThemedText className="text-lg">
+        <ThemedText className="tlg">
           {name === "My Groups" ? "All your groups" : memberCount}{" "}
           {name !== "My Groups" && "members"}
         </ThemedText>

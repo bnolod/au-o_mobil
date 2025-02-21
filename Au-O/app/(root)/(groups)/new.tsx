@@ -196,7 +196,7 @@ export default function NewPostPage() {
               size={36}
             />
           </View>
-          <ThemedText className="text-xl font-semibold">
+          <ThemedText className="txl">
             Upload Banner
           </ThemedText>
         </TouchableOpacity>

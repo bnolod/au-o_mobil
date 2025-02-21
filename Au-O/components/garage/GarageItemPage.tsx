@@ -26,7 +26,7 @@ export default function GarageItemPage({colorScheme, isOwner, car, language, pro
           <ThemedText className="text-3xl font-bold">
             {car.manufacturer}
           </ThemedText>
-          <ThemedText className="text-xl font-semibold">
+          <ThemedText className="txl">
             {car.model}
           </ThemedText>
           {

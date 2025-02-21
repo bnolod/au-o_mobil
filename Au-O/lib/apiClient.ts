@@ -1,7 +1,7 @@
 import {
-  Car,
+  // Car,
   CarCreationRequest,
-  CarResponse,
+  // CarResponse,
   Comment,
   CreatePostRequest,
   FeedResponse,
@@ -18,7 +18,7 @@ import {
   RegisterRequest,
   Reply,
   TokenResponse,
-  User,
+  // User,
   UserResponse,
 } from "@/constants/types";
 import axios, { AxiosInstance } from "axios";
@@ -26,6 +26,10 @@ import { router } from "expo-router";
 import * as SecureStore from "expo-secure-store";
 import { deleteUser, saveUser } from "./functions";
 import { eventEmitter } from "./events";
+import { User } from "./entity/User";
+import { Car } from "./entity/Car";
+import { CarResponse } from "./response/CarResponse";
+
 
 const apiClient: AxiosInstance = axios.create({
   baseURL: process.env.EXPO_PUBLIC_AXIOS_BASE_URL,
