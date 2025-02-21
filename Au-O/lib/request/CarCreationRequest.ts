@@ -1,8 +1,7 @@
-import { CarType } from "@/constants/types";
-import { User } from "./User";
+import { CarType } from "../../constants/types";
 
-export interface Car {
-            id: number;
+
+export interface CarCreationRequest {
             manufacturer: string;
             model: string;
             type: CarType;
@@ -10,6 +9,4 @@ export interface Car {
             description: string;
             displacement: number;
             productionYear: number;
-            owner?: User;
           }
-

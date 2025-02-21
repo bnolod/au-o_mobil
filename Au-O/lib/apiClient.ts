@@ -1,9 +1,5 @@
 import {
-  // Car,
-  CarCreationRequest,
-  // CarResponse,
   Comment,
-  CreatePostRequest,
   FeedResponse,
   Group,
   GroupCreationRequest,
@@ -13,13 +9,9 @@ import {
   ImageStoreRequest,
   ImageUploadResponse,
   LoginRequest,
-  PostResponse,
-  Reactions,
   RegisterRequest,
   Reply,
   TokenResponse,
-  // User,
-  UserResponse,
 } from "@/constants/types";
 import axios, { AxiosInstance } from "axios";
 import { router } from "expo-router";
@@ -27,8 +19,6 @@ import * as SecureStore from "expo-secure-store";
 import { deleteUser, saveUser } from "./functions";
 import { eventEmitter } from "./events";
 import { User } from "./entity/User";
-import { Car } from "./entity/Car";
-import { CarResponse } from "./response/CarResponse";
 
 
 const apiClient: AxiosInstance = axios.create({
@@ -353,104 +343,67 @@ export async function loadFeed(index: number, timestamp: string) {
   }
   return null;
 }
-export async function removeFollow(followerId: string) {
-  const req = await apiFetch(
-    `users/user/${followerId}/remove_follower`,
-    "DELETE",
-    true
-  );
-  if (req && req.status === 200) {
-    return true;
-  }
-  return false;
-}
-export async function getFollows(userId: string) {
-  const followingRes = await apiFetch<UserResponse[]>(
-    `users/user/${userId}/following`,
-    "GET",
-    true
-  );
-  const followersRes = await apiFetch<UserResponse[]>(
-    `users/user/${userId}/followers`,
-    "GET",
-    true
-  );
-  if (followingRes && followersRes) {
-    return {
-      following: followingRes.data,
-      followers: followersRes.data,
-    };
-  } else return null;
-}
-export async function followUser(userId: string) {
-  const res = await apiFetch<UserResponse>(
-    `users/user/${userId}/follow`,
-    "POST",
-    true
-  );
-  if (res && res.status === 200) {
-    return true;
-  } else return false;
-}
-export async function unfollowUser(userId: string) {
-  const res = await apiFetch<UserResponse>(
-    `users/user/${userId}/unfollow`,
-    "DELETE",
-    true
-  );
-  if (res && res.status === 200) {
-    return true;
-  } else return false;
-}
-export async function getOwnGarage() {
-  const req = await apiFetch<CarResponse[]>("vehicles/own", "GET", true);
-  if (req && req.status === 200) {
-    return req.data;
-  }
-  return null;
-}
-export async function addCar(car: CarCreationRequest) {
-  const req = await apiFetch<CarResponse>("vehicles/vehicle/create", "POST", true, car);
-  if (req && req.status === 200) {
-    return req.data;
-  }
-  return null;
-}
-export async function getOwnCars() {
-  const req = await apiFetch<CarResponse[]>("vehicles/own", "GET", true);
-  if (req && req.status === 200) {
-    return req.data;
-  }
-  return null;
-}
-export async function getCarsByUserId(userId: number) {
-  const req = await apiFetch<CarResponse[]>("vehicles/user/" + userId, "GET", true);
-  if (req && req.status === 200) {
-    return req.data;
-  }
-  return null;
-}
-export async function getCarByCarId(carId: string) {
-  const req = await apiFetch<CarResponse>("vehicles/vehicle/" + carId, "GET", true);
-  if (req && req.status === 200) {
-    return req.data;
-  }
-  return null;
-}
-export async function editCar(carId: string, car: CarCreationRequest) {
-  const req = await apiFetch("vehicles/vehicle/" + carId, "PUT", true, car);
-  if (req && req.status === 200) {
-    return true;
-  }
-  return false;
-}
-export async function deleteCar(carId: string) {
-  const req = await apiFetch("vehicles/vehicle/" + carId, "DELETE", true);
-  if (req && req.status === 200) {
-    return true;
-  }
-  return false;
-}
+// export async function removeFollow(followerId: string) {
+//   const req = await apiFetch(
+//     `users/user/${followerId}/remove_follower`,
+//     "DELETE",
+//     true
+//   );
+//   if (req && req.status === 200) {
+//     return true;
+//   }
+//   return false;
+// }
+
+// export async function getOwnGarage() {
+//   const req = await apiFetch<CarResponse[]>("vehicles/own", "GET", true);
+//   if (req && req.status === 200) {
+//     return req.data;
+//   }
+//   return null;
+// }
+// export async function addCar(car: CarCreationRequest) {
+//   const req = await apiFetch<CarResponse>("vehicles/vehicle/create", "POST", true, car);
+//   if (req && req.status === 200) {
+//     return req.data;
+//   }
+//   return null;
+// }
+// export async function getOwnCars() {
+//   const req = await apiFetch<CarResponse[]>("vehicles/own", "GET", true);
+//   if (req && req.status === 200) {
+//     return req.data;
+//   }
+//   return null;
+// }
+// export async function getCarsByUserId(userId: number) {
+//   const req = await apiFetch<CarResponse[]>("vehicles/user/" + userId, "GET", true);
+//   if (req && req.status === 200) {
+//     return req.data;
+//   }
+//   return null;
+// }
+// export async function getCarByCarId(carId: string) {
+//   const req = await apiFetch<CarResponse>("vehicles/vehicle/" + carId, "GET", true);
+//   if (req && req.status === 200) {
+//     return req.data;
+//   }
+//   return null;
+// }
+// export async function editCar(carId: string, car: CarCreationRequest) {
+//   const req = await apiFetch("vehicles/vehicle/" + carId, "PUT", true, car);
+//   if (req && req.status === 200) {
+//     return true;
+//   }
+//   return false;
+// }
+// export async function deleteCar(carId: string) {
+//   const req = await apiFetch("vehicles/vehicle/" + carId, "DELETE", true);
+//   if (req && req.status === 200) {
+//     return true;
+//   }
+//   return false;
+// }
 export async function createGroup(request: GroupCreationRequest) {
   const req = await apiFetch<GroupCreationResponse>("groups/group", "POST", true, request);
   if (req && req.status === 200) {

@@ -12,7 +12,7 @@ import { router } from "expo-router";
 
 export default function GarageItemPage({colorScheme, isOwner, car, language, profileImg} : GarageItemPageProps & CommonStaticElementProps) {
     return (    
-    <View className="flex-col h-screen flex background">
+    <View className="garage-page">
     <View className="secondary">
       <GarageHeader
         colorScheme={colorScheme!}
@@ -20,9 +20,9 @@ export default function GarageItemPage({colorScheme, isOwner, car, language, pro
         language={language}
         userProfilePic={profileImg}
       />
-      <View className="flex flex-row items-center mx-3 py-2">
+      <View className="garage-page-container">
         <View className="mb-5">{getCarImage(car.type, colorScheme, 140, 85, 4)}</View>
-        <View className="flex justify-evenly w-11/12 flex-row items-center gap-1">
+        <View className="garage-page-data-container">
           <ThemedText className="text-3xl font-bold">
             {car.manufacturer}
           </ThemedText>
@@ -39,14 +39,14 @@ export default function GarageItemPage({colorScheme, isOwner, car, language, pro
           }
         </View>
       </View>
-      <View className=" flex flex-row justify-evenly py-3">
-        <View className="flex flex-col items-center justify-center p-2 highlight-themed aspect-square rounded-xl">
+      <View className="garage-page-attribute-container">
+        <View className="garage-page-attribute">
           <MaterialCommunityIcons
             name="speedometer"
             size={42}
             color={Colors[colorScheme!].text}
           />
-          <ThemedText className="text-2xl font-semibold">
+          <ThemedText className="t2x">
             {car.horsepower} {generalTexts.profileAttributes.cars.horsepower[language]}
           </ThemedText>
         </View>

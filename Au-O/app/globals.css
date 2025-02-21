@@ -242,6 +242,68 @@
   .social-sort-item-data {
 @apply flex secondary  h-full items-start justify-center flex-col gap-1
   }
+
+  /* Garage */
+  .car-type-list-item {
+    @apply flex my-2 mx-2 flex-row overflow-hidden items-center rounded-xl secondary h-24
+  }
+  .car-type-list-item-image-container {
+    @apply basis-5/12 h-full overflow-hidden rounded-l-xl
+  }
+  .car-type-list-item-placeholder-banner {
+    @apply flex-1 flex justify-center items-center
+  }
+  .car-type-list-item-name {
+    @apply flex secondary  h-full items-start justify-center flex-col gap-1
+  }
+  .garage-header {
+    @apply flex flex-row w-full h-64 rounded-b-xl overflow-hidden
+  }
+  .garage-profile-display {
+    @apply h-full basis-7/12 opacity-70 
+  }
+  .garage-profile-display-image {
+    @apply flex primary z-20 w-full flex-col h-full
+  }
+  .garage-profile-car-type-display {
+    @apply flex-1 flex justify-center items-center
+  }
+
+  .garage-item {
+    @apply flex mx-2 my-2 flex-row overflow-hidden items-center rounded-xl secondary h-24
+  }
+  .garage-item-display {
+    @apply basis-5/12 h-full rounded-l-xl
+  }
+  .garage-item-banner {
+    @apply flex-1 flex  justify-center items-center
+  }
+  .garage-item-car-type-display {
+    @apply ml-3 h-fit flex-1 items-center flex justify-center
+  }
+  .garage-item-data-container {
+    @apply flex secondary  h-full items-start justify-center flex-col gap-1
+  }
+  .garage-item-misc-data {
+    @apply flex flex-row items-center gap-2
+  }
+  
+  .garage-page {
+    @apply flex-col h-screen flex background
+  }
+  .garage-page-container {
+    @apply flex flex-row items-center mx-3 py-2
+  }
+  .garage-page-data-container {
+   @apply flex justify-evenly w-11/12 flex-row items-center gap-1
+  }
+  .garage-page-attribute-container {
+    @apply flex flex-row justify-evenly py-3
+  }
+  .garage-page-attribute {
+    @apply flex flex-col items-center justify-center p-2 highlight-themed aspect-square rounded-xl
+  }
+
   /* Groups */
   .group-list-item-container {
     @apply flex my-2 mx-2 flex-row overflow-hidden justify-between pr-3 items-center rounded-xl secondary h-24
@@ -272,7 +334,6 @@
   .group-page-container {
     @apply flex flex-row gap-2 justify-between items-center py-2 mx-auto w-11/12
   }
-  .group-
   /* Profile */
   .post-grid-image {
     @apply flex-1 h-72 rounded-xl my-2 w-11/12 primary
@@ -300,5 +361,8 @@
   }
   .highlight-themed {
     @apply bg-highlight-light dark:bg-highlight-dark
+  }
+  .stroke {
+    @apply border border-black dark:border-white
   }
 }

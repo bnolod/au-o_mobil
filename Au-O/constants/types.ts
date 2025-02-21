@@ -403,15 +403,7 @@ export interface SocialEvent {
 // export interface CarResponse extends Car {
 //   owner: User;
 // }
-export interface CarCreationRequest {
-  manufacturer: string;
-  model: string;
-  type: CarType;
-  horsepower: number;
-  description: string;
-  displacement: number;
-  productionYear: number;
-}
+
 export type CarType =
   | "SEDAN"
   | "COUPE"
@@ -464,7 +456,7 @@ export interface ProfileProps {
   user: User;
   profile: User;
   id: string;
-  garage: CarResponse[];
+  garage: Car[];
   followers: User[];
   following: User[];
   setFollowing: (users: User[]) => void;

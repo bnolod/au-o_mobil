@@ -12,7 +12,7 @@ import ThemedText from "./ThemedText";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Colors } from "@/constants/Colors";
 import { router } from "expo-router";
-import { removeFollow, unfollowUser } from "@/lib/apiClient";
+import { unfollowUser, removeFollow } from "@/lib/ApiCalls/UserApiCalls";
 import Toast from "react-native-toast-message";
 import { useState } from "react";
 

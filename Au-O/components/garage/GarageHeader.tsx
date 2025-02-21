@@ -15,20 +15,20 @@ export default function GarageHeader({
   car: Car
 } & CommonStaticElementProps) {
   return (
-    <View className="flex flex-row w-full h-64 rounded-b-xl overflow-hidden">
+    <View className="garage-header">
       {userProfilePic && <ImageBackground
-        className=" h-full basis-7/12 opacity-70 "
+        className="garage-profile-display"
         source={{ uri: userProfilePic }}
       />}
       <View
-        className={`flex primary z-20 ${userProfilePic && "basis-5/12"} w-full flex-col h-full`}
+        className={`garage-profile-display-image ${userProfilePic && "basis-5/12"} `}
         style={{
           boxShadow: `0px 10px 50px 50px ${Colors[colorScheme].primary}`,
           
         }}
       >
         <ImageBackground
-          className="flex-1 flex justify-center items-center "
+          className="garage-profile-car-type-display"
           resizeMode="cover"
           source={Images.banner_placeholder}
         >

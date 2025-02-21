@@ -19,15 +19,15 @@ export default function GarageItem({
     <>
       <Pressable
         onPress={onPress}
-        className="flex mx-2 my-2 flex-row overflow-hidden items-center rounded-xl secondary h-24"
+        className="garage-item"
       >
-        <View className="basis-5/12 h-full  rounded-l-xl">
+        <View className="garage-item-display ">
           <ImageBackground
             resizeMode="cover"
-            className="flex-1 flex  justify-center items-center"
+            className="garage-item-banner"
             source={Images.banner_placeholder}
           >
-        <View className=" ml-3 h-fit flex-1 items-center flex justify-center">
+        <View className="garage-item-car-type-display">
           {getCarImage(car.type, colorScheme, 180, 200, 4.5)}
         </View>
 
@@ -35,7 +35,7 @@ export default function GarageItem({
         </View>
 
         <View
-          className="flex secondary  h-full items-start justify-center flex-col gap-1"
+          className="garage-item-data-container"
           style={{
             shadowColor: Colors[colorScheme].secondary,
             shadowOffset: {
@@ -46,13 +46,13 @@ export default function GarageItem({
             shadowRadius: 20,
           }}
         >
-          <ThemedText className="text-2xl font-bold">
+          <ThemedText className="t2x">
             {car.manufacturer}
           <ThemedText className="text-lg font-light opacity-65">
             {" "}{" "}{car.productionYear}
           </ThemedText>
           </ThemedText>
-          <View className="flex flex-row items-center gap-2">
+          <View className="garage-item-misc-data">
             <ThemedText className="tlg">
               {car.model}
             </ThemedText>

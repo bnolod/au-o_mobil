@@ -13,8 +13,9 @@ import { Images } from "@/lib/staticAssetExports";
 import GarageItem from "@/components/garage/GarageItem";
 import ThemedText from "@/components/ui/ThemedText";
 import { useEffect, useState } from "react";
-import { Car, CarType } from "@/constants/types";
-import { CarCreationRequest } from "@/constants/types";
+import { CarType } from "@/constants/types";
+import { CarCreationRequest } from "@/lib/request/CarCreationRequest";
+import { Car } from "@/lib/entity/Car";
 import SheetSelection, {
   SheetSelectionRef,
 } from "@/components/ui/SheetSelection";
@@ -22,7 +23,7 @@ import CarTypeListItem from "@/components/garage/CarTypeListItem";
 import Button from "@/components/ui/Button";
 import { useRef } from "react";
 import CollapsibleText from "@/components/ui/CollapsibleText";
-import { addCar, deleteCar, editCar, getCarByCarId } from "@/lib/apiClient";
+import { addCar, deleteCar, editCar, getCarByCarId } from "@/lib/ApiCalls/CarApiCalls";
 import Toast from "react-native-toast-message";
 import LoadingModal from "@/components/ui/LoadingModal";
 import { router, useLocalSearchParams } from "expo-router";
