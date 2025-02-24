@@ -8,7 +8,7 @@ export interface User {
   dateOfSignup: string;
 
   password: string;
-            role: string;
-            email: string;
-            dateOfBirth: string;
+  role: string;
+  email: string;
+  dateOfBirth: string;
 }

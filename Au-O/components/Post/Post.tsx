@@ -160,7 +160,7 @@ export default function PostCard({
             </View>
           </TapCountWrapper>
           {vehicle && (
-            <PostVehicleBanner vehicle={vehicle} colorScheme={colorScheme} language={language} preview={preview}/>
+            <PostVehicleBanner vehicle={vehicle} colorScheme={colorScheme} language={language} preview={preview} />
           )}
         </Pressable>
 

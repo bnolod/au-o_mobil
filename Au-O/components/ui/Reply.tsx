@@ -1,38 +1,29 @@
-import { Alert, Pressable, View } from "react-native";
-import Avatar from "./Avatar";
-import ThemedText from "./ThemedText";
-import * as Haptics from "expo-haptics";
-import { Reactions, ReplyProps } from "@/constants/types";
-import { Text } from "react-native";
-import { CommentTexts } from "@/constants/texts";
-import Toast from "react-native-toast-message";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import CollapsibleText from "./CollapsibleText";
-import { useState } from "react";
-import ReactionButton from "./ReactionButton";
-import { deleteReply } from "@/lib/ApiCalls/ReplyApiCalls";
-import { addReaction } from "@/lib/ApiCalls/ReactionApiCalls";
-export default function ReplyItem({
-  item,
-  language,
-  preview,
-  userId,
-  authorId,
-  onDelete,
-}: ReplyProps) {
-  const [currentReaction, setCurrentReaction] = useState<
-    null | "FIRE" | "HEART" | "COOL"
-  >(item.reactedWith);
+import { Alert, Pressable, View } from 'react-native';
+import Avatar from './Avatar';
+import ThemedText from './ThemedText';
+import * as Haptics from 'expo-haptics';
+import { Reactions, ReplyProps } from '@/constants/types';
+import { Text } from 'react-native';
+import { CommentTexts } from '@/constants/texts';
+import Toast from 'react-native-toast-message';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import CollapsibleText from './CollapsibleText';
+import { useState } from 'react';
+import ReactionButton from './ReactionButton';
+import { deleteReply } from '@/lib/ApiCalls/ReplyApiCalls';
+import { addReaction } from '@/lib/ApiCalls/ReactionApiCalls';
+export default function ReplyItem({ item, language, preview, userId, authorId, onDelete }: ReplyProps) {
+  const [currentReaction, setCurrentReaction] = useState<null | 'FIRE' | 'HEART' | 'COOL'>(item.reactedWith);
 
   const [reactionState, setReactions] = useState<Reactions>({
-    FIRE: item.reactionTypeMap && item.reactionTypeMap.FIRE ? item.reactionTypeMap.FIRE  : 0,
-    HEART: item.reactionTypeMap && item.reactionTypeMap.HEART ? item.reactionTypeMap.HEART  : 0,
-    COOL: item.reactionTypeMap && item.reactionTypeMap.COOL ? item.reactionTypeMap.COOL  : 0,
+    FIRE: item.reactionTypeMap && item.reactionTypeMap.FIRE ? item.reactionTypeMap.FIRE : 0,
+    HEART: item.reactionTypeMap && item.reactionTypeMap.HEART ? item.reactionTypeMap.HEART : 0,
+    COOL: item.reactionTypeMap && item.reactionTypeMap.COOL ? item.reactionTypeMap.COOL : 0,
   });
 
-  async function handlePress(type: null | "FIRE" | "HEART" | "COOL") {
+  async function handlePress(type: null | 'FIRE' | 'HEART' | 'COOL') {
     if (currentReaction === type) {
-      await addReaction("reply", item.id, type);
+      await addReaction('reply', item.id, type);
       if (type) {
         setReactions({
           ...reactionState,
@@ -41,7 +32,7 @@ export default function ReplyItem({
       }
       setCurrentReaction(null);
     } else {
-      await addReaction("reply", item.id!, type);
+      await addReaction('reply', item.id!, type);
       setCurrentReaction(type);
       if (type) {
         setReactions({
@@ -70,23 +61,19 @@ export default function ReplyItem({
       className="reply"
       onLongPress={() => {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-        Alert.alert(
-          `${item.user.nickname}${CommentTexts.commentAuthor[language]}`,
-          "",
-          [
-            {
-              text: CommentTexts.commentButtons.cancel[language],
-              style: "cancel",
-            },
-            item.user.id === userId || authorId === userId
-              ? {
-                  text: CommentTexts.commentButtons.delete[language],
-                  style: "destructive",
-                  onPress: () => handleReplyDelete(),
-                }
-              : {},
-          ]
-        );
+        Alert.alert(`${item.user.nickname}${CommentTexts.commentAuthor[language]}`, '', [
+          {
+            text: CommentTexts.commentButtons.cancel[language],
+            style: 'cancel',
+          },
+          item.user.id === userId || authorId === userId
+            ? {
+                text: CommentTexts.commentButtons.delete[language],
+                style: 'destructive',
+                onPress: () => handleReplyDelete(),
+              }
+            : {},
+        ]);
       }}
     >
       <View className="comment-header">
@@ -95,14 +82,12 @@ export default function ReplyItem({
         </View>
         <View className="comment-user">
           <ThemedText className="tlg">
-            {item.user.nickname}{" "}
-            {item.user.id === authorId && (
-              <MaterialCommunityIcons name="star" size={16} color="#FFD700" />
-            )}
+            {item.user.nickname}{' '}
+            {item.user.id === authorId && <MaterialCommunityIcons name="star" size={16} color="#FFD700" />}
           </ThemedText>
           <Text
             style={{
-              color: "#767676",
+              color: '#767676',
               fontSize: 12,
             }}
           >
@@ -115,14 +100,13 @@ export default function ReplyItem({
         <ReactionButton
           initialReactionState={currentReaction}
           type="FIRE"
-          state={currentReaction !== "FIRE" ? "inactive" : "active"}
-          count={reactionState.FIRE || 0
-          }
+          state={currentReaction !== 'FIRE' ? 'inactive' : 'active'}
+          count={reactionState.FIRE || 0}
           onPress={
             !preview
               ? async () => {
                   await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-                  handlePress("FIRE");
+                  handlePress('FIRE');
                 }
               : () => {}
           }
@@ -135,11 +119,11 @@ export default function ReplyItem({
             !preview
               ? async () => {
                   await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-                  handlePress("HEART");
+                  handlePress('HEART');
                 }
               : () => {}
           }
-          state={currentReaction !== "HEART" ? "inactive" : "active"}
+          state={currentReaction !== 'HEART' ? 'inactive' : 'active'}
         />
         <ReactionButton
           initialReactionState={currentReaction}
@@ -149,11 +133,11 @@ export default function ReplyItem({
             !preview
               ? async () => {
                   await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-                  handlePress("COOL");
+                  handlePress('COOL');
                 }
               : () => {}
           }
-          state={currentReaction !== "COOL" ? "inactive" : "active"}
+          state={currentReaction !== 'COOL' ? 'inactive' : 'active'}
         />
       </View>
     </Pressable>

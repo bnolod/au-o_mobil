@@ -1,15 +1,15 @@
-import { Image, ImageBackground, Pressable, View } from "react-native";
-import ThemedText from "@/components/ui/ThemedText";
-import { Images } from "@/lib/staticAssetExports";
-import { formatNumber } from "@/lib/functions";
-import { CommonStaticElementProps, SocialBannerProps } from "@/constants/types";
-import { router } from "expo-router";
+import { Image, ImageBackground, Pressable, View } from 'react-native';
+import ThemedText from '@/components/ui/ThemedText';
+import { Images } from '@/lib/staticAssetExports';
+import { formatNumber } from '@/lib/functions';
+import { CommonStaticElementProps, SocialBannerProps } from '@/constants/types';
+import { router } from 'expo-router';
 
 export default function SocialBanner({
   name,
   image,
   id,
-  type = "GROUP",
+  type = 'GROUP',
   count = 0,
   language,
   header = false,
@@ -18,14 +18,26 @@ export default function SocialBanner({
 }: SocialBannerProps & CommonStaticElementProps) {
   return (
     <Pressable
-      onPress={onPress ? onPress : () => {
-        if (type === "EVENT") router.push({pathname:`/(root)/(events)/[id]`, params: {
-          id
-        }});
-        else router.push({pathname:`/(root)/(groups)/[id]`, params: {
-          id
-        }})
-      }}
+      onPress={
+        onPress
+          ? onPress
+          : () => {
+              if (type === 'EVENT')
+                router.push({
+                  pathname: `/(root)/(events)/[id]`,
+                  params: {
+                    id,
+                  },
+                });
+              else
+                router.push({
+                  pathname: `/(root)/(groups)/[id]`,
+                  params: {
+                    id,
+                  },
+                });
+            }
+      }
       style={{
         aspectRatio: header ? 1.7 : 3 / 1,
       }}
@@ -38,26 +50,17 @@ export default function SocialBanner({
       >
         {count !== null && (
           <ThemedText className="social-banner-image-text">
-            {formatNumber(count, language)}{" "}
-            {type === "EVENT" ? "attendees" : "members"}
+            {formatNumber(count, language)} {type === 'EVENT' ? 'attendees' : 'members'}
           </ThemedText>
         )}
         {!image && !name && <ThemedText className="text-3xl">???</ThemedText>}
         {!image && name && (
           <ThemedText className="text-5xl font-bold">
-            {" "}
-            {name.length > 20 && name.split(" ").length > 4
-              ? name.split(" ")
-              : name}
+            {' '}
+            {name.length > 20 && name.split(' ').length > 4 ? name.split(' ') : name}
           </ThemedText>
         )}
-        {image && name && (
-          <Image
-            className="social-banner-image"
-            resizeMode="cover"
-            source={{uri: image}}
-          />
-        )}
+        {image && name && <Image className="social-banner-image" resizeMode="cover" source={{ uri: image }} />}
       </ImageBackground>
     </Pressable>
   );

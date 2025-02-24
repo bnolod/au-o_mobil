@@ -8,17 +8,17 @@ export interface PostVehicleBannerProps {
 }
 
 export interface PostDispayElementProps {
-    onPress: () => void;
-    postType: string;
-    colorScheme: "light" | "dark";
-    authorNickname: string;
-    authorProfileImg: string;
-    authorUsername: string;
-    groupData: GroupPostData | null;
-    eventData: EventPostData | null;
-  }
+  onPress: () => void;
+  postType: string;
+  colorScheme: 'light' | 'dark';
+  authorNickname: string;
+  authorProfileImg: string;
+  authorUsername: string;
+  groupData: GroupPostData | null;
+  eventData: EventPostData | null;
+}
 export interface PostFooterProps {
-    currentReaction: 'FIRE' | 'HEART' | 'COOL' | null;
+  currentReaction: 'FIRE' | 'HEART' | 'COOL' | null;
   reactionState: { FIRE: number; HEART: number; COOL: number };
   preview: boolean;
   handlePress: (type: 'FIRE' | 'HEART' | 'COOL' | null) => void;

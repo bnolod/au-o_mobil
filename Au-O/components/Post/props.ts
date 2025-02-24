@@ -1,12 +1,12 @@
-import { EventPostData, GroupPostData, Reactions } from "@/constants/types";
-import { Car } from "@/lib/entity/Car";
-import { Image } from "@/lib/entity/Image";
-import { User } from "@/lib/entity/User";
-import { Comment } from "@/lib/entity/Comment";
+import { EventPostData, GroupPostData, Reactions } from '@/constants/types';
+import { Car } from '@/lib/entity/Car';
+import { Image } from '@/lib/entity/Image';
+import { User } from '@/lib/entity/User';
+import { Comment } from '@/lib/entity/Comment';
 
 export interface PostCardProps {
   postId: number | null;
-  reaction: null | "FIRE" | "HEART" | "COOL";
+  reaction: null | 'FIRE' | 'HEART' | 'COOL';
   preview?: boolean;
   user: User;
   authorId: number | null;
@@ -22,6 +22,6 @@ export interface PostCardProps {
   reactions: Reactions;
   vehicle: Car | null;
   comments: Comment[];
-  language: "EN" | "HU";
-  colorScheme: "light" | "dark";
+  language: 'EN' | 'HU';
+  colorScheme: 'light' | 'dark';
 }

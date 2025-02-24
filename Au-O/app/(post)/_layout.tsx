@@ -1,6 +1,6 @@
-import { PostEditTexts, PostStatusTexts } from "@/constants/texts";
-import { useLanguage } from "@/contexts/LanguageContext";
-import { Stack } from "expo-router";
+import { PostEditTexts, PostStatusTexts } from '@/constants/texts';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { Stack } from 'expo-router';
 
 export default function PostPageLayout() {
   const { language } = useLanguage();
@@ -16,11 +16,10 @@ export default function PostPageLayout() {
       <Stack.Screen
         name="edit/[id]"
         options={{
-          presentation: "card",
-          animation: "fade",
+          presentation: 'card',
+          animation: 'fade',
           headerShown: true,
           headerTitle: PostStatusTexts.header[language],
-
         }}
       />
     </Stack>

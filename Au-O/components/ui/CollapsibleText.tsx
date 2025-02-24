@@ -1,8 +1,8 @@
-import { ReactNode, useState } from "react";
-import ThemedText from "./ThemedText";
-import { handleShowMore } from "@/lib/events";
-import { TextProps } from "react-native";
-import * as Haptics from "expo-haptics";
+import { ReactNode, useState } from 'react';
+import ThemedText from './ThemedText';
+import { handleShowMore } from '@/lib/events';
+import { TextProps } from 'react-native';
+import * as Haptics from 'expo-haptics';
 export default function CollapsibleText({
   restrictedLineCount = 3,
   children,

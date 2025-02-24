@@ -1,22 +1,17 @@
-import React, { useCallback, useRef, useState } from "react";
-import { BottomSheetFlatList, BottomSheetModal } from "@gorhom/bottom-sheet";
+import React, { useCallback, useRef, useState } from 'react';
+import { BottomSheetFlatList, BottomSheetModal } from '@gorhom/bottom-sheet';
 
-import ThemedText from "../ui/ThemedText";
-import {
-  TouchableOpacity,
-  View,
-  Keyboard,
-  TouchableWithoutFeedback,
-} from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { CommentSheetProps, CommonStaticElementProps } from "@/constants/types";
-import Avatar from "../ui/Avatar";
-import { Comment } from "@/lib/entity/Comment";
-import { HomeTexts } from "@/constants/texts";
-import { Colors } from "@/constants/Colors";
-import AddCommentRow from "./AddCommentRow";
-import CommentElement from "../ui/CommentElement";
-import CommentsEmpty from "./CommentsEmpty";
+import ThemedText from '../ui/ThemedText';
+import { TouchableOpacity, View, Keyboard, TouchableWithoutFeedback } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { CommentSheetProps, CommonStaticElementProps } from '@/constants/types';
+import Avatar from '../ui/Avatar';
+import { Comment } from '@/lib/entity/Comment';
+import { HomeTexts } from '@/constants/texts';
+import { Colors } from '@/constants/Colors';
+import AddCommentRow from './AddCommentRow';
+import CommentElement from '../ui/CommentElement';
+import CommentsEmpty from './CommentsEmpty';
 
 export default function CommentSheet({
   colorScheme,
@@ -32,20 +27,27 @@ export default function CommentSheet({
 }: CommentSheetProps & CommonStaticElementProps) {
   const [focused, setFocused] = React.useState(false);
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
-  const [renderedComments, setRenderedComments] =
-    useState<Comment[]>(comments);
+  const [renderedComments, setRenderedComments] = useState<Comment[]>(comments);
   function handlePresent(): void {
     bottomSheetModalRef.current?.dismiss();
     bottomSheetModalRef.current?.present();
     setFocused(false);
   }
 
-  const renderItem = useCallback(
-    ({ item }: { item: Comment; index: number }) => {
-      return <CommentElement preview={preview} colorScheme={colorScheme} onDelete={(id) => setRenderedComments(renderedComments.filter((item) => id !== item.id))} userId={userId} key={item.id} item={item} language={language} authorId={authorId} />;
-    },
-    []
-  );
+  const renderItem = useCallback(({ item }: { item: Comment; index: number }) => {
+    return (
+      <CommentElement
+        preview={preview}
+        colorScheme={colorScheme}
+        onDelete={(id) => setRenderedComments(renderedComments.filter((item) => id !== item.id))}
+        userId={userId}
+        key={item.id}
+        item={item}
+        language={language}
+        authorId={authorId}
+      />
+    );
+  }, []);
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -56,13 +58,7 @@ export default function CommentSheet({
     >
       <View className="post-comment-container">
         <View className="post-comment-sheet">
-          <Avatar
-            className="primary"
-            image={userProfileImg}
-            nickname={userNickname}
-            height={12}
-            width={12}
-          />
+          <Avatar className="primary" image={userProfileImg} nickname={userNickname} height={12} width={12} />
         </View>
         <View className="basis-8/12">
           <TouchableWithoutFeedback
@@ -74,9 +70,7 @@ export default function CommentSheet({
             <View className="post-comment-input-trigger">
               <ThemedText className="muted ">
                 {HomeTexts.post.comment_1[language]}
-                <ThemedText className="font-bold">
-                  {" " + authorNickname}
-                </ThemedText>
+                <ThemedText className="font-bold">{' ' + authorNickname}</ThemedText>
                 {HomeTexts.post.comment_2[language]}
               </ThemedText>
             </View>
@@ -94,11 +88,9 @@ export default function CommentSheet({
             <MaterialCommunityIcons
               name="comment-outline"
               size={24}
-              color={colorScheme === "dark" ? "white" : "black"}
+              color={colorScheme === 'dark' ? 'white' : 'black'}
             />
-            <ThemedText className="font-bold text-lg">
-              {comments.length}
-            </ThemedText>
+            <ThemedText className="font-bold text-lg">{comments.length}</ThemedText>
           </TouchableOpacity>
         </View>
         {!preview && (
@@ -120,13 +112,12 @@ export default function CommentSheet({
               backgroundStyle={{
                 backgroundColor: Colors[colorScheme].secondary,
               }}
-              snapPoints={[1, "90%", "90%"]}
+              snapPoints={[1, '90%', '90%']}
               handleIndicatorStyle={{
                 backgroundColor: Colors[colorScheme].text,
-                width: "33%",
+                width: '33%',
                 height: 5,
               }}
-
               handleStyle={{
                 backgroundColor: Colors[colorScheme].secondary,
 
@@ -149,18 +140,13 @@ export default function CommentSheet({
                   />
                 }
                 data={renderedComments}
-                ListEmptyComponent={
-                  <CommentsEmpty
-                    language={language}
-                    colorScheme={colorScheme}
-                  />
-                }
+                ListEmptyComponent={<CommentsEmpty language={language} colorScheme={colorScheme} />}
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id.toString()}
                 contentContainerStyle={{
                   backgroundColor: Colors[colorScheme].secondary,
                   paddingVertical: 12,
-                  width: "100%",
+                  width: '100%',
                 }}
                 automaticallyAdjustKeyboardInsets
               />

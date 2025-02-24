@@ -1,10 +1,10 @@
-import { Colors } from "@/constants/Colors";
-import { CommonStaticElementProps } from "@/constants/types";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import React from "react";
-import { TouchableWithoutFeedback, View } from "react-native";
-import ThemedText from "../ui/ThemedText";
-import { PostCreationTexts } from "@/constants/texts";
+import { Colors } from '@/constants/Colors';
+import { CommonStaticElementProps } from '@/constants/types';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import React from 'react';
+import { TouchableWithoutFeedback, View } from 'react-native';
+import ThemedText from '../ui/ThemedText';
+import { PostCreationTexts } from '@/constants/texts';
 
 export default function ImageNotFound({
   onPress,
@@ -19,11 +19,9 @@ export default function ImageNotFound({
             name="image-search"
             size={64}
             color={Colors[colorScheme!].text}
-            style={{ textAlign: "center" }}
+            style={{ textAlign: 'center' }}
           />
-          <ThemedText className="text-xl font-bold">
-            {PostCreationTexts.uploadPrompt[language]}
-          </ThemedText>
+          <ThemedText className="text-xl font-bold">{PostCreationTexts.uploadPrompt[language]}</ThemedText>
         </View>
       </TouchableWithoutFeedback>
     </>

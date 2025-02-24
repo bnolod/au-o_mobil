@@ -1,33 +1,29 @@
-import {
-  DarkTheme,
-  DefaultTheme,
-  ThemeProvider,
-} from "@react-navigation/native";
-import { useFonts } from "expo-font";
-import { router, Stack } from "expo-router";
-import * as SplashScreen from "expo-splash-screen";
-import { useEffect } from "react";
-import "react-native-reanimated";
-import "./globals.css";
-import { useColorScheme } from "nativewind";
-import { configureReanimatedLogger } from "react-native-reanimated";
-import { LanguageProvider } from "@/contexts/LanguageContext";
-import { OnboardingProvider } from "@/contexts/OnboardingContext";
-import { AuthenticationProvider } from "@/contexts/AuthenticationContext";
-import { FormProvider } from "@/contexts/FormContext";
-import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import Toast from "react-native-toast-message";
-import { Platform } from "react-native";
-import { eventEmitter } from "@/lib/events";
-import { Colors } from "@/constants/Colors";
+import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { useFonts } from 'expo-font';
+import { router, Stack } from 'expo-router';
+import * as SplashScreen from 'expo-splash-screen';
+import { useEffect } from 'react';
+import 'react-native-reanimated';
+import './globals.css';
+import { useColorScheme } from 'nativewind';
+import { configureReanimatedLogger } from 'react-native-reanimated';
+import { LanguageProvider } from '@/contexts/LanguageContext';
+import { OnboardingProvider } from '@/contexts/OnboardingContext';
+import { AuthenticationProvider } from '@/contexts/AuthenticationContext';
+import { FormProvider } from '@/contexts/FormContext';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import Toast from 'react-native-toast-message';
+import { Platform } from 'react-native';
+import { eventEmitter } from '@/lib/events';
+import { Colors } from '@/constants/Colors';
 
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const { colorScheme } = useColorScheme();
   const [loaded] = useFonts({
-    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
   configureReanimatedLogger({
     strict: false,
@@ -35,13 +31,13 @@ export default function RootLayout() {
 
   useEffect(() => {
     if (loaded) {
-      eventEmitter.on("triggerLogout", () => {
-        router.replace("/(auth)/login");
+      eventEmitter.on('triggerLogout', () => {
+        router.replace('/(auth)/login');
       });
       SplashScreen.hideAsync();
     }
     return () => {
-      eventEmitter.removeAllListeners("triggerLogout"); //tesztre
+      eventEmitter.removeAllListeners('triggerLogout'); //tesztre
     };
   }, [loaded]);
 
@@ -52,9 +48,7 @@ export default function RootLayout() {
   return (
     <LanguageProvider>
       <OnboardingProvider>
-        <ThemeProvider
-          value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-        >
+        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
           <AuthenticationProvider>
             <FormProvider>
               <GestureHandlerRootView>
@@ -67,10 +61,7 @@ export default function RootLayout() {
                         navigationBarHidden: true,
                       }}
                     />
-                    <Stack.Screen
-                      name="(auth)"
-                      options={{ headerShown: false }}
-                    />
+                    <Stack.Screen name="(auth)" options={{ headerShown: false }} />
                     <Stack.Screen
                       name="(root)"
                       options={{
@@ -78,23 +69,14 @@ export default function RootLayout() {
                         navigationBarColor: Colors[colorScheme!].secondary,
                       }}
                     />
-                    <Stack.Screen
-                      name="(post)"
-                      options={{ headerShown: false }}
-                    />
+                    <Stack.Screen name="(post)" options={{ headerShown: false }} />
 
-                    <Stack.Screen
-                      name="(profile)"
-                      options={{ headerShown: false }}
-                    />
-                    <Stack.Screen
-                      name="(garage)"
-                      options={{ headerShown: false }}
-                    />
+                    <Stack.Screen name="(profile)" options={{ headerShown: false }} />
+                    <Stack.Screen name="(garage)" options={{ headerShown: false }} />
                   </Stack>
                 </BottomSheetModalProvider>
               </GestureHandlerRootView>
-              <Toast topOffset={Platform.OS === "ios" ? 60 : 30} />
+              <Toast topOffset={Platform.OS === 'ios' ? 60 : 30} />
             </FormProvider>
           </AuthenticationProvider>
         </ThemeProvider>

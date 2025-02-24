@@ -1,5 +1,5 @@
-import { TouchableOpacity, TouchableOpacityProps } from "react-native";
-import { useState } from "react";
+import { TouchableOpacity, TouchableOpacityProps } from 'react-native';
+import { useState } from 'react';
 
 export default function ApiCallButton({
   apiCall,
@@ -9,8 +9,8 @@ export default function ApiCallButton({
   const [waiting, setWaiting] = useState<boolean>(false);
   return (
     <TouchableOpacity
-    className={props.className}
-    style={props.style}
+      className={props.className}
+      style={props.style}
       disabled={waiting}
       onPress={async () => {
         if (waiting) return;

@@ -1,11 +1,11 @@
-import Button from "@/components/ui/Button";
-import Input from "@/components/ui/Input";
-import ThemedText from "@/components/ui/ThemedText";
-import { Colors } from "@/constants/Colors";
-import { useLanguage } from "@/contexts/LanguageContext";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useColorScheme } from "nativewind";
-import React, { useEffect, useRef } from "react";
+import Button from '@/components/ui/Button';
+import Input from '@/components/ui/Input';
+import ThemedText from '@/components/ui/ThemedText';
+import { Colors } from '@/constants/Colors';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useColorScheme } from 'nativewind';
+import React, { useEffect, useRef } from 'react';
 import {
   Alert,
   Dimensions,
@@ -18,22 +18,18 @@ import {
   ScrollView,
   TouchableOpacity,
   View,
-} from "react-native";
-import { Picker } from "@react-native-picker/picker";
-import { useState } from "react";
-import { Images } from "@/lib/staticAssetExports";
-import * as ImagePicker from "expo-image-picker";
-import Carousel from "react-native-reanimated-carousel";
-import { BottomSheetModal, BottomSheetView } from "@gorhom/bottom-sheet";
-import { PostCreationTexts } from "@/constants/texts";
-import ImageNotFound from "@/components/new/ImageNotFound";
-import PostCard from "@/components/Post/Post";
-import {
-  CreatePostRequest,
-  ImageStoreRequest,
-  ImageUploadResponse,
-} from "@/constants/types";
-import { useAuthentication } from "@/contexts/AuthenticationContext";
+} from 'react-native';
+import { Picker } from '@react-native-picker/picker';
+import { useState } from 'react';
+import { Images } from '@/lib/staticAssetExports';
+import * as ImagePicker from 'expo-image-picker';
+import Carousel from 'react-native-reanimated-carousel';
+import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
+import { PostCreationTexts } from '@/constants/texts';
+import ImageNotFound from '@/components/new/ImageNotFound';
+import PostCard from '@/components/Post/Post';
+import { CreatePostRequest, ImageStoreRequest, ImageUploadResponse } from '@/constants/types';
+import { useAuthentication } from '@/contexts/AuthenticationContext';
 import {
   cleanupInvalidImageUploads,
   convertToBlob,
@@ -41,23 +37,21 @@ import {
   createTimestamp,
   handleGallery,
   searchFilter,
-} from "@/lib/functions";
-import { getOwnGroups, imageUpload, storeImages } from "@/lib/apiClient";
-import Toast from "react-native-toast-message";
-import LoadingModal from "@/components/ui/LoadingModal";
-import { router } from "expo-router";
-import SheetSelection, {
-  SheetSelectionRef,
-} from "@/components/ui/SheetSelection";
-import PostCreationSheetSelectElements from "@/components/new/PostCreationSheetSelectElement";
-import FilterBar from "@/components/ui/FilterBar";
-import GarageItem from "@/components/garage/GarageItem";
-import { getCarImage } from "@/components/graphics/cars";
-import GroupListItem from "@/components/social/groups/GroupListItem";
-import { Car } from "@/lib/entity/Car";
-import { getOwnGarage } from "@/lib/ApiCalls/CarApiCalls";
-import { Group } from "@/lib/entity/Group";
-import { SocialEvent } from "@/lib/entity/SocialEvent";
+} from '@/lib/functions';
+import { getOwnGroups, imageUpload, storeImages } from '@/lib/apiClient';
+import Toast from 'react-native-toast-message';
+import LoadingModal from '@/components/ui/LoadingModal';
+import { router } from 'expo-router';
+import SheetSelection, { SheetSelectionRef } from '@/components/ui/SheetSelection';
+import PostCreationSheetSelectElements from '@/components/new/PostCreationSheetSelectElement';
+import FilterBar from '@/components/ui/FilterBar';
+import GarageItem from '@/components/garage/GarageItem';
+import { getCarImage } from '@/components/graphics/cars';
+import GroupListItem from '@/components/social/groups/GroupListItem';
+import { Car } from '@/lib/entity/Car';
+import { getOwnGarage } from '@/lib/ApiCalls/CarApiCalls';
+import { Group } from '@/lib/entity/Group';
+import { SocialEvent } from '@/lib/entity/SocialEvent';
 export default function NewPost() {
   const { language } = useLanguage();
   const { user } = useAuthentication();
@@ -74,8 +68,8 @@ export default function NewPost() {
   const [loading, setLoading] = useState(false);
   const [car, setCar] = useState<Car | null>();
   const [newPostForm, setNewPostForm] = useState<CreatePostRequest>({
-    description: "",
-    location: "",
+    description: '',
+    location: '',
     userId: user!.id,
     groupId: null,
     eventId: null,
@@ -124,8 +118,8 @@ export default function NewPost() {
 
     if (uploadedImages.length === images.length) {
       const imageStoreRequest: ImageStoreRequest = {
-        text: newPostForm.description || "",
-        location: newPostForm.location || "",
+        text: newPostForm.description || '',
+        location: newPostForm.location || '',
         postImages: uploadedImages,
         vehicleId: newPostForm.vehicleId,
       };
@@ -133,14 +127,14 @@ export default function NewPost() {
       bottomSheetRef.current?.dismiss();
       if (storeRes) {
         Toast.show({
-          type: "success",
+          type: 'success',
           text1: PostCreationTexts.imageUploadSuccessToast.header[language],
           text2: PostCreationTexts.imageUploadSuccessToast.message[language],
         });
         setImages([]);
         setNewPostForm({
-          description: "",
-          location: "",
+          description: '',
+          location: '',
           userId: user!.id,
           groupId: selectedGroup ? selectedGroup.id : null,
           eventId: selectedEvent ? selectedEvent.id : null,
@@ -148,69 +142,51 @@ export default function NewPost() {
           vehicleId: null,
         });
         setLoading(false);
-        router.replace("/(root)/home");
+        router.replace('/(root)/home');
         router.push({
-          pathname: "/(post)/page/[id]",
-          params: { id: storeRes.postId as string, isNew: "true" },
+          pathname: '/(post)/page/[id]',
+          params: { id: storeRes.postId as string, isNew: 'true' },
         });
       } else {
         Toast.show({
-          type: "error",
+          type: 'error',
           text1: PostCreationTexts.imageUploadErrorAlert[language],
         });
       }
     } else {
       cleanupInvalidImageUploads(uploadedImages);
       Toast.show({
-        type: "error",
-        text1:
-          "Some images failed to upload (" +
-          uploadedImages.length +
-          "/" +
-          images.length +
-          ")",
+        type: 'error',
+        text1: 'Some images failed to upload (' + uploadedImages.length + '/' + images.length + ')',
       });
       return;
     }
   }
 
   const bottomSheetRef = useRef<BottomSheetModal>(null);
-  if (user === undefined)
-    return <LoadingModal loading={true} colorScheme={colorScheme!} />;
+  if (user === undefined) return <LoadingModal loading={true} colorScheme={colorScheme!} />;
   return (
     <>
-      <LoadingModal
-        loading={loading}
-        colorScheme={colorScheme!}
-        text="Posting.."
-      />
+      <LoadingModal loading={loading} colorScheme={colorScheme!} text="Posting.." />
       <View className="w-full secondary pt-16">
         <Image
-          source={
-            colorScheme === "dark" ? Images.logo_white : Images.logo_black
-          }
+          source={colorScheme === 'dark' ? Images.logo_white : Images.logo_black}
           className="h-8 mx-auto my-4"
           resizeMode="contain"
         />
       </View>
-      <KeyboardAvoidingView
-        behavior="padding"
-        style={{ flex: 1 }}
-      >
+      <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
         <ScrollView
           showsVerticalScrollIndicator={false}
           overScrollMode="never"
           bounces={false}
           className="h-fit primary"
         >
-          <Pressable
-            onPress={() => Keyboard.dismiss()}
-            className="flex flex-col"
-          >
+          <Pressable onPress={() => Keyboard.dismiss()} className="flex flex-col">
             <View className="h-64 basis-3/12 w-full secondary rounded-b-xl">
               {images.length > 0 ? (
                 <Carousel
-                  width={Dimensions.get("screen").width}
+                  width={Dimensions.get('screen').width}
                   data={images}
                   loop={images.length > 1}
                   overscrollEnabled={false}
@@ -222,17 +198,9 @@ export default function NewPost() {
                           setImages(images.filter((_, i) => i !== index));
                         }}
                       >
-                        <MaterialCommunityIcons
-                          name="close"
-                          size={46}
-                          color={Colors[colorScheme!].text}
-                        />
+                        <MaterialCommunityIcons name="close" size={46} color={Colors[colorScheme!].text} />
                       </TouchableOpacity>
-                      <Image
-                        source={{ uri: images[index].uri }}
-                        resizeMode="contain"
-                        className="h-full"
-                      />
+                      <Image source={{ uri: images[index].uri }} resizeMode="contain" className="h-full" />
                     </View>
                   )}
                 />
@@ -255,28 +223,16 @@ export default function NewPost() {
               className="new-post-gallery-opener mx-auto"
             >
               <View className="absolute -left-4">
-                <MaterialCommunityIcons
-                  name="image-outline"
-                  color={Colors[colorScheme!].text}
-                  size={36}
-                />
+                <MaterialCommunityIcons name="image-outline" color={Colors[colorScheme!].text} size={36} />
               </View>
-              <ThemedText className="txl">
-                {PostCreationTexts.upload[language]}
-              </ThemedText>
+              <ThemedText className="txl">{PostCreationTexts.upload[language]}</ThemedText>
               <ThemedText className="tlg flex items-center">
-                {images.length || 0}{" "}
-                {PostCreationTexts.selectedImages[language]}
+                {images.length || 0} {PostCreationTexts.selectedImages[language]}
               </ThemedText>
             </TouchableOpacity>
             {images.length > 0 && (
-              <TouchableOpacity
-                className="mx-auto my-2"
-                onPress={() => setImages([])}
-              >
-                <ThemedText className="font-semibold underline">
-                  {PostCreationTexts.clearImages[language]}
-                </ThemedText>
+              <TouchableOpacity className="mx-auto my-2" onPress={() => setImages([])}>
+                <ThemedText className="font-semibold underline">{PostCreationTexts.clearImages[language]}</ThemedText>
               </TouchableOpacity>
             )}
             <View className=" w-full">
@@ -286,8 +242,7 @@ export default function NewPost() {
                   icon="pencil"
                   size={28}
                   TextInputProps={{
-                    placeholder:
-                      PostCreationTexts.form.description.placeholder[language],
+                    placeholder: PostCreationTexts.form.description.placeholder[language],
                     multiline: true,
                     numberOfLines: 4,
                     style: { maxHeight: 100 },
@@ -301,15 +256,12 @@ export default function NewPost() {
                 <View className="justify-between mb-4 flex flex-row  ">
                   <View className=" flex-1 w-6/12 self-start">
                     <ThemedText className="w-full text-lg">
-                      <MaterialCommunityIcons name="account-group" size={19} />{" "}
-                      {PostCreationTexts.form.group[language]}
+                      <MaterialCommunityIcons name="account-group" size={19} /> {PostCreationTexts.form.group[language]}
                     </ThemedText>
                     <SheetSelection
                       ref={groupSheet}
                       colorScheme={colorScheme!}
-                      placeholder={
-                        selectedGroup ? selectedGroup.name : "Select a group"
-                      }
+                      placeholder={selectedGroup ? selectedGroup.name : 'Select a group'}
                       language={language}
                       FlashListProps={{
                         data: userGroups,
@@ -331,20 +283,14 @@ export default function NewPost() {
                         estimatedItemSize: 50,
 
                         ListHeaderComponent: () => (
-                          <FilterBar
-                            placeholder="Search groups"
-                            onChange={(text: string) => {}}
-                          />
+                          <FilterBar placeholder="Search groups" onChange={(text: string) => {}} />
                         ),
                       }}
                     />
                   </View>
                   <View className=" flex-1 w-6/12 self-end">
                     <ThemedText className="w-11/12 text-lg">
-                      <MaterialCommunityIcons
-                        name="calendar-account-outline"
-                        size={19}
-                      />{" "}
+                      <MaterialCommunityIcons name="calendar-account-outline" size={19} />{' '}
                       {PostCreationTexts.form.event[language]}
                     </ThemedText>
 
@@ -353,7 +299,7 @@ export default function NewPost() {
                       placeholder="Select an event"
                       language={language}
                       FlashListProps={{
-                        data: [{ title: "Event 1", date: "2022.12.12" }],
+                        data: [{ title: 'Event 1', date: '2022.12.12' }],
                         renderItem: ({ item, index }) => (
                           <PostCreationSheetSelectElements
                             onPress={() => console.log(item.title)}
@@ -363,10 +309,7 @@ export default function NewPost() {
                         ),
                         estimatedItemSize: 50,
                         ListHeaderComponent: () => (
-                          <FilterBar
-                            placeholder="Search events"
-                            onChange={(text: string) => {}}
-                          />
+                          <FilterBar placeholder="Search events" onChange={(text: string) => {}} />
                         ),
                       }}
                     />
@@ -378,9 +321,7 @@ export default function NewPost() {
                     <View className="flex flex-row items-center">
                       {car && getCarImage(car.type, colorScheme!, 90, 52, 3.3)}
                       <ThemedText className="tlg">
-                        {car
-                          ? car.manufacturer + " " + car.model
-                          : "Select a vehicle"}
+                        {car ? car.manufacturer + ' ' + car.model : 'Select a vehicle'}
                       </ThemedText>
                     </View>
                   }
@@ -431,12 +372,7 @@ export default function NewPost() {
                         }}
                       >
                         <View className="pointer-events-none">
-                          <GarageItem
-                            isOwner={true}
-                            colorScheme={colorScheme!}
-                            language={language}
-                            car={item}
-                          />
+                          <GarageItem isOwner={true} colorScheme={colorScheme!} language={language} car={item} />
                         </View>
                       </Pressable>
                     ),
@@ -444,11 +380,10 @@ export default function NewPost() {
                 />
                 <Input
                   label={PostCreationTexts.form.location.label[language]}
-                  icon={"map-marker-outline"}
+                  icon={'map-marker-outline'}
                   size={28}
                   TextInputProps={{
-                    placeholder:
-                      PostCreationTexts.form.location.placeholder[language],
+                    placeholder: PostCreationTexts.form.location.placeholder[language],
                     onChangeText: (text) => {
                       setNewPostForm({ ...newPostForm, location: text });
                     },
@@ -487,10 +422,10 @@ export default function NewPost() {
                 backgroundStyle={{
                   backgroundColor: Colors[colorScheme!].secondary,
                 }}
-                snapPoints={["90%", "95%"]}
+                snapPoints={['90%', '95%']}
                 handleIndicatorStyle={{
                   backgroundColor: Colors[colorScheme!].text,
-                  width: "33%",
+                  width: '33%',
                   height: 5,
                 }}
                 handleStyle={{
@@ -504,7 +439,7 @@ export default function NewPost() {
                 <BottomSheetView>
                   <PostCard
                     user={user!}
-                    reaction={"FIRE"}
+                    reaction={'FIRE'}
                     postId={null}
                     authorProfileImg={user!.profileImg}
                     authorId={null}
@@ -515,7 +450,7 @@ export default function NewPost() {
                     date={new Date().toDateString()}
                     description={newPostForm.description}
                     images={images.map((image) => {
-                      return { url: image.uri, deleteHash: "" };
+                      return { url: image.uri, deleteHash: '' };
                     })}
                     language={language}
                     location={newPostForm.location}

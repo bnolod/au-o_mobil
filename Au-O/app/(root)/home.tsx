@@ -1,20 +1,20 @@
-import { RefreshControl, ScrollView } from "react-native";
-import React, { useCallback, useEffect, useState } from "react";
-import { useAuthentication } from "@/contexts/AuthenticationContext";
-import { Keyboard, View } from "react-native";
-import { TouchableWithoutFeedback } from "react-native";
-import PostCard from "@/components/Post/Post";
-import { useColorScheme } from "nativewind";
-import { useLanguage } from "@/contexts/LanguageContext";
-import { UIErrorTexts } from "@/constants/texts";
-import { loadFeed } from "@/lib/apiClient";
+import { RefreshControl, ScrollView } from 'react-native';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useAuthentication } from '@/contexts/AuthenticationContext';
+import { Keyboard, View } from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native';
+import PostCard from '@/components/Post/Post';
+import { useColorScheme } from 'nativewind';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { UIErrorTexts } from '@/constants/texts';
+import { loadFeed } from '@/lib/apiClient';
 // import { PostResponse } from "@/constants/types";
-import { FlashList } from "@shopify/flash-list";
-import NoPostsFound from "@/components/Post/base/NoPostsFound";
-import LoadingModal from "@/components/ui/LoadingModal";
-import { Redirect } from "expo-router";
-import RootHeader from "@/components/home/RootHeader";
-import { Post } from "@/lib/entity/Post";
+import { FlashList } from '@shopify/flash-list';
+import NoPostsFound from '@/components/Post/base/NoPostsFound';
+import LoadingModal from '@/components/ui/LoadingModal';
+import { Redirect } from 'expo-router';
+import RootHeader from '@/components/home/RootHeader';
+import { Post } from '@/lib/entity/Post';
 
 export default function Home() {
   const { user } = useAuthentication();
@@ -22,9 +22,7 @@ export default function Home() {
   const [refreshing, setRefreshing] = useState(false);
   const { colorScheme } = useColorScheme();
   const [timestamp, setTimestamp] = useState<string>(
-    new Date(new Date(new Date().toISOString()).getTime() + 60 * 60 * 1000)
-      .toISOString()
-      .slice(0, -1) + "1234"
+    new Date(new Date(new Date().toISOString()).getTime() + 60 * 60 * 1000).toISOString().slice(0, -1) + '1234'
   );
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [isFetching, setIsFetching] = useState<boolean>(false);
@@ -43,9 +41,7 @@ export default function Home() {
       }
       setPost((posts) => [
         ...posts,
-        ...res.content.filter(
-          (newPost) => !posts.some((post) => post.postId === newPost.postId)
-        ),
+        ...res.content.filter((newPost) => !posts.some((post) => post.postId === newPost.postId)),
       ]);
     }
     setIsFetching(false);
@@ -61,12 +57,9 @@ export default function Home() {
   const handleRefresh = async () => {
     setRefreshing(true);
     setTimestamp(
-      new Date(new Date(new Date().toISOString()).getTime() + 60 * 60 * 1000)
-        .toISOString()
-        .slice(0, -1) + "1234"
+      new Date(new Date(new Date().toISOString()).getTime() + 60 * 60 * 1000).toISOString().slice(0, -1) + '1234'
     );
     setTimeout(() => {
-
       setRefreshing(false);
     }, 1000);
   };
@@ -82,18 +75,14 @@ export default function Home() {
   if (user)
     return (
       <>
-      <View className="sticky top-0 z-10">
-      <RootHeader colorScheme={colorScheme!} language={language} />
-      </View>
+        <View className="sticky top-0 z-10">
+          <RootHeader colorScheme={colorScheme!} language={language} />
+        </View>
         {post && post.length > 0 ? (
           <FlashList
             refreshControl={
               <RefreshControl refreshing={refreshing} onRefresh={handleRefresh}>
-                <LoadingModal
-                  colorScheme={colorScheme!}
-                  loading={refreshing}
-                  text={UIErrorTexts.loading[language]}
-                />
+                <LoadingModal colorScheme={colorScheme!} loading={refreshing} text={UIErrorTexts.loading[language]} />
               </RefreshControl>
             }
             showsVerticalScrollIndicator={false}
@@ -102,12 +91,8 @@ export default function Home() {
               //console.log("page end reached");
               await fetchNextPage();
             }}
-            keyExtractor={(item) => item.postId + ""}
-            data={post.sort(
-              (a, b) =>
-                new Date(b.dateOfCreation).getTime() -
-                new Date(a.dateOfCreation).getTime()
-            )}
+            keyExtractor={(item) => item.postId + ''}
+            data={post.sort((a, b) => new Date(b.dateOfCreation).getTime() - new Date(a.dateOfCreation).getTime())}
             renderItem={({ item }) => (
               <PostCard
                 reaction={item.reactedWith}
@@ -121,7 +106,7 @@ export default function Home() {
                 authorUsername={item.user.username}
                 colorScheme={colorScheme!}
                 comments={item.comments || []}
-                date={item.dateOfCreation.split("T")[0]}
+                date={item.dateOfCreation.split('T')[0]}
                 description={item.text}
                 images={item.images}
                 language={language}
@@ -132,11 +117,11 @@ export default function Home() {
             estimatedItemSize={300}
           />
         ) : (
-          <View className={"flex-1  items-center justify-center m-auto"}>
+          <View className={'flex-1  items-center justify-center m-auto'}>
             <NoPostsFound language={language} />
           </View>
         )}
       </>
     );
-  else return <Redirect href={"/(auth)/login"} />;
+  else return <Redirect href={'/(auth)/login'} />;
 }

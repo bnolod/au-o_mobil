@@ -1,19 +1,19 @@
-import { View } from "react-native";
-import ThemedText from "@/components/ui/ThemedText";
-import SocialBanner from "./SocialBanner";
-import { CommonStaticElementProps, SocialCardProps } from "@/constants/types";
-import { Colors } from "@/constants/Colors";
-import Button from "../ui/Button";
-import { router } from "expo-router";
-import LoadingModal from "../ui/LoadingModal";
-import CollapsibleText from "../ui/CollapsibleText";
+import { View } from 'react-native';
+import ThemedText from '@/components/ui/ThemedText';
+import SocialBanner from './SocialBanner';
+import { CommonStaticElementProps, SocialCardProps } from '@/constants/types';
+import { Colors } from '@/constants/Colors';
+import Button from '../ui/Button';
+import { router } from 'expo-router';
+import LoadingModal from '../ui/LoadingModal';
+import CollapsibleText from '../ui/CollapsibleText';
 
 export default function SocialCard({
   language,
   colorScheme,
   group,
   event,
-  type = "GROUP",
+  type = 'GROUP',
   preview,
   onCreatePress,
 }: CommonStaticElementProps & SocialCardProps) {
@@ -35,15 +35,14 @@ export default function SocialCard({
           id: event!.id,
           name: event!.name,
           bannerImage: event!.bannerImage,
-          alias: "",
+          alias: '',
           count: event!.attendees,
           public: event!.public,
           creationDate: event!.creationDate,
           isUserRelated: event!.isAttending,
           description: event!.description,
         };
-  if (item === undefined)
-    return <LoadingModal loading={true} colorScheme={colorScheme} />;
+  if (item === undefined) return <LoadingModal loading={true} colorScheme={colorScheme} />;
   if (item)
     return (
       <View
@@ -58,9 +57,7 @@ export default function SocialCard({
           shadowRadius: 20,
         }}
       >
-        <View
-          className={`${preview !== "DISPLAY" ? " " : "pointer-events-none"}`}
-        >
+        <View className={`${preview !== 'DISPLAY' ? ' ' : 'pointer-events-none'}`}>
           <SocialBanner
             id={item.id}
             language={language}
@@ -77,22 +74,14 @@ export default function SocialCard({
             <View className="basis-4/6">
               <ThemedText className="tlg leading-tight">
                 {item.name}
-                <ThemedText className="tsm p-3 font-semibold muted ">
-                  {" "}
-                  {item.alias}
-                </ThemedText>
+                <ThemedText className="tsm p-3 font-semibold muted "> {item.alias}</ThemedText>
               </ThemedText>
-              <CollapsibleText className="opacity-85">
-                {item.description}
-              </CollapsibleText>
+              <CollapsibleText className="opacity-85">{item.description}</CollapsibleText>
             </View>
             <View className="flex  items-start gap-8">
               {!item.isUserRelated && (
-                <Button
-                  onPress={!preview ? () => {} : () => {}}
-                  className="social-card-action-button"
-                >
-                  {type === "GROUP" ? "Join" : "Attend"}
+                <Button onPress={!preview ? () => {} : () => {}} className="social-card-action-button">
+                  {type === 'GROUP' ? 'Join' : 'Attend'}
                 </Button>
               )}
               <Button
@@ -100,7 +89,7 @@ export default function SocialCard({
                 onPress={
                   !preview
                     ? () => {
-                        if (type === "EVENT")
+                        if (type === 'EVENT')
                           router.push({
                             pathname: `/(root)/(events)/[id]`,
                             params: {
@@ -118,7 +107,7 @@ export default function SocialCard({
                     : () => {}
                 }
               >
-                {type === "GROUP" ? "Visit group" : "Details"}
+                {type === 'GROUP' ? 'Visit group' : 'Details'}
               </Button>
             </View>
           </View>

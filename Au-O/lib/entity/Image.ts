@@ -1,4 +1,4 @@
 export interface Image {
-            url: string;
-            deleteHash: string;
+  url: string;
+  deleteHash: string;
 }

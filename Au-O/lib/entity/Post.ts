@@ -1,8 +1,8 @@
-import { PostType, Reactions } from "@/constants/types";
-import { Image } from "./Image";
-import { Car } from "./Car";
-import { Comment } from "./Comment";
-import { User } from "./User";
+import { PostType, Reactions } from '@/constants/types';
+import { Image } from './Image';
+import { Car } from './Car';
+import { Comment } from './Comment';
+import { User } from './User';
 
 export interface Post {
   dateOfCreation: string;
@@ -16,6 +16,6 @@ export interface Post {
   text: string;
   user: User;
   comments: Comment[];
-  reactedWith: null | "FIRE" | "HEART" | "COOL";
-  vehicle: Car | null
+  reactedWith: null | 'FIRE' | 'HEART' | 'COOL';
+  vehicle: Car | null;
 }

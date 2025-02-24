@@ -1,72 +1,50 @@
-import { apiFetch } from "../apiClient";
-import { User } from "../entity/User";
+import { apiFetch } from '../apiClient';
+import { User } from '../entity/User';
 
-export async function getFollows(
-    userId: string
-): Promise<{ following: User[]; followers: User[] } | null> {
-    const followingRes = await apiFetch<User[]>(
-        `users/user/${userId}/following`,
-        "GET",
-        true
-    );
-    const followersRes = await apiFetch<User[]>(
-        `users/user/${userId}/followers`,
-        "GET",
-        true
-    );
-    if (followingRes && followersRes) {
-        return {
-            following: followingRes.data!,
-            followers: followersRes.data!,
-        };
-    }
-    return null;
+export async function getFollows(userId: string): Promise<{ following: User[]; followers: User[] } | null> {
+  const followingRes = await apiFetch<User[]>(`users/user/${userId}/following`, 'GET', true);
+  const followersRes = await apiFetch<User[]>(`users/user/${userId}/followers`, 'GET', true);
+  if (followingRes && followersRes) {
+    return {
+      following: followingRes.data!,
+      followers: followersRes.data!,
+    };
+  }
+  return null;
 }
 
 export async function followUser(userId: string) {
-    const res = await apiFetch<User>(
-        `users/user/${userId}/follow`,
-        "POST",
-        true
-    );
-    if (res && res.status === 200) {
-        return true;
-    } else return false;
+  const res = await apiFetch<User>(`users/user/${userId}/follow`, 'POST', true);
+  if (res && res.status === 200) {
+    return true;
+  } else return false;
 }
 export async function unfollowUser(userId: string) {
-    const res = await apiFetch<User>(
-        `users/user/${userId}/unfollow`,
-        "DELETE",
-        true
-    );
-    if (res && res.status === 200) {
-        return true;
-    } else return false;
+  const res = await apiFetch<User>(`users/user/${userId}/unfollow`, 'DELETE', true);
+  if (res && res.status === 200) {
+    return true;
+  } else return false;
 }
 
 export async function removeFollow(followerId: string) {
-    const req = await apiFetch(
-        `users/user/${followerId}/remove_follower`,
-        "DELETE",
-        true
-    );
-    if (req && req.status === 200) {
-        return true;
-    }
-    return false;
+  const req = await apiFetch(`users/user/${followerId}/remove_follower`, 'DELETE', true);
+  if (req && req.status === 200) {
+    return true;
+  }
+  return false;
 }
 
 export async function getUser(token: string): Promise<User | null | undefined> {
-    try {
-        if (!token) {
-            return null;
-        }
-        const user = await apiFetch<User>("auth/profile", "GET", true);
-        if (user) {
-            return user.data;
-        } else return null;
-    } catch (error: unknown) {
-        console.error(error);
-        return null;
+  try {
+    if (!token) {
+      return null;
     }
+    const user = await apiFetch<User>('auth/profile', 'GET', true);
+    if (user) {
+      return user.data;
+    } else return null;
+  } catch (error: unknown) {
+    console.error(error);
+    return null;
+  }
 }
