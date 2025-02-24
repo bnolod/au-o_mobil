@@ -1,11 +1,14 @@
 import { AvatarProps } from './props';
-import { Image, ImageBackground, View } from 'react-native';
+import { View } from 'react-native';
+import { Image, ImageBackground } from 'expo-image';
 import ThemedText from './ThemedText';
 import { Images } from '@/lib/staticAssetExports';
 
 export default function Avatar({ image, className, nickname, height = 14, width = 14 }: AvatarProps) {
   if (image) {
-    return <Image source={{ uri: image }} className={`w-${width} h-${height} ${className} rounded-full`} />;
+    return <View className={`w-${width} h-${height} ${className} rounded-full`}>
+      <Image source={{ uri: image }} style={{borderRadius: 400, width: "100%", height: "100%" }}   />
+      </View>
   } else if (!image && nickname) {
     return (
       <View
@@ -15,8 +18,17 @@ export default function Avatar({ image, className, nickname, height = 14, width 
       >
         <ImageBackground
           source={Images.avatar_placeholder}
-          imageStyle={{ borderRadius: 255 }}
-          resizeMode="cover"
+          style={{
+            flex: 1,
+            display: 'flex',
+            justifyContent: 'center',
+            borderRadius: 300,
+            overflow: 'hidden',
+            alignItems: 'center',
+            width: '100%',
+            height: '100%',
+          }}
+          contentFit="cover"
           className="flex-1 justify-center items-center rounded-full  w-full h-full"
         >
           <ThemedText className="text-lg font-black">

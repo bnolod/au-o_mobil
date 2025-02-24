@@ -1,4 +1,4 @@
-import { ImageBackground, Pressable, View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import ThemedText from '@/components/ui/ThemedText';
 import { Images } from '@/lib/staticAssetExports';
 import { Colors } from '@/constants/Colors';
@@ -8,6 +8,7 @@ import { router } from 'expo-router';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { generalTexts } from '@/constants/texts';
 import { GarageItemProps } from './props';
+import { ImageBackground } from 'expo-image';
 export default function GarageItem({
   car,
   language,
@@ -20,7 +21,7 @@ export default function GarageItem({
     <>
       <Pressable onPress={onPress} className="garage-item">
         <View className="garage-item-display ">
-          <ImageBackground resizeMode="cover" className="garage-item-banner" source={Images.banner_placeholder}>
+          <ImageBackground contentFit="cover" style={{flex: 1}} source={Images.banner_placeholder}>
             <View className="garage-item-car-type-display">{getCarImage(car.type, colorScheme, 180, 200, 4.5)}</View>
           </ImageBackground>
         </View>

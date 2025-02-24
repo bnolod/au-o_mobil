@@ -21,9 +21,7 @@ const SheetSelection = forwardRef<
   } & CommonStaticElementProps
 >(({ FlashListProps, language, colorScheme, placeholder }, ref) => {
   const [sheetState, setSheetState] = useState(false);
-  const [element, setElement] = useState(placeholder);
   const sheet = useRef<BottomSheetModal>(null);
-
   const toggleSheet = () => {
     if (sheetState) {
       sheet.current?.dismiss();
@@ -48,7 +46,7 @@ const SheetSelection = forwardRef<
         onPress={toggleSheet}
       >
         <View className="flex-row items-center justify-between w-full">
-          <ThemedText className="tlg opacity-80">{element}</ThemedText>
+          <ThemedText className="tlg opacity-80">{placeholder}</ThemedText>
           <MaterialCommunityIcons name="chevron-down" size={34} color={Colors.highlight.main} />
         </View>
       </Button>
@@ -66,6 +64,7 @@ const SheetSelection = forwardRef<
             setSheetState(false);
           }
         }}
+        
         handleStyle={{
           backgroundColor: Colors[colorScheme].primary,
           borderTopEndRadius: 20,

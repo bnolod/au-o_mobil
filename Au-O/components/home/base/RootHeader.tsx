@@ -1,5 +1,4 @@
-import { Image, Platform, View } from 'react-native';
-import ThemedText from '@/components/ui/ThemedText';
+import {  Platform, View } from 'react-native';
 import SearchBar from '@/components/ui/SearchBar';
 import Button from '@/components/ui/Button';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -7,8 +6,8 @@ import { useColorScheme } from 'nativewind';
 import { Images } from '@/lib/staticAssetExports';
 import { CommonStaticElementProps } from '@/constants/types';
 import { HomeTexts } from '@/constants/texts';
-import Toast from 'react-native-toast-message';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { Image } from 'expo-image';
 export default function RootHeader({ language, colorScheme }: CommonStaticElementProps) {
   const { toggleColorScheme } = useColorScheme();
   const { setLanguage } = useLanguage();
@@ -16,8 +15,8 @@ export default function RootHeader({ language, colorScheme }: CommonStaticElemen
     <View className={Platform.OS === 'ios' ? 'root-header-ios' : 'root-header-android'}>
       <Image
         source={colorScheme === 'dark' ? Images.logo_white : Images.logo_black}
-        className=" basis-2/12"
-        resizeMode="contain"
+        style={{flexBasis: "auto", width: 72, height: 32}}
+        contentFit="contain"
       />
       <SearchBar
         placeholder={HomeTexts.search.placeholder[language]}

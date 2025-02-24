@@ -1,4 +1,4 @@
-import { Alert, Image, Keyboard, Pressable, ScrollView, View } from 'react-native';
+import { Alert, Keyboard, Pressable, ScrollView, View } from 'react-native';
 import Input from '@/components/ui/Input';
 import { useColorScheme } from 'nativewind';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -19,6 +19,7 @@ import Toast from 'react-native-toast-message';
 import LoadingModal from '@/components/ui/LoadingModal';
 import { router, useLocalSearchParams } from 'expo-router';
 import { SocialTexts } from '@/constants/texts';
+import { Image } from 'expo-image';
 export default function editCarPage() {
   const { language } = useLanguage();
   const { colorScheme } = useColorScheme();
@@ -66,8 +67,8 @@ export default function editCarPage() {
       <View className="w-full justify-evenly flex flex-col pt-safe-offset-1 secondary">
         <Image
           source={colorScheme === 'light' ? Images.logo_black : Images.logo_white}
-          className=" h-8 m-auto mb-2"
-          resizeMode="contain"
+          style={{ margin: 'auto', height: 32, width: 96, marginBottom: 8 }}
+          contentFit="contain"
         />
       </View>
       <Pressable className="flex h-screen flex-col" onPress={() => Keyboard.dismiss()}>

@@ -1,4 +1,4 @@
-import { ImageBackground, View } from 'react-native';
+import { View } from 'react-native';
 import ThemedText from '@/components/ui/ThemedText';
 import { CommonStaticElementProps } from '@/constants/types';
 import { Images } from '@/lib/staticAssetExports';
@@ -6,6 +6,7 @@ import { Colors } from '@/constants/Colors';
 import { generalTexts } from '@/constants/texts';
 import { Car } from '@/lib/entity/Car';
 import { getCarImage } from '@/components/graphics/cars';
+import { ImageBackground } from 'expo-image';
 
 export default function GarageHeader({
   userProfilePic,
@@ -27,7 +28,7 @@ export default function GarageHeader({
       >
         <ImageBackground
           className="garage-profile-car-type-display"
-          resizeMode="cover"
+          contentFit="cover"
           source={Images.banner_placeholder}
         >
           <ThemedText className="text-5xl font-bold">{car.manufacturer}</ThemedText>

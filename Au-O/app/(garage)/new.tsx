@@ -1,4 +1,4 @@
-import { Image, Keyboard, Pressable, ScrollView, View } from 'react-native';
+import { Keyboard, Pressable, ScrollView, View } from 'react-native';
 import Input from '@/components/ui/Input';
 import { useColorScheme } from 'nativewind';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -6,6 +6,7 @@ import { Images } from '@/lib/staticAssetExports';
 import GarageItem from '@/components/garage/list/GarageItem';
 import { useEffect, useState } from 'react';
 import { CarType } from '@/constants/types';
+import { Image } from 'expo-image';
 // import { CarCreationRequest } from "@/constants/types";
 
 import SheetSelection, { SheetSelectionRef } from '@/components/ui/SheetSelection';
@@ -46,9 +47,9 @@ export default function newCar() {
     <ScrollView showsVerticalScrollIndicator={false} overScrollMode="never" bounces={false} className="background">
       <View className="w-full justify-evenly flex flex-col pt-safe-offset-1 secondary">
         <Image
+        style={{margin: "auto", height: 32, width: 96, marginBottom: 8}}
           source={colorScheme === 'light' ? Images.logo_black : Images.logo_white}
-          className=" h-8 m-auto mb-2"
-          resizeMode="contain"
+          contentFit='contain'
         />
       </View>
       <Pressable className="flex h-screen flex-col" onPress={() => Keyboard.dismiss()}>

@@ -85,5 +85,5 @@ export default function GroupPage({ group, colorScheme, language }: CommonStatic
         </View>
       </ScrollView>
     </View>
-  );
+  )
 }

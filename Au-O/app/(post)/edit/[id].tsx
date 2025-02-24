@@ -19,10 +19,12 @@ import { PostEditRequest } from '@/lib/request/PostEditRequest';
 import { Images } from '@/lib/staticAssetExports';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
+import { ImageBackground } from 'expo-image';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useColorScheme } from 'nativewind';
 import { useEffect, useRef, useState } from 'react';
-import { ImageBackground, Keyboard, Pressable, View } from 'react-native';
+import { Keyboard, Pressable, View } from 'react-native';
+
 import Toast from 'react-native-toast-message';
 
 export default function EditPost() {
@@ -203,7 +205,7 @@ export default function EditPost() {
                   >
                     <ImageBackground
                       className="post-edit-sheet-unset-background"
-                      resizeMode="repeat"
+                      contentFit="fill"
                       source={Images.banner_placeholder}
                     >
                       <ThemedText className="post-edit-sheet-unset-text">Unassign vehicle</ThemedText>
@@ -276,9 +278,7 @@ export default function EditPost() {
                 preview
                 reaction={'FIRE'}
                 reactions={{ FIRE: 12, HEART: 34, COOL: 567 }}
-                eventData={
-undefined
-                }
+                eventData={undefined}
                 groupData={
                   /*
                   selectedGroup

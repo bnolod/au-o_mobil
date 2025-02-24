@@ -1,4 +1,4 @@
-import { ImageBackground, Pressable, View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import ThemedText from '@/components/ui/ThemedText';
 import { CommonStaticElementProps } from '@/constants/types';
 import { Images } from '@/lib/staticAssetExports';
@@ -6,6 +6,7 @@ import { Colors } from '@/constants/Colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { formatNumber } from '@/lib/functions';
 import { Group } from '@/lib/entity/Group';
+import { ImageBackground } from 'expo-image';
 
 export default function GroupListItem({
   group,
@@ -29,8 +30,8 @@ export default function GroupListItem({
       <View className="flex my-2 mx-2 flex-row overflow-hidden justify-between pr-3 items-center rounded-xl secondary h-24">
         <View className="basis-5/12 h-full overflow-hidden rounded-l-xl">
           <ImageBackground
-            resizeMode="cover"
-            className="group-list-image h-full w-full flex items-center justify-center"
+            contentFit="cover"
+            style={{height: "100%", width: "100%", display: "flex", justifyContent: "center", alignItems: "center"}}
             source={group.bannerImage ? { uri: group.bannerImage } : Images.banner_placeholder}
           >
             <ThemedText className="text-center t2x ">{group.alias.toUpperCase()}</ThemedText>

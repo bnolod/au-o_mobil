@@ -9,8 +9,7 @@ import React, { useEffect, useRef } from 'react';
 import {
   Alert,
   Dimensions,
-  Image,
-  ImageBackground,
+
   Keyboard,
   KeyboardAvoidingView,
   Pressable,
@@ -25,6 +24,7 @@ import Carousel from 'react-native-reanimated-carousel';
 import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
 import { PostCreationTexts } from '@/constants/texts';
 import ImageNotFound from '@/components/Post/base/ImageNotFound';
+import {Image, ImageBackground} from 'expo-image'
 import PostCard from '@/components/Post/Post';
 import { useAuthentication } from '@/contexts/AuthenticationContext';
 import {
@@ -170,7 +170,8 @@ export default function NewPost() {
         <Image
           source={colorScheme === 'dark' ? Images.logo_white : Images.logo_black}
           className="h-8 mx-auto my-4"
-          resizeMode="contain"
+          style={{ margin: 'auto', height: 32, width: 96, marginBottom: 8 }}
+          contentFit='contain'
         />
       </View>
       <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
@@ -198,7 +199,7 @@ export default function NewPost() {
                       >
                         <MaterialCommunityIcons name="close" size={46} color={Colors[colorScheme!].text} />
                       </TouchableOpacity>
-                      <Image source={{ uri: images[index].uri }} resizeMode="contain" className="h-full" />
+                      <Image source={{ uri: images[index].uri }} contentFit='contain' style={{width: "auto", height: "100%"}} className="h-full" />
                     </View>
                   )}
                 />
@@ -315,6 +316,7 @@ export default function NewPost() {
                 </View>
                 <SheetSelection
                   ref={sheet}
+
                   placeholder={
                     <View className="flex flex-row items-center">
                       {car && getCarImage(car.type, colorScheme!, 90, 52, 3.3)}
@@ -347,8 +349,7 @@ export default function NewPost() {
                           }}
                         >
                           <ImageBackground
-                            className="w-full secondary rounded-xl mx-auto"
-                            resizeMode="repeat"
+                          style={{width: "100%", borderRadius: 12, backgroundColor: Colors[colorScheme!].secondary} }
                             source={Images.banner_placeholder}
                           >
                             <ThemedText className="font-bold w-full mx-auto text-center text-lg p-3 rounded-xl">

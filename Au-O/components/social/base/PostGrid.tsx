@@ -1,10 +1,11 @@
-import { Image, Pressable, View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import { router } from 'expo-router';
 import { FlashList } from '@shopify/flash-list';
 import NoPostsFound from '@/components/Post/base/NoPostsFound';
 import { CommonStaticElementProps } from '@/constants/types';
 import { Colors } from '@/constants/Colors';
 import { Post } from '@/lib/entity/Post';
+import { Image } from 'expo-image';
 
 export default function PostGrid({ colorScheme, language, posts }: { posts: Post[] } & CommonStaticElementProps) {
   return (
@@ -34,9 +35,8 @@ export default function PostGrid({ colorScheme, language, posts }: { posts: Post
             }}
           >
             <Image
-              resizeMethod="auto"
-              className="post-grid-image"
-              resizeMode="cover"
+              contentFit="cover"
+              style={{flex: 1, height: 200, borderRadius: 12, margin: 4, backgroundColor: Colors[colorScheme!].primary}}
               source={{ uri: item.images[0].url }}
             />
           </Pressable>

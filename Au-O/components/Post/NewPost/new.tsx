@@ -9,8 +9,6 @@ import React, { useEffect, useRef } from 'react';
 import {
   Alert,
   Dimensions,
-  Image,
-  ImageBackground,
   Keyboard,
   KeyboardAvoidingView,
   Pressable,
@@ -46,6 +44,7 @@ import { publishPost } from '@/lib/ApiCalls/PostApiCalls';
 import { getOwnGroups } from '@/lib/ApiCalls/GroupApiCalls';
 import { CreatePostRequest } from '@/lib/request/PostCreationRequest';
 import { ImageStoreRequest, ImageUploadResponse } from '@/lib/request/ImgurRequest';
+import { Image, ImageBackground } from 'expo-image';
 
 export default function NewPost() {
   const { language } = useLanguage();
@@ -168,7 +167,8 @@ export default function NewPost() {
         <Image
           source={colorScheme === 'dark' ? Images.logo_white : Images.logo_black}
           className="h-8 mx-auto my-4"
-          resizeMode="contain"
+          style={{height: 24, marginHorizontal: "auto", marginVertical: 16}}
+          contentFit="contain"
         />
       </View>
       <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={40} style={{ flex: 1 }}>
@@ -357,7 +357,8 @@ export default function NewPost() {
                         >
                           <ImageBackground
                             className="w-full secondary rounded-xl mx-auto"
-                            resizeMode="repeat"
+                            contentFit="cover"
+                            style={{width: "100%", backgroundColor: Colors[colorScheme!].secondary, borderRadius: 12, marginHorizontal: "auto"}}
                             source={Images.banner_placeholder}
                           >
                             <ThemedText className="font-bold w-full mx-auto text-center text-lg p-3 rounded-xl">

@@ -2,7 +2,7 @@ import axios from "axios";
 import { ImageUploadResponse } from "../request/ImgurRequest";
 
 export async function deleteImgurImage(deleteHash: string) {
-  const req = await fetch(`https:api.imgur.com/3/image/${deleteHash}`, {
+  const req = await fetch(`https://api.imgur.com/3/image/${deleteHash}`, {
     method: 'DELETE',
     headers: {
       Authorization: `Client-ID ${process.env.EXPO_PUBLIC_IMGUR_CLIENT_ID}`,
@@ -15,7 +15,7 @@ export async function deleteImgurImage(deleteHash: string) {
 }
 
 export const imageUpload = async (image: FormData): Promise<ImageUploadResponse | null> => {
-  const endpoint = 'https:api.imgur.com/3/image';
+  const endpoint = 'https://api.imgur.com/3/image';
   const headers = {
     Authorization: `Client-ID ${process.env.EXPO_PUBLIC_IMGUR_CLIENT_ID}`,
     'Content-Type': 'multipart/form-data',

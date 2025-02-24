@@ -1,5 +1,4 @@
-import { ImageBackground, View } from 'react-native';
-import GarageHeader from './GarageHeader';
+import { View } from 'react-native';
 import ThemedText from '@/components/ui/ThemedText';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Colors } from '@/constants/Colors';
@@ -11,6 +10,7 @@ import { generalTexts, SocialTexts } from '@/constants/texts';
 import { router } from 'expo-router';
 import { GarageItemPageProps } from './props';
 import { Images } from '@/lib/staticAssetExports';
+import { ImageBackground } from 'expo-image';
 
 export default function GarageItemPage({
   colorScheme,
@@ -23,8 +23,8 @@ export default function GarageItemPage({
     <View className="garage-page">
       <View className="h-64">
         <ImageBackground
-          className="garage-profile-car-type-display border-"
-          resizeMode="cover"
+          className="garage-profile-car-type-display"
+          contentFit="cover"
           source={Images.banner_placeholder}
         >
           {/* <GarageHeader colorScheme={colorScheme!} car={car} language={language} userProfilePic={profileImg} /> */}
@@ -55,9 +55,6 @@ export default function GarageItemPage({
       </View>
       <View className="flex flex-col px-5 ">
         <View className="flex flex-row px-5 py-2">
-        - MYSQL_ROOT_PASSWORD
-2025-02-24 14:00:28     - MYSQL_ALLOW_EMPTY_PASSWORD
-2025-02-24 14:00:28     - MYSQL_RANDOM_ROOT_PASSWORD
           <MaterialCommunityIcons name="horse" size={42} color={Colors[colorScheme!].text} />
           <ThemedText className="text-2xl self-center mx-2"> Ló: 
             {car.horsepower} {generalTexts.profileAttributes.cars.horsepower[language]}

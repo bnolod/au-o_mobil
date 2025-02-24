@@ -1,10 +1,12 @@
-import { Image, ImageBackground, Pressable, View } from 'react-native';
+import { Pressable } from 'react-native';
 import ThemedText from '@/components/ui/ThemedText';
 import { Images } from '@/lib/staticAssetExports';
 import { formatNumber } from '@/lib/functions';
 import { CommonStaticElementProps } from '@/constants/types';
 import { router } from 'expo-router';
 import { SocialBannerProps } from './props';
+import { Image, ImageBackground } from 'expo-image';
+import { Colors } from '@/constants/Colors';
 
 export default function SocialBanner({
   name,
@@ -47,7 +49,20 @@ export default function SocialBanner({
       <ImageBackground
         className="social-banner-image-placeholder"
         source={Images.banner_placeholder}
-        resizeMode="cover"
+        contentFit="cover"
+        style={{
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderTopEndRadius: 12,
+          borderTopStartRadius: 12,
+          backgroundColor: Colors[colorScheme].secondary,
+          
+          gap: 8,
+          marginHorizontal: 'auto',
+        }}
       >
         {count !== null && (
           <ThemedText className="social-banner-image-text">
@@ -61,7 +76,18 @@ export default function SocialBanner({
             {name.length > 20 && name.split(' ').length > 4 ? name.split(' ') : name}
           </ThemedText>
         )}
-        {image && name && <Image className="social-banner-image" resizeMode="cover" source={{ uri: image }} />}
+        {image && name && (
+          <Image
+            style={{
+              height: '100%',
+              width: '100%',
+              borderTopLeftRadius: 12,
+              borderTopRightRadius: 12,
+            }}
+            contentFit="cover"
+            source={{ uri: image }}
+          />
+        )}
       </ImageBackground>
     </Pressable>
   );

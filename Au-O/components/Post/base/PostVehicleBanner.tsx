@@ -2,7 +2,6 @@ import { getCarImage } from '@/components/graphics/cars';
 import ThemedText from '@/components/ui/ThemedText';
 import { generalTexts } from '@/constants/texts';
 import { CommonStaticElementProps } from '@/constants/types';
-import { Car } from '@/lib/entity/Car';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { Pressable, View } from 'react-native';

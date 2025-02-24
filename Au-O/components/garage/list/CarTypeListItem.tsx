@@ -1,9 +1,10 @@
-import { ImageBackground, Pressable, View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import ThemedText from '@/components/ui/ThemedText';
 import { Images } from '@/lib/staticAssetExports';
 import { getCarImage } from '@/components/graphics/cars';
 import { Colors } from '@/constants/Colors';
 import { CarTypeListItemProps } from './props';
+import { ImageBackground } from 'expo-image';
 
 export default function CarTypeListItem({ onPress, type, colorScheme }: CarTypeListItemProps) {
   return (
@@ -22,7 +23,8 @@ export default function CarTypeListItem({ onPress, type, colorScheme }: CarTypeL
       <View className="car-type-list-item">
         <View className="car-type-list-item-image-container">
           <ImageBackground
-            resizeMode="cover"
+          style={{flex: 1, display: "flex", justifyContent: "center", borderRadius: 300, alignItems: "center", width: "100%", height: "100%"}}
+            contentFit="cover"
             className="car-type-list-item-placeholder-banner"
             source={Images.banner_placeholder}
           >

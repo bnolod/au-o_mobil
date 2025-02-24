@@ -1,4 +1,4 @@
-import { Image, Keyboard, Pressable, ScrollView, TouchableOpacity, View } from 'react-native';
+import { Keyboard, Pressable, ScrollView, TouchableOpacity, View } from 'react-native';
 import Input from '@/components/ui/Input';
 import { useColorScheme } from 'nativewind';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -19,6 +19,7 @@ import { router } from 'expo-router';
 import { createGroup } from '@/lib/ApiCalls/GroupApiCalls';
 import { GroupCreationRequest } from '@/lib/request/GroupCreationRequest';
 import { imageUpload } from '@/lib/ApiCalls/ImageApiCalls';
+import { Image } from 'expo-image';
 export default function NewPostPage() {
   const { language } = useLanguage();
   const { user } = useAuthentication();
@@ -84,8 +85,8 @@ export default function NewPostPage() {
       <View className="w-full justify-evenly flex flex-col pt-safe-offset-1 secondary">
         <Image
           source={colorScheme === 'light' ? Images.logo_black : Images.logo_white}
-          className=" h-8 m-auto mb-2"
-          resizeMode="contain"
+          contentFit="contain"
+          style={{ margin: 'auto', height: 32, width: 96, marginBottom: 8 }}
         />
       </View>
       <View className="mx-4">

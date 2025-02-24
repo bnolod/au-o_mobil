@@ -1,11 +1,12 @@
 import React from 'react';
-import { Dimensions, Image, Platform, View } from 'react-native';
+import { Dimensions, Platform, View } from 'react-native';
 import { ThemedText } from '@/components/ui/ThemedText';
 import SvgHeaderDecoration from '@/components/graphics/HeaderDecoration';
 import Button from '@/components/ui/Button';
 import { ButtonTexts } from '@/constants/texts';
 import { CommonStaticElementProps } from '@/constants/types';
 import { OnboardHeaderProps } from './props';
+import { Image } from 'expo-image';
 export default function OnboardingHeader({
   isStatic,
   onBackPress,
@@ -40,8 +41,8 @@ export default function OnboardingHeader({
 
         <Image
           source={require('@/assets/images/auo-logo.png')}
-          className="h-12 basis-6/12 mx-auto text-center"
-          resizeMode="contain"
+          style={{height: 48, flexBasis: 1/2, marginHorizontal: "auto"}}
+          contentFit="contain"
         />
         {!isStatic && (
           <Button
