@@ -1,5 +1,4 @@
 import {
-  Group,
   HttpError,
   HttpMethod,
   ImageStoreRequest,
@@ -16,6 +15,7 @@ import { eventEmitter } from "./events";
 import { User } from "./entity/User";
 import { Feed } from "./entity/Feed";
 import { Reply } from "./entity/Reply";
+import { Group } from "./entity/Group";
 
 
 const apiClient: AxiosInstance = axios.create({
@@ -117,48 +117,48 @@ export async function storeImages(request: ImageStoreRequest): Promise<any> {
     return res.data;
   } else return null;
 }
- export async function addReaction(
-   target: "post" | "comment" | "reply",
-   postId: number,
-   reaction: null | "FIRE" | "HEART" | "COOL"
- ) {    
-   if (!reaction) {
-   }
-   const res = await fetch(
-     `${apiClient.defaults.baseURL}/posts/${target}/${postId}/addOrRemoveReaction/${reaction}`,
-     {
-       method: "POST",
-       headers: {
-         Authorization: `Bearer ${await SecureStore.getItemAsync("jwtToken")}`,
-       },
-     }
-   );
-   return res.status === 200
- }
- export async function editPost(text: string, location: string, vehicleId: number | null, id: string) {
-   const res = await apiFetch(`/posts/post/${id}`, "PUT", true, {
-     text,
-     location,
-     vehicleId
-   });
-   if (res) {
-     return res.data;
-   } else return null;
- }
-export async function getUser(token: string): Promise<User | null | undefined> {
-  try {
-    if (!token) {
-      return null;
-    }
-    const user = await apiFetch<User>("auth/profile", "GET", true);
-    if (user) {
-      return user.data;
-    } else return null;
-  } catch (error: unknown) {
-    console.error(error);
-    return null;
-  }
-}
+//  export async function addReaction(
+//    target: "post" | "comment" | "reply",
+//    postId: number,
+//    reaction: null | "FIRE" | "HEART" | "COOL"
+//  ) {    
+//    if (!reaction) {
+//    }
+//    const res = await fetch(
+//      `${apiClient.defaults.baseURL}/posts/${target}/${postId}/addOrRemoveReaction/${reaction}`,
+//      {
+//        method: "POST",
+//        headers: {
+//          Authorization: `Bearer ${await SecureStore.getItemAsync("jwtToken")}`,
+//        },
+//      }
+//    );
+//    return res.status === 200
+//  }
+//  export async function editPost(text: string, location: string, vehicleId: number | null, id: string) {
+//    const res = await apiFetch(`/posts/post/${id}`, "PUT", true, {
+//      text,
+//      location,
+//      vehicleId
+//    });
+//    if (res) {
+//      return res.data;
+//    } else return null;
+//  }
+// export async function getUser(token: string): Promise<User | null | undefined> {
+//   try {
+//     if (!token) {
+//       return null;
+//     }
+//     const user = await apiFetch<User>("auth/profile", "GET", true);
+//     if (user) {
+//       return user.data;
+//     } else return null;
+//   } catch (error: unknown) {
+//     console.error(error);
+//     return null;
+//   }
+// }
 export async function getOwnGroups() {
   const req = await apiFetch<Group[]>("groups/own", "GET", true);
   if (req && req.status === 200) return req.data

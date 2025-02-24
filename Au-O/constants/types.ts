@@ -12,6 +12,8 @@ import { Car } from "@/lib/entity/Car";
 import { Comment } from "@/lib/entity/Comment";
 import { Post } from "@/lib/entity/Post";
 import { Reply } from "@/lib/entity/Reply";
+import { Group } from "@/lib/entity/Group";
+import { SocialEvent } from "@/lib/entity/SocialEvent";
 
 export interface OnboardingLayoutProps {
   headerText: React.ReactNode;
@@ -119,15 +121,7 @@ export interface ImageUploadResponse {
   deleteHash: string;
 }
 export type PostType = "USERPOST" | "GROUPOST" | "EVENTPOST";
-export type PostUser = {
-  isPublic: boolean;
-  bio: string;
-  dateOfSignup: string;
-  id: number;
-  nickname: string;
-  profileImg: any;
-  username: string;
-};
+
 export type ImagePostResponseType = {
   id: number;
   url: string;
@@ -344,31 +338,31 @@ export interface SettingsOption {
   className?: string;
 }
 
-export interface Group {
-  id: number;
-  name: string;
-  alias: string;
-  bannerImage: string;
-  memberCount: number;
-  public: boolean;
-  creationDate: string;
-  member: boolean;
-  description: string;
-}
-export interface SocialEvent {
-  id: number;
-  name: string;
-  description: string;
-  startDate: string;
-  endDate: string;
-  location: string;
-  attendees: number;
-  groupId?: string;
-  creationDate: string;
-  bannerImage: string;
-  public: boolean;
-  isAttending: boolean;
-}
+// export interface Group {
+//   id: number;
+//   name: string;
+//   alias: string;
+//   bannerImage: string;
+//   memberCount: number;
+//   public: boolean;
+//   creationDate: string;
+//   member: boolean;
+//   description: string;
+// }
+// export interface SocialEvent {
+//   id: number;
+//   name: string;
+//   description: string;
+//   startDate: string;
+//   endDate: string;
+//   location: string;
+//   attendees: number;
+//   groupId?: string;
+//   creationDate: string;
+//   bannerImage: string;
+//   public: boolean;
+//   isAttending: boolean;
+// }
 // export interface Car {
 //   id: number;
 //   manufacturer: string;
@@ -393,23 +387,23 @@ export type CarType =
   | "PICKUP"
   | "ROADSTER"
   | "SUV";
-export interface GroupCreationRequest {
-  name: string;
-  description: string;
-  bannerImage: string;
-  alias: string;
-}
-export interface GroupCreationResponse {
-  id: string;
-  name: string;
-  description: string;
-  bannerImage: string;
-  alias: string;
-  memberCount: number;
-  public: boolean;
-  creationDate: string;
-  member: boolean;
-}
+// export interface GroupCreationRequest {
+//   name: string;
+//   description: string;
+//   bannerImage: string;
+//   alias: string;
+// }
+// export interface GroupCreationResponse {
+//   id: string;
+//   name: string;
+//   description: string;
+//   bannerImage: string;
+//   alias: string;
+//   memberCount: number;
+//   public: boolean;
+//   creationDate: string;
+//   member: boolean;
+// }
 export interface NewSocialProps {
   text: string;
   onPress?: () => void;

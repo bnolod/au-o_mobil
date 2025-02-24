@@ -1,8 +1,10 @@
-import { Group, GroupCreationRequest, GroupCreationResponse } from "@/constants/types";
 import { apiFetch } from "../apiClient";
+import { GroupCreationRequest } from "../request/GroupCreationRequest";
+import { Group } from "../entity/Group";
+
 
 export async function createGroup(request: GroupCreationRequest) {
-    const req = await apiFetch<GroupCreationResponse>("groups/group", "POST", true, request);
+    const req = await apiFetch<Group>("groups/group", "POST", true, request);
     if (req && req.status === 200) {
       return req.data;
     }

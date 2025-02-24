@@ -11,7 +11,6 @@ import { useColorScheme } from "nativewind";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Images } from "@/lib/staticAssetExports";
 import { useState } from "react";
-import { GroupCreationRequest } from "@/constants/types";
 import { imageUpload } from "@/lib/apiClient";
 import Toast from "react-native-toast-message";
 import SocialCard from "@/components/social/SocialCard";
@@ -31,6 +30,7 @@ import LoadingModal from "@/components/ui/LoadingModal";
 import { ImagePickerAsset } from "expo-image-picker";
 import { router } from "expo-router";
 import { createGroup } from "@/lib/ApiCalls/GroupApiCalls";
+import { GroupCreationRequest } from "@/lib/request/GroupCreationRequest";
 export default function NewPostPage() {
   const { language } = useLanguage();
   const { user } = useAuthentication();

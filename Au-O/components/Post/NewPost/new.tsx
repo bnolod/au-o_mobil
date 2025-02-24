@@ -28,10 +28,8 @@
  import PostCard from "@/components/Post/Post";
  import {
      CreatePostRequest,
-     Group,
      ImageStoreRequest,
      ImageUploadResponse,
-     SocialEvent,
  } from "@/constants/types";
  import { useAuthentication } from "@/contexts/AuthenticationContext";
  import {
@@ -57,6 +55,8 @@
  import GroupListItem from "@/components/social/groups/GroupListItem";
  import { Car } from "@/lib/entity/Car";
 import { getOwnGarage } from "@/lib/ApiCalls/CarApiCalls";
+import { Group } from "@/lib/entity/Group";
+import { SocialEvent } from "@/lib/entity/SocialEvent";
 
  export default function NewPost() {
      const { language } = useLanguage();

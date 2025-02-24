@@ -3,10 +3,10 @@ import { useColorScheme } from "nativewind";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { ScrollView } from "react-native";
 import { useEffect, useState } from "react";
-import { Group } from "@/constants/types";
 import { router, useLocalSearchParams } from "expo-router";
 import LoadingModal from "@/components/ui/LoadingModal";
 import { getGroup } from "@/lib/ApiCalls/GroupApiCalls";
+import { Group } from "@/lib/entity/Group";
 
 export default function GroupDisplay() {
   const { language } = useLanguage();

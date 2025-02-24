@@ -55,3 +55,18 @@ export async function removeFollow(followerId: string) {
     }
     return false;
 }
+
+export async function getUser(token: string): Promise<User | null | undefined> {
+    try {
+        if (!token) {
+            return null;
+        }
+        const user = await apiFetch<User>("auth/profile", "GET", true);
+        if (user) {
+            return user.data;
+        } else return null;
+    } catch (error: unknown) {
+        console.error(error);
+        return null;
+    }
+}
