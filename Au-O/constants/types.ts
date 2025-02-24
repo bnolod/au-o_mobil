@@ -1,19 +1,15 @@
-import {
-  GestureResponderEvent,
-  TextInputProps,
-  TouchableOpacityProps,
-} from "react-native";
-import { HttpErrorTexts } from "./texts";
-import { ReactNode } from "react";
-import { ImagePickerAsset } from "expo-image-picker";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { User } from "@/lib/entity/User";
-import { Car } from "@/lib/entity/Car";
-import { Comment } from "@/lib/entity/Comment";
-import { Post } from "@/lib/entity/Post";
-import { Reply } from "@/lib/entity/Reply";
-import { Group } from "@/lib/entity/Group";
-import { SocialEvent } from "@/lib/entity/SocialEvent";
+import { GestureResponderEvent, TextInputProps, TouchableOpacityProps } from 'react-native';
+import { HttpErrorTexts } from './texts';
+import { ReactNode } from 'react';
+import { ImagePickerAsset } from 'expo-image-picker';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { User } from '@/lib/entity/User';
+import { Car } from '@/lib/entity/Car';
+import { Comment } from '@/lib/entity/Comment';
+import { Post } from '@/lib/entity/Post';
+import { Reply } from '@/lib/entity/Reply';
+import { Group } from '@/lib/entity/Group';
+import { SocialEvent } from '@/lib/entity/SocialEvent';
 
 export interface OnboardingLayoutProps {
   headerText: React.ReactNode;
@@ -24,17 +20,17 @@ export interface OnboardingLayoutProps {
 
 export interface ButtonProps extends TouchableOpacityProps {
   variant?:
-    | "highlight" //piros
-    | "highlight-light" //világos piros
-    | "highlight-dark" //sötét piros
-    | "transparent" //fill és border nélkül
-    | "outline"; //csak border
+    | 'highlight' //piros
+    | 'highlight-light' //világos piros
+    | 'highlight-dark' //sötét piros
+    | 'transparent' //fill és border nélkül
+    | 'outline'; //csak border
   type?:
-    | "icon" //kerek, w=h
-    | "fit" //tartalom szélességéhez igazodik
-    | "fill"; //container szélességéhez igazodik
+    | 'icon' //kerek, w=h
+    | 'fit' //tartalom szélességéhez igazodik
+    | 'fill'; //container szélességéhez igazodik
   children?: React.ReactNode;
-  hapticFeedback?: "light" | "medium" | "heavy";
+  hapticFeedback?: 'light' | 'medium' | 'heavy';
   innerTextClassName?: string;
 }
 
@@ -66,22 +62,20 @@ export interface RegisterRequest {
   nickname: string;
   dateOfBirth: string;
 }
-export type HttpMethod = "GET" | "POST" | "PUT" | "DELETE";
+export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 export interface IHttpError {
   status: number;
   message?: string | undefined;
-  language?: "EN" | "HU";
+  language?: 'EN' | 'HU';
 }
 
 export class HttpError implements IHttpError {
   constructor(
     public status: number,
     public message?: string | undefined,
-    public language: "EN" | "HU" = "EN"
+    public language: 'EN' | 'HU' = 'EN'
   ) {
-    this.message =
-      message ||
-      HttpErrorTexts[status as keyof typeof HttpErrorTexts][language];
+    this.message = message || HttpErrorTexts[status as keyof typeof HttpErrorTexts][language];
     this.status = status;
   }
 }
@@ -106,21 +100,11 @@ export interface EventPostData {
   startDate: string;
   endDate: string;
 }
-export interface PostDispayElementProps {
-  onPress: () => void;
-  postType: string;
-  colorScheme: "light" | "dark";
-  authorNickname: string;
-  authorProfileImg: string;
-  authorUsername: string;
-  groupData: GroupPostData | null;
-  eventData: EventPostData | null;
-}
 export interface ImageUploadResponse {
   url: string;
   deleteHash: string;
 }
-export type PostType = "USERPOST" | "GROUPOST" | "EVENTPOST";
+export type PostType = 'USERPOST' | 'GROUPOST' | 'EVENTPOST';
 
 export type ImagePostResponseType = {
   id: number;
@@ -133,7 +117,7 @@ export interface ImageStoreRequest {
   text: string;
   postImages: ImageUploadResponse[];
   location: string;
-  vehicleId: number | null
+  vehicleId: number | null;
 }
 
 export interface ModalState {
@@ -147,41 +131,10 @@ export interface TapWrapperProps {
   children: React.ReactNode;
 }
 
-// export interface PostCardProps {
-//   postId: number | null;
-//   reaction: null | "FIRE" | "HEART" | "COOL";
-//   preview?: boolean;
-//   user: UserResponse;
-//   authorId: number | null;
-//   groupData?: GroupPostData;
-//   authorProfileImg: string;
-//   eventData?: EventPostData;
-//   authorNickname: string;
-//   authorUsername: string;
-//   date: string;
-//   images: ImageUploadResponse[];
-//   description: string;
-//   location: string;
-//   reactions: Reactions;
-//   vehicle: Car | null;
-//   comments: Comment[];
-//   language: "EN" | "HU";
-//   colorScheme: "light" | "dark";
-// }
-
 export type ImageUploadType = {
   image: string;
   type: string;
 };
-// export interface Comment {
-//   id: number;
-//   time: string;
-//   reactionTypeMap: Reactions;
-//   reactedWith: null | "FIRE" | "HEART" | "COOL";
-//   user: UserPostResponseType;
-//   text: string;
-//   replies: Reply[] | null;
-// }
 
 export interface PostEditRequest {
   description: string;
@@ -216,8 +169,8 @@ export type Geolocation = {
 };
 export interface CommonStaticElementProps {
   children?: ReactNode;
-  language: "EN" | "HU";
-  colorScheme: "light" | "dark";
+  language: 'EN' | 'HU';
+  colorScheme: 'light' | 'dark';
 }
 export interface AvatarProps {
   image: any;
@@ -233,7 +186,6 @@ export interface DropdownWrapperProps {
   width: number;
   children: ReactNode;
 }
-// export type UserResponse = User | null | undefined;
 
 export type ReactionState = {
   fire: number;
@@ -262,7 +214,7 @@ export interface PostCarouselElementProps {
 }
 export interface PostOptionMenuProps {
   preview: boolean;
-  language: "EN" | "HU";
+  language: 'EN' | 'HU';
   postId: number;
   userId: number | null;
   authorId: number | null;
@@ -289,17 +241,12 @@ export interface CommentElementProps {
   authorId: number;
 }
 export interface FilterBarProps {
-  className?: string
+  className?: string;
   onChange: (text: string) => void;
   placeholder?: string;
   initialValue?: string;
 }
-// export interface FeedResponse {
-//   content: Post[],
-//   pageNumber: number,
-//   pageSize: number,
-//   totalElements: number
-// }
+
 export interface InputProps {
   label?: string | ReactNode;
   secureTextEntry?: boolean;
@@ -307,13 +254,13 @@ export interface InputProps {
   containerClassName?: string;
   size?: number;
   icon?: keyof typeof MaterialCommunityIcons.glyphMap;
-  colorScheme: "light" | "dark";
+  colorScheme: 'light' | 'dark';
 }
 export interface ReplyProps {
   item: Reply;
-  language: "HU" | "EN";
+  language: 'HU' | 'EN';
   userId: number;
-  preview?: boolean
+  preview?: boolean;
   authorId: number;
   onDelete: (id: number) => void;
 }
@@ -338,72 +285,17 @@ export interface SettingsOption {
   className?: string;
 }
 
-// export interface Group {
-//   id: number;
-//   name: string;
-//   alias: string;
-//   bannerImage: string;
-//   memberCount: number;
-//   public: boolean;
-//   creationDate: string;
-//   member: boolean;
-//   description: string;
-// }
-// export interface SocialEvent {
-//   id: number;
-//   name: string;
-//   description: string;
-//   startDate: string;
-//   endDate: string;
-//   location: string;
-//   attendees: number;
-//   groupId?: string;
-//   creationDate: string;
-//   bannerImage: string;
-//   public: boolean;
-//   isAttending: boolean;
-// }
-// export interface Car {
-//   id: number;
-//   manufacturer: string;
-//   model: string;
-//   type: CarType;
-//   horsepower: number;
-//   description: string;
-//   displacement: number;
-//   productionYear: number;
-// }
-// export interface CarResponse extends Car {
-//   owner: User;
-// }
-
 export type CarType =
-  | "SEDAN"
-  | "COUPE"
-  | "GRANDCOUPE"
-  | "HATCH"
-  | "KOMBI"
-  | "CABRIOLET"
-  | "PICKUP"
-  | "ROADSTER"
-  | "SUV";
-// export interface GroupCreationRequest {
-//   name: string;
-//   description: string;
-//   bannerImage: string;
-//   alias: string;
-// }
-// export interface GroupCreationResponse {
-//   id: string;
-//   name: string;
-//   description: string;
-//   bannerImage: string;
-//   alias: string;
-//   memberCount: number;
-//   public: boolean;
-//   creationDate: string;
-//   member: boolean;
-// }
+  | 'SEDAN'
+  | 'COUPE'
+  | 'GRANDCOUPE'
+  | 'HATCH'
+  | 'KOMBI'
+  | 'CABRIOLET'
+  | 'PICKUP'
+  | 'ROADSTER'
+  | 'SUV';
+
 export interface NewSocialProps {
   text: string;
   onPress?: () => void;
@@ -445,8 +337,8 @@ export interface SocialSortItemProps {
 export interface SocialCardProps {
   group?: Group;
   event?: SocialEvent;
-  preview?: "CREATE" | "DISPLAY" | undefined;
-  type: "GROUP" | "EVENT";
+  preview?: 'CREATE' | 'DISPLAY' | undefined;
+  type: 'GROUP' | 'EVENT';
   onCreatePress?: () => void;
 }
 export interface SocialBannerProps {
@@ -454,25 +346,25 @@ export interface SocialBannerProps {
   id: number;
   header?: boolean;
   image?: string;
-  type?: "GROUP" | "EVENT";
+  type?: 'GROUP' | 'EVENT';
   onPress?: () => void;
   count?: number | null;
 }
 export interface ReactionButtonProps {
-  type: "FIRE" | "HEART" | "COOL";
+  type: 'FIRE' | 'HEART' | 'COOL';
   count: number;
   onPress?: () => void;
-  state: "active" | "inactive";
-  initialReactionState: "FIRE" | "HEART" | "COOL" | null;
+  state: 'active' | 'inactive';
+  initialReactionState: 'FIRE' | 'HEART' | 'COOL' | null;
 }
 export interface UserListCardProps {
   user: User;
   dismissSheet: () => void;
   isOwner: boolean;
-  type: "follower" | "following";
+  type: 'follower' | 'following';
 }
 export interface CarTypeListItemProps {
   onPress: () => void;
   type: CarType;
-  colorScheme: "light" | "dark";
+  colorScheme: 'light' | 'dark';
 }
