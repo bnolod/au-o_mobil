@@ -19,9 +19,9 @@ import TextEditModal from '@/components/home/base/TextEditModal';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import FollowerSheet from './FollowerSheet';
 import CollapsibleText from '@/components/ui/CollapsibleText';
-import PostGrid from '@/components/social/PostGrid';
+import PostGrid from '@/components/social/base/PostGrid';
 import GarageList from '@/components/garage/list/GarageList';
-import NewSocial from '@/components/social/NewSocial';
+import NewSocial from '@/components/social/base/NewSocial';
 import { followUser, unfollowUser, updateBio, updateNickname } from '@/lib/ApiCalls/UserApiCalls';
 import { ProfileProps } from './props';
 export default function Profile({

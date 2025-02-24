@@ -3,7 +3,7 @@ import ThemedText from './ThemedText';
 import { useState } from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Colors } from '@/constants/Colors';
-import { InputProps } from '@/constants/types';
+import { InputProps } from './props';
 export default function Input({
   label,
   containerClassName,

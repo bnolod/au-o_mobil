@@ -1,12 +1,13 @@
 import { View } from 'react-native';
 import ThemedText from '@/components/ui/ThemedText';
 import SocialBanner from './SocialBanner';
-import { CommonStaticElementProps, SocialCardProps } from '@/constants/types';
+import { CommonStaticElementProps } from '@/constants/types';
 import { Colors } from '@/constants/Colors';
-import Button from '../ui/Button';
+import Button from '@/components/ui/Button';
 import { router } from 'expo-router';
-import LoadingModal from '../ui/LoadingModal';
-import CollapsibleText from '../ui/CollapsibleText';
+import LoadingModal from '@/components/ui/LoadingModal';
+import CollapsibleText from '@/components/ui/CollapsibleText';
+import { SocialCardProps } from './props';
 
 export default function SocialCard({
   language,

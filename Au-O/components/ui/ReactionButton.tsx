@@ -1,7 +1,7 @@
 import { formatNumber } from '@/lib/functions';
 import Button from './Button';
 import ThemedText from './ThemedText';
-import { ReactionButtonProps } from '@/constants/types';
+import { ReactionButtonProps } from './props';
 
 export default function ReactionButton({
   type = 'FIRE',

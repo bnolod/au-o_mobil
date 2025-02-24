@@ -26,7 +26,6 @@ import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
 import { PostCreationTexts } from '@/constants/texts';
 import ImageNotFound from '@/components/Post/base/ImageNotFound';
 import PostCard from '@/components/Post/Post';
-import { CreatePostRequest, ImageStoreRequest, ImageUploadResponse } from '@/constants/types';
 import { useAuthentication } from '@/contexts/AuthenticationContext';
 import {
   cleanupInvalidImageUploads,
@@ -49,6 +48,8 @@ import { imageUpload } from '@/lib/ApiCalls/ImageApiCalls';
 import { publishPost } from '@/lib/ApiCalls/PostApiCalls';
 import { getOwnGroups } from '@/lib/ApiCalls/GroupApiCalls';
 import PostCreationSheetSelectElements from '@/components/Post/NewPost/PostCreationSheetSelectElement';
+import { CreatePostRequest } from '@/lib/request/PostCreationRequest';
+import { ImageStoreRequest, ImageUploadResponse } from '@/lib/request/ImgurRequest';
 export default function NewPost() {
   const { language } = useLanguage();
   const { user } = useAuthentication();
@@ -455,29 +456,10 @@ export default function NewPost() {
                     preview
                     reactions={{ FIRE: 432, HEART: 1, COOL: 0 }}
                     eventData={
-                      /*
-                  selectedEvent
-                    ? ({
-                        event_name: selectedEvent,
-                        attendees: 24,
-                        end_date: new Date().toDateString(),
-                        start_date: new Date().toDateString(),
-                        location: "teszt",
-                        group_id: selectedGroup!,
-                      } as EventPostData)
-                    : undefined
-                */ undefined
+                 undefined
                     }
                     groupData={
-                      /*
-                  selectedGroup
-                    ? {
-                        group_icon: null,
-                        group_name: selectedGroup!,
-                        group_nickname: selectedGroup!,
-                      }
-                    : undefined
-                */ undefined
+                 undefined
                     }
                   />
                   <Button

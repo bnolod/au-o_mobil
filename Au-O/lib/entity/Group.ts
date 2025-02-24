@@ -9,3 +9,9 @@ export interface Group {
   member: boolean;
   description: string;
 }
+
+export interface GroupPost {
+  groupName: string;
+  groupNickname: string;
+  groupIcon: string | null;
+}

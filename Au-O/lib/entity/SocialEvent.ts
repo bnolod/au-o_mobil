@@ -12,3 +12,12 @@ export interface SocialEvent {
   public: boolean;
   isAttending: boolean;
 }
+
+export interface EventPost {
+  eventName: string;
+  attendees: number;
+  groupId?: string;
+  location: string;
+  startDate: string;
+  endDate: string;
+}

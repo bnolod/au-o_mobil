@@ -1,7 +1,7 @@
 import { Colors } from '@/constants/Colors';
-import { LoadingModalProps } from '@/constants/types';
 import { ActivityIndicator, Modal, View } from 'react-native';
 import ThemedText from './ThemedText';
+import { LoadingModalProps } from './props';
 
 export default function LoadingModal({
   loading,

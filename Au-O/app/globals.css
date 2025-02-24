@@ -279,7 +279,7 @@
     @apply flex secondary  h-full items-start justify-center flex-col gap-1;
   }
   .garage-header {
-    @apply flex flex-row w-full h-64 rounded-b-xl overflow-hidden;
+    @apply flex flex-row w-full rounded-b-xl overflow-hidden;
   }
   .garage-profile-display {
     @apply h-full basis-7/12 opacity-70;

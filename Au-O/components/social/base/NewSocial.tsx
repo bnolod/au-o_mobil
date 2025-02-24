@@ -1,8 +1,8 @@
 import { View } from 'react-native';
 import ThemedText from '@/components/ui/ThemedText';
-import Button from '../ui/Button';
+import Button from '@/components/ui/Button';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { NewSocialProps } from '@/constants/types';
+import { NewSocialProps } from './props';
 
 export default function NewSocial({ text, onPress }: NewSocialProps) {
   return (

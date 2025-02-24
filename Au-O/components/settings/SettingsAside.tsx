@@ -1,8 +1,9 @@
-import { CommonStaticElementProps, SettingsAsideProps } from '@/constants/types';
+import { CommonStaticElementProps } from '@/constants/types';
 import SettingsOptionDisplay from './SettingsOption';
 import { Modal, View } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
 import { useState } from 'react';
+import { SettingsAsideProps } from './props';
 export default function SettingsAside({
   userId,
   username,

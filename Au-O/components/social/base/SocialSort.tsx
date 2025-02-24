@@ -1,10 +1,10 @@
 import { View } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import Button from '../ui/Button';
-import SheetSelection from '../ui/SheetSelection';
 import { CommonStaticElementProps } from '@/constants/types';
 import { useState } from 'react';
 import SocialSortItem from './SocialSortItem';
+import Button from '@/components/ui/Button';
+import SheetSelection from '@/components/ui/SheetSelection';
 
 export default function SocialSort({ colorScheme, language }: CommonStaticElementProps) {
   const [selected, setSelected] = useState<any>('My Groups');
@@ -24,6 +24,7 @@ export default function SocialSort({ colorScheme, language }: CommonStaticElemen
           ],
           renderItem: ({ item }) => (
             <SocialSortItem
+            colorScheme={colorScheme}
               bannerImage={item.bannerImage}
               memberCount={1}
               name={item.name}

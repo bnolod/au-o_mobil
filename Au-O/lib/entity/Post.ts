@@ -1,4 +1,4 @@
-import { PostType, Reactions } from '@/constants/types';
+import { Reactions } from '@/constants/types';
 import { Image } from './Image';
 import { Car } from './Car';
 import { Comment } from './Comment';
@@ -19,3 +19,5 @@ export interface Post {
   reactedWith: null | 'FIRE' | 'HEART' | 'COOL';
   vehicle: Car | null;
 }
+export type PostType = 'USERPOST' | 'GROUPOST' | 'EVENTPOST';
+

@@ -1,5 +1,5 @@
-import { ImageUploadResponse } from "@/constants/types";
 import axios from "axios";
+import { ImageUploadResponse } from "../request/ImgurRequest";
 
 export async function deleteImgurImage(deleteHash: string) {
   const req = await fetch(`https:api.imgur.com/3/image/${deleteHash}`, {

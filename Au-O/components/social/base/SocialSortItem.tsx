@@ -1,11 +1,11 @@
-import { Image, ImageBackground, Pressable, View } from 'react-native';
+import { ImageBackground, Pressable, View } from 'react-native';
 import ThemedText from '@/components/ui/ThemedText';
 import { Images } from '@/lib/staticAssetExports';
 import { Colors } from '@/constants/Colors';
 import { colorScheme } from 'nativewind';
-import { SocialSortItemProps } from '@/constants/types';
+import { SocialSortItemProps } from './props';
 
-export default function SocialSortItem({ bannerImage, name, memberCount, onSelect }: SocialSortItemProps) {
+export default function SocialSortItem({ bannerImage, name, memberCount, onSelect, colorScheme }: SocialSortItemProps) {
   return (
     <Pressable onPress={onSelect} className="social-sort-item-container">
       <View className="social-sort-image">
@@ -18,7 +18,7 @@ export default function SocialSortItem({ bannerImage, name, memberCount, onSelec
       <View
         className="social-sort-item-data"
         style={{
-          shadowColor: Colors[colorScheme.get()!].secondary,
+          shadowColor: Colors[colorScheme].secondary,
           shadowOffset: {
             width: -20,
             height: 0,

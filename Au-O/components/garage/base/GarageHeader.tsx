@@ -5,6 +5,7 @@ import { Images } from '@/lib/staticAssetExports';
 import { Colors } from '@/constants/Colors';
 import { generalTexts } from '@/constants/texts';
 import { Car } from '@/lib/entity/Car';
+import { getCarImage } from '@/components/graphics/cars';
 
 export default function GarageHeader({
   userProfilePic,
@@ -29,13 +30,14 @@ export default function GarageHeader({
           resizeMode="cover"
           source={Images.banner_placeholder}
         >
-          <ThemedText className="text-3xl font-bold">{car.manufacturer}</ThemedText>
-          <ThemedText className="txl">{car.model}</ThemedText>
+          <ThemedText className="text-5xl font-bold">{car.manufacturer}</ThemedText>
+          <ThemedText className="text-4xl font-semibold">{car.model}</ThemedText>
           <View>
             <ThemedText className="text-xl">
               {car.horsepower} {generalTexts.profileAttributes.cars.horsepower[language]}
             </ThemedText>
           </View>
+          <View className="">{getCarImage(car.type, colorScheme, 140*1.2, 85*1.2, 4)}</View>
         </ImageBackground>
       </View>
     </View>

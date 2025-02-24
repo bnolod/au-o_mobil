@@ -3,17 +3,13 @@ import ThemedText from './ThemedText';
 import { handleShowMore } from '@/lib/events';
 import { TextProps } from 'react-native';
 import * as Haptics from 'expo-haptics';
+import {CollapsibleTextProps} from './props';
 export default function CollapsibleText({
   restrictedLineCount = 3,
   children,
   className,
   TextProps,
-}: {
-  restrictedLineCount?: number;
-  children: ReactNode;
-  className?: string;
-  TextProps?: TextProps;
-}) {
+}: CollapsibleTextProps) {
   const [lines, setLines] = useState<number | undefined>(restrictedLineCount);
   return (
     <ThemedText

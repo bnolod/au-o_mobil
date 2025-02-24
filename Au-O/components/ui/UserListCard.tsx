@@ -1,4 +1,4 @@
-import { CommonStaticElementProps, UserListCardProps } from '@/constants/types';
+import { CommonStaticElementProps } from '@/constants/types';
 import { User } from '@/lib/entity/User';
 import { Alert, AlertButton, Pressable, TouchableOpacity, View } from 'react-native';
 import Avatar from './Avatar';
@@ -9,6 +9,7 @@ import { router } from 'expo-router';
 import { unfollowUser, removeFollow } from '@/lib/ApiCalls/UserApiCalls';
 import Toast from 'react-native-toast-message';
 import { useState } from 'react';
+import { UserListCardProps } from './props';
 
 export default function UserListCard({
   user,

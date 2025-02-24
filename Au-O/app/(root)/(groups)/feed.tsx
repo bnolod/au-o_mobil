@@ -1,7 +1,7 @@
 import RootHeader from '@/components/home/base/RootHeader';
-import NewSocial from '@/components/social/NewSocial';
-import SocialCard from '@/components/social/SocialCard';
-import SocialSort from '@/components/social/SocialSort';
+import NewSocial from '@/components/social/base/NewSocial';
+import SocialCard from '@/components/social/base/SocialCard';
+import SocialSort from '@/components/social/base/SocialSort';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { getAllGroups } from '@/lib/ApiCalls/GroupApiCalls';
 import { Group } from '@/lib/entity/Group';

@@ -1,6 +1,6 @@
-import { TapWrapperProps } from '@/constants/types';
 import React, { useRef } from 'react';
 import { TapGestureHandler } from 'react-native-gesture-handler';
+import { TapWrapperProps } from '../ui/props';
 
 export default function ({ onSingleTap, onDoubleTap, children }: TapWrapperProps) {
   const doubleTapRef = useRef(null);

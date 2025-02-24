@@ -1,8 +1,8 @@
-import { SearchBarProps } from '@/constants/types';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useState } from 'react';
 import { TextInput, View } from 'react-native';
 import Button from './Button';
+import { SearchBarProps } from './props';
 
 export default function SearchBar({
   placeholder,

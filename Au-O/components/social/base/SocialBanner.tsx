@@ -2,8 +2,9 @@ import { Image, ImageBackground, Pressable, View } from 'react-native';
 import ThemedText from '@/components/ui/ThemedText';
 import { Images } from '@/lib/staticAssetExports';
 import { formatNumber } from '@/lib/functions';
-import { CommonStaticElementProps, SocialBannerProps } from '@/constants/types';
+import { CommonStaticElementProps } from '@/constants/types';
 import { router } from 'expo-router';
+import { SocialBannerProps } from './props';
 
 export default function SocialBanner({
   name,

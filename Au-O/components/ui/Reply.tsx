@@ -2,7 +2,7 @@ import { Alert, Pressable, View } from 'react-native';
 import Avatar from './Avatar';
 import ThemedText from './ThemedText';
 import * as Haptics from 'expo-haptics';
-import { Reactions, ReplyProps } from '@/constants/types';
+import { Reactions } from '@/constants/types';
 import { Text } from 'react-native';
 import { CommentTexts } from '@/constants/texts';
 import Toast from 'react-native-toast-message';
@@ -12,6 +12,7 @@ import { useState } from 'react';
 import ReactionButton from './ReactionButton';
 import { deleteReply } from '@/lib/ApiCalls/ReplyApiCalls';
 import { addReaction } from '@/lib/ApiCalls/ReactionApiCalls';
+import { ReplyProps } from './props';
 export default function ReplyItem({ item, language, preview, userId, authorId, onDelete }: ReplyProps) {
   const [currentReaction, setCurrentReaction] = useState<null | 'FIRE' | 'HEART' | 'COOL'>(item.reactedWith);
 

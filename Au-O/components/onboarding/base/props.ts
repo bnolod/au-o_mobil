@@ -5,3 +5,4 @@ export interface OnboardHeaderProps {
     onSkipPress?: () => void;
     index?: number;
   }
+  

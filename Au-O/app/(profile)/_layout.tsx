@@ -1,6 +1,5 @@
 import { SettingsTexts } from '@/constants/texts';
 import { Stack } from 'expo-router';
-import { useColorScheme } from 'nativewind';
 import { useLanguage } from '@/contexts/LanguageContext';
 export default function UserControllerLayout() {
   const { language } = useLanguage();

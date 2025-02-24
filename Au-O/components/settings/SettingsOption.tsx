@@ -1,8 +1,9 @@
-import { CommonStaticElementProps, SettingsOption } from '@/constants/types';
+import { CommonStaticElementProps } from '@/constants/types';
 import { IconProps } from '@expo/vector-icons/build/createIconSet';
 import { Text, TouchableOpacity, View } from 'react-native';
 import ThemedText from '../ui/ThemedText';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { SettingsOption } from './props';
 
 export default function SettingsOptionDisplay({
   title,

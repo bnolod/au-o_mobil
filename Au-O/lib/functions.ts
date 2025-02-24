@@ -1,10 +1,12 @@
 import { PostCreationTexts, UIErrorTexts } from '@/constants/texts';
-import { EventPostData, GroupPostData, ImageUploadResponse } from '@/constants/types';
+import { EventPostData } from '@/constants/types';
 import * as SecureStore from 'expo-secure-store';
 import * as FileSystem from 'expo-file-system';
 import * as ImagePicker from 'expo-image-picker';
 import Toast from 'react-native-toast-message';
 import { User } from './entity/User';
+import { ImageUploadResponse } from './request/ImgurRequest';
+import { GroupPost } from './entity/Group';
 
 export function handleFormInputChange(
   formKey: string,
@@ -28,7 +30,7 @@ export async function getTimestamp() {
 export function getPostType(
   nickname: string,
   username: string,
-  groupData?: GroupPostData,
+  groupData?: GroupPost,
   eventData?: EventPostData
 ): string {
   if (nickname && username) {

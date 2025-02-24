@@ -1,7 +1,6 @@
 import { TextInput } from 'react-native';
 import Input from './Input';
-import { FilterBarProps } from '@/constants/types';
-
+import {FilterBarProps} from './props'
 export default function FilterBar({ onChange, className, placeholder, initialValue }: FilterBarProps) {
   return (
     <TextInput

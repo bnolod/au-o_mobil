@@ -1,6 +1,6 @@
 import { Alert, Dimensions, Keyboard, Pressable, Text, TouchableOpacity, View } from 'react-native';
 import ThemedText from './ThemedText';
-import { CommentElementProps, CommonStaticElementProps, Reactions } from '@/constants/types';
+import { CommonStaticElementProps, Reactions } from '@/constants/types';
 import Avatar from './Avatar';
 import { useState } from 'react';
 import * as Haptics from 'expo-haptics';
@@ -18,6 +18,7 @@ import ReactionButton from './ReactionButton';
 import ApiCallButton from './ApiCallButton';
 import { Reply } from '@/lib/entity/Reply';
 import { addReaction } from '@/lib/ApiCalls/ReactionApiCalls';
+import { CommentElementProps } from './props';
 export default function CommentElement({
   item,
   language,

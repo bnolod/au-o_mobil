@@ -2,11 +2,12 @@ import { ImageBackground, Pressable, View } from 'react-native';
 import ThemedText from '@/components/ui/ThemedText';
 import { Images } from '@/lib/staticAssetExports';
 import { Colors } from '@/constants/Colors';
-import { CommonStaticElementProps, GarageItemProps } from '@/constants/types';
+import { CommonStaticElementProps } from '@/constants/types';
 import { getCarImage } from '@/components/graphics/cars';
 import { router } from 'expo-router';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { generalTexts } from '@/constants/texts';
+import { GarageItemProps } from './props';
 export default function GarageItem({
   car,
   language,

@@ -55,7 +55,10 @@ const SheetSelection = forwardRef<
 
       <BottomSheetModal
         index={2}
-        snapPoints={[1, '40%', '60%']}
+        snapPoints={[1, '40%', '90%']}
+        enableHandlePanningGesture
+        
+        enableContentPanningGesture={false}
         enableDismissOnClose
         onChange={(index) => {
           if (index === 1 || index === 0) {
@@ -83,6 +86,8 @@ const SheetSelection = forwardRef<
               {FlashListProps.ListHeaderComponent ? (FlashListProps.ListHeaderComponent as ReactNode) : <></>}
             </View>
           )}
+          bounces={false}
+          overScrollMode="never"
           {...FlashListProps}
         />
       </BottomSheetModal>

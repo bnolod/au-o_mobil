@@ -8,7 +8,6 @@ import SheetSelection, { SheetSelectionRef } from '@/components/ui/SheetSelectio
 import ThemedText from '@/components/ui/ThemedText';
 import { Colors } from '@/constants/Colors';
 import { PostCreationTexts, PostEditTexts } from '@/constants/texts';
-import { PostEditRequest } from '@/constants/types';
 import { useAuthentication } from '@/contexts/AuthenticationContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { getOwnCars } from '@/lib/ApiCalls/CarApiCalls';
@@ -16,6 +15,7 @@ import { editPost } from '@/lib/ApiCalls/PostApiCalls';
 import { apiFetch } from '@/lib/apiClient';
 import { Car } from '@/lib/entity/Car';
 import { Post } from '@/lib/entity/Post';
+import { PostEditRequest } from '@/lib/request/PostEditRequest';
 import { Images } from '@/lib/staticAssetExports';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
@@ -277,18 +277,7 @@ export default function EditPost() {
                 reaction={'FIRE'}
                 reactions={{ FIRE: 12, HEART: 34, COOL: 567 }}
                 eventData={
-                  /*
-                  selectedEvent
-                    ? ({
-                        event_name: selectedEvent,
-                        attendees: 24,
-                        end_date: new Date().toDateString(),
-                        start_date: new Date().toDateString(),
-                        location: "teszt",
-                        group_id: selectedGroup!,
-                      } as EventPostData)
-                    : undefined
-                */ undefined
+undefined
                 }
                 groupData={
                   /*

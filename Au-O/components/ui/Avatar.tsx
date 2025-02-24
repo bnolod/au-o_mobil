@@ -1,4 +1,4 @@
-import { AvatarProps } from '@/constants/types';
+import { AvatarProps } from './props';
 import { Image, ImageBackground, View } from 'react-native';
 import ThemedText from './ThemedText';
 import { Images } from '@/lib/staticAssetExports';

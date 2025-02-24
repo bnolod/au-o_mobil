@@ -1,6 +1,6 @@
 import { CommonStaticElementProps } from '@/constants/types';
 import { ScrollView, TouchableOpacity, View } from 'react-native';
-import SocialBanner from '../SocialBanner';
+import SocialBanner from '@/components/social/base/SocialBanner';
 import Button from '@/components/ui/Button';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import ThemedText from '@/components/ui/ThemedText';

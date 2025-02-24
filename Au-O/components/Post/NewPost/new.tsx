@@ -26,7 +26,6 @@ import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
 import { PostCreationTexts } from '@/constants/texts';
 import ImageNotFound from '../base/ImageNotFound';
 import PostCard from '@/components/Post/Post';
-import { CreatePostRequest, ImageStoreRequest, ImageUploadResponse } from '@/constants/types';
 import { useAuthentication } from '@/contexts/AuthenticationContext';
 import { cleanupInvalidImageUploads, createImageForm, handleGallery } from '@/lib/functions';
 import Toast from 'react-native-toast-message';
@@ -45,6 +44,8 @@ import { SocialEvent } from '@/lib/entity/SocialEvent';
 import { imageUpload } from '@/lib/ApiCalls/ImageApiCalls';
 import { publishPost } from '@/lib/ApiCalls/PostApiCalls';
 import { getOwnGroups } from '@/lib/ApiCalls/GroupApiCalls';
+import { CreatePostRequest } from '@/lib/request/PostCreationRequest';
+import { ImageStoreRequest, ImageUploadResponse } from '@/lib/request/ImgurRequest';
 
 export default function NewPost() {
   const { language } = useLanguage();

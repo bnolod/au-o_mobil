@@ -119,6 +119,8 @@ export default function CommentSheet({
                 width: '33%',
                 height: 5,
               }}
+              enableHandlePanningGesture
+              
               handleStyle={{
                 backgroundColor: Colors[colorScheme].secondary,
 
@@ -135,11 +137,14 @@ export default function CommentSheet({
                     language={language}
                     colorScheme={colorScheme}
                     postId={postId}
+                    
                     onPostComment={(res) => {
                       setRenderedComments([res, ...renderedComments]);
                     }}
                   />
                 }
+                bounces={false}
+                
                 data={renderedComments}
                 ListEmptyComponent={<CommentsEmpty language={language} colorScheme={colorScheme} />}
                 renderItem={renderItem}
