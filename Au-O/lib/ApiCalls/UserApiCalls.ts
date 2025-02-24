@@ -48,3 +48,24 @@ export async function getUser(token: string): Promise<User | null | undefined> {
     return null;
   }
 }
+
+
+export async function updateBio(bio: string) {
+  const req = await apiFetch<null>('users/user/update', 'PUT', true, {
+    bio,
+  });
+  if (req && req.status === 200) {
+    return true;
+  }
+  return false;
+}
+
+export async function updateNickname(nickname: string) {
+  const req = await apiFetch<null>('users/user/update', 'PUT', true, {
+    nickname,
+  });
+  if (req && req.status === 200) {
+    return true;
+  }
+  return false;
+}

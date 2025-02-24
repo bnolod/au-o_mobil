@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { Text } from 'react-native';
 import { ThemedText } from '@/components/ui/ThemedText';
 import CollapsibleText from '@/components/ui/CollapsibleText';
-import CommentSheet from '@/components/home/CommentSheet';
+import CommentSheet from '@/components/home/comment/CommentSheet';
 import * as Haptics from 'expo-haptics';
 import { formatDate } from '@/lib/functions';
 import { CommonStaticElementProps } from '@/constants/types';

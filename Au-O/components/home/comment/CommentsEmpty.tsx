@@ -1,7 +1,7 @@
 import { Colors } from '@/constants/Colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { View } from 'react-native';
-import ThemedText from '../ui/ThemedText';
+import ThemedText from '@/components/ui/ThemedText';
 import { HomeTexts } from '@/constants/texts';
 import { CommonStaticElementProps } from '@/constants/types';
 

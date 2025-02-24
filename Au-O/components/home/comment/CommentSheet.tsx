@@ -1,17 +1,18 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { BottomSheetFlatList, BottomSheetModal } from '@gorhom/bottom-sheet';
 
-import ThemedText from '../ui/ThemedText';
+import ThemedText from '@/components/ui/ThemedText'
 import { TouchableOpacity, View, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { CommentSheetProps, CommonStaticElementProps } from '@/constants/types';
-import Avatar from '../ui/Avatar';
+import { CommonStaticElementProps } from '@/constants/types';
+import Avatar from '@/components/ui/Avatar';
 import { Comment } from '@/lib/entity/Comment';
 import { HomeTexts } from '@/constants/texts';
 import { Colors } from '@/constants/Colors';
-import AddCommentRow from './comment/AddCommentRow';
-import CommentElement from '../ui/CommentElement';
+import AddCommentRow from '../comment/AddCommentRow';
+import CommentElement from '@/components/ui/CommentElement';
 import CommentsEmpty from './CommentsEmpty';
+import { CommentSheetProps } from './types';
 
 export default function CommentSheet({
   colorScheme,

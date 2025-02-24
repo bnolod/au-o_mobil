@@ -192,22 +192,7 @@ export type ReactionState = {
   heart: number;
   sunglasses: number;
 };
-export interface AddCommentRowProps {
-  authorNickname: string;
-  focus: boolean;
-  postId: number;
-  onPostComment: (res: Comment) => void;
-}
-export interface CommentSheetProps {
-  comments: Comment[];
-  authorNickname: string;
-  preview?: boolean;
-  userNickname: string;
-  postId: number;
-  userProfileImg: string;
-  authorId: number;
-  userId: number;
-}
+
 export interface PostCarouselElementProps {
   images: string[];
   index: number;

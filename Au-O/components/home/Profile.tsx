@@ -1,7 +1,7 @@
 import Button from '@/components/ui/Button';
 import ThemedText from '@/components/ui/ThemedText';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
-import { updateBio, updateNickname, updateProfilePicture } from '@/lib/apiClient';
+import { updateProfilePicture } from '@/lib/apiClient';
 import { CommonStaticElementProps, ProfileProps } from '@/constants/types';
 import { useRef, useState } from 'react';
 import { router } from 'expo-router';
@@ -22,7 +22,7 @@ import CollapsibleText from '../ui/CollapsibleText';
 import PostGrid from '../social/PostGrid';
 import GarageList from '../garage/GarageList';
 import NewSocial from '../social/NewSocial';
-import { followUser, unfollowUser } from '@/lib/ApiCalls/UserApiCalls';
+import { followUser, unfollowUser, updateBio, updateNickname } from '@/lib/ApiCalls/UserApiCalls';
 export default function Profile({
   user,
   language,

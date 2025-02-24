@@ -1,8 +1,6 @@
 import {
   HttpError,
   HttpMethod,
-  ImageStoreRequest,
-  ImageUploadResponse,
   LoginRequest,
   RegisterRequest,
   TokenResponse,
@@ -12,9 +10,6 @@ import { router } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import { deleteUser, saveUser } from './functions';
 import { eventEmitter } from './events';
-import { Feed } from './entity/Feed';
-import { Reply } from './entity/Reply';
-import { Group } from './entity/Group';
 import { imageUpload } from './ApiCalls/ImageApiCalls';
 
 const apiClient: AxiosInstance = axios.create({
@@ -140,31 +135,6 @@ export async function updateProfilePicture(imageForm: FormData) {
     await saveUser(res);
     return true;
   }
+  return false;
+}
 
-  return false;
-}
-export async function updateBio(bio: string) {
-  const req = await apiFetch<null>('users/user/update', 'PUT', true, {
-    bio,
-  });
-  if (req && req.status === 200) {
-    return true;
-  }
-  return false;
-}
-export async function updateNickname(nickname: string) {
-  const req = await apiFetch<null>('users/user/update', 'PUT', true, {
-    nickname,
-  });
-  if (req && req.status === 200) {
-    return true;
-  }
-  return false;
-}
-// export async function loadFeed(index: number, timestamp: string) {
-//   const req = await apiFetch<Feed>(`posts/feed?page=${index}&time=${timestamp}`, 'GET', true);
-//   if (req && req.status === 200) {
-//     return req.data;
-//   }
-//   return null;
-// }
