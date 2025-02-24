@@ -2,7 +2,7 @@ import { useAuthentication } from '@/contexts/AuthenticationContext';
 import LoadingModal from '@/components/ui/LoadingModal';
 import { useColorScheme } from 'nativewind';
 import { useLanguage } from '@/contexts/LanguageContext';
-import GarageItemPage from '@/components/garage/GarageItemPage';
+import GarageItemPage from '@/components/garage/base/GarageItemPage';
 import { useEffect, useState } from 'react';
 import { Car } from '@/lib/entity/Car';
 import { useLocalSearchParams } from 'expo-router';

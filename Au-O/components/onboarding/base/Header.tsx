@@ -1,10 +1,11 @@
 import React from 'react';
 import { Dimensions, Image, Platform, View } from 'react-native';
-import { ThemedText } from '../ui/ThemedText';
-import SvgHeaderDecoration from '../graphics/HeaderDecoration';
-import Button from '../ui/Button';
+import { ThemedText } from '@/components/ui/ThemedText';
+import SvgHeaderDecoration from '@/components/graphics/HeaderDecoration';
+import Button from '@/components/ui/Button';
 import { ButtonTexts } from '@/constants/texts';
-import { CommonStaticElementProps, OnboardHeaderProps } from '@/constants/types';
+import { CommonStaticElementProps } from '@/constants/types';
+import { OnboardHeaderProps } from './props';
 export default function OnboardingHeader({
   isStatic,
   onBackPress,

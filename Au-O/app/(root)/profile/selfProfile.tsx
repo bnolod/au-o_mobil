@@ -1,4 +1,4 @@
-import Profile from '@/components/home/Profile';
+import Profile from '@/components/home/user/Profile';
 import { useAuthentication } from '@/contexts/AuthenticationContext';
 import { apiFetch } from '@/lib/apiClient';
 import { useEffect, useState } from 'react';

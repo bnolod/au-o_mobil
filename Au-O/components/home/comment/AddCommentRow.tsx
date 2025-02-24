@@ -8,7 +8,7 @@ import Toast from 'react-native-toast-message';
 import { BottomSheetTextInput } from '@gorhom/bottom-sheet';
 import { AddCommentToPost } from '@/lib/ApiCalls/CommentApiCalls';
 import ApiCallButton from '@/components/ui/ApiCallButton';
-import { AddCommentRowProps } from './types';
+import { AddCommentRowProps } from './props';
 
 export default function AddCommentRow({
   authorNickname,

@@ -1,4 +1,4 @@
-import RootHeader from '@/components/home/RootHeader';
+import RootHeader from '@/components/home/base/RootHeader';
 import NewSocial from '@/components/social/NewSocial';
 import SocialCard from '@/components/social/SocialCard';
 import SocialSort from '@/components/social/SocialSort';

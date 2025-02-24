@@ -12,7 +12,7 @@ import { FlashList } from '@shopify/flash-list';
 import NoPostsFound from '@/components/Post/base/NoPostsFound';
 import LoadingModal from '@/components/ui/LoadingModal';
 import { Redirect } from 'expo-router';
-import RootHeader from '@/components/home/RootHeader';
+import RootHeader from '@/components/home/base/RootHeader';
 import { Post } from '@/lib/entity/Post';
 import { loadFeed } from '@/lib/ApiCalls/PostApiCalls';
 

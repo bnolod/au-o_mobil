@@ -1,8 +1,5 @@
-import { View } from 'react-native';
-import ThemedText from '@/components/ui/ThemedText';
 import { FlashList } from '@shopify/flash-list';
-import NoPostsFound from '../Post/base/NoPostsFound';
-// import { Car, CarResponse } from "@/constants/types";
+import NoPostsFound from '@/components/Post/base/NoPostsFound';
 
 import GarageItem from './GarageItem';
 import { router } from 'expo-router';

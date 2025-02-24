@@ -2,11 +2,11 @@ import Button from '@/components/ui/Button';
 import ThemedText from '@/components/ui/ThemedText';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { updateProfilePicture } from '@/lib/apiClient';
-import { CommonStaticElementProps, ProfileProps } from '@/constants/types';
+import { CommonStaticElementProps } from '@/constants/types';
 import { useRef, useState } from 'react';
 import { router } from 'expo-router';
 import UserLoading from '@/components/auth/UserLoading';
-import RootHeader from '@/components/home/RootHeader';
+import RootHeader from '@/components/home/base/RootHeader';
 import Avatar from '@/components/ui/Avatar';
 import { generalTexts, SocialTexts, UserEditTexts } from '@/constants/texts';
 import { handleTabSelection } from '@/lib/events';
@@ -15,14 +15,15 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Colors, Styles } from '@/constants/Colors';
 import { createImageForm, createTimestamp } from '@/lib/functions';
 import Toast from 'react-native-toast-message';
-import TextEditModal from './TextEditModal';
+import TextEditModal from '@/components/home/base/TextEditModal';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import FollowerSheet from './FollowerSheet';
-import CollapsibleText from '../ui/CollapsibleText';
-import PostGrid from '../social/PostGrid';
-import GarageList from '../garage/GarageList';
-import NewSocial from '../social/NewSocial';
+import CollapsibleText from '@/components/ui/CollapsibleText';
+import PostGrid from '@/components/social/PostGrid';
+import GarageList from '@/components/garage/list/GarageList';
+import NewSocial from '@/components/social/NewSocial';
 import { followUser, unfollowUser, updateBio, updateNickname } from '@/lib/ApiCalls/UserApiCalls';
+import { ProfileProps } from './props';
 export default function Profile({
   user,
   language,

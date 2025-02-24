@@ -1,13 +1,14 @@
 import { BottomSheetFlashList, BottomSheetModal } from '@gorhom/bottom-sheet';
-import UserListCard from '../ui/UserListCard';
-import { CommonStaticElementProps, FollowerSheetProps } from '@/constants/types';
+import UserListCard from '@/components/ui/UserListCard';
+import { CommonStaticElementProps } from '@/constants/types';
 import { Colors } from '@/constants/Colors';
-import ThemedText from '../ui/ThemedText';
+import ThemedText from '@/components/ui/ThemedText';
 import { TouchableOpacity, View } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useState } from 'react';
 import { SocialTexts } from '@/constants/texts';
 import { User } from '@/lib/entity/User';
+import { FollowerSheetProps } from './props';
 
 export default function FollowerSheet({
   followers,

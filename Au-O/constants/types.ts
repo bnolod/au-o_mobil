@@ -206,18 +206,7 @@ export interface PostOptionMenuProps {
   onDelete?: () => void;
 }
 
-export interface PostCreationSheetElementProps {
-  group?: any;
-  event?: any;
-  onPress: (selected: any) => void;
-  title: string;
-}
-export interface OnboardHeaderProps {
-  isStatic?: boolean;
-  onBackPress?: () => void;
-  onSkipPress?: () => void;
-  index?: number;
-}
+
 export interface CommentElementProps {
   item: Comment;
   preview?: boolean;
@@ -249,15 +238,7 @@ export interface ReplyProps {
   authorId: number;
   onDelete: (id: number) => void;
 }
-export interface TextEditModalProps {
-  visible: boolean;
-  onSave: (text: string) => void;
-  onCancel?: () => void;
-  initialValue?: string;
-  labelComponent?: ReactNode;
-  placeholder?: string;
-  lines?: number;
-}
+
 export interface SettingsAsideProps {
   userId: string;
   username: string;
@@ -285,34 +266,15 @@ export interface NewSocialProps {
   text: string;
   onPress?: () => void;
 }
-export interface FollowerSheetProps {
-  followers: User[];
-  following: User[];
-  dismissSheet: () => void;
-  isOwner: boolean;
-}
-export interface GarageItemPageProps {
-  car: Car;
-  isOwner: boolean;
-  profileImg: string;
-}
+
+
 export interface GarageItemProps {
   car: Car;
   onPress?: () => void;
   onSelect?: () => void;
   isOwner: boolean;
 }
-export interface ProfileProps {
-  user: User;
-  profile: User;
-  id: string;
-  garage: Car[];
-  followers: User[];
-  following: User[];
-  setFollowing: (users: User[]) => void;
-  setFollowers: (users: User[]) => void;
-  posts: Post[];
-}
+
 export interface SocialSortItemProps {
   bannerImage: string | null;
   name: string;
@@ -348,8 +310,4 @@ export interface UserListCardProps {
   isOwner: boolean;
   type: 'follower' | 'following';
 }
-export interface CarTypeListItemProps {
-  onPress: () => void;
-  type: CarType;
-  colorScheme: 'light' | 'dark';
-}
+

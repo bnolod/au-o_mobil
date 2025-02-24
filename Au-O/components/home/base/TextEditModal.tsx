@@ -1,10 +1,11 @@
-import { CommonStaticElementProps, TextEditModalProps } from '@/constants/types';
+import { CommonStaticElementProps } from '@/constants/types';
 import { useState } from 'react';
 import { Alert, Keyboard, KeyboardAvoidingView, Modal, ScrollView, TouchableWithoutFeedback } from 'react-native';
-import Input from '../ui/Input';
+import Input from '@/components/ui/Input';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import ThemedText from '../ui/ThemedText';
+import ThemedText from '@/components/ui/ThemedText';
 import { EditModalTexts } from '@/constants/texts';
+import { TextEditModalProps } from './props';
 
 export default function TextEditModal({
   initialValue,

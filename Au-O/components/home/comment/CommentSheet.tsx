@@ -12,7 +12,7 @@ import { Colors } from '@/constants/Colors';
 import AddCommentRow from '../comment/AddCommentRow';
 import CommentElement from '@/components/ui/CommentElement';
 import CommentsEmpty from './CommentsEmpty';
-import { CommentSheetProps } from './types';
+import { CommentSheetProps } from './props';
 
 export default function CommentSheet({
   colorScheme,

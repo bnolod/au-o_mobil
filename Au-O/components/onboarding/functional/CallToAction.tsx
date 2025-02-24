@@ -1,6 +1,6 @@
 import { View } from 'react-native';
-import Button from '../ui/Button';
-import { ThemedText } from '../ui/ThemedText';
+import Button from '@/components/ui/Button';
+import { ThemedText } from '@/components/ui/ThemedText';
 import { Colors } from '@/constants/Colors';
 import { CallToActionTexts } from '@/constants/texts';
 import { CommonStaticElementProps } from '@/constants/types';

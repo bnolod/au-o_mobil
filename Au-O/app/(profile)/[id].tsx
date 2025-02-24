@@ -5,7 +5,7 @@ import UserLoading from '@/components/auth/UserLoading';
 import { useColorScheme } from 'nativewind';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useAuthentication } from '@/contexts/AuthenticationContext';
-import Profile from '@/components/home/Profile';
+import Profile from '@/components/home/user/Profile';
 import { Car } from '@/lib/entity/Car';
 import { User } from '@/lib/entity/User';
 import { Post } from '@/lib/entity/Post';

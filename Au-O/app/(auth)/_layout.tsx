@@ -1,5 +1,5 @@
 import AuthTouchables from '@/components/auth/AuthTouchables';
-import OnboardingHeader from '@/components/onboarding/Header';
+import OnboardingHeader from '@/components/onboarding/base/Header';
 import { Stack, usePathname } from 'expo-router';
 import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';

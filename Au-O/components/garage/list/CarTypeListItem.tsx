@@ -1,9 +1,9 @@
 import { ImageBackground, Pressable, View } from 'react-native';
 import ThemedText from '@/components/ui/ThemedText';
-import { CarType, CarTypeListItemProps } from '@/constants/types';
 import { Images } from '@/lib/staticAssetExports';
-import { getCarImage } from '../graphics/cars';
+import { getCarImage } from '@/components/graphics/cars';
 import { Colors } from '@/constants/Colors';
+import { CarTypeListItemProps } from './props';
 
 export default function CarTypeListItem({ onPress, type, colorScheme }: CarTypeListItemProps) {
   return (

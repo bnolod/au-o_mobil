@@ -1,4 +1,4 @@
-import GarageItem from '@/components/garage/GarageItem';
+import GarageItem from '@/components/garage/list/GarageItem';
 import { getCarImage } from '@/components/graphics/cars';
 import PostCard from '@/components/Post/Post';
 import Button from '@/components/ui/Button';

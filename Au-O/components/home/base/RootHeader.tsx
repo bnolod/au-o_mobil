@@ -1,7 +1,7 @@
 import { Image, Platform, View } from 'react-native';
-import ThemedText from '../ui/ThemedText';
-import SearchBar from '../ui/SearchBar';
-import Button from '../ui/Button';
+import ThemedText from '@/components/ui/ThemedText';
+import SearchBar from '@/components/ui/SearchBar';
+import Button from '@/components/ui/Button';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useColorScheme } from 'nativewind';
 import { Images } from '@/lib/staticAssetExports';

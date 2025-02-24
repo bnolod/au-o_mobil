@@ -1,14 +1,15 @@
 import { View } from 'react-native';
 import GarageHeader from './GarageHeader';
-import ThemedText from '../ui/ThemedText';
+import ThemedText from '@/components/ui/ThemedText';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Colors } from '@/constants/Colors';
-import PostGrid from '../social/PostGrid';
-import CollapsibleText from '../ui/CollapsibleText';
-import { getCarImage } from '../graphics/cars';
-import { CommonStaticElementProps, GarageItemPageProps } from '@/constants/types';
-import { generalTexts, SocialTexts } from '@/constants/texts';
+import PostGrid from '@/components/social/PostGrid';
+import CollapsibleText from '@/components/ui/CollapsibleText';
+import { getCarImage } from '@/components/graphics/cars';
+import { CommonStaticElementProps } from '@/constants/types';
+import { generalTexts, SocialTexts  } from '@/constants/texts';
 import { router } from 'expo-router';
+import { GarageItemPageProps } from './props';
 
 export default function GarageItemPage({
   colorScheme,

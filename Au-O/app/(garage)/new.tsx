@@ -3,13 +3,13 @@ import Input from '@/components/ui/Input';
 import { useColorScheme } from 'nativewind';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Images } from '@/lib/staticAssetExports';
-import GarageItem from '@/components/garage/GarageItem';
+import GarageItem from '@/components/garage/list/GarageItem';
 import { useEffect, useState } from 'react';
 import { CarType } from '@/constants/types';
 // import { CarCreationRequest } from "@/constants/types";
 
 import SheetSelection, { SheetSelectionRef } from '@/components/ui/SheetSelection';
-import CarTypeListItem from '@/components/garage/CarTypeListItem';
+import CarTypeListItem from '@/components/garage/list/CarTypeListItem';
 import Button from '@/components/ui/Button';
 import { useRef } from 'react';
 import CollapsibleText from '@/components/ui/CollapsibleText';

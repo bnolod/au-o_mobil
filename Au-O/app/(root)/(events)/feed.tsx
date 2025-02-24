@@ -1,4 +1,4 @@
-import RootHeader from '@/components/home/RootHeader';
+import RootHeader from '@/components/home/base/RootHeader';
 import SocialCard from '@/components/social/SocialCard';
 import SocialSort from '@/components/social/SocialSort';
 import { useLanguage } from '@/contexts/LanguageContext';

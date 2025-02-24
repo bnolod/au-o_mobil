@@ -3,13 +3,13 @@ import { Dimensions, Platform, View } from 'react-native';
 import { useColorScheme } from 'nativewind';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { OnboardingTexts } from '@/constants/texts';
-import OnboardingHeader from '@/components/onboarding/Header';
+import OnboardingHeader from '@/components/onboarding/base/Header';
 import SvgSlide1Image from '@/components/graphics/Slide1Image';
 import { OnboardingProvider } from '@/contexts/OnboardingContext';
-import CallToAction from '@/components/onboarding/CallToAction';
+import CallToAction from '@/components/onboarding/functional/CallToAction';
 import Carousel, { ICarouselInstance } from 'react-native-reanimated-carousel';
 
-import Slide from '../../components/onboarding/Slide';
+import Slide from '../../components/onboarding/base/Slide';
 import SvgSlide2Image from '@/components/graphics/Slide2Image';
 import SvgSlide3Image from '@/components/graphics/Slide3Image';
 import { Redirect, router } from 'expo-router';

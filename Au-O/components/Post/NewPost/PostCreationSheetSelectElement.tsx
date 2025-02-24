@@ -1,6 +1,6 @@
 import { Pressable } from 'react-native';
-import ThemedText from '../ui/ThemedText';
-import { PostCreationSheetElementProps } from '@/constants/types';
+import ThemedText from '@/components/ui/ThemedText';
+import { PostCreationSheetElementProps } from './props';
 
 export default function PostCreationSheetSelectElements({
   group,
