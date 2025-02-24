@@ -356,9 +356,7 @@
   .group-page {
     @apply primary pb-4 rounded-b-xl;
   }
-  .group-page-container {
-    @apply flex flex-row gap-2 justify-between items-center py-2 mx-auto w-11/12;
-  }
+
   /* Profile */
   .post-grid-image {
     @apply flex-1 h-72 rounded-xl my-2 w-11/12 primary;

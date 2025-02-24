@@ -26,11 +26,11 @@ export default function GroupListItem({
         shadowRadius: 3,
       }}
     >
-      <View className="group-list-item-container">
-        <View className="">
+      <View className="flex my-2 mx-2 flex-row overflow-hidden justify-between pr-3 items-center rounded-xl secondary h-24">
+        <View className="basis-5/12 h-full overflow-hidden rounded-l-xl">
           <ImageBackground
             resizeMode="cover"
-            className="group-list-image"
+            className="group-list-image h-full w-full flex items-center justify-center"
             source={group.bannerImage ? { uri: group.bannerImage } : Images.banner_placeholder}
           >
             <ThemedText className="text-center t2x ">{group.alias.toUpperCase()}</ThemedText>

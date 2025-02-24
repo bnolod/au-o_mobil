@@ -230,7 +230,7 @@ export default function Profile({
               >
                 {bioValue && bioValue.length > 0 ? bioValue : generalTexts.profileAttributes.bioEmpty[language]}
               </CollapsibleText>
-              {isOwner && <Text className="tsm muted">{UserEditTexts.prompts.edit[language]}</Text>}
+              {isOwner && <ThemedText className="tsm muted">{UserEditTexts.prompts.edit[language]}</ThemedText>}
             </View>
             {isOwner && (
               <TouchableOpacity

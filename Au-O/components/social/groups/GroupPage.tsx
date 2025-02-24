@@ -21,7 +21,7 @@ export default function GroupPage({ group, colorScheme, language }: CommonStatic
         language={language}
       />
       <View className="group-page">
-        <View className="group-page-container">
+        <View className="flex flex-row items-center justify-between px-4 py-2">
           <Button className=" button secondary ml-0 basis-2/12 aspect-square items-center justify-center">
             <MaterialCommunityIcons
               name="account-group-outline"
