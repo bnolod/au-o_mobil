@@ -29,7 +29,7 @@ import PostCard from '@/components/Post/Post';
 import { CreatePostRequest, ImageStoreRequest, ImageUploadResponse } from '@/constants/types';
 import { useAuthentication } from '@/contexts/AuthenticationContext';
 import { cleanupInvalidImageUploads, createImageForm, handleGallery } from '@/lib/functions';
-import { getOwnGroups, imageUpload, storeImages } from '@/lib/apiClient';
+import { getOwnGroups } from '@/lib/apiClient';
 import Toast from 'react-native-toast-message';
 import LoadingModal from '@/components/ui/LoadingModal';
 import { router } from 'expo-router';
@@ -43,6 +43,8 @@ import { Car } from '@/lib/entity/Car';
 import { getOwnGarage } from '@/lib/ApiCalls/CarApiCalls';
 import { Group } from '@/lib/entity/Group';
 import { SocialEvent } from '@/lib/entity/SocialEvent';
+import { imageUpload } from '@/lib/ApiCalls/ImageApiCalls';
+import { publishPost } from '@/lib/ApiCalls/PostApiCalls';
 
 export default function NewPost() {
   const { language } = useLanguage();
@@ -115,7 +117,7 @@ export default function NewPost() {
         postImages: uploadedImages,
         vehicleId: newPostForm.vehicleId,
       };
-      const storeRes = await storeImages(imageStoreRequest);
+      const storeRes = await publishPost(imageStoreRequest);
       bottomSheetRef.current?.dismiss();
       if (storeRes) {
         Toast.show({

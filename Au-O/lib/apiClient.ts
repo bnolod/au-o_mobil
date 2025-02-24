@@ -12,10 +12,10 @@ import { router } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import { deleteUser, saveUser } from './functions';
 import { eventEmitter } from './events';
-import { User } from './entity/User';
 import { Feed } from './entity/Feed';
 import { Reply } from './entity/Reply';
 import { Group } from './entity/Group';
+import { imageUpload } from './ApiCalls/ImageApiCalls';
 
 const apiClient: AxiosInstance = axios.create({
   baseURL: process.env.EXPO_PUBLIC_AXIOS_BASE_URL,
@@ -58,18 +58,6 @@ export async function logout() {
 
   eventEmitter.emit('triggerLogout');
 }
-export async function deleteImgurImage(deleteHash: string) {
-  const req = await fetch(`https:api.imgur.com/3/image/${deleteHash}`, {
-    method: 'DELETE',
-    headers: {
-      Authorization: `Client-ID ${process.env.EXPO_PUBLIC_IMGUR_CLIENT_ID}`,
-    },
-  });
-  if (req.status === 200) {
-    return true;
-  }
-  return false;
-}
 export async function validateToken(token: string, path: string) {
   const validToken = await apiFetch<string>('auth/authenticate', 'POST', true, {
     token,
@@ -86,76 +74,7 @@ export async function validateToken(token: string, path: string) {
   }
   return validToken?.data;
 }
-export const imageUpload = async (image: FormData): Promise<ImageUploadResponse | null> => {
-  const endpoint = 'https:api.imgur.com/3/image';
-  const headers = {
-    Authorization: `Client-ID ${process.env.EXPO_PUBLIC_IMGUR_CLIENT_ID}`,
-    'Content-Type': 'multipart/form-data',
-  };
-  try {
-    const response = await axios.post(endpoint, image, { headers });
-    if (response.status !== 200) {
-      return null;
-    }
-    const data = response.data.data;
 
-    return {
-      url: data.link,
-      deleteHash: data.deletehash,
-    };
-  } catch (error: unknown) {
-    console.error(error);
-    return null;
-  }
-};
-export async function storeImages(request: ImageStoreRequest): Promise<any> {
-  const res = await apiFetch('posts/post/user', 'POST', true, request);
-  if (res) {
-    return res.data;
-  } else return null;
-}
-//  export async function addReaction(
-//    target: "post" | "comment" | "reply",
-//    postId: number,
-//    reaction: null | "FIRE" | "HEART" | "COOL"
-//  ) {
-//    if (!reaction) {
-//    }
-//    const res = await fetch(
-//      `${apiClient.defaults.baseURL}/posts/${target}/${postId}/addOrRemoveReaction/${reaction}`,
-//      {
-//        method: "POST",
-//        headers: {
-//          Authorization: `Bearer ${await SecureStore.getItemAsync("jwtToken")}`,
-//        },
-//      }
-//    );
-//    return res.status === 200
-//  }
-//  export async function editPost(text: string, location: string, vehicleId: number | null, id: string) {
-//    const res = await apiFetch(`/posts/post/${id}`, "PUT", true, {
-//      text,
-//      location,
-//      vehicleId
-//    });
-//    if (res) {
-//      return res.data;
-//    } else return null;
-//  }
-// export async function getUser(token: string): Promise<User | null | undefined> {
-//   try {
-//     if (!token) {
-//       return null;
-//     }
-//     const user = await apiFetch<User>("auth/profile", "GET", true);
-//     if (user) {
-//       return user.data;
-//     } else return null;
-//   } catch (error: unknown) {
-//     console.error(error);
-//     return null;
-//   }
-// }
 export async function getOwnGroups() {
   const req = await apiFetch<Group[]>('groups/own', 'GET', true);
   if (req && req.status === 200) return req.data;

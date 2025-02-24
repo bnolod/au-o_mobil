@@ -14,10 +14,10 @@ import { router } from 'expo-router';
 import TapCountWrapper from '../utility/TapCountWrapper';
 import PostOptionMenu from './base/PostOptionMenu';
 import PostImage from './base/PostImage';
-import { deleteImgurImage } from '@/lib/apiClient';
 import { addReaction } from '@/lib/ApiCalls/ReactionApiCalls';
 import PostFooter from './base/PostFooter';
 import PostVehicleBanner from './base/PostVehicleBanner';
+import { deleteImgurImage } from '@/lib/ApiCalls/ImageApiCalls';
 export default function PostCard({
   preview = false,
   authorNickname,

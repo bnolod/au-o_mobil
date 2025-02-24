@@ -6,7 +6,7 @@ import Toast from 'react-native-toast-message';
 import { Picker } from '@react-native-picker/picker';
 import { router } from 'expo-router';
 import { Colors } from '@/constants/Colors';
-import { apiFetch, deleteImgurImage } from '@/lib/apiClient';
+import { apiFetch } from '@/lib/apiClient';
 export default function PostOptionMenu(
   preview: boolean,
   language: 'EN' | 'HU',
