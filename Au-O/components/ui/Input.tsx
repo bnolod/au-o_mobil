@@ -1,14 +1,9 @@
-import {
-  Keyboard,
-  TextInput,
-  TouchableWithoutFeedback,
-  View,
-} from "react-native";
-import ThemedText from "./ThemedText";
-import { useState } from "react";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Colors } from "@/constants/Colors";
-import { InputProps } from "@/constants/types";
+import { Keyboard, TextInput, TouchableWithoutFeedback, View } from 'react-native';
+import ThemedText from './ThemedText';
+import { useState } from 'react';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Colors } from '@/constants/Colors';
+import { InputProps } from './props';
 export default function Input({
   label,
   containerClassName,
@@ -21,23 +16,12 @@ export default function Input({
   const [isFocused, setIsFocused] = useState(false);
   const [isSecure, setIsSecure] = useState(false);
   return (
-    <TouchableWithoutFeedback
-      className={" w-full " + ""}
-      onPress={Keyboard.dismiss}
-    >
-      <View
-        className={`input-container my-4 ${
-          isFocused ? " z-50" : ""
-        } ${containerClassName}`}
-      >
+    <TouchableWithoutFeedback className={' w-full ' + ''} onPress={Keyboard.dismiss}>
+      <View className={`input-container my-4 ${isFocused ? ' z-50' : ''} ${containerClassName}`}>
         <View
-          className={`input-body pt-2 border-0 ${
-            isFocused ? "border-backdrop-primary" : ""
-          }`}
+          className={`input-body pt-2 border-0 ${isFocused ? 'border-backdrop-primary' : ''}`}
           style={{
-            shadowColor: !isFocused
-              ? Colors[colorScheme].background
-              : Colors.highlight.main,
+            shadowColor: !isFocused ? Colors[colorScheme].background : Colors.highlight.main,
             shadowOffset: { width: 0, height: 4 },
             shadowOpacity: isFocused ? 0.45 : 0.8,
             shadowRadius: 2,
@@ -45,12 +29,7 @@ export default function Input({
           }}
         >
           <View className="absolute  text-gray-500 -top-3 -left-3 flex flex-row-reverse justify-center items-center">
-            {label && (
-              <ThemedText className="text-lg font-semibold  text-gray-500">
-                {" "}
-                {label}
-              </ThemedText>
-            )}
+            {label && <ThemedText className="tlg  text-gray-500"> {label}</ThemedText>}
             <MaterialCommunityIcons name={icon} size={size || 24} color={Colors[colorScheme].text} />
           </View>
           <TextInput
@@ -62,10 +41,10 @@ export default function Input({
             onBlur={() => setIsFocused(false)}
             secureTextEntry={isSecure}
             style={{
-              backgroundColor: "transparent",
+              backgroundColor: 'transparent',
               color: Colors[colorScheme].text,
             }}
-            placeholderTextColor={"#767676"}
+            placeholderTextColor={'#767676'}
             autoComplete="off"
             textContentType="none"
             {...TextInputProps}
@@ -79,10 +58,10 @@ export default function Input({
               }}
             >
               <MaterialCommunityIcons
-                style={{ right: 12, position: "absolute" }}
-                name={isSecure ? "eye-off" : "eye"}
+                style={{ right: 12, position: 'absolute' }}
+                name={isSecure ? 'eye-off' : 'eye'}
                 size={24}
-                color={colorScheme === "dark" ? "white" : "black"}
+                color={colorScheme === 'dark' ? 'white' : 'black'}
               />
             </TouchableWithoutFeedback>
           )}

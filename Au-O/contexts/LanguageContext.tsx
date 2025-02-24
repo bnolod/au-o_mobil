@@ -12,11 +12,7 @@ const LanguageContext = createContext<LanguageContextProps | undefined>(undefine
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   const [language, setLanguage] = useState<Language>('EN');
 
-  return (
-    <LanguageContext.Provider value={{ language, setLanguage }}>
-      {children}
-    </LanguageContext.Provider>
-  );
+  return <LanguageContext.Provider value={{ language, setLanguage }}>{children}</LanguageContext.Provider>;
 };
 
 export const useLanguage = () => {
@@ -27,4 +23,4 @@ export const useLanguage = () => {
   return context;
 };
 
-export default LanguageContext
+export default LanguageContext;

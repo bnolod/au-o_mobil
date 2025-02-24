@@ -1,28 +1,17 @@
-import { ReactNode } from "react";
-import { Text, TextProps } from "react-native";
+import { ReactNode } from 'react';
+import { Text } from 'react-native';
+import { ThemedTextProps } from './props';
 
-interface Props extends TextProps {
-  children?: ReactNode;
-  className?: string;
-  color?: string;
-}
 
-export function ThemedText({
-  children,
-  className,
-  color,
-  ...props
-}: Props) {
+export function ThemedText({ children, className, color, ...props }: ThemedTextProps) {
   return (
     <Text
       {...props}
-      className={`${className} ${
-        color ? `text-${color}` : "dark:text-background"
-      }
-      ${/*className?.includes("font-") ? "" : ""*/""} `}
+      className={`${className} ${color ? `text-${color}` : 'dark:text-background'}
+      ${/*className?.includes("font-") ? "" : ""*/ ''} `}
     >
       {children}
     </Text>
   );
 }
-export default ThemedText
+export default ThemedText;

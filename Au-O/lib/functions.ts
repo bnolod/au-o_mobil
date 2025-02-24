@@ -1,14 +1,12 @@
-import { PostCreationTexts, UIErrorTexts } from "@/constants/texts";
-import {
-  EventPostData,
-  GroupPostData,
-  ImageUploadResponse,
-  User,
-} from "@/constants/types";
-import * as SecureStore from "expo-secure-store";
-import * as FileSystem from "expo-file-system";
-import * as ImagePicker from "expo-image-picker";
-import Toast from "react-native-toast-message";
+import { PostCreationTexts, UIErrorTexts } from '@/constants/texts';
+import { EventPostData } from '@/constants/types';
+import * as SecureStore from 'expo-secure-store';
+import * as FileSystem from 'expo-file-system';
+import * as ImagePicker from 'expo-image-picker';
+import Toast from 'react-native-toast-message';
+import { User } from './entity/User';
+import { ImageUploadResponse } from './request/ImgurRequest';
+import { GroupPost } from './entity/Group';
 
 export function handleFormInputChange(
   formKey: string,
@@ -23,39 +21,37 @@ export function handleFormInputChange(
     [key]: value,
   });
 }
-export async function setTimestamp() { 
-  await SecureStore.setItemAsync("timestamp", new Date().getTime().toString());
+export async function setTimestamp() {
+  await SecureStore.setItemAsync('timestamp', new Date().getTime().toString());
 }
 export async function getTimestamp() {
-  return await SecureStore.getItemAsync("timestamp");
+  return await SecureStore.getItemAsync('timestamp');
 }
 export function getPostType(
   nickname: string,
   username: string,
-  groupData?: GroupPostData,
+  groupData?: GroupPost,
   eventData?: EventPostData
 ): string {
   if (nickname && username) {
     if (!groupData && !eventData) {
-      return "USER";
+      return 'USER';
     }
     if (!groupData && eventData) {
-      return "EVENT";
+      return 'EVENT';
     }
     if ((groupData && eventData) || (groupData && !eventData)) {
-      return "GROUP";
-    } else return "INVALID";
-  } else return "INVALID";
+      return 'GROUP';
+    } else return 'INVALID';
+  } else return 'INVALID';
 }
 export function createTimestamp() {
   return new Date().getTime().toString();
 }
-export async function cleanupInvalidImageUploads(
-  images: ImageUploadResponse[]
-) {
+export async function cleanupInvalidImageUploads(images: ImageUploadResponse[]) {
   images.map(async (image) => {
     await fetch(`https://api.imgur.com/3/image/${image.deleteHash}`, {
-      method: "DELETE",
+      method: 'DELETE',
       headers: {
         Authorization: `Client-ID ${process.env.EXPO_PUBLIC_IMGUR_CLIENT_ID}`,
       },
@@ -70,7 +66,7 @@ export async function convertToBlob(image: any): Promise<any> {
 }
 export async function getOneImageFromGallery() {
   let result = await ImagePicker.launchImageLibraryAsync({
-    mediaTypes: ["images"],
+    mediaTypes: ['images'],
     allowsEditing: true,
     exif: false,
     quality: 0.7,
@@ -80,13 +76,10 @@ export async function getOneImageFromGallery() {
     return result.assets[0];
   }
 }
-export async function handleGallery(
-  images: ImagePicker.ImagePickerAsset[],
-  language: "HU" | "EN" = "EN"
-) {
+export async function handleGallery(images: ImagePicker.ImagePickerAsset[], language: 'HU' | 'EN' = 'EN') {
   if (images.length < 10) {
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ["images"],
+      mediaTypes: ['images'],
       allowsEditing: false,
       exif: false,
       quality: 0.7,
@@ -95,16 +88,12 @@ export async function handleGallery(
     });
     if (!result.canceled) {
       if (result.assets.length + images.length <= 10) {
-        const newAssets = result.assets.filter(
-          (asset) => !images.some((image) => image.assetId === asset.assetId)
-        );
+        const newAssets = result.assets.filter((asset) => !images.some((image) => image.assetId === asset.assetId));
         if (newAssets.length < result.assets.length) {
           Toast.show({
-            type: "error",
-            text1:
-              PostCreationTexts.imageUploadDuplicateSafeguard.header[language],
-            text2:
-              PostCreationTexts.imageUploadDuplicateSafeguard.message[language],
+            type: 'error',
+            text1: PostCreationTexts.imageUploadDuplicateSafeguard.header[language],
+            text2: PostCreationTexts.imageUploadDuplicateSafeguard.message[language],
           });
         }
         const newImages = images.concat(newAssets);
@@ -117,8 +106,10 @@ export function getStringSimilarity(s1: string, s2: string) {
   function editDistance(a: string, b: string) {
     if (!a.length) return b.length;
     if (!b.length) return a.length;
-   
-    const matrix = Array(a.length + 1).fill(null).map(() => Array(b.length + 1).fill(null));
+
+    const matrix = Array(a.length + 1)
+      .fill(null)
+      .map(() => Array(b.length + 1).fill(null));
 
     for (let i = 0; i <= a.length; i++) matrix[i][0] = i;
     for (let j = 0; j <= b.length; j++) matrix[0][j] = j;
@@ -126,11 +117,7 @@ export function getStringSimilarity(s1: string, s2: string) {
     for (let i = 1; i <= a.length; i++) {
       for (let j = 1; j <= b.length; j++) {
         const cost = a[i - 1] === b[j - 1] ? 0 : 1;
-        matrix[i][j] = Math.min(
-          matrix[i - 1][j] + 1,
-          matrix[i][j - 1] + 1,
-          matrix[i - 1][j - 1] + cost
-        );
+        matrix[i][j] = Math.min(matrix[i - 1][j] + 1, matrix[i][j - 1] + 1, matrix[i - 1][j - 1] + cost);
       }
     }
     return matrix[a.length][b.length];
@@ -142,22 +129,16 @@ export function getStringSimilarity(s1: string, s2: string) {
 
 export const searchFilter = (query: string, items: any[], attribute: any) => {
   return items
-  .map(item =>({item, score: getStringSimilarity(query, item[attribute].toLowerCase())}))
-  .filter(({score}) => score > 0.5)
-  .sort((a, b) => b.score - a.score)
-  .map(({item}) => item)
-}
+    .map((item) => ({ item, score: getStringSimilarity(query, item[attribute].toLowerCase()) }))
+    .filter(({ score }) => score > 0.5)
+    .sort((a, b) => b.score - a.score)
+    .map(({ item }) => item);
+};
 
-export function validateLogin(
-  identifier: string,
-  password: string,
-  language: "HU" | "EN" = "EN"
-) {
+export function validateLogin(identifier: string, password: string, language: 'HU' | 'EN' = 'EN') {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const usernameRegex = /^[a-zA-Z0-9_]{3,}$/;
-  const minCharactersRegex = new RegExp(
-    `^.{${process.env.EXPO_PUBLIC_MIN_PASSWORD_CHARACTER_LENGTH || 8},}$`
-  );
+  const minCharactersRegex = new RegExp(`^.{${process.env.EXPO_PUBLIC_MIN_PASSWORD_CHARACTER_LENGTH || 8},}$`);
   const noCapitalLettersRegex = /^(?=.*[A-Z])/;
   const noSmallLettersRegex = /^(?=.*[a-z])/;
   const noNumbersRegex = /^(?=.*\d)/;
@@ -201,7 +182,7 @@ export function validateRegister(
   password: string,
   confirmPassword: string,
   dateOfBirth: string,
-  language: "HU" | "EN" = "EN"
+  language: 'HU' | 'EN' = 'EN'
 ) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const usernameRegex = /^[a-zA-Z0-9_]{3,}$/;
@@ -239,11 +220,11 @@ export function validateRegister(
   if (password !== confirmPassword) {
     errors.push(UIErrorTexts.password.passwordsDoNotMatch[language]);
   }
-  if (Number(dateOfBirth.split("-")[0]) > 2009) {
+  if (Number(dateOfBirth.split('-')[0]) > 2009) {
     errors.push(UIErrorTexts.dateOfBirth.ageRestriction[language]);
   }
 
-  if (Number(dateOfBirth.split("-")[0]) < 1930) {
+  if (Number(dateOfBirth.split('-')[0]) < 1930) {
     errors.push(UIErrorTexts.dateOfBirth.invalidDoB[language]);
   }
 
@@ -258,45 +239,40 @@ export function validateRegister(
   };
 }
 export async function saveUser(user: User) {
-  await SecureStore.setItemAsync("user", JSON.stringify(user));
+  await SecureStore.setItemAsync('user', JSON.stringify(user));
 }
 export async function deleteUser() {
-  await SecureStore.deleteItemAsync("user");
+  await SecureStore.deleteItemAsync('user');
 }
 export function checkUser() {
-  const user = SecureStore.getItem("user")
+  const user = SecureStore.getItem('user');
   if (user && user !== null) {
-    return true
+    return true;
   }
-  return false
+  return false;
 }
 export function formatDate(date: string) {
-  return date.replaceAll("-", ". ") + ".";
+  return date.replaceAll('-', '. ') + '.';
 }
 
 export async function createImageForm(element: ImagePicker.ImagePickerAsset, description: string, user: User | null) {
-    
-    const imageForm = new FormData();
-    const file = await convertToBlob(element.uri);
-    imageForm.append("image", file);
-    imageForm.append("description", description || "");
-    imageForm.append("type", "base64");
-    imageForm.append(
-      "title",
-      `${user!.username.replaceAll("_", "")}_${createTimestamp()}`
-    );
-    return imageForm
-    
-  }
-export function formatNumber(number: number, language?: "HU" | "EN") {
-  let lang = language || "EN";
+  const imageForm = new FormData();
+  const file = await convertToBlob(element.uri);
+  imageForm.append('image', file);
+  imageForm.append('description', description || '');
+  imageForm.append('type', 'base64');
+  imageForm.append('title', `${user!.username.replaceAll('_', '')}_${createTimestamp()}`);
+  return imageForm;
+}
+export function formatNumber(number: number, language?: 'HU' | 'EN') {
+  let lang = language || 'EN';
   if (number < 1000) {
     return number.toString();
   }
   const suffix = {
-    EN: ["K", "M", "B", "T"],
-    HU: ["E", "M", "Mrd", "B"],
-  }
+    EN: ['K', 'M', 'B', 'T'],
+    HU: ['E', 'M', 'Mrd', 'B'],
+  };
   let i = -1;
   let formatted = number;
 

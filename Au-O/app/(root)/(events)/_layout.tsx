@@ -1,14 +1,14 @@
-import Footer from "@/components/ui/Footer";
-import { Stack } from "expo-router";
+import Footer from '@/components/ui/Footer';
+import { Stack } from 'expo-router';
 
 export default function EventLayout() {
-    return (
-        <>
-        <Stack initialRouteName="feed">
-            <Stack.Screen name="feed" options={{headerShown: false}}/>
-            <Stack.Screen name="new" options={{headerShown: false}}/>
-            <Stack.Screen name="[id]" options={{headerShown: false}}/>
-        </Stack>
-        </>
-    )
+  return (
+    <>
+      <Stack initialRouteName="feed">
+        <Stack.Screen name="feed" options={{ headerShown: false }} />
+        <Stack.Screen name="new" options={{ headerShown: false }} />
+        <Stack.Screen name="[id]" options={{ headerShown: false }} />
+      </Stack>
+    </>
+  );
 }

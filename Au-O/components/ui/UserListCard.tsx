@@ -1,19 +1,15 @@
-import { CommonStaticElementProps, User, UserListCardProps } from "@/constants/types";
-import {
-  Alert,
-  AlertButton,
-  Pressable,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import Avatar from "./Avatar";
-import ThemedText from "./ThemedText";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Colors } from "@/constants/Colors";
-import { router } from "expo-router";
-import { removeFollow, unfollowUser } from "@/lib/apiClient";
-import Toast from "react-native-toast-message";
-import { useState } from "react";
+import { CommonStaticElementProps } from '@/constants/types';
+import { User } from '@/lib/entity/User';
+import { Alert, AlertButton, Pressable, TouchableOpacity, View } from 'react-native';
+import Avatar from './Avatar';
+import ThemedText from './ThemedText';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Colors } from '@/constants/Colors';
+import { router } from 'expo-router';
+import { unfollowUser, removeFollow } from '@/lib/ApiCalls/UserApiCalls';
+import Toast from 'react-native-toast-message';
+import { useState } from 'react';
+import { UserListCardProps } from './props';
 
 export default function UserListCard({
   user,
@@ -32,14 +28,14 @@ export default function UserListCard({
         onPress: () => {
           return;
         },
-        text: "Cancel",
-        style: "cancel",
+        text: 'Cancel',
+        style: 'cancel',
       },
       {
-        text: "Visit profile",
+        text: 'Visit profile',
         onPress: () => {
           dismissSheet();
-          router.push({ pathname: "/(profile)/[id]", params: { id: user.id } });
+          router.push({ pathname: '/(profile)/[id]', params: { id: user.id } });
         },
       },
     ],
@@ -50,47 +46,47 @@ export default function UserListCard({
         onPress: () => {
           return;
         },
-        text: "Cancel",
-        style: "cancel",
+        text: 'Cancel',
+        style: 'cancel',
       },
       {
-        text: "Visit profile",
+        text: 'Visit profile',
         onPress: () => {
           dismissSheet();
-          router.push({ pathname: "/(profile)/[id]", params: { id: user.id } });
+          router.push({ pathname: '/(profile)/[id]', params: { id: user.id } });
         },
       },
-      type !== "follower"
+      type !== 'follower'
         ? {
-            text: "Unfollow",
+            text: 'Unfollow',
             onPress: async () => {
               const res = await unfollowUser(user.id.toString());
               if (res) {
                 Toast.show({
-                  text1: "Successfully unfollowed",
-                  type: "success",
+                  text1: 'Successfully unfollowed',
+                  type: 'success',
                 });
                 setVisible(false);
 
                 return;
               } else {
                 Toast.show({
-                  text1: "Failed to unfollow",
-                  type: "error",
+                  text1: 'Failed to unfollow',
+                  type: 'error',
                 });
                 return;
               }
             },
           }
         : {
-            text: "Remove follow",
+            text: 'Remove follow',
             onPress: async () => {
               console.log(user.id.toString());
               const res = await removeFollow(user.id.toString());
               if (res) {
                 Toast.show({
-                  text1: "Successfully removed follower",
-                  type: "success",
+                  text1: 'Successfully removed follower',
+                  type: 'success',
                 });
                 setVisible(false);
                 return;
@@ -108,7 +104,7 @@ export default function UserListCard({
         onPress={() => {
           dismissSheet();
           router.push({
-            pathname: "/(profile)/[id]",
+            pathname: '/(profile)/[id]',
             params: {
               id: user.id,
             },
@@ -116,24 +112,17 @@ export default function UserListCard({
         }}
       >
         <View className="flex-1 flex-row flex items-center ml-2">
-          <Avatar
-            image={user.profileImg && { uri: user.profileImg }}
-            nickname={user.nickname}
-          />
+          <Avatar image={user.profileImg && { uri: user.profileImg }} nickname={user.nickname} />
           <View className="ml-2">
-            <ThemedText className="text-base font-bold">
-              {user.nickname}
-            </ThemedText>
-            <ThemedText className="text-sm font-light">
-              @{user.username}
-            </ThemedText>
+            <ThemedText className="text-base font-bold">{user.nickname}</ThemedText>
+            <ThemedText className="tsm">@{user.username}</ThemedText>
           </View>
         </View>
         <View className="flex-row items-center">
           <TouchableOpacity>
             <MaterialCommunityIcons
               onPress={() => {
-                Alert.alert(user.username, "", buttons[+isOwner]);
+                Alert.alert(user.username, '', buttons[+isOwner]);
               }}
               name="dots-horizontal"
               size={32}

@@ -10,11 +10,7 @@ const OnboardingContext = createContext<OnboardingContextProps | undefined>(unde
 export const OnboardingProvider = ({ children }: { children: ReactNode }) => {
   const [index, setIndex] = useState(0);
 
-  return (
-    <OnboardingContext.Provider value={{ index, setIndex }}>
-      {children}
-    </OnboardingContext.Provider>
-  );
+  return <OnboardingContext.Provider value={{ index, setIndex }}>{children}</OnboardingContext.Provider>;
 };
 
 export const useOnboarding = () => {

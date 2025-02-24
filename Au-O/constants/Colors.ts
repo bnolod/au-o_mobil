@@ -1,5 +1,3 @@
-
-
 const tintColorLight = '#232323';
 const tintColorDark = '#F3E5E5';
 
@@ -23,18 +21,18 @@ export const Colors = {
     tint: tintColorDark,
     icon: '#2b2b2b',
     tabIconDefault: '#790e1c',
-    tabIconSelected: "tintColorDark",
+    tabIconSelected: 'tintColorDark',
   },
   highlight: {
-    main: "#EF1A2D",
-    dark: "#790E1C",
-    light: "#F7898F"
-  }
+    main: '#EF1A2D',
+    dark: '#790E1C',
+    light: '#F7898F',
+  },
 };
 export const Styles = {
   buttonShadow: {
     shadowOffset: { width: 1, height: 10 },
     shadowOpacity: 1,
     shadowRadius: 10,
-  }
-}
+  },
+};

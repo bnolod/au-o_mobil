@@ -1,13 +1,13 @@
-import React from "react";
-import { useAuthentication } from "@/contexts/AuthenticationContext";
-import { router, Tabs } from "expo-router";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useColorScheme } from "nativewind";
-import { Colors } from "@/constants/Colors";
-import { useLanguage } from "@/contexts/LanguageContext";
-import { StatusBar } from "expo-status-bar";
-import Avatar from "@/components/ui/Avatar";
-import { Platform, Touchable, TouchableOpacity, View } from "react-native";
+import React from 'react';
+import { useAuthentication } from '@/contexts/AuthenticationContext';
+import { router, Tabs } from 'expo-router';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useColorScheme } from 'nativewind';
+import { Colors } from '@/constants/Colors';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { StatusBar } from 'expo-status-bar';
+import Avatar from '@/components/ui/Avatar';
+import { Platform, Touchable, TouchableOpacity, View } from 'react-native';
 
 export default function RootLayout() {
   const { user } = useAuthentication();
@@ -25,23 +25,20 @@ export default function RootLayout() {
 
           tabBarStyle: {
             backgroundColor: Colors[colorScheme!].secondary,
-            height: Platform.OS === "ios" ? 100 : 70,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
+            height: Platform.OS === 'ios' ? 100 : 70,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
             //           borderTopEndRadius: 30,
             //           borderTopStartRadius: 30,
           },
 
-          tabBarActiveTintColor:
-            colorScheme === "light"
-              ? Colors.highlight.light
-              : Colors.highlight.main,
-          tabBarInactiveTintColor: colorScheme === "light" ? "gray" : "gray",
+          tabBarActiveTintColor: colorScheme === 'light' ? Colors.highlight.light : Colors.highlight.main,
+          tabBarInactiveTintColor: colorScheme === 'light' ? 'gray' : 'gray',
           tabBarHideOnKeyboard: true,
           tabBarIconStyle: {
-            height: "100%",
-            width: "100%",
+            height: '100%',
+            width: '100%',
             aspectRatio: 1,
           },
         }}
@@ -51,13 +48,9 @@ export default function RootLayout() {
           initialParams={{ colorScheme, language }}
           options={{
             headerShown: false,
-            title: "Home",
+            title: 'Home',
             tabBarIcon: ({ color, focused }) => (
-              <MaterialCommunityIcons
-                name={focused ? "home" : "home-outline"}
-                size={42}
-                color={color}
-              />
+              <MaterialCommunityIcons name={focused ? 'home' : 'home-outline'} size={42} color={color} />
             ),
           }}
         />
@@ -66,10 +59,10 @@ export default function RootLayout() {
           initialParams={{ colorScheme, language }}
           options={{
             headerShown: false,
-            title: "Groups",
+            title: 'Groups',
             tabBarIcon: ({ color, focused }) => (
               <MaterialCommunityIcons
-                name={focused ? "account-group" : "account-group-outline"}
+                name={focused ? 'account-group' : 'account-group-outline'}
                 size={42}
                 color={color}
               />
@@ -80,10 +73,10 @@ export default function RootLayout() {
           name="new"
           options={{
             headerShown: false,
-            title: "Home",
+            title: 'Home',
             tabBarIconStyle: {
-              height: "100%",
-              width: "100%",
+              height: '100%',
+              width: '100%',
               aspectRatio: 1,
             },
             tabBarIcon: ({ color, focused }) => (
@@ -91,45 +84,38 @@ export default function RootLayout() {
                 style={{
                   borderRadius: 15,
                   padding: 4,
-                  boxShadow: "0px 5px 5px 0px rgba(0,0,0,0.5)",
+                  boxShadow: '0px 5px 5px 0px rgba(0,0,0,0.5)',
                   shadowColor: Colors[colorScheme!].background,
                 }}
               >
-                <MaterialCommunityIcons
-                  name={focused ? "plus-circle-outline" : "plus"}
-                  size={42}
-                  color={color}
-                />
+                <MaterialCommunityIcons name={focused ? 'plus-circle-outline' : 'plus'} size={42} color={color} />
               </View>
             ),
           }}
         />
-                <Tabs.Screen
+        <Tabs.Screen
           name="(events)"
           initialParams={{ colorScheme, language }}
           options={{
             headerShown: false,
-            title: "Groups",
+            title: 'Groups',
             tabBarIcon: ({ color, focused }) => (
-              <MaterialCommunityIcons
-                name={focused ? "bookmark" : "bookmark-outline"}
-                size={42}
-                color={color}
-              />
+              <MaterialCommunityIcons name={focused ? 'bookmark' : 'bookmark-outline'} size={42} color={color} />
             ),
           }}
         />
         <Tabs.Screen
           name="profile/selfProfile"
-          listeners={({tabLongPress: (e) => {
-            router.push("/(profile)/settings")
-          }})}
+          listeners={{
+            tabLongPress: (e) => {
+              router.push('/(profile)/settings');
+            },
+          }}
           options={{
             headerShown: false,
-            title: "Profile",
+            title: 'Profile',
             tabBarIcon: ({ focused }) => (
               <View
-              
                 className="mb-2"
                 style={
                   focused
@@ -142,11 +128,10 @@ export default function RootLayout() {
                 }
               >
                 <Avatar
-                  className={`${focused ? "highlight" : "primary"}`}
+                  className={`${focused ? 'highlight' : 'primary'}`}
                   image={user.profileImg}
                   nickname={user.nickname}
-                  />
-                  
+                />
               </View>
             ),
           }}
