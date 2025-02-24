@@ -7,7 +7,6 @@ import PostCard from '@/components/Post/Post';
 import { useColorScheme } from 'nativewind';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { UIErrorTexts } from '@/constants/texts';
-import { loadFeed } from '@/lib/apiClient';
 // import { PostResponse } from "@/constants/types";
 import { FlashList } from '@shopify/flash-list';
 import NoPostsFound from '@/components/Post/base/NoPostsFound';
@@ -15,6 +14,7 @@ import LoadingModal from '@/components/ui/LoadingModal';
 import { Redirect } from 'expo-router';
 import RootHeader from '@/components/home/RootHeader';
 import { Post } from '@/lib/entity/Post';
+import { loadFeed } from '@/lib/ApiCalls/PostApiCalls';
 
 export default function Home() {
   const { user } = useAuthentication();

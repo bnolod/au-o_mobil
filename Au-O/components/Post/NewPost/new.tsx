@@ -29,7 +29,6 @@ import PostCard from '@/components/Post/Post';
 import { CreatePostRequest, ImageStoreRequest, ImageUploadResponse } from '@/constants/types';
 import { useAuthentication } from '@/contexts/AuthenticationContext';
 import { cleanupInvalidImageUploads, createImageForm, handleGallery } from '@/lib/functions';
-import { getOwnGroups } from '@/lib/apiClient';
 import Toast from 'react-native-toast-message';
 import LoadingModal from '@/components/ui/LoadingModal';
 import { router } from 'expo-router';
@@ -45,6 +44,7 @@ import { Group } from '@/lib/entity/Group';
 import { SocialEvent } from '@/lib/entity/SocialEvent';
 import { imageUpload } from '@/lib/ApiCalls/ImageApiCalls';
 import { publishPost } from '@/lib/ApiCalls/PostApiCalls';
+import { getOwnGroups } from '@/lib/ApiCalls/GroupApiCalls';
 
 export default function NewPost() {
   const { language } = useLanguage();

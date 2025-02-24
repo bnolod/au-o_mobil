@@ -58,6 +58,7 @@ export async function logout() {
 
   eventEmitter.emit('triggerLogout');
 }
+
 export async function validateToken(token: string, path: string) {
   const validToken = await apiFetch<string>('auth/authenticate', 'POST', true, {
     token,
@@ -75,11 +76,6 @@ export async function validateToken(token: string, path: string) {
   return validToken?.data;
 }
 
-export async function getOwnGroups() {
-  const req = await apiFetch<Group[]>('groups/own', 'GET', true);
-  if (req && req.status === 200) return req.data;
-  else return null;
-}
 export async function apiFetch<T>(
   endpoint: string,
   method: HttpMethod = 'GET',
@@ -125,44 +121,6 @@ export async function handleLogin(request: LoginRequest): Promise<string> {
   return response!.data!.token;
 }
 
-export async function AddCommentToPost(postId: string, comment: string): Promise<Comment | null> {
-  if (comment.length === 0) {
-    return null;
-  }
-  const res = await apiFetch<Comment>(`posts/post/${postId}/comment`, 'POST', true, {
-    text: comment,
-  });
-  if (res) return res.data;
-  return null;
-}
-export async function DeleteComment(commentId: string): Promise<boolean> {
-  const res = await fetch(`${apiClient.defaults.baseURL}/posts/post/comment/${commentId}`, {
-    method: 'DELETE',
-    headers: {
-      Authorization: `Bearer ${await SecureStore.getItemAsync('jwtToken')}`,
-    },
-  });
-  if (res.status === 200) return true;
-  else return false;
-}
-export async function sendReply(commentId: string, text: string): Promise<Reply | null> {
-  if (text.length === 0) return null;
-  const res = await apiFetch<Reply>(`posts/post/comment/${commentId}/reply`, 'POST', true, {
-    text,
-  });
-  if (res) return res.data;
-  return null;
-}
-export async function deleteReply(replyId: number) {
-  const res = await fetch(`${apiClient.defaults.baseURL}/posts/post/comment/reply/${replyId}`, {
-    method: 'DELETE',
-    headers: {
-      Authorization: `Bearer ${await SecureStore.getItemAsync('jwtToken')}`,
-    },
-  });
-  if (res.status === 200) return true;
-  else return false;
-}
 
 export async function updateProfilePicture(imageForm: FormData) {
   const image = await imageUpload(imageForm);
@@ -203,10 +161,10 @@ export async function updateNickname(nickname: string) {
   }
   return false;
 }
-export async function loadFeed(index: number, timestamp: string) {
-  const req = await apiFetch<Feed>(`posts/feed?page=${index}&time=${timestamp}`, 'GET', true);
-  if (req && req.status === 200) {
-    return req.data;
-  }
-  return null;
-}
+// export async function loadFeed(index: number, timestamp: string) {
+//   const req = await apiFetch<Feed>(`posts/feed?page=${index}&time=${timestamp}`, 'GET', true);
+//   if (req && req.status === 200) {
+//     return req.data;
+//   }
+//   return null;
+// }

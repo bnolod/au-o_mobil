@@ -16,3 +16,4 @@ export async function DeleteComment(commentId: string): Promise<boolean> {
   if (res?.status === 200) return true;
   else return false;
 }
+

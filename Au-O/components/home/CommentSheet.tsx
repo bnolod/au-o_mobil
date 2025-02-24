@@ -9,7 +9,7 @@ import Avatar from '../ui/Avatar';
 import { Comment } from '@/lib/entity/Comment';
 import { HomeTexts } from '@/constants/texts';
 import { Colors } from '@/constants/Colors';
-import AddCommentRow from './AddCommentRow';
+import AddCommentRow from './comment/AddCommentRow';
 import CommentElement from '../ui/CommentElement';
 import CommentsEmpty from './CommentsEmpty';
 

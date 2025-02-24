@@ -24,3 +24,9 @@ export async function getAllGroups() {
   }
   return null;
 }
+
+export async function getOwnGroups() {
+  const req = await apiFetch<Group[]>('groups/own', 'GET', true);
+  if (req && req.status === 200) return req.data;
+  else return null;
+}
