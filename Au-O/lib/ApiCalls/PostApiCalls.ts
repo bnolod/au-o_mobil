@@ -1,4 +1,4 @@
-import { ImageStoreRequest } from '@/constants/types';
+import { ImageStoreRequest } from '../request/ImgurRequest';
 import { apiFetch } from '../apiClient';
 import { Feed } from '../entity/Feed';
 
