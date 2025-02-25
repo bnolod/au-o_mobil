@@ -1,4 +1,4 @@
-import {  Platform, View } from 'react-native';
+import { Platform, View } from 'react-native';
 import SearchBar from '@/components/ui/SearchBar';
 import Button from '@/components/ui/Button';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -8,36 +8,42 @@ import { CommonStaticElementProps } from '@/constants/types';
 import { HomeTexts } from '@/constants/texts';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Image } from 'expo-image';
+import GradientBackground from '@/components/ui/GradientBackground';
+import { Colors } from '@/constants/Colors';
+
 export default function RootHeader({ language, colorScheme }: CommonStaticElementProps) {
   const { toggleColorScheme } = useColorScheme();
   const { setLanguage } = useLanguage();
   return (
+    <GradientBackground colors={[Colors.dark.primary, Colors.dark.secondary]} start = {[0, 0]} end = {[1, 1]}>
     <View className={Platform.OS === 'ios' ? 'root-header-ios' : 'root-header-android'}>
-      <Image
-        source={colorScheme === 'dark' ? Images.logo_white : Images.logo_black}
-        style={{flexBasis: "auto", width: 72, height: 32}}
-        contentFit="contain"
-      />
-      <SearchBar
-        placeholder={HomeTexts.search.placeholder[language]}
-        colorScheme={colorScheme}
-        onSearch={(query) => {
-          console.log(query);
-        }}
-      />
-      <Button
-        onPress={() => {
-          toggleColorScheme();
-          if (language === 'EN') {
-            setLanguage('HU');
-          } else {
-            setLanguage('EN');
-          }
-        }}
-        className="chat-button"
-      >
-        <MaterialCommunityIcons name="chat-outline" size={32} color={colorScheme === 'light' ? 'black' : 'white'} />
-      </Button>
+      
+        <Image
+          source={colorScheme === 'dark' ? Images.logo_white : Images.logo_black}
+          style={{ flexBasis: 'auto', width: 72, height: 32 }}
+          contentFit="contain"
+        />
+        <SearchBar
+          placeholder={HomeTexts.search.placeholder[language]}
+          colorScheme={colorScheme}
+          onSearch={(query) => {
+            console.log(query);
+          }}
+        />
+        <Button
+          onPress={() => {
+            toggleColorScheme();
+            if (language === 'EN') {
+              setLanguage('HU');
+            } else {
+              setLanguage('EN');
+            }
+          }}
+          className="chat-button"
+        >
+          <MaterialCommunityIcons name="chat-outline" size={32} color={colorScheme === 'light' ? 'black' : 'white'} />
+        </Button>
     </View>
+      </GradientBackground>
   );
 }

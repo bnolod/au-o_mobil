@@ -11,6 +11,7 @@ import { router } from 'expo-router';
 import { GarageItemPageProps } from './props';
 import { Images } from '@/lib/staticAssetExports';
 import { ImageBackground } from 'expo-image';
+import GradientBackground from '@/components/ui/GradientBackground';
 
 export default function GarageItemPage({
   colorScheme,
@@ -21,17 +22,13 @@ export default function GarageItemPage({
 }: GarageItemPageProps & CommonStaticElementProps) {
   return (
     <View className="garage-page">
+      
+      <GradientBackground colors={['#EF1A2D', 'transparent']}>
+      <View className="rounded-b-3xl">
       <View className="h-64">
-        <ImageBackground
-          className="garage-profile-car-type-display"
-          contentFit="cover"
-          source={Images.banner_placeholder}
-        >
-          {/* <GarageHeader colorScheme={colorScheme!} car={car} language={language} userProfilePic={profileImg} /> */}
+
           <View className="flex items-center p-5">{getCarImage(car.type, colorScheme, 140 * 2, 85 * 2, 4)}</View>
-        </ImageBackground>
       </View>
-      <View className="secondary">
         <View className="flex flex-row justify-evenly items-center w-full rounded-xl">
           <ThemedText className="text-3xl font-bold py-2">{car.manufacturer}</ThemedText>
           <ThemedText className="text-2xl py-2">{car.model}</ThemedText>
@@ -53,6 +50,7 @@ export default function GarageItemPage({
           <CollapsibleText className="text-lg text-center my-2">{car.description}</CollapsibleText>
         </View>
       </View>
+      </GradientBackground>
       <View className="flex flex-col px-5 ">
         <View className="flex flex-row px-5 py-2">
           <MaterialCommunityIcons name="horse" size={42} color={Colors[colorScheme!].text} />
