@@ -30,3 +30,11 @@ export async function getOwnGroups() {
   if (req && req.status === 200) return req.data;
   else return null;
 }
+
+export async function handleJoinRequest(groupId: number, userId: number, accept: boolean) {
+  const req = await apiFetch('groups/handleJoinRequest/' + groupId + '/' + userId + '/' + accept, 'POST', true);
+  if (req && req.status === 200) {
+    return req.data;
+  }
+  return null;
+}

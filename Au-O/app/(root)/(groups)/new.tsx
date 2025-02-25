@@ -30,6 +30,7 @@ export default function NewPostPage() {
     description: '',
     alias: '',
     bannerImage: '',
+    isPublic: true,
   });
   async function openGallery() {
     const res = await getOneImageFromGallery();
@@ -57,6 +58,7 @@ export default function NewPostPage() {
       bannerImage: image ? image : '',
       description: newGroupForm.description,
       name: newGroupForm.name,
+      isPublic: newGroupForm.isPublic,
     });
     if (createGroupRes) {
       Toast.show({
@@ -68,6 +70,7 @@ export default function NewPostPage() {
         description: '',
         alias: '',
         bannerImage: '',
+        isPublic: true,
       });
       router.replace('/(root)/(groups)/feed');
       router.push({ pathname: '/(root)/(groups)/[id]', params: { id: createGroupRes.id } });
