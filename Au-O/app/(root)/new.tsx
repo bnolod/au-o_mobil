@@ -9,7 +9,6 @@ import React, { useEffect, useRef } from 'react';
 import {
   Alert,
   Dimensions,
-
   Keyboard,
   KeyboardAvoidingView,
   Pressable,
@@ -39,27 +38,22 @@ import SheetSelection, { SheetSelectionRef } from '@/components/ui/SheetSelectio
 import FilterBar from '@/components/ui/FilterBar';
 import GarageItem from '@/components/garage/list/GarageItem';
 import { getCarImage } from '@/components/graphics/cars';
-import GroupListItem from '@/components/social/groups/GroupListItem';
 import { Car } from '@/lib/entity/Car';
 import { getOwnGarage } from '@/lib/ApiCalls/CarApiCalls';
-import { Group } from '@/lib/entity/Group';
 import { SocialEvent } from '@/lib/entity/SocialEvent';
 import { imageUpload } from '@/lib/ApiCalls/ImageApiCalls';
 import { publishPost } from '@/lib/ApiCalls/PostApiCalls';
-import { getOwnGroups } from '@/lib/ApiCalls/GroupApiCalls';
 import PostCreationSheetSelectElements from '@/components/Post/NewPost/PostCreationSheetSelectElement';
 import { CreatePostRequest } from '@/lib/request/PostCreationRequest';
 import { ImageStoreRequest, ImageUploadResponse } from '@/lib/request/ImgurRequest';
+import { SafeAreaView } from 'react-native-safe-area-context';
 export default function NewPost() {
   const { language } = useLanguage();
   const { user } = useAuthentication();
   const { colorScheme } = useColorScheme();
 
   const sheet = useRef<SheetSelectionRef>(null);
-  const groupSheet = useRef<SheetSelectionRef>(null);
   const eventSheet = useRef<SheetSelectionRef>(null);
-  const [selectedGroup, setSelectedGroup] = useState<Group | null>(null);
-  const [userGroups, setUserGroups] = useState<Group[]>([]);
 
   const [selectedEvent, setSelectedEvent] = useState<SocialEvent | null>(null);
   const [images, setImages] = useState<ImagePicker.ImagePickerAsset[]>([]);
@@ -77,16 +71,14 @@ export default function NewPost() {
   const [cars, setCars] = useState<Car[]>([]);
   useEffect(() => {
     getCars();
-    getGroups();
   }, []);
   useEffect(() => {
     setNewPostForm({
       ...newPostForm,
-      groupId: selectedGroup ? selectedGroup.id : null,
       eventId: selectedEvent ? selectedEvent.id : null,
       images: images,
     });
-  }, [images, selectedEvent, selectedGroup]);
+  }, [images, selectedEvent]);
   function handlePresent() {
     bottomSheetRef.current?.present();
   }
@@ -96,10 +88,7 @@ export default function NewPost() {
       setCars(res);
     }
   }
-  async function getGroups() {
-    const res = await getOwnGroups();
-    if (res) setUserGroups(res);
-  }
+
   async function handleSubmit() {
     setLoading(true);
     const uploadedImages: ImageUploadResponse[] = [];
@@ -134,7 +123,7 @@ export default function NewPost() {
           description: '',
           location: '',
           userId: user!.id,
-          groupId: selectedGroup ? selectedGroup.id : null,
+          groupId: null,
           eventId: selectedEvent ? selectedEvent.id : null,
           images: [],
           vehicleId: null,
@@ -164,9 +153,9 @@ export default function NewPost() {
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   if (user === undefined) return <LoadingModal loading={true} colorScheme={colorScheme!} />;
   return (
-    <>
+    <SafeAreaView className='flex-1 h-screen secondary'>
       <LoadingModal loading={loading} colorScheme={colorScheme!} text="Posting.." />
-      <View className="w-full secondary pt-16">
+      <View className="w-full secondary">
         <Image
           source={colorScheme === 'dark' ? Images.logo_white : Images.logo_black}
           className="h-8 mx-auto my-4"
@@ -174,14 +163,17 @@ export default function NewPost() {
           contentFit='contain'
         />
       </View>
-      <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
+      <KeyboardAvoidingView behavior="padding">
         <ScrollView
           showsVerticalScrollIndicator={false}
+          
+          contentContainerStyle={{ flexGrow: 1, backgroundColor: Colors[colorScheme!].primary }}
           overScrollMode="never"
           bounces={false}
-          className="h-fit primary"
+          className="primary rounded"
+          
         >
-          <Pressable onPress={() => Keyboard.dismiss()} className="flex flex-col">
+          <Pressable onPress={() => Keyboard.dismiss()} className="flex flex-1 flex-col">
             <View className="h-64 basis-3/12 w-full secondary rounded-b-xl">
               {images.length > 0 ? (
                 <Carousel
@@ -252,43 +244,8 @@ export default function NewPost() {
                   colorScheme={colorScheme!}
                   containerClassName="rounded-xl"
                 />
-                <View className="justify-between mb-4 flex flex-row  ">
-                  <View className=" flex-1 w-6/12 self-start">
-                    <ThemedText className="w-full text-lg">
-                      <MaterialCommunityIcons name="account-group" size={19} /> {PostCreationTexts.form.group[language]}
-                    </ThemedText>
-                    <SheetSelection
-                      ref={groupSheet}
-                      colorScheme={colorScheme!}
-                      placeholder={selectedGroup ? selectedGroup.name : 'Select a group'}
-                      language={language}
-                      FlashListProps={{
-                        data: userGroups,
-                        renderItem: ({ item }) => (
-                          <GroupListItem
-                            group={item}
-                            colorScheme={colorScheme!}
-                            language={language}
-                            onPress={() => {
-                              groupSheet.current?.dismissSheet();
-                              setSelectedGroup(item);
-                              setNewPostForm({
-                                ...newPostForm,
-                                groupId: item.id,
-                              });
-                            }}
-                          />
-                        ),
-                        estimatedItemSize: 50,
-
-                        ListHeaderComponent: () => (
-                          <FilterBar placeholder="Search groups" onChange={(text: string) => {}} />
-                        ),
-                      }}
-                    />
-                  </View>
-                  <View className=" flex-1 w-6/12 self-end">
-                    <ThemedText className="w-11/12 text-lg">
+                  <View className="w-11/12 mb-4">
+                    <ThemedText className="text-lg">
                       <MaterialCommunityIcons name="calendar-account-outline" size={19} />{' '}
                       {PostCreationTexts.form.event[language]}
                     </ThemedText>
@@ -314,6 +271,11 @@ export default function NewPost() {
                     />
                   </View>
                 </View>
+                <View className='w-11/12 mb-4 mx-auto'>
+                <ThemedText className="text-lg">
+                      <MaterialCommunityIcons name="car-outline" size={19} />{' '}
+                      {PostCreationTexts.form.vehicle[language]}
+                    </ThemedText>
                 <SheetSelection
                   ref={sheet}
 
@@ -334,7 +296,7 @@ export default function NewPost() {
                         <Button
                           onPress={() => sheet.current?.dismissSheet()}
                           className="button highlight-themed outline"
-                        >
+                          >
                           Close
                         </Button>
                         <Pressable
@@ -347,11 +309,11 @@ export default function NewPost() {
                               vehicleId: null,
                             });
                           }}
-                        >
+                          >
                           <ImageBackground
                           style={{width: "100%", borderRadius: 12, backgroundColor: Colors[colorScheme!].secondary} }
                             source={Images.banner_placeholder}
-                          >
+                            >
                             <ThemedText className="font-bold w-full mx-auto text-center text-lg p-3 rounded-xl">
                               Unassign vehicle
                             </ThemedText>
@@ -361,7 +323,7 @@ export default function NewPost() {
                     ),
                     renderItem: ({ item }) => (
                       <Pressable
-                        onPress={() => {
+                      onPress={() => {
                           sheet.current?.dismissSheet();
                           setCar(item);
                           setNewPostForm({
@@ -376,7 +338,8 @@ export default function NewPost() {
                       </Pressable>
                     ),
                   }}
-                />
+                  />
+                  </View>
                 <Input
                   label={PostCreationTexts.form.location.label[language]}
                   icon={'map-marker-outline'}
@@ -412,7 +375,6 @@ export default function NewPost() {
                 >
                   {PostCreationTexts.form.next[language]}
                 </Button>
-              </View>
             </View>
             <View className="w-full mb-4">
               <BottomSheetModal
@@ -459,9 +421,6 @@ export default function NewPost() {
                     eventData={
                  undefined
                     }
-                    groupData={
-                 undefined
-                    }
                   />
                   <Button
                     onPress={handleSubmit}
@@ -482,6 +441,6 @@ export default function NewPost() {
           </Pressable>
         </ScrollView>
       </KeyboardAvoidingView>
-    </>
+    </SafeAreaView>
   );
 }

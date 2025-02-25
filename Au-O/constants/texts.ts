@@ -477,6 +477,10 @@ export const PostCreationTexts = {
       HU: 'Esemény',
       EN: 'Event',
     },
+    vehicle: {
+      HU: "Jármű",
+      EN: "Vehicle",
+    },
     location: {
       label: {
         EN: 'Location',

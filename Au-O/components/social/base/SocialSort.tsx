@@ -14,8 +14,11 @@ export default function SocialSort({ colorScheme, language }: CommonStaticElemen
       <Button className="social-sort-button">
         <MaterialCommunityIcons name="account-group-outline" size={32} />
       </Button>
+      <View className='w-10/12'>
+
       <SheetSelection
-        FlashListProps={{
+      
+      FlashListProps={{
           data: [
             {
               bannerImage: null,
@@ -31,14 +34,15 @@ export default function SocialSort({ colorScheme, language }: CommonStaticElemen
               onSelect={() => {
                 setSelected(item.name);
               }}
-            />
-          ),
-          keyExtractor: (item) => item,
-        }}
-        placeholder={selected}
-        colorScheme={colorScheme}
+              />
+            ),
+            keyExtractor: (item) => item,
+          }}
+          placeholder={selected}
+          colorScheme={colorScheme}
         language={language}
       />
+          </View>
     </View>
   );
 }
