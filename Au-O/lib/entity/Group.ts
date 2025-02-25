@@ -8,6 +8,7 @@ export interface Group {
   creationDate: string;
   member: boolean;
   description: string;
+  validMember : boolean;
 }
 
 export interface GroupPost {
