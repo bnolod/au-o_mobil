@@ -7,6 +7,11 @@ import ThemedText from '@/components/ui/ThemedText';
 import CollapsibleText from '@/components/ui/CollapsibleText';
 import { useState } from 'react';
 import { Group } from '@/lib/entity/Group';
+import GroupPostTab from './tabs/GroupPostTab';
+import GroupEventsTab from './tabs/GroupEventsTab';
+import GroupMembersTab from './tabs/GroupMembersTab';
+import GroupInfoTab from './tabs/GroupInfoTab';
+import { GroupTexts } from '@/constants/texts';
 
 export default function GroupPage({ group, colorScheme, language }: CommonStaticElementProps & { group: Group }) {
   const [selectedTab, setSelectedTab] = useState<'POSTS' | 'EVENTS' | 'MEMBERS' | 'INFO'>('POSTS');
@@ -53,7 +58,7 @@ export default function GroupPage({ group, colorScheme, language }: CommonStatic
             <ThemedText>
               <MaterialCommunityIcons name="cards-outline" size={24} />
             </ThemedText>
-            <ThemedText className="text-xl">Posztok</ThemedText>
+            <ThemedText className="text-xl">{GroupTexts.page.posts[language]}</ThemedText>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => setSelectedTab('EVENTS')}
@@ -62,7 +67,7 @@ export default function GroupPage({ group, colorScheme, language }: CommonStatic
             <ThemedText>
               <MaterialCommunityIcons name="calendar-check-outline" size={24} />
             </ThemedText>
-            <ThemedText className="text-xl">Események</ThemedText>
+            <ThemedText className="text-xl">{GroupTexts.page.events[language]}</ThemedText>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => setSelectedTab('MEMBERS')}
@@ -71,7 +76,7 @@ export default function GroupPage({ group, colorScheme, language }: CommonStatic
             <ThemedText>
               <MaterialCommunityIcons name="account-group-outline" size={24} />
             </ThemedText>
-            <ThemedText className="text-xl">Tagok</ThemedText>
+            <ThemedText className="text-xl">{GroupTexts.page.members[language]}</ThemedText>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => setSelectedTab('INFO')}
@@ -80,10 +85,14 @@ export default function GroupPage({ group, colorScheme, language }: CommonStatic
             <ThemedText>
               <MaterialCommunityIcons name="information-outline" size={24} />
             </ThemedText>
-            <ThemedText className="text-xl">Információ</ThemedText>
+            <ThemedText className="text-xl">{GroupTexts.page.info[language]}</ThemedText>
           </TouchableOpacity>
         </View>
       </ScrollView>
+      {selectedTab === "POSTS" && <GroupPostTab group={group} language={language} />}
+      {selectedTab === "EVENTS" && <GroupEventsTab group={group} language={language}/>}
+      {selectedTab === "MEMBERS" && <GroupMembersTab group={group} language={language} />}
+      {selectedTab === "INFO" && <GroupInfoTab group={group} language={language}/>}
     </View>
   )
 }

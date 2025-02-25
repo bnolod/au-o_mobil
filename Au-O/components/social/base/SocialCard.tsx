@@ -8,6 +8,7 @@ import { router } from 'expo-router';
 import LoadingModal from '@/components/ui/LoadingModal';
 import CollapsibleText from '@/components/ui/CollapsibleText';
 import { SocialCardProps } from './props';
+import { GroupTexts } from '@/constants/texts';
 
 export default function SocialCard({
   language,
@@ -82,7 +83,11 @@ export default function SocialCard({
             <View className="flex  items-start gap-8">
               {!item.isUserRelated && (
                 <Button onPress={!preview ? () => {} : () => {}} className="social-card-action-button">
-                  {type === 'GROUP' ? 'Join' : 'Attend'}
+                  {type === 'GROUP'
+                    ? group?.public
+                      ? GroupTexts.buttons.join[language]
+                      : GroupTexts.page.apply[language]
+                    : 'Attend'}
                 </Button>
               )}
               <Button
@@ -108,7 +113,7 @@ export default function SocialCard({
                     : () => {}
                 }
               >
-                {type === 'GROUP' ? 'Visit group' : 'Details'}
+                {type === 'GROUP' && group?.public ? GroupTexts.buttons.visit[language] : 'Details'}
               </Button>
             </View>
           </View>
