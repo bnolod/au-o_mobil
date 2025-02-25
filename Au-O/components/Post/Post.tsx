@@ -1,6 +1,6 @@
 import { Reactions } from '@/constants/types';
 import { PostCardProps } from './props';
-import { Pressable, View } from 'react-native';
+import { Platform, Pressable, View } from 'react-native';
 import * as Haptics from 'expo-haptics';
 import React from 'react';
 import ThemedText from '../ui/ThemedText';
@@ -9,7 +9,7 @@ import { useState } from 'react';
 import { getPostType } from '@/lib/functions';
 import PostHeaderElement from './base/PostHeaderElement';
 import PostAuthorDisplayElement from './base/PostAuthorDisplayElement';
-import { HomeTexts } from '@/constants/texts';
+import { HomeTexts, PostCreationTexts } from '@/constants/texts';
 import { router } from 'expo-router';
 import TapCountWrapper from '../utility/TapCountWrapper';
 import PostOptionMenu from './base/PostOptionMenu';
@@ -18,6 +18,8 @@ import { addReaction } from '@/lib/ApiCalls/ReactionApiCalls';
 import PostFooter from './base/PostFooter';
 import PostVehicleBanner from './base/PostVehicleBanner';
 import { deleteImgurImage } from '@/lib/ApiCalls/ImageApiCalls';
+import AlertModal from '../ui/AlertModal';
+import PostOptionModal from './base/PostEditModal';
 export default function PostCard({
   preview = false,
   authorNickname,
@@ -43,20 +45,30 @@ export default function PostCard({
   async function showOptions() {
     if (!preview) {
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-      PostOptionMenu(preview, language, postId!, user!.id, authorId, () => {
-        setIsDeleted(true);
-        for (const img of images) {
-          async function handleImageDelete() {
-            const res = await deleteImgurImage(img.deleteHash);
-            if (res === true) {
-              console.log('Image deleted.');
+      PostOptionMenu(
+        preview,
+        language,
+        postId!,
+        user!.id,
+        authorId,
+        () => {
+          setIsDeleted(true);
+          for (const img of images) {
+            async function handleImageDelete() {
+              const res = await deleteImgurImage(img.deleteHash);
+              if (res === true) {
+                console.log('Image deleted.');
+              }
             }
           }
+        },
+        () => {
+          setMenuVisible((prev) => !prev);
         }
-      });
+      );
     }
   }
-
+  const [menuVisible, setMenuVisible] = useState<boolean>(false);
   const [isDeleted, setIsDeleted] = useState<boolean>(false);
   const [currentReaction, setCurrentReaction] = useState<null | 'FIRE' | 'HEART' | 'COOL'>(reaction);
   const [reactionState, setReactions] = useState<Reactions>({
@@ -123,6 +135,7 @@ export default function PostCard({
             />
           </View>
           <View className="post-options">
+            <PostOptionModal language={language} menuVisible={menuVisible} setMenuVisible={setMenuVisible} authorId={authorId} postId={postId} userId={user.id}/>
             <MaterialCommunityIcons
               name="dots-horizontal"
               size={36}

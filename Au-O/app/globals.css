@@ -157,10 +157,10 @@
   }
   /* Feed */
   .root-header-ios {
-    @apply pt-16 pb-4  w-screen primary flex items-center px-3 flex-row gap-2;
+    @apply pt-safe-offset-1 pb-4  w-screen primary flex items-center px-3 flex-row gap-2;
   }
   .root-header-android {
-    @apply pt-7 pb-4 w-screen primary flex items-center px-3 flex-row gap-2;
+    @apply pt-safe-offset-2 pb-4 w-screen primary flex items-center px-3 flex-row gap-2;
   }
   /* Comment */
   .root-comment-empty-container {

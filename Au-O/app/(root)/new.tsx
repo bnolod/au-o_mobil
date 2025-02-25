@@ -11,6 +11,7 @@ import {
   Dimensions,
   Keyboard,
   KeyboardAvoidingView,
+  Platform,
   Pressable,
   ScrollView,
   TouchableOpacity,
@@ -46,7 +47,6 @@ import { publishPost } from '@/lib/ApiCalls/PostApiCalls';
 import PostCreationSheetSelectElements from '@/components/Post/NewPost/PostCreationSheetSelectElement';
 import { CreatePostRequest } from '@/lib/request/PostCreationRequest';
 import { ImageStoreRequest, ImageUploadResponse } from '@/lib/request/ImgurRequest';
-import { SafeAreaView } from 'react-native-safe-area-context';
 export default function NewPost() {
   const { language } = useLanguage();
   const { user } = useAuthentication();
@@ -112,6 +112,16 @@ export default function NewPost() {
       };
       const storeRes = await publishPost(imageStoreRequest);
       bottomSheetRef.current?.dismiss();
+      setNewPostForm({
+        description: '',
+        location: '',
+        userId: user!.id,
+        groupId: null,
+        eventId: selectedEvent ? selectedEvent.id : null,
+        images: [],
+        vehicleId: null,
+      });
+      setLoading(false);
       if (storeRes) {
         Toast.show({
           type: 'success',
@@ -119,16 +129,6 @@ export default function NewPost() {
           text2: PostCreationTexts.imageUploadSuccessToast.message[language],
         });
         setImages([]);
-        setNewPostForm({
-          description: '',
-          location: '',
-          userId: user!.id,
-          groupId: null,
-          eventId: selectedEvent ? selectedEvent.id : null,
-          images: [],
-          vehicleId: null,
-        });
-        setLoading(false);
         router.replace('/(root)/home');
         router.push({
           pathname: '/(post)/page/[id]',
@@ -153,9 +153,9 @@ export default function NewPost() {
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   if (user === undefined) return <LoadingModal loading={true} colorScheme={colorScheme!} />;
   return (
-    <SafeAreaView className='flex-1 h-screen secondary'>
+    <>
       <LoadingModal loading={loading} colorScheme={colorScheme!} text="Posting.." />
-      <View className="w-full secondary">
+      <View className="w-full pt-safe-offset-2 secondary">
         <Image
           source={colorScheme === 'dark' ? Images.logo_white : Images.logo_black}
           className="h-8 mx-auto my-4"
@@ -163,7 +163,7 @@ export default function NewPost() {
           contentFit='contain'
         />
       </View>
-      <KeyboardAvoidingView behavior="padding">
+      <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
         <ScrollView
           showsVerticalScrollIndicator={false}
           
@@ -441,6 +441,6 @@ export default function NewPost() {
           </Pressable>
         </ScrollView>
       </KeyboardAvoidingView>
-    </SafeAreaView>
+    </>
   );
 }

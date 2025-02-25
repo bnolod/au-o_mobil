@@ -105,10 +105,6 @@ export default function CommentElement({
             text: CommentTexts.commentButtons.cancel[language],
             style: 'cancel',
           },
-          {
-            text: CommentTexts.commentButtons.reply[language],
-            onPress: () => setReplying(true),
-          },
           item.user.id === userId || authorId === userId
             ? {
                 text: CommentTexts.commentButtons.delete[language],

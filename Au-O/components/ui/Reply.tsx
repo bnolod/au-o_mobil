@@ -62,7 +62,7 @@ export default function ReplyItem({ item, language, preview, userId, authorId, o
       className="reply"
       onLongPress={() => {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-        Alert.alert(`${item.user.nickname}${CommentTexts.commentAuthor[language]}`, '', [
+        Alert.alert(`${item.user.nickname}${CommentTexts.replyAuthor[language]}`, '', [
           {
             text: CommentTexts.commentButtons.cancel[language],
             style: 'cancel',

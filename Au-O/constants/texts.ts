@@ -99,8 +99,8 @@ export const AuthTexts = {
         EN: 'Nickname',
       },
       dateOfBirth: {
-        HU: 'Születési dátum',
-        EN: 'Date of Birth',
+        HU: 'Add meg a születési dátumodat',
+        EN: 'Please enter your date of birth',
       },
     },
     labels: {
@@ -124,6 +124,10 @@ export const AuthTexts = {
         HU: 'Becenév',
         EN: 'Nickname',
       },
+      dateOfBirth: {
+        HU: "Születési dátum",
+        EN: "Date of Birth"
+      }
     },
     heroText: {
       HU: 'Csatlakozz hozzánk!',
@@ -678,6 +682,10 @@ export const CommentTexts = {
       HU: '❌Hiba a válasz küldésekor',
       EN: '❌Error sending reply',
     },
+  },
+  replyAuthor: {
+    HU: "válasza",
+    EN: "'s reply",
   },
   commentAuthor: {
     HU: ' kommentje',

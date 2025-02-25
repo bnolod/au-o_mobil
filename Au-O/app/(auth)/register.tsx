@@ -137,12 +137,19 @@ export default function Register() {
             }}
           />
         ) : (
-          <Button
-            className="button btn-outline btn-highlight primary w-11/12 text-center items-center"
-            onPress={showDatepicker}
-          >
-            {!date ? AuthTexts.signup.placeholders.dateOfBirth[language] : date!.toLocaleDateString()}
-          </Button>
+          <View className='w-full'>
+            <ThemedText className="ml-3 text-lg">
+              <MaterialCommunityIcons name="calendar-account-outline" size={22} />{' '}
+              {AuthTexts.signup.labels.dateOfBirth[language]}
+            </ThemedText>
+            <Button
+              className="button py-3 primary w-11/12 text-center items-center"
+              onPress={showDatepicker}
+              innerTextClassName="underline tlg"
+            >
+              {!date ? AuthTexts.signup.placeholders.dateOfBirth[language] : date!.toLocaleDateString()}
+            </Button>
+          </View>
         )}
       </View>
     </ScrollView>
