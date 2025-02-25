@@ -1,12 +1,15 @@
-import { PostCreationTexts, UIErrorTexts } from '@/constants/texts';
-import { EventPostData } from '@/constants/types';
+import { PostCreationTexts, PostStatusTexts, UIErrorTexts } from '@/constants/texts';
 import * as SecureStore from 'expo-secure-store';
 import * as FileSystem from 'expo-file-system';
 import * as ImagePicker from 'expo-image-picker';
+import * as Clipboard from 'expo-clipboard';
 import Toast from 'react-native-toast-message';
 import { User } from './entity/User';
 import { ImageUploadResponse } from './request/ImgurRequest';
 import { GroupPost } from './entity/Group';
+import { router } from 'expo-router';
+import { EventPost } from './entity/SocialEvent';
+import { apiFetch } from './apiClient';
 
 export function handleFormInputChange(
   formKey: string,
@@ -27,12 +30,7 @@ export async function setTimestamp() {
 export async function getTimestamp() {
   return await SecureStore.getItemAsync('timestamp');
 }
-export function getPostType(
-  nickname: string,
-  username: string,
-  groupData?: GroupPost,
-  eventData?: EventPostData
-): string {
+export function getPostType(nickname: string, username: string, groupData?: GroupPost, eventData?: EventPost): string {
   if (nickname && username) {
     if (!groupData && !eventData) {
       return 'USER';
@@ -282,3 +280,4 @@ export function formatNumber(number: number, language?: 'HU' | 'EN') {
   }
   return formatted >= 100 ? Math.round(formatted) + suffix[lang][i] : formatted.toFixed(1) + suffix[lang][i];
 }
+

@@ -37,3 +37,10 @@ export async function loadFeed(index: number, timestamp: string) {
   }
   return null;
 }
+export async function deletePost(postId: number) {
+   const req = await apiFetch(`posts/post/${postId}`, 'DELETE', true);
+    if (req && req.status === 200) {
+      return true;
+    }
+    return false;
+}

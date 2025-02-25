@@ -65,7 +65,7 @@ const SheetSelection = forwardRef<
         snapPoints={[1, '40%', "60%", '90%']}
         enableHandlePanningGesture
         onDismiss={dismissSheet}
-        enableContentPanningGesture={false}
+        enableContentPanningGesture={true}
         enableDismissOnClose
         onChange={(index) => {
           if (index === 1 || index === 0) {

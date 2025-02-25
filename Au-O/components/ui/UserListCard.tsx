@@ -1,6 +1,6 @@
 import { CommonStaticElementProps } from '@/constants/types';
 import { User } from '@/lib/entity/User';
-import { Alert, AlertButton, Pressable, TouchableOpacity, View } from 'react-native';
+import { Alert, AlertButton, Platform, Pressable, TouchableOpacity, View } from 'react-native';
 import Avatar from './Avatar';
 import ThemedText from './ThemedText';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -10,6 +10,7 @@ import { unfollowUser, removeFollow } from '@/lib/ApiCalls/UserApiCalls';
 import Toast from 'react-native-toast-message';
 import { useState } from 'react';
 import { UserListCardProps } from './props';
+import ProfileModal from './ProfileModal';
 
 export default function UserListCard({
   user,
@@ -19,7 +20,8 @@ export default function UserListCard({
   type,
   dismissSheet,
 }: UserListCardProps & CommonStaticElementProps) {
-  const [isVisible, setVisible] = useState(true);
+  const [isVisible, setVisible] = useState<boolean>(true);
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
   const buttons: AlertButton[][] = [
     [
       //VISITOR
@@ -99,6 +101,7 @@ export default function UserListCard({
     return <></>;
   } else
     return (
+      <>
       <Pressable
         className="flex-row items-center w-full p-2 justify-center primary"
         onPress={() => {
@@ -110,9 +113,9 @@ export default function UserListCard({
             },
           });
         }}
-      >
+        >
         <View className="flex-1 flex-row flex items-center ml-2">
-          <Avatar image={user.profileImg && { uri: user.profileImg }} nickname={user.nickname} />
+          <Avatar image={user.profileImg } nickname={user.nickname} />
           <View className="ml-2">
             <ThemedText className="text-base font-bold">{user.nickname}</ThemedText>
             <ThemedText className="tsm">@{user.username}</ThemedText>
@@ -122,14 +125,16 @@ export default function UserListCard({
           <TouchableOpacity>
             <MaterialCommunityIcons
               onPress={() => {
-                Alert.alert(user.username, '', buttons[+isOwner]);
+                Platform.OS === "ios" ? Alert.alert(user.username, '', buttons[+isOwner]) : setModalVisible((prev) => !prev);
               }}
               name="dots-horizontal"
               size={32}
               color={Colors[colorScheme].text}
-            />
+              />
           </TouchableOpacity>
         </View>
       </Pressable>
+      <ProfileModal isOwner={isOwner} type={type} visible={modalVisible} onDismiss={() => setModalVisible((vis) => !vis)} />
+              </>
     );
 }

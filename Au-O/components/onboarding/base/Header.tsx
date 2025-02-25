@@ -7,6 +7,7 @@ import { ButtonTexts } from '@/constants/texts';
 import { CommonStaticElementProps } from '@/constants/types';
 import { OnboardHeaderProps } from './props';
 import { Image } from 'expo-image';
+import { Images } from '@/lib/staticAssetExports';
 export default function OnboardingHeader({
   isStatic,
   onBackPress,
@@ -40,8 +41,8 @@ export default function OnboardingHeader({
         )}
 
         <Image
-          source={require('@/assets/images/auo-logo.png')}
-          style={{height: 48, flexBasis: 1/2, marginHorizontal: "auto"}}
+          source={Images.logo_white}
+          style={{height: 54, width: 126, marginHorizontal: "auto"}}
           contentFit="contain"
         />
         {!isStatic && (

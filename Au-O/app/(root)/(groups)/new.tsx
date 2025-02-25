@@ -110,6 +110,8 @@ export default function NewPostPage() {
                 : 'Provide a fitting description for your new group.',
             member: true,
             public: true,
+            validMember: true,
+            
             memberCount: 123,
             name: newGroupForm.name.length > 0 ? newGroupForm.name : 'New Group',
           }}
