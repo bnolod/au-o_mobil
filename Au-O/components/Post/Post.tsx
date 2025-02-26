@@ -25,8 +25,8 @@ export default function PostCard({
   authorNickname,
   authorId,
   authorProfileImg,
-  eventData,
-  groupData,
+  event,
+  group,
   authorUsername,
   comments,
   date,
@@ -41,7 +41,7 @@ export default function PostCard({
   reaction,
   vehicle,
 }: PostCardProps) {
-  const postType = getPostType(authorNickname, authorUsername, groupData, eventData);
+  const postType = getPostType(authorNickname, authorUsername, group, event);
   async function showOptions() {
     if (!preview) {
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
@@ -114,8 +114,8 @@ export default function PostCard({
                 });
               }}
               postType={postType}
-              eventData={eventData || null}
-              groupData={groupData || null}
+              event={event}
+              group={group}
             />
 
             <PostAuthorDisplayElement
@@ -130,8 +130,8 @@ export default function PostCard({
                 });
               }}
               postType={postType}
-              eventData={eventData || null}
-              groupData={groupData || null}
+              event={event}
+              group={group}
             />
           </View>
           <View className="post-options">
@@ -162,10 +162,10 @@ export default function PostCard({
             }
           >
             <View className="post-image">
-              {eventData && (
+              {event && (
                 <View className="post-event-data">
                   <ThemedText className=" font-semibold text-lg">
-                    {eventData.attendees} {HomeTexts.post.attendees[language]}
+                    {event.attendees} {HomeTexts.post.attendees[language]}
                   </ThemedText>
                 </View>
               )}

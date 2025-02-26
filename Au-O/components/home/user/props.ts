@@ -19,3 +19,9 @@ export interface ProfileProps {
   setFollowers: (users: User[]) => void;
   posts: Post[];
 }
+export type TabOptions = "SAVED" | "POST" | "GARAGE" | "GROUPS"
+export interface ProfileTabSelectorProps {
+    colorScheme: "light" | "dark",
+    selectedTab: TabOptions
+    setSelectedTab: (tab: TabOptions) => void
+}

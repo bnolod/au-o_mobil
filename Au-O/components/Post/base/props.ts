@@ -1,6 +1,6 @@
 import { Car } from '@/lib/entity/Car';
-import { GroupPost } from '@/lib/entity/Group';
-import { EventPost } from '@/lib/entity/SocialEvent';
+import { Group, GroupPost } from '@/lib/entity/Group';
+import { EventPost, SocialEvent } from '@/lib/entity/SocialEvent';
 import { User } from '@/lib/entity/User';
 
 export interface PostVehicleBannerProps {
@@ -15,8 +15,8 @@ export interface PostDispayElementProps {
   authorNickname: string;
   authorProfileImg: string;
   authorUsername: string;
-  groupData: GroupPost | null;
-  eventData: EventPost | null;
+  group: Group | null;
+  event: SocialEvent | null;
 }
 export interface PostFooterProps {
   currentReaction: 'FIRE' | 'HEART' | 'COOL' | null;

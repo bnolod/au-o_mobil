@@ -3,11 +3,12 @@ import { Image } from './Image';
 import { Car } from './Car';
 import { Comment } from './Comment';
 import { User } from './User';
+import { Group } from './Group';
 
 export interface Post {
   dateOfCreation: string;
   dateOfUpdate: string;
-  group: any;
+  group: Group | null;
   images: Image[];
   location: string;
   postId: number;

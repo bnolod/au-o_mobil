@@ -418,9 +418,10 @@ export default function NewPost() {
                     comments={[]}
                     preview
                     reactions={{ FIRE: 432, HEART: 1, COOL: 0 }}
-                    eventData={
-                 undefined
+                    event={
+                 null
                     }
+                    group={null}
                   />
                   <Button
                     onPress={handleSubmit}

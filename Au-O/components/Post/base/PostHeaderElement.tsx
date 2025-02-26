@@ -10,15 +10,15 @@ export default function PostHeaderElement({
   authorProfileImg,
   colorScheme,
   postType,
-  eventData,
-  groupData,
+  event,
+  group,
 }: PostDispayElementProps) {
   return (
     <Button variant="transparent" className="m-0 basis-2/12" onPress={onPress} hapticFeedback="light">
       {postType === 'USER' && <Avatar image={authorProfileImg} nickname={authorNickname} />}
-      {postType === 'GROUP' && !eventData && <PostSocialIcon colorScheme={colorScheme!} icon="account-group-outline" />}
-      {postType === 'GROUP' && eventData && <PostSocialIcon colorScheme={colorScheme!} icon="flag-checkered" />}
-      {eventData && postType !== 'GROUP' && <PostSocialIcon colorScheme={colorScheme!} icon="flag-outline" />}
+      {postType === 'GROUP' && !event && <PostSocialIcon colorScheme={colorScheme!} icon="account-group-outline" />}
+      {postType === 'GROUP' && event && <PostSocialIcon colorScheme={colorScheme!} icon="flag-checkered" />}
+      {event && postType !== 'GROUP' && <PostSocialIcon colorScheme={colorScheme!} icon="flag-outline" />}
       {postType === 'INVALID' && <PostSocialIcon colorScheme={colorScheme!} icon="message-question" />}
     </Button>
   );

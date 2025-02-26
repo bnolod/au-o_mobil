@@ -3,8 +3,8 @@ import { Car } from '@/lib/entity/Car';
 import { Image } from '@/lib/entity/Image';
 import { User } from '@/lib/entity/User';
 import { Comment } from '@/lib/entity/Comment';
-import { GroupPost } from '@/lib/entity/Group';
-import { EventPost } from '@/lib/entity/SocialEvent';
+import { Group } from '@/lib/entity/Group';
+import { SocialEvent } from '@/lib/entity/SocialEvent';
 
 export interface PostCardProps {
   postId: number | null;
@@ -12,9 +12,9 @@ export interface PostCardProps {
   preview?: boolean;
   user: User;
   authorId: number | null;
-  groupData?: GroupPost;
+  group: Group | null;
   authorProfileImg: string;
-  eventData?: EventPost;
+  event: SocialEvent | null;
   authorNickname: string;
   authorUsername: string;
   date: string;

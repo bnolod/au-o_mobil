@@ -1,5 +1,3 @@
-import { View } from 'react-native';
-import ThemedText from '@/components/ui/ThemedText';
 import { TouchableOpacity } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Colors } from '@/constants/Colors';

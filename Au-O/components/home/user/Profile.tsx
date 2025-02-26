@@ -12,7 +12,7 @@ import { generalTexts, SocialTexts, UserEditTexts } from '@/constants/texts';
 import { handleTabSelection } from '@/lib/events';
 import * as ImagePicker from 'expo-image-picker';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Colors, Styles } from '@/constants/Colors';
+import { Colors } from '@/constants/Colors';
 import { createImageForm, createTimestamp } from '@/lib/functions';
 import Toast from 'react-native-toast-message';
 import TextEditModal from '@/components/home/base/TextEditModal';
@@ -24,6 +24,7 @@ import GarageList from '@/components/garage/list/GarageList';
 import NewSocial from '@/components/social/base/NewSocial';
 import { followUser, unfollowUser, updateBio, updateNickname } from '@/lib/ApiCalls/UserApiCalls';
 import { ProfileProps } from './props';
+import ProfileTabSelector from './TabSelector';
 export default function Profile({
   user,
   language,
@@ -272,46 +273,7 @@ export default function Profile({
           ) : (
             <ThemedText className="mx-auto my-3 font-semibold">{UserEditTexts.header[language]}</ThemedText>
           )}
-          <View className="p-4 secondary rounded-b-2xl">
-            <View
-              className="profile-selector-container"
-              style={{
-                shadowColor: Colors[colorScheme!].background,
-                shadowOffset: { width: 0, height: 10 },
-                shadowOpacity: 1,
-                shadowRadius: 10,
-              }}
-            >
-              <MaterialCommunityIcons
-                name="cards-outline"
-                size={42}
-                className="text-center flex-1 border-r border-r-[#767676]"
-                color={selectedTab === 'POST' ? Colors.highlight.main : Colors[colorScheme!].text}
-                onPress={() => setSelectedTab(handleTabSelection('POST'))}
-              />
-              <MaterialCommunityIcons
-                name="account-group-outline"
-                size={42}
-                className="text-center flex-1 border-x border-x-[#767676]"
-                color={selectedTab === 'GROUPS' ? Colors.highlight.main : Colors[colorScheme!].text}
-                onPress={() => setSelectedTab(handleTabSelection('GROUPS'))}
-              />
-              <MaterialCommunityIcons
-                name="car-outline"
-                size={42}
-                className="text-center flex-1 border-x border-x-[#767676]"
-                color={selectedTab === 'GARAGE' ? Colors.highlight.main : Colors[colorScheme!].text}
-                onPress={() => setSelectedTab(handleTabSelection('GARAGE'))}
-              />
-              <MaterialCommunityIcons
-                name="bookmark-outline"
-                size={42}
-                className="text-center flex-1 border-l border-l-[#767676]"
-                color={selectedTab === 'SAVED' ? Colors.highlight.main : Colors[colorScheme!].text}
-                onPress={() => setSelectedTab(handleTabSelection('SAVED'))}
-              />
-            </View>
-          </View>
+          <ProfileTabSelector colorScheme={colorScheme} selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
         </View>
         {isOwner && selectedTab !== 'SAVED' && (
           <NewSocial

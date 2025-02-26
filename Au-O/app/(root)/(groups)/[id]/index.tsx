@@ -48,6 +48,7 @@ export default function GroupDisplay() {
             creationDate: group.creationDate,
             member: group.member,
             description: group.description,
+            validMember: group.validMember,
           }}
           language={language}
         />

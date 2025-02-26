@@ -6,9 +6,9 @@ import * as Clipboard from 'expo-clipboard';
 import Toast from 'react-native-toast-message';
 import { User } from './entity/User';
 import { ImageUploadResponse } from './request/ImgurRequest';
-import { GroupPost } from './entity/Group';
+import { Group, GroupPost } from './entity/Group';
 import { router } from 'expo-router';
-import { EventPost } from './entity/SocialEvent';
+import { EventPost, SocialEvent } from './entity/SocialEvent';
 import { apiFetch } from './apiClient';
 
 export function handleFormInputChange(
@@ -30,15 +30,15 @@ export async function setTimestamp() {
 export async function getTimestamp() {
   return await SecureStore.getItemAsync('timestamp');
 }
-export function getPostType(nickname: string, username: string, groupData?: GroupPost, eventData?: EventPost): string {
+export function getPostType(nickname: string, username: string, group: Group | null, event: SocialEvent | null): string {
   if (nickname && username) {
-    if (!groupData && !eventData) {
+    if (!group && !event) {
       return 'USER';
     }
-    if (!groupData && eventData) {
+    if (!group && event) {
       return 'EVENT';
     }
-    if ((groupData && eventData) || (groupData && !eventData)) {
+    if ((group && event) || (group && !event)) {
       return 'GROUP';
     } else return 'INVALID';
   } else return 'INVALID';

@@ -5,8 +5,8 @@ import { PostDispayElementProps } from './props';
 export default function PostAuthorDisplayElement({
   authorNickname,
   authorUsername,
-  groupData,
-  eventData,
+  group,
+  event,
   postType,
 }: PostDispayElementProps) {
   return (
@@ -14,14 +14,14 @@ export default function PostAuthorDisplayElement({
       <ThemedText className="txl">
         {postType === 'USER' && authorNickname}
         {postType === 'GROUP' && (
-          <ThemedText>
-            <ThemedText>{groupData?.groupNickname} </ThemedText>
+          <View className='flex items-center flex-row'>
+            <ThemedText className='font-bold text-lg'>{group?.name} </ThemedText>
             <ThemedText className="tsm font-normal muted ">
-              {groupData?.groupNickname.split(' ')[0].toUpperCase()}
+              {group?.alias}
             </ThemedText>
-          </ThemedText>
+          </View>
         )}
-        {postType === 'EVENT' && eventData?.eventName}
+        {postType === 'EVENT' && event?.name}
         {postType === 'INVALID' && 'Invalid'}
       </ThemedText>
       <ThemedText className={`tsm flex-wrap flex muted `}>{postType === 'USER' && '@' + authorUsername}</ThemedText>
