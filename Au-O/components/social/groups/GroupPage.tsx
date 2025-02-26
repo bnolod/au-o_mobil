@@ -23,6 +23,7 @@ export default function GroupPage({ group, colorScheme, language }: CommonStatic
         name={group.name}
         image={group.bannerImage}
         colorScheme={colorScheme}
+        count={group.memberCount}
         language={language}
       />
       <View className="group-page">
@@ -35,7 +36,9 @@ export default function GroupPage({ group, colorScheme, language }: CommonStatic
             />
           </Button>
           <ThemedText numberOfLines={2} className="text-2xl basis-7/12 font-bold">
-            {group.name} <ThemedText className="tsm font-light muted ">{group.alias}</ThemedText>
+            {group.name} <ThemedText className="tsm font-light muted ">{group.alias} </ThemedText>
+          </ThemedText>
+          <ThemedText>
           </ThemedText>
           <Button className="button py-0 background mr-0 basis-2/12  items-center justify-center">
             <MaterialCommunityIcons
@@ -89,10 +92,10 @@ export default function GroupPage({ group, colorScheme, language }: CommonStatic
           </TouchableOpacity>
         </View>
       </ScrollView>
-      {selectedTab === "POSTS" && <GroupPostTab group={group} language={language} />}
-      {selectedTab === "EVENTS" && <GroupEventsTab group={group} language={language}/>}
-      {selectedTab === "MEMBERS" && <GroupMembersTab group={group} language={language} />}
-      {selectedTab === "INFO" && <GroupInfoTab group={group} language={language}/>}
+      {selectedTab === "POSTS" && <GroupPostTab group={group} colorScheme={colorScheme} language={language} />}
+      {selectedTab === "EVENTS" && <GroupEventsTab group={group} colorScheme={colorScheme} language={language}/>}
+      {selectedTab === "MEMBERS" && <GroupMembersTab group={group} colorScheme={colorScheme} language={language} />}
+      {selectedTab === "INFO" && <GroupInfoTab group={group} colorScheme={colorScheme} language={language}/>}
     </View>
   )
 }

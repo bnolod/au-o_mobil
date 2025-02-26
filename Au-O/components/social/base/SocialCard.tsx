@@ -9,6 +9,7 @@ import LoadingModal from '@/components/ui/LoadingModal';
 import CollapsibleText from '@/components/ui/CollapsibleText';
 import { SocialCardProps } from './props';
 import { GroupTexts } from '@/constants/texts';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export default function SocialCard({
   language,
@@ -75,7 +76,7 @@ export default function SocialCard({
           <View className="social-card-container">
             <View className="basis-4/6">
               <ThemedText className="tlg leading-tight">
-                {item.name}
+                {group && !group.public && <MaterialCommunityIcons name='lock-outline'/>}{item.name}
                 <ThemedText className="tsm p-3 font-semibold muted "> {item.alias}</ThemedText>
               </ThemedText>
               <CollapsibleText className="opacity-85">{item.description}</CollapsibleText>

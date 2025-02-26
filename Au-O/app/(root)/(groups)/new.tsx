@@ -24,7 +24,6 @@ export default function NewPostPage() {
   const { language } = useLanguage();
   const { user } = useAuthentication();
   const [imagePreview, setImagePreview] = useState<ImagePickerAsset | null>(null);
-
   const [newGroupForm, setNewGroupForm] = useState<GroupCreationRequest>({
     name: '',
     description: '',
@@ -109,7 +108,7 @@ export default function NewPostPage() {
                 ? newGroupForm.description
                 : 'Provide a fitting description for your new group.',
             member: true,
-            public: true,
+            public: newGroupForm.isPublic,
             validMember: true,
             
             memberCount: 123,
@@ -118,6 +117,9 @@ export default function NewPostPage() {
         />
       </View>
       <Pressable className="flex h-screen flex-col" onPress={() => Keyboard.dismiss()}>
+        <View className='flex flex-row justify-between items-center'>
+          <View className='w-9/12 ml-1 self-start'>
+
         <Input
           label="Name"
           icon="id-card"
@@ -125,6 +127,30 @@ export default function NewPostPage() {
             placeholder: 'Name',
             value: newGroupForm.name,
             onChangeText: (text) => setNewGroupForm({ ...newGroupForm, name: text }),
+          }}
+          colorScheme={colorScheme!}
+          
+          />
+          </View>
+          <View className='w-3/12 items-center flex justify-center'>
+            <TouchableOpacity className='secondary button flex items-center justify-center' onPress={() => setNewGroupForm({ ...newGroupForm, isPublic: !newGroupForm.isPublic })}>
+            <MaterialCommunityIcons name={newGroupForm.isPublic ? "door-open" : "door-closed-lock"} size={24} color={Colors[colorScheme!].text} />
+            <ThemedText>
+              {newGroupForm.isPublic ? 'Public' : 'Private'}
+            </ThemedText>
+            </TouchableOpacity>
+          </View>
+          </View>
+                <Input
+          label="Alias"
+          icon="bookmark-check-outline"
+          TextInputProps={{
+            placeholder: 'Alias',
+            maxLength: 8,
+            value: newGroupForm.alias,
+
+            onChangeText: (text) =>
+              setNewGroupForm({ ...newGroupForm, alias: text.toUpperCase().replace(/[^A-Z]/g, '') }),
           }}
           colorScheme={colorScheme!}
         />
@@ -141,19 +167,7 @@ export default function NewPostPage() {
           }}
           colorScheme={colorScheme!}
         />
-        <Input
-          label="Alias"
-          icon="bookmark-check-outline"
-          TextInputProps={{
-            placeholder: 'Alias',
-            maxLength: 8,
-            value: newGroupForm.alias,
 
-            onChangeText: (text) =>
-              setNewGroupForm({ ...newGroupForm, alias: text.toUpperCase().replace(/[^A-Z]/g, '') }),
-          }}
-          colorScheme={colorScheme!}
-        />
         <TouchableOpacity onPress={openGallery} className="new-post-gallery-opener mx-auto">
           <View className="absolute -left-4">
             <MaterialCommunityIcons name="image-outline" color={Colors[colorScheme!].text} size={36} />
