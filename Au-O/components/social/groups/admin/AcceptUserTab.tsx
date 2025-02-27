@@ -27,8 +27,8 @@ export default function AcceptUserTab({ user, language }: AcceptUserTabProps & C
           style={{ display: 'flex', flex: 1, paddingVertical: 8, paddingLeft: 32, paddingRight: 8, gap: 16, alignItems: 'center', flexDirection: 'row' }}
           className="flex flex-row items-center gap-4 justify-center"
         >
-          <MaterialCommunityIcons onPress={() => {}} name="close-outline" size={42} color="red" />
-          <MaterialCommunityIcons onPress={() => {}} name="check-outline" size={42} color="green" />
+          <MaterialCommunityIcons onPress={() => {}} name="close" size={42} color="red" />
+          <MaterialCommunityIcons onPress={() => {}} name="check" size={42} color="green" />
         </ImageBackground>
       </View>
     </View>

@@ -3,5 +3,5 @@ export interface GroupCreationRequest {
     description: string;
     bannerImage: string;
     alias: string;
-    isPublic : boolean;
+    public : boolean;
 }

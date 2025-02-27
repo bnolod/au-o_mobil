@@ -10,6 +10,7 @@ import CollapsibleText from '@/components/ui/CollapsibleText';
 import { SocialCardProps } from './props';
 import { GroupTexts } from '@/constants/texts';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { joinGroup } from '@/lib/ApiCalls/GroupApiCalls';
 
 export default function SocialCard({
   language,
@@ -76,17 +77,20 @@ export default function SocialCard({
           <View className="social-card-container">
             <View className="basis-4/6">
               <ThemedText className="tlg leading-tight">
-                {group && !group.public && <MaterialCommunityIcons name='lock-outline'/>}{item.name}
+                {group && !group.public && <MaterialCommunityIcons name="lock-outline" />}
+                {item.name}
                 <ThemedText className="tsm p-3 font-semibold muted "> {item.alias}</ThemedText>
               </ThemedText>
               <CollapsibleText className="opacity-85">{item.description}</CollapsibleText>
             </View>
-            <View className="flex  items-start gap-8">
+            <View className="flex items-start gap-3">
               {!item.isUserRelated && (
-                <Button onPress={!preview ? () => {} : () => {}} className="social-card-action-button">
+                <Button onPress={!preview ? () => {type === "GROUP" ? joinGroup(group!.id) : {}} : () => {}} className="social-card-action-button">
                   {type === 'GROUP'
                     ? group?.public
                       ? GroupTexts.buttons.join[language]
+                      : group?.member
+                      ? 'application sent'
                       : GroupTexts.page.apply[language]
                     : 'Attend'}
                 </Button>
@@ -104,17 +108,28 @@ export default function SocialCard({
                             },
                           });
                         else
+                        if (group?.validMember) {
+
                           router.push({
                             pathname: `/(root)/(groups)/[id]`,
                             params: {
                               id: item.id,
                             },
                           });
+                        }
+                        
                       }
                     : () => {}
                 }
               >
-                {type === 'GROUP' && group?.public ? GroupTexts.buttons.visit[language] : 'Details'}
+                {type === 'GROUP' &&
+                group?.validMember
+                  ? group.public
+                    ? 'Visit'
+                    : 'Visit'
+                  : group?.public
+                  ? 'Visit'
+                  : 'Details'}
               </Button>
             </View>
           </View>

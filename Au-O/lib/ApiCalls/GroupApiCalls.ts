@@ -9,6 +9,8 @@ import Toast from 'react-native-toast-message';
 import { ImagePickerAsset } from 'expo-image-picker';
 import { User } from '../entity/User';
 import { router } from 'expo-router';
+import { CreatePostRequest } from '../request/PostCreationRequest';
+import { Post } from '../entity/Post';
 
 export async function createGroup(request: GroupCreationRequest) {
   const req = await apiFetch<Group>('groups/group', 'POST', true, request);
@@ -47,6 +49,14 @@ export async function handleJoinRequest(groupId: number, userId: number, accept:
   return null;
 }
 
+export async function postToGroup(groupId: number, post: ImageStoreRequest) {
+  const req = await apiFetch<Post>(`groups/${groupId}/post`, 'POST', true, post);
+  if (req && req.status === 200) {
+    return req.data;
+  }
+  return null;
+}
+
 export async function joinGroup(groupId: number) {
   const req = await apiFetch('groups/group' + groupId + '/join', 'POST', true);
   if (req && req.status === 200) {
@@ -64,6 +74,7 @@ async function submitPostToGroup(
   language: 'EN' | 'HU',
   user: User,
   selectedEvent: any,
+  groupId: number,
   bottomSheetRef: any
 ) {
   setLoading(true);
@@ -86,7 +97,7 @@ async function submitPostToGroup(
       postImages: uploadedImages,
       vehicleId: newPostForm.vehicleId,
     };
-    const storeRes = await  (imageStoreRequest);
+    const storeRes = await postToGroup(groupId, imageStoreRequest);
     bottomSheetRef.current?.dismiss();
     setNewPostForm({
       description: '',
@@ -108,7 +119,7 @@ async function submitPostToGroup(
       router.replace('/(root)/home');
       router.push({
         pathname: '/(post)/page/[id]',
-        params: { id: storeRes.postId as string, isNew: 'true' },
+        params: { id: storeRes.postId, isNew: 'true' },
       });
     } else {
       Toast.show({

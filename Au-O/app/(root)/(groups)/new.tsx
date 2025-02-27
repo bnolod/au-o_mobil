@@ -3,7 +3,7 @@ import Input from '@/components/ui/Input';
 import { useColorScheme } from 'nativewind';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Images } from '@/lib/staticAssetExports';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Toast from 'react-native-toast-message';
 import SocialCard from '@/components/social/base/SocialCard';
 import NewSocial from '@/components/social/base/NewSocial';
@@ -29,8 +29,9 @@ export default function NewPostPage() {
     description: '',
     alias: '',
     bannerImage: '',
-    isPublic: true,
+    public: true,
   });
+
   async function openGallery() {
     const res = await getOneImageFromGallery();
     if (res) {
@@ -57,7 +58,7 @@ export default function NewPostPage() {
       bannerImage: image ? image : '',
       description: newGroupForm.description,
       name: newGroupForm.name,
-      isPublic: newGroupForm.isPublic,
+      public: newGroupForm.public,
     });
     if (createGroupRes) {
       Toast.show({
@@ -69,7 +70,7 @@ export default function NewPostPage() {
         description: '',
         alias: '',
         bannerImage: '',
-        isPublic: true,
+        public: true,
       });
       router.replace('/(root)/(groups)/feed');
       router.push({ pathname: '/(root)/(groups)/[id]', params: { id: createGroupRes.id } });
@@ -108,7 +109,7 @@ export default function NewPostPage() {
                 ? newGroupForm.description
                 : 'Provide a fitting description for your new group.',
             member: true,
-            public: newGroupForm.isPublic,
+            public: newGroupForm.public,
             validMember: true,
             
             memberCount: 123,
@@ -133,10 +134,10 @@ export default function NewPostPage() {
           />
           </View>
           <View className='w-3/12 items-center flex justify-center'>
-            <TouchableOpacity className='secondary button flex items-center justify-center' onPress={() => setNewGroupForm({ ...newGroupForm, isPublic: !newGroupForm.isPublic })}>
-            <MaterialCommunityIcons name={newGroupForm.isPublic ? "door-open" : "door-closed-lock"} size={24} color={Colors[colorScheme!].text} />
+            <TouchableOpacity className='secondary button flex items-center justify-center' onPress={() => setNewGroupForm({ ...newGroupForm, public: !newGroupForm.public })}>
+            <MaterialCommunityIcons name={newGroupForm.public ? "door-open" : "door-closed-lock"} size={24} color={Colors[colorScheme!].text} />
             <ThemedText>
-              {newGroupForm.isPublic ? 'Public' : 'Private'}
+              {newGroupForm.public ? 'Public' : 'Private'}
             </ThemedText>
             </TouchableOpacity>
           </View>

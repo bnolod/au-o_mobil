@@ -31,6 +31,7 @@ import {
   cleanupInvalidImageUploads,
   createImageForm,
   handleGallery,
+  searchFilter,
 } from '@/lib/functions';
 import Toast from 'react-native-toast-message';
 import LoadingModal from '@/components/ui/LoadingModal';
@@ -69,6 +70,7 @@ export default function NewPost() {
     vehicleId: null,
   });
   const [cars, setCars] = useState<Car[]>([]);
+  const [vehicleSearch, setVehicleSearch] = useState<string>("");
   useEffect(() => {
     getCars();
   }, []);
@@ -291,11 +293,12 @@ export default function NewPost() {
                   colorScheme={colorScheme!}
                   FlashListProps={{
                     data: cars,
+                    estimatedItemSize: 120,
                     ListHeaderComponent: () => (
                       <View>
                         <Button
                           onPress={() => sheet.current?.dismissSheet()}
-                          className="button highlight-themed outline"
+                          className="button btn-fill highlight-themed outline"
                           >
                           Close
                         </Button>
@@ -322,6 +325,7 @@ export default function NewPost() {
                       </View>
                     ),
                     renderItem: ({ item }) => (
+
                       <Pressable
                       onPress={() => {
                           sheet.current?.dismissSheet();
