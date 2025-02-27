@@ -4,8 +4,8 @@ import {
   MOCK_invalidPasswordLoginData,
   MOCK_validLoginData,
 } from "@/constants/mocks.test";
-import { validateLogin } from "../functions";
-import { UIErrorTexts } from "@/constants/texts";
+import { validateLogin } from "../Validation/Validation";
+import { loginSuccess } from "../Validation/responses";
 
 test("Érvényes bejelentkezési adatok", () => {
   expect(
@@ -16,7 +16,7 @@ test("Érvényes bejelentkezési adatok", () => {
     )
   ).toStrictEqual({
     valid: true,
-    message: UIErrorTexts.authentication.loginSuccess.EN,
+    message: loginSuccess.EN,
   });
 });
 test("Érvénytelen jelszó", () => {

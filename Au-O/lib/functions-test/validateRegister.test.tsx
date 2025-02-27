@@ -1,6 +1,6 @@
 import { MOCK_validRegisterData } from "@/constants/mocks.test";
-import { validateRegister } from "../functions";
-import { UIErrorTexts } from "@/constants/texts";
+import { validateRegister } from "../Validation/Validation";
+import { email, password, registrationSuccess, username } from "../Validation/responses";
 
 test("Érvényes bejelentkezési adatok", () => {
   expect(
@@ -14,7 +14,7 @@ test("Érvényes bejelentkezési adatok", () => {
     )
   ).toStrictEqual({
     valid: true,
-    message: UIErrorTexts.authentication.registrationSuccess.EN,
+    message: registrationSuccess.EN,
   });
 });
 test("Eltérő jelszavak", () => {
@@ -29,7 +29,7 @@ test("Eltérő jelszavak", () => {
     )
   ).toStrictEqual({
     valid: false,
-    messages: [UIErrorTexts.password.passwordsDoNotMatch.EN],
+    messages: [password.passwordsDoNotMatch.EN],
   });
 });
 test("Érvénytelen e-mail", () => {
@@ -44,7 +44,7 @@ test("Érvénytelen e-mail", () => {
     )
   ).toStrictEqual({
     valid: false,
-    messages: [UIErrorTexts.email.invalidEmail.EN],
+    messages: [email.invalidEmail.EN],
   });
 });
 test("Érvénytelen felhasználónév", () => {
@@ -59,7 +59,7 @@ test("Érvénytelen felhasználónév", () => {
     )
   ).toStrictEqual({
     valid: false,
-    messages: [UIErrorTexts.username.invalidUsername.EN],
+    messages: [username.invalidUsername.EN],
   });
 });
 test("Érvénytelen jelszó", () => {
@@ -75,12 +75,12 @@ test("Érvénytelen jelszó", () => {
   ).toStrictEqual({
     valid: false,
     messages: [
-      UIErrorTexts.password.minCharacters.EN,
-      UIErrorTexts.password.noCapitalLetters.EN,
-      UIErrorTexts.password.noNumbers.EN,
-      UIErrorTexts.password.noSpecialCharacters.EN,
+      password.minCharacters.EN,
+      password.noCapitalLetters.EN,
+      password.noNumbers.EN,
+      password.noSpecialCharacters.EN,
       
-      UIErrorTexts.password.passwordsDoNotMatch.EN,
+      password.passwordsDoNotMatch.EN,
     ],
   });
 });

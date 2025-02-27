@@ -230,78 +230,7 @@ export const generalTexts = {
   },
 };
 
-export const UIErrorTexts = {
-  email: {
-    invalidEmail: {
-      HU: 'Érvénytelen e-mail cím.',
-      EN: 'Invalid e-mail address',
-    },
-  },
-  password: {
-    minCharacters: {
-      HU: `A jelszó minimum 8 karakterből kell, hogy álljon.`,
-      EN: `Your password must be at least 8 characters.`,
-    },
-    noCapitalLetters: {
-      HU: 'A jelszóban szerepelnie kell minimum 1 nagybetűs karakternek.',
-      EN: 'Your password must contain at least 1 capital character.',
-    },
-    noSmallLetters: {
-      HU: 'A jelszóban szerepelnie kell minimum 1 kisbetűs karakternek.',
-      EN: 'Your password must contain at least 1 non-capital character',
-    },
-    noNumbers: {
-      HU: 'A jelszóban szerepelnie kell minimum 1 numerikus karakternek',
-      EN: 'Your password must contain at least 1 numeric character.',
-    },
-    noSpecialCharacters: {
-      HU: 'A jelszónak tartalmaznia kell minimum 1 különleges karaktert.',
-      EN: 'Your password must include a special character.',
-    },
-    passwordsDoNotMatch: {
-      HU: 'A jelszavak nem egyeznek.',
-      EN: 'Passwords do not match.',
-    },
-  },
-  username: {
-    invalidUsername: {
-      HU: 'A felhasználónévnek legalább 3 karakterből kell állnia.',
-      EN: 'Username must be at least 3 characters long.',
-    },
-  },
-  loading: {
-    HU: 'Egy pillanat...',
-    EN: 'Just a moment...',
-  },
-  dateOfBirth: {
-    ageRestriction: {
-      HU: 'A felhasználónak legalább 16 évesnek kell lennie.',
-      EN: 'User must be at least 16 years old.',
-    },
-    invalidDoB: {
-      HU: 'A megadott születési dátum nem megfelelő.',
-      EN: 'Invalid date of birth.',
-    },
-  },
-  authentication: {
-    loginFailed: {
-      HU: 'Sikeretelen bejelentkezés. Ellenőrizd az adataidat.',
-      EN: 'Failed to log in. Check your credentials.',
-    },
-    loginSuccess: {
-      HU: 'Sikeres bejelentkezés.',
-      EN: 'Successfully logged in.',
-    },
-    registrationFailed: {
-      HU: 'Sikertelen regisztráció. Ellenőrizd a beviteli mezőket.',
-      EN: 'Failed to sign up. Check your input fields.',
-    },
-    registrationSuccess: {
-      HU: 'Sikeres regisztráció.',
-      EN: 'Successfully signed up.',
-    },
-  },
-};
+
 
 export const HttpErrorTexts = {
   400: {

@@ -48,6 +48,7 @@ import { publishPost } from '@/lib/ApiCalls/PostApiCalls';
 import PostCreationSheetSelectElements from '@/components/Post/NewPost/PostCreationSheetSelectElement';
 import { CreatePostRequest } from '@/lib/request/PostCreationRequest';
 import { ImageStoreRequest, ImageUploadResponse } from '@/lib/request/ImgurRequest';
+import { validateUserPost } from '@/lib/Validation/Validation';
 export default function NewPost() {
   const { language } = useLanguage();
   const { user } = useAuthentication();
@@ -70,7 +71,6 @@ export default function NewPost() {
     vehicleId: null,
   });
   const [cars, setCars] = useState<Car[]>([]);
-  const [vehicleSearch, setVehicleSearch] = useState<string>("");
   useEffect(() => {
     getCars();
   }, []);
@@ -82,6 +82,9 @@ export default function NewPost() {
     });
   }, [images, selectedEvent]);
   function handlePresent() {
+    if (!validateUserPost(newPostForm.description, newPostForm.location, language).valid) {
+      return
+    } else
     bottomSheetRef.current?.present();
   }
   async function getCars() {
@@ -92,6 +95,9 @@ export default function NewPost() {
   }
 
   async function handleSubmit() {
+    if (!validateUserPost(newPostForm.description, newPostForm.location, language).valid) {
+      return
+    }
     setLoading(true);
     const uploadedImages: ImageUploadResponse[] = [];
     for (const image of images) {

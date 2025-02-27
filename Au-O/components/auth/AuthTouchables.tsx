@@ -4,38 +4,32 @@ import ThemedText from '../ui/ThemedText';
 import { AuthTexts } from '@/constants/texts';
 import { useFormContext } from '@/contexts/FormContext';
 import { router } from 'expo-router';
-import { validateLogin, validateRegister } from '@/lib/functions';
+import { showErrorToast } from '@/lib/functions';
 import { useAuthentication } from '@/contexts/AuthenticationContext';
-import Toast from 'react-native-toast-message';
+import { validateLogin, validateRegister } from '@/lib/Validation/Validation';
+import { loginFailed } from '@/lib/Validation/responses';
 
 export default function AuthTouchables({ language, mode }: { language: 'HU' | 'EN'; mode: 'LOGIN' | 'SIGNUP' }) {
   const { getFormData, resetFormData } = useFormContext();
   const { login, register } = useAuthentication();
   async function performLogin() {
     const { identifier, password } = await getFormData('login');
-    if (process.env.EXPO_PUBLIC_VALIDATE_AUTH === 'true') {
       if (!validateLogin(identifier, password, language).valid) {
         return;
-      }
     }
     resetFormData('login');
     const loginStatus = await login!({ usernameOrEmail: identifier, password });
     if (loginStatus) {
       router.replace('/(root)/home');
     } else
-      Toast.show({
-        text1: 'Login failed',
-        type: 'error',
-      });
+    showErrorToast(loginFailed[language], );
   }
   async function performRegistration() {
     const { email, username, password, nickname, confirmPassword, dateOfBirth } = await getFormData('register');
-    if (process.env.EXPO_PUBLIC_VALIDATE_AUTH === 'true') {
-      if (!validateRegister(email, username, password, confirmPassword, dateOfBirth, language).valid) {
-        resetFormData('register');
+      if (!validateRegister(email, username, password, nickname, confirmPassword, dateOfBirth, language).valid) {
         return;
       }
-    }
+      resetFormData('register');
     await register!({
       email,
       username,

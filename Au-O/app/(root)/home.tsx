@@ -6,7 +6,6 @@ import { TouchableWithoutFeedback } from 'react-native';
 import PostCard from '@/components/Post/Post';
 import { useColorScheme } from 'nativewind';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { UIErrorTexts } from '@/constants/texts';
 // import { PostResponse } from "@/constants/types";
 import { FlashList } from '@shopify/flash-list';
 import NoPostsFound from '@/components/Post/base/NoPostsFound';
@@ -15,6 +14,7 @@ import { Redirect } from 'expo-router';
 import RootHeader from '@/components/home/base/RootHeader';
 import { Post } from '@/lib/entity/Post';
 import { loadFeed } from '@/lib/ApiCalls/PostApiCalls';
+import { loading } from '@/lib/Validation/responses';
 
 export default function Home() {
   const { user } = useAuthentication();
@@ -82,7 +82,7 @@ export default function Home() {
           <FlashList
             refreshControl={
               <RefreshControl refreshing={refreshing} onRefresh={handleRefresh}>
-                <LoadingModal colorScheme={colorScheme!} loading={refreshing} text={UIErrorTexts.loading[language]} />
+                <LoadingModal colorScheme={colorScheme!} loading={refreshing} text={loading[language]} />
               </RefreshControl>
             }
             showsVerticalScrollIndicator={false}
@@ -95,6 +95,8 @@ export default function Home() {
             data={post.sort((a, b) => new Date(b.dateOfCreation).getTime() - new Date(a.dateOfCreation).getTime())}
             renderItem={({ item }) => (
               <PostCard
+              event={null}
+              group={null}
                 reaction={item.reactedWith}
                 user={user}
                 authorProfileImg={item.user.profileImg}

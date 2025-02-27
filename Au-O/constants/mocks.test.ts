@@ -1,15 +1,18 @@
-import { Car, EventPostData, GroupPostData, LoginRequest, RegisterRequest } from "./types"
+import { GroupPost } from "@/lib/entity/Group"
+import { LoginRequest, RegisterRequest } from "./types"
+import { EventPost } from "@/lib/entity/SocialEvent"
+import { Car } from "@/lib/entity/Car"
 
 export const MOCK_nickname: string = "TesztNickname"
 export const MOCK_invalidNickname: string = "t"
 export const MOCK_username: string = "TesztUsername"
 export const MOCK_invalidUsername: string = "t"
-export const MOCK_groupPostData: GroupPostData = {
+export const MOCK_groupPostData: GroupPost = {
     groupIcon: "TesztGroupIcon",
     groupName: "TesztGroupName",
     groupNickname: "TesztGroupNickname",
 }
-export const MOCK_eventPostData: EventPostData = {
+export const MOCK_eventPostData: EventPost = {
     attendees: 34,
     startDate: "2025-06-01",
     endDate: "2025-08-01",
@@ -33,7 +36,8 @@ export const MOCK_invalidLoginData: LoginRequest = {
     usernameOrEmail: "e"
 }
 export const MOCK_car: Car = {
-    id: "1",
+    id: 1,
+    productionYear: 2000,
     description: "igazi erőgép valódi M",
     type: "SEDAN",
     displacement: 1.6,

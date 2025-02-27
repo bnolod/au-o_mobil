@@ -1,15 +1,13 @@
-import { PostCreationTexts, PostStatusTexts, UIErrorTexts } from '@/constants/texts';
+import { PostCreationTexts } from '@/constants/texts';
 import * as SecureStore from 'expo-secure-store';
 import * as FileSystem from 'expo-file-system';
 import * as ImagePicker from 'expo-image-picker';
-import * as Clipboard from 'expo-clipboard';
 import Toast from 'react-native-toast-message';
 import { User } from './entity/User';
 import { ImageUploadResponse } from './request/ImgurRequest';
-import { Group, GroupPost } from './entity/Group';
-import { router } from 'expo-router';
-import { EventPost, SocialEvent } from './entity/SocialEvent';
-import { apiFetch } from './apiClient';
+import { Group } from './entity/Group';
+import { SocialEvent } from './entity/SocialEvent';
+
 
 export function handleFormInputChange(
   formKey: string,
@@ -30,7 +28,12 @@ export async function setTimestamp() {
 export async function getTimestamp() {
   return await SecureStore.getItemAsync('timestamp');
 }
-export function getPostType(nickname: string, username: string, group: Group | null, event: SocialEvent | null): string {
+export function getPostType(
+  nickname: string,
+  username: string,
+  group: Group | null,
+  event: SocialEvent | null
+): string {
   if (nickname && username) {
     if (!group && !event) {
       return 'USER';
@@ -88,11 +91,10 @@ export async function handleGallery(images: ImagePicker.ImagePickerAsset[], lang
       if (result.assets.length + images.length <= 10) {
         const newAssets = result.assets.filter((asset) => !images.some((image) => image.assetId === asset.assetId));
         if (newAssets.length < result.assets.length) {
-          Toast.show({
-            type: 'error',
-            text1: PostCreationTexts.imageUploadDuplicateSafeguard.header[language],
-            text2: PostCreationTexts.imageUploadDuplicateSafeguard.message[language],
-          });
+          showErrorToast(
+            PostCreationTexts.imageUploadDuplicateSafeguard.header[language],
+            PostCreationTexts.imageUploadDuplicateSafeguard.message[language]
+          );
         }
         const newImages = images.concat(newAssets);
         return newImages;
@@ -133,109 +135,6 @@ export const searchFilter = (query: string, items: any[], attribute: any) => {
     .map(({ item }) => item);
 };
 
-export function validateLogin(identifier: string, password: string, language: 'HU' | 'EN' = 'EN') {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const usernameRegex = /^[a-zA-Z0-9_]{3,}$/;
-  const minCharactersRegex = new RegExp(`^.{${process.env.EXPO_PUBLIC_MIN_PASSWORD_CHARACTER_LENGTH || 8},}$`);
-  const noCapitalLettersRegex = /^(?=.*[A-Z])/;
-  const noSmallLettersRegex = /^(?=.*[a-z])/;
-  const noNumbersRegex = /^(?=.*\d)/;
-  const noSpecialCharactersRegex = /^(?=.*\W)/;
-
-  const errors: string[] = [];
-
-  if (!emailRegex.test(identifier) && !usernameRegex.test(identifier)) {
-    errors.push(UIErrorTexts.email.invalidEmail[language]);
-  }
-
-  if (!minCharactersRegex.test(password)) {
-    errors.push(UIErrorTexts.password.minCharacters[language]);
-  }
-  if (!noCapitalLettersRegex.test(password)) {
-    errors.push(UIErrorTexts.password.noCapitalLetters[language]);
-  }
-  if (!noSmallLettersRegex.test(password)) {
-    errors.push(UIErrorTexts.password.noSmallLetters[language]);
-  }
-  if (!noNumbersRegex.test(password)) {
-    errors.push(UIErrorTexts.password.noNumbers[language]);
-  }
-  if (!noSpecialCharactersRegex.test(password)) {
-    errors.push(UIErrorTexts.password.noSpecialCharacters[language]);
-  }
-
-  if (errors.length > 0) {
-    return { valid: false, messages: errors };
-  }
-
-  return {
-    valid: true,
-    message: UIErrorTexts.authentication.loginSuccess[language],
-  };
-}
-
-export function validateRegister(
-  email: string,
-  username: string,
-  password: string,
-  confirmPassword: string,
-  dateOfBirth: string,
-  language: 'HU' | 'EN' = 'EN'
-) {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const usernameRegex = /^[a-zA-Z0-9_]{3,}$/;
-  const noCapitalLettersRegex = /^(?=.*[A-Z])/;
-  const noSmallLettersRegex = /^(?=.*[a-z])/;
-  const noNumbersRegex = /^(?=.*\d)/;
-  const noSpecialCharactersRegex = /^(?=.*\W)/;
-
-  const errors: string[] = [];
-
-  if (!emailRegex.test(email)) {
-    errors.push(UIErrorTexts.email.invalidEmail[language]);
-  }
-
-  if (!usernameRegex.test(username)) {
-    errors.push(UIErrorTexts.username.invalidUsername[language]);
-  }
-
-  if (password.length < 8) {
-    errors.push(UIErrorTexts.password.minCharacters[language]);
-  }
-  if (!noCapitalLettersRegex.test(password)) {
-    errors.push(UIErrorTexts.password.noCapitalLetters[language]);
-  }
-  if (!noSmallLettersRegex.test(password)) {
-    errors.push(UIErrorTexts.password.noSmallLetters[language]);
-  }
-  if (!noNumbersRegex.test(password)) {
-    errors.push(UIErrorTexts.password.noNumbers[language]);
-  }
-  if (!noSpecialCharactersRegex.test(password)) {
-    errors.push(UIErrorTexts.password.noSpecialCharacters[language]);
-  }
-
-  if (password !== confirmPassword) {
-    errors.push(UIErrorTexts.password.passwordsDoNotMatch[language]);
-  }
-  if (Number(dateOfBirth.split('-')[0]) > 2009) {
-    errors.push(UIErrorTexts.dateOfBirth.ageRestriction[language]);
-  }
-
-  if (Number(dateOfBirth.split('-')[0]) < 1930) {
-    errors.push(UIErrorTexts.dateOfBirth.invalidDoB[language]);
-  }
-
-  errors.map((error) => console.error(error));
-  if (errors.length > 0) {
-    return { valid: false, messages: errors };
-  }
-
-  return {
-    valid: true,
-    message: UIErrorTexts.authentication.registrationSuccess[language],
-  };
-}
 export async function saveUser(user: User) {
   await SecureStore.setItemAsync('user', JSON.stringify(user));
 }
@@ -252,7 +151,14 @@ export function checkUser() {
 export function formatDate(date: string) {
   return date.replaceAll('-', '. ') + '.';
 }
-
+export function showErrorToast(title: string, message?: string) {
+  Toast.show({
+    type: 'error',
+    text1: title,
+    text2: message,
+    visibilityTime: 5000,
+  });
+}
 export async function createImageForm(element: ImagePicker.ImagePickerAsset, description: string, user: User | null) {
   const imageForm = new FormData();
   const file = await convertToBlob(element.uri);
@@ -280,4 +186,3 @@ export function formatNumber(number: number, language?: 'HU' | 'EN') {
   }
   return formatted >= 100 ? Math.round(formatted) + suffix[lang][i] : formatted.toFixed(1) + suffix[lang][i];
 }
-
