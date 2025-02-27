@@ -78,18 +78,72 @@ export const registrationSuccess = {
 };
 
 export const postFailed = {
-    HU: 'Sikertelen posztolás. Ellenőrizd az adataidat.',
-    EN: 'Failed to post. Check your input fields.',
-}
+  HU: 'Sikertelen posztolás. Ellenőrizd az adataidat.',
+  EN: 'Failed to post. Check your input fields.',
+};
 export const postSuccess = {
-    HU: 'Sikeres posztolás.',
-    EN: 'Successfully posted.',
-}
+  HU: 'Sikeres posztolás.',
+  EN: 'Successfully posted.',
+};
 export const descriptionTooLong = {
-    HU: 'A leírás maximum 255 karakterből állhat.',
-    EN: 'Description can be 255 characters long at most.',
-}
+  HU: 'A leírás maximum 255 karakterből állhat.',
+  EN: 'Description can be 255 characters long at most.',
+};
 export const locationTooLong = {
-    HU: 'A helyszín maximum 32 karakterből állhat.',
-    EN: 'Location can be 32 characters long at most.',
+  HU: 'A helyszín maximum 32 karakterből állhat.',
+  EN: 'Location can be 32 characters long at most.',
+};
+export const tooManyImages = {
+  HU: 'Maximum 10 képet tölthetsz fel egyszerre.',
+  EN: 'You can upload a maximum of 10 images at once.',
+};
+export const noImages = {
+  HU: 'Legalább egy képet fel kell töltened.',
+  EN: 'You must upload at least one image.',
+};
+
+export const carCreated = {
+  HU: 'Sikeresen létrehoztad az új autót..',
+  EN: 'Successfully added a new car.',
+};
+export const carCreationFailed = {
+  HU: 'Nem sikerült létrehozni az autót.',
+  EN: 'Failed to create the car.',
+};
+export const manufacturerTooLong = {
+  HU: 'A gyártó maximum 32 karakterből állhat.',
+  EN: 'Manufacturer can be 32 characters long at most.',
+};
+export const manufacturerTooShort = {
+  HU: 'A gyártónak legalább 2 karakterből kell állnia.',
+  EN: 'Manufacturer must be at least 2 characters long.',
+};
+export const modelTooLong = {
+  HU: 'A modell maximum 32 karakterből állhat.',
+  EN: 'Model can be 32 characters long at most.',
+};
+export const modelTooShort = {
+  HU: 'A modellnek legalább 1 karakterből kell állnia.',
+  EN: 'Model must be at least 1 character long.',
+};
+export const nicknameSpecialCharacter = {
+    HU: "A becenévben nem szerepelhet különleges karakter.",
+    EN: "Nickname must not contain special characters."
 }
+export const invalidCarType = {
+  HU: 'Érvénytelen autótípus.',
+  EN: 'Invalid car type.',
+};
+export const notEnouthHorsepower = { HU: 'Érvénytelen lóerő érték.', EN: 'Invalid horsepower value.' };
+export const tooMuchHorsepower = {
+  HU: 'Nem versz át senkit...',
+  EN: "You're not making that much power...",
+};
+export const invalidDisplacement = {
+  HU: 'Érvénytelen hengerűrtartalom.',
+  EN: 'Invalid displacement.',
+};
+export const invalidYear = {
+  HU: 'Érvénytelen évjárat',
+  EN: 'Invalid production year.',
+};

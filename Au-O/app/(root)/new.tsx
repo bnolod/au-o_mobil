@@ -82,7 +82,7 @@ export default function NewPost() {
     });
   }, [images, selectedEvent]);
   function handlePresent() {
-    if (!validateUserPost(newPostForm.description, newPostForm.location, language).valid) {
+    if (!validateUserPost(newPostForm.description, newPostForm.location, images, language).valid) {
       return
     } else
     bottomSheetRef.current?.present();
@@ -95,7 +95,7 @@ export default function NewPost() {
   }
 
   async function handleSubmit() {
-    if (!validateUserPost(newPostForm.description, newPostForm.location, language).valid) {
+    if (!validateUserPost(newPostForm.description, newPostForm.location, images, language).valid) {
       return
     }
     setLoading(true);

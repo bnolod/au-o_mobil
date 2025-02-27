@@ -7,19 +7,17 @@ import GarageItem from '@/components/garage/list/GarageItem';
 import { useEffect, useState } from 'react';
 import { CarType } from '@/constants/types';
 import { Image } from 'expo-image';
-// import { CarCreationRequest } from "@/constants/types";
-
 import SheetSelection, { SheetSelectionRef } from '@/components/ui/SheetSelection';
 import CarTypeListItem from '@/components/garage/list/CarTypeListItem';
 import Button from '@/components/ui/Button';
 import { useRef } from 'react';
 import CollapsibleText from '@/components/ui/CollapsibleText';
-// import { addCar } from "@/lib/apiClient";
 import Toast from 'react-native-toast-message';
 import { SocialTexts } from '@/constants/texts';
 import { router } from 'expo-router';
 import { CarCreationRequest } from '@/lib/request/CarCreationRequest';
 import { addCar } from '@/lib/ApiCalls/CarApiCalls';
+import { validateNewVehicle } from '@/lib/Validation/Validation';
 export default function newCar() {
   const { language } = useLanguage();
   const { colorScheme } = useColorScheme();
@@ -120,6 +118,8 @@ export default function newCar() {
             keyboardType: 'number-pad',
           }}
         />
+        <View className='w-11/12 mx-auto'>
+
         <SheetSelection
           colorScheme={colorScheme!}
           ref={sheet}
@@ -143,6 +143,7 @@ export default function newCar() {
           }}
         />
 
+          </View>
         <View className="w-11/12 mx-auto flex flex-row gap-2 ">
           <View className="basis-1/2">
             <Input
@@ -177,6 +178,18 @@ export default function newCar() {
 
         <Button
           onPress={async () => {
+            if (!validateNewVehicle(
+              newCarForm.manufacturer,
+              newCarForm.model,
+              newCarForm.type,
+              newCarForm.horsepower,
+              newCarForm.description,
+              newCarForm.displacement,
+              newCarForm.productionYear,
+              language
+            ).valid) {
+              return
+            } 
             const res = await addCar({
               ...newCarForm,
               displacement: parseFloat(displacement.replace(',', '.')) * 10,
