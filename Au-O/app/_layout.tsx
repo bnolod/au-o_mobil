@@ -17,6 +17,7 @@ import Toast from 'react-native-toast-message';
 import { Platform } from 'react-native';
 import { eventEmitter } from '@/lib/events';
 import { Colors } from '@/constants/Colors';
+import { WebSocketProvider } from '@/contexts/WebSocketContext';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -50,34 +51,36 @@ export default function RootLayout() {
       <OnboardingProvider>
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
           <AuthenticationProvider>
-            <FormProvider>
-              <GestureHandlerRootView>
-                <BottomSheetModalProvider>
-                  <Stack initialRouteName="onboarding">
-                    <Stack.Screen
-                      name="onboarding"
-                      options={{
-                        headerShown: false,
-                        navigationBarHidden: true,
-                      }}
-                    />
-                    <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-                    <Stack.Screen
-                      name="(root)"
-                      options={{
-                        headerShown: false,
-                        navigationBarColor: Colors[colorScheme!].secondary,
-                      }}
-                    />
-                    <Stack.Screen name="(post)" options={{ headerShown: false }} />
+            <WebSocketProvider>
+              <FormProvider>
+                <GestureHandlerRootView>
+                  <BottomSheetModalProvider>
+                    <Stack initialRouteName="onboarding">
+                      <Stack.Screen
+                        name="onboarding"
+                        options={{
+                          headerShown: false,
+                          navigationBarHidden: true,
+                        }}
+                      />
+                      <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+                      <Stack.Screen
+                        name="(root)"
+                        options={{
+                          headerShown: false,
+                          navigationBarColor: Colors[colorScheme!].secondary,
+                        }}
+                      />
+                      <Stack.Screen name="(post)" options={{ headerShown: false }} />
 
-                    <Stack.Screen name="(profile)" options={{ headerShown: false }} />
-                    <Stack.Screen name="(garage)" options={{ headerShown: false }} />
-                  </Stack>
-                </BottomSheetModalProvider>
-              </GestureHandlerRootView>
-              <Toast topOffset={Platform.OS === 'ios' ? 60 : 30} />
-            </FormProvider>
+                      <Stack.Screen name="(profile)" options={{ headerShown: false }} />
+                      <Stack.Screen name="(garage)" options={{ headerShown: false }} />
+                    </Stack>
+                  </BottomSheetModalProvider>
+                </GestureHandlerRootView>
+                <Toast topOffset={Platform.OS === 'ios' ? 60 : 30} />
+              </FormProvider>
+            </WebSocketProvider>
           </AuthenticationProvider>
         </ThemeProvider>
       </OnboardingProvider>

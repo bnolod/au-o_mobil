@@ -5,16 +5,29 @@ import Button from '@/components/ui/Button';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import ThemedText from '@/components/ui/ThemedText';
 import CollapsibleText from '@/components/ui/CollapsibleText';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Group } from '@/lib/entity/Group';
 import GroupPostTab from './tabs/GroupPostTab';
 import GroupEventsTab from './tabs/GroupEventsTab';
 import GroupMembersTab from './tabs/GroupMembersTab';
 import GroupInfoTab from './tabs/GroupInfoTab';
 import { GroupTexts } from '@/constants/texts';
+import { useWebSocket } from '@/contexts/WebSocketContext';
+import GroupChatTab from './tabs/GroupChatTab';
 
 export default function GroupPage({ group, colorScheme, language }: CommonStaticElementProps & { group: Group }) {
-  const [selectedTab, setSelectedTab] = useState<'POSTS' | 'EVENTS' | 'MEMBERS' | 'INFO'>('POSTS');
+  const [selectedTab, setSelectedTab] = useState<'POSTS' | 'EVENTS' | 'MEMBERS' | 'INFO' | 'CHAT'>('POSTS');
+  const { subscribeToTopic } = useWebSocket();
+  useEffect(() => {
+    subscribeToTopic(`group/${group.id}`);
+
+    return () => {
+      // Cleanup any subscriptions here if needed
+    };
+  }, [group.id]);
+
+
+
   return (
     <View>
       <SocialBanner
@@ -38,8 +51,7 @@ export default function GroupPage({ group, colorScheme, language }: CommonStatic
           <ThemedText numberOfLines={2} className="text-2xl basis-7/12 font-bold">
             {group.name} <ThemedText className="tsm font-light muted ">{group.alias} </ThemedText>
           </ThemedText>
-          <ThemedText>
-          </ThemedText>
+          <ThemedText></ThemedText>
           <Button className="button py-0 background mr-0 basis-2/12  items-center justify-center">
             <MaterialCommunityIcons
               name="dots-horizontal"
@@ -56,7 +68,9 @@ export default function GroupPage({ group, colorScheme, language }: CommonStatic
         <View className="flex flex-row gap-4 px-4 py-2">
           <TouchableOpacity
             onPress={() => setSelectedTab('POSTS')}
-            className={`button ${selectedTab === 'POSTS' ? 'highlight-themed' : 'secondary'} flex flex-row gap-2 items-center justify-center`}
+            className={`button ${
+              selectedTab === 'POSTS' ? 'highlight-themed' : 'secondary'
+            } flex flex-row gap-2 items-center justify-center`}
           >
             <ThemedText>
               <MaterialCommunityIcons name="cards-outline" size={24} />
@@ -65,7 +79,9 @@ export default function GroupPage({ group, colorScheme, language }: CommonStatic
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => setSelectedTab('EVENTS')}
-            className={`button ${selectedTab === 'EVENTS' ? 'highlight-themed' : 'secondary'} flex flex-row gap-2 items-center justify-center`}
+            className={`button ${
+              selectedTab === 'EVENTS' ? 'highlight-themed' : 'secondary'
+            } flex flex-row gap-2 items-center justify-center`}
           >
             <ThemedText>
               <MaterialCommunityIcons name="calendar-check-outline" size={24} />
@@ -74,7 +90,9 @@ export default function GroupPage({ group, colorScheme, language }: CommonStatic
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => setSelectedTab('MEMBERS')}
-            className={`button ${selectedTab === 'MEMBERS' ? 'highlight-themed' : 'secondary'} flex flex-row gap-2 items-center justify-center`}
+            className={`button ${
+              selectedTab === 'MEMBERS' ? 'highlight-themed' : 'secondary'
+            } flex flex-row gap-2 items-center justify-center`}
           >
             <ThemedText>
               <MaterialCommunityIcons name="account-group-outline" size={24} />
@@ -83,19 +101,34 @@ export default function GroupPage({ group, colorScheme, language }: CommonStatic
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => setSelectedTab('INFO')}
-            className={`button ${selectedTab === 'INFO' ? 'highlight-themed' : 'secondary'} flex flex-row gap-2 items-center justify-center`}
+            className={`button ${
+              selectedTab === 'INFO' ? 'highlight-themed' : 'secondary'
+            } flex flex-row gap-2 items-center justify-center`}
           >
             <ThemedText>
               <MaterialCommunityIcons name="information-outline" size={24} />
             </ThemedText>
             <ThemedText className="text-xl">{GroupTexts.page.info[language]}</ThemedText>
           </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => setSelectedTab('CHAT')}
+            className={`button ${
+              selectedTab === 'CHAT' ? 'highlight-themed' : 'secondary'
+            } flex flex-row gap-2 items-center justify-center`}
+          >
+            <ThemedText>
+              <MaterialCommunityIcons name="information-outline" size={24} />
+            </ThemedText>
+            <ThemedText className="text-xl">chat</ThemedText>
+          </TouchableOpacity>
         </View>
       </ScrollView>
-      {selectedTab === "POSTS" && <GroupPostTab group={group} colorScheme={colorScheme} language={language} />}
-      {selectedTab === "EVENTS" && <GroupEventsTab group={group} colorScheme={colorScheme} language={language}/>}
-      {selectedTab === "MEMBERS" && <GroupMembersTab group={group} colorScheme={colorScheme} language={language} />}
-      {selectedTab === "INFO" && <GroupInfoTab group={group} colorScheme={colorScheme} language={language}/>}
+      {selectedTab === 'POSTS' && <GroupPostTab group={group} colorScheme={colorScheme} language={language} />}
+      {selectedTab === 'EVENTS' && <GroupEventsTab group={group} colorScheme={colorScheme} language={language} />}
+      {selectedTab === 'MEMBERS' && <GroupMembersTab group={group} colorScheme={colorScheme} language={language} />}
+      {selectedTab === 'INFO' && <GroupInfoTab group={group} colorScheme={colorScheme} language={language} />}
+      {selectedTab === 'CHAT' && <GroupChatTab group={group}/>}
     </View>
-  )
+  );
 }
