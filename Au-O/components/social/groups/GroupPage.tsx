@@ -23,6 +23,7 @@ export default function GroupPage({ group, colorScheme, language }: CommonStatic
 
     return () => {
       // Cleanup any subscriptions here if needed
+      
     };
   }, [group.id]);
 
