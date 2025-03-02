@@ -25,7 +25,6 @@ export const AuthenticationProvider: React.FC<{
     try {
       const response = await apiRegister(request);
       if (response) {
-        await SecureStore.setItemAsync('jwtToken', response);
         const user = await getUser(response);
         if (user) {
           await saveUser(user);
@@ -52,7 +51,6 @@ export const AuthenticationProvider: React.FC<{
     try {
       const token = await apiLogin(request);
       if (token) {
-        await SecureStore.setItemAsync('jwtToken', token);
         const user = await getUser(token);
         if (user) {
           await saveUser(user);
