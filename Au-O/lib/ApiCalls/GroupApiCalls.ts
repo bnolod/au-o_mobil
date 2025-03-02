@@ -58,7 +58,7 @@ export async function postToGroup(groupId: number, post: ImageStoreRequest) {
 }
 
 export async function joinGroup(groupId: number) {
-  const req = await apiFetch('groups/group' + groupId + '/join', 'POST', true);
+  const req = await apiFetch('groups/group/' + groupId + '/join', 'POST', true);
   if (req && req.status === 200) {
     return req.data;
   }

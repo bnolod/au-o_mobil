@@ -29,7 +29,7 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       }
       console.log('JWT Token:', token);
 
-      const socket = new SockJS('http://192.168.0.24:8080/ws?token=' + token); // SockJS
+      const socket = new SockJS(process.env.EXPO_PUBLIC_WS_URL + "?token=" + token); // SockJS
       const client = new Client({
         webSocketFactory: () => socket,
         connectHeaders: {
@@ -70,6 +70,7 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
   const subscribeToTopic = (topic: string): void => {
       if (!stompClient || !stompClient.connected) {
+        
           console.error("WebSocket is not connected!");
           return;
       }
