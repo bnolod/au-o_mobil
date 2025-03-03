@@ -23,10 +23,10 @@ const apiClient: AxiosInstance = axios.create({
 });
 apiClient.interceptors.request.use(
   async (config) => {
-    const token = await SecureStore.getItemAsync('jwtToken');
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    } else config.headers.Authorization = null;
+    // const token = await SecureStore.getItemAsync('jwtToken');
+    // if (token) {
+    //   config.headers.Authorization = `Bearer ${token}`;
+    // } else config.headers.Authorization = null;
     return config;
   },
   (error: unknown) => {
@@ -82,9 +82,10 @@ export async function apiFetch<T>(
       method,
       url: endpoint,
       data: body || undefined,
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: requiresAuth && `Bearer ${await SecureStore.getItemAsync('jwtToken')}`,
+        // Authorization: requiresAuth && `Bearer ${await SecureStore.getItemAsync('jwtToken')}`,
       },
     };
 
