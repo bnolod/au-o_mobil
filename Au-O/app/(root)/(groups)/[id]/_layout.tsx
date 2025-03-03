@@ -5,6 +5,7 @@ export default function GroupPageLayout() {
         <Stack>
             <Stack.Screen name="index" options={{headerShown: false}}/>
             <Stack.Screen name="new" options={{headerShown: false}}/>
+            <Stack.Screen name="post/[postId]" options={{headerShown: false, headerTitle: "Post"}}/>
         </Stack>
     )
 }

@@ -19,7 +19,7 @@ import { Colors } from '@/constants/Colors';
 import Carousel from 'react-native-reanimated-carousel';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import ImageNotFound from '@/components/Post/base/ImageNotFound';
-import { handleGallery } from '@/lib/functions';
+import { createImageForm, handleGallery } from '@/lib/functions';
 import * as ImagePicker from 'expo-image-picker';
 import { PostCreationTexts } from '@/constants/texts';
 import Input from '@/components/ui/Input';
@@ -31,13 +31,16 @@ import GarageItem from '@/components/garage/list/GarageItem';
 import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
 import PostCard from '@/components/Post/Post';
 import { useEffect, useRef, useState } from 'react';
-import { useLocalSearchParams } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import { getCarImage } from '@/components/graphics/cars';
 import { Car } from '@/lib/entity/Car';
 import { useAuthentication } from '@/contexts/AuthenticationContext';
 import { getOwnGarage } from '@/lib/ApiCalls/CarApiCalls';
 import { Group } from '@/lib/entity/Group';
-import { getGroup } from '@/lib/ApiCalls/GroupApiCalls';
+import { getGroup, postToGroup } from '@/lib/ApiCalls/GroupApiCalls';
+import { validateUserPost } from '@/lib/Validation/Validation';
+import { ImageUploadResponse } from '@/lib/request/ImgurRequest';
+import { imageUpload } from '@/lib/ApiCalls/ImageApiCalls';
 export default function NewGroupPost() {
   const { language } = useLanguage();
   const { colorScheme } = useColorScheme();
@@ -55,6 +58,40 @@ export default function NewGroupPost() {
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [group, setGroup] = useState<Group>();
+
+  async function handleSubmit() {
+    setLoading(true);
+    if (!validateUserPost(newPostForm.description, newPostForm.location, images, language).valid) {
+      return
+    }
+    const uploadedImages: ImageUploadResponse[] = [];
+        for (const image of images) {
+          const res = await createImageForm(image, newPostForm.description, user!);
+          if (res) {
+            const upload = await imageUpload(res);
+            if (upload) {
+              uploadedImages.push(upload);
+            }
+          }
+        }
+      const res = await postToGroup(Number(id), {
+        location: newPostForm.location,
+        text: newPostForm.description,
+        vehicleId: newPostForm.vehicleId,
+      postImages: uploadedImages
+
+    });
+  if (res) {
+    setNewPostForm({
+      description: '',
+      location: '',
+      vehicleId: null,
+    })
+    router.replace({pathname: "/(root)/(groups)/[id]/post/[postId]", params: {id: group!.id, postId: res.postId.toString()}})
+  }
+
+    setLoading(false);
+  }
 
   function handlePresent() {
     bottomSheetRef.current?.present();
@@ -74,7 +111,7 @@ export default function NewGroupPost() {
   useEffect(() => {
     getCars();
     getGroups();
-  });
+  }, []);
   if (group && cars)
     return (
       <>
@@ -362,7 +399,7 @@ export default function NewGroupPost() {
                       event={null}
                       group={group}
                     />
-                    <Button onPress={() => {}} innerTextClassName="txl" className=" my-2 p-2 highlight button btn-fill">
+                    <Button onPress={handleSubmit} innerTextClassName="txl" className=" my-2 p-2 highlight button btn-fill">
                       {PostCreationTexts.buttons.post[language]}
                     </Button>
                     <Button

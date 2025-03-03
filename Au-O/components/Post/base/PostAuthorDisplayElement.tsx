@@ -9,15 +9,17 @@ export default function PostAuthorDisplayElement({
   event,
   postType,
 }: PostDispayElementProps) {
+  
   return (
     <View className={`flex  ${postType !== 'USER' ? 'post-author-display-true' : ' post-author-display-false'}`}>
       <ThemedText className="txl">
         {postType === 'USER' && authorNickname}
-        {postType === 'GROUP' && (
+        {postType === 'GROUP' && group && (
           <View className='flex items-center flex-row'>
-            <ThemedText className='font-bold text-lg'>{group?.name} </ThemedText>
+            <ThemedText className='font-bold text-lg'>{group.memberCount}</ThemedText>
             <ThemedText className="tsm font-normal muted ">
               {group?.alias}
+              fasz
             </ThemedText>
           </View>
         )}

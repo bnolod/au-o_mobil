@@ -63,7 +63,7 @@ export default function RootLayout() {
                           navigationBarHidden: true,
                         }}
                       />
-                      <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+                      <Stack.Screen name="(auth)" options={{ headerShown: false, freezeOnBlur: true }} />
                       <Stack.Screen
                         name="(root)"
                         options={{
@@ -71,10 +71,10 @@ export default function RootLayout() {
                           navigationBarColor: Colors[colorScheme!].secondary,
                         }}
                       />
-                      <Stack.Screen name="(post)" options={{ headerShown: false }} />
+                      <Stack.Screen name="(post)" options={{ headerShown: false, freezeOnBlur: true }} />
 
-                      <Stack.Screen name="(profile)" options={{ headerShown: false }} />
-                      <Stack.Screen name="(garage)" options={{ headerShown: false }} />
+                      <Stack.Screen name="(profile)" options={{ headerShown: false, freezeOnBlur: true }} />
+                      <Stack.Screen name="(garage)" options={{ headerShown: false, freezeOnBlur: true }} />
                     </Stack>
                   </BottomSheetModalProvider>
                 </GestureHandlerRootView>

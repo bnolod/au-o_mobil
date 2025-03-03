@@ -17,16 +17,16 @@ import { useAuthentication } from '@/contexts/AuthenticationContext';
 import { Post } from '@/lib/entity/Post';
 import PostPage from '@/components/Post/base/PostPage';
 
-export default function PostIdPage() {
+export default function GroupPostIndex() {
   const { user } = useAuthentication();
   const { language } = useLanguage();
   const { colorScheme } = useColorScheme();
   const [loading, setLoading] = useState<boolean>(false);
   const [post, setPost] = useState<Post | null>(null);
-  const { id, isNew } = useLocalSearchParams<{ id: string; isNew?: string }>();
+  const { id, postId, isNew } = useLocalSearchParams<{ id: string; postId: string, isNew?: string }>();
   async function getPost() {
     setLoading(true);
-    const res = await apiFetch<Post>(`posts/post/${id}`, 'GET', true);
+    const res = await apiFetch<Post>(`posts/post/${postId}`, 'GET', true);
     if (res && res.data) {
       setPost(res.data);
     }
