@@ -10,6 +10,8 @@ import { Car } from '@/lib/entity/Car';
 import { User } from '@/lib/entity/User';
 import { Post } from '@/lib/entity/Post';
 import { getFollows } from '@/lib/ApiCalls/UserApiCalls';
+import { RefreshControl, ScrollView } from 'react-native';
+import LoadingModal from '@/components/ui/LoadingModal';
 
 export default function UserProfile() {
   const [profile, setProfile] = useState<User>();
@@ -18,11 +20,17 @@ export default function UserProfile() {
   const { user } = useAuthentication();
   const { colorScheme } = useColorScheme();
   const { id } = useLocalSearchParams();
-
+  const [refreshing, setRefreshing] = useState(false);
   const [followers, setFollowers] = useState<User[]>([]);
   const [following, setFollowing] = useState<User[]>([]);
   const [posts, setPosts] = useState<Post[]>([]);
+  const handleRefresh = () => {
+    setRefreshing(true);
 
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 1000);
+  };
   async function getUser() {
     const res = await apiFetch<User | null | undefined>(`users/user/${id}`, 'GET', true);
     if (res && res.data) {
@@ -55,23 +63,33 @@ export default function UserProfile() {
     () => {
       setProfile(undefined);
     };
-  }, [id]);
+  }, [id, refreshing]);
   const isOwner = profile && user && profile.id.toString() === (id as string) && user.id === profile.id;
   if (isOwner === undefined) return <UserLoading />;
   if (user && profile !== undefined && profile !== null)
     return (
-      <Profile
-        garage={garage || []}
-        user={user}
-        profile={profile || ({} as User)}
-        setFollowers={setFollowers}
-        setFollowing={setFollowing}
-        colorScheme={colorScheme || 'dark'}
-        posts={posts!}
-        followers={followers!}
-        following={following!}
-        id={profile.id.toString()}
-        language={language}
-      />
+      <ScrollView
+        refreshControl={
+          <RefreshControl onRefresh={handleRefresh} refreshing={refreshing}>
+            <LoadingModal colorScheme={colorScheme!} loading />
+          </RefreshControl>
+        }
+        className="primary mx-auto"
+      >
+        <Profile
+          garage={garage || []}
+          user={user}
+          profile={profile || ({} as User)}
+          setFollowers={setFollowers}
+          setFollowing={setFollowing}
+          colorScheme={colorScheme || 'dark'}
+          posts={posts!}
+          followers={followers!}
+          following={following!}
+          id={profile.id.toString()}
+          language={language}
+
+        />
+      </ScrollView>
     );
 }

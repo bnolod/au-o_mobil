@@ -1,6 +1,6 @@
 import Button from '@/components/ui/Button';
 import ThemedText from '@/components/ui/ThemedText';
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { RefreshControl, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { updateProfilePicture } from '@/lib/apiClient';
 import { CommonStaticElementProps } from '@/constants/types';
 import { useRef, useState } from 'react';
@@ -25,6 +25,7 @@ import NewSocial from '@/components/social/base/NewSocial';
 import { followUser, unfollowUser, updateBio, updateNickname } from '@/lib/ApiCalls/UserApiCalls';
 import { ProfileProps } from './props';
 import ProfileTabSelector from './TabSelector';
+import LoadingModal from '@/components/ui/LoadingModal';
 export default function Profile({
   user,
   language,
@@ -42,9 +43,11 @@ export default function Profile({
   const [bioValue, setBioValue] = useState<string>(profile.bio);
 
   const [nicknameEdit, setNicknameEdit] = useState<boolean>(false);
+  const [refreshing, setRefreshing] = useState<boolean>(false);
   const [nicknameValue, setNicknameValue] = useState<string>(profile.nickname);
   const [selectedTab, setSelectedTab] = useState<'POST' | 'GROUPS' | 'SAVED' | 'GARAGE'>('POST');
   const followerSheetRef = useRef<BottomSheetModal>(null);
+
   async function handleFollow() {
     if (user && !followers.some((follower) => follower.id === user.id)) {
       const followRes = await followUser(id as string);
@@ -62,7 +65,7 @@ export default function Profile({
   if (isOwner === undefined) return <UserLoading />;
   if (user && profile !== undefined && profile !== null)
     return (
-      <ScrollView className="primary mx-auto">
+  <>
         <RootHeader colorScheme={colorScheme!} language={language} />
         <TextEditModal
           language={language}
@@ -303,6 +306,6 @@ export default function Profile({
         {selectedTab === 'GARAGE' && garage.length !== 0 && (
           <GarageList userId={user.id.toString()} colorScheme={colorScheme} cars={garage} language={language} />
         )}
-      </ScrollView>
+      </>
     );
 }

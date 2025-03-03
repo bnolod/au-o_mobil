@@ -10,6 +10,8 @@ import { Car } from '@/lib/entity/Car';
 import { Post } from '@/lib/entity/Post';
 import { getOwnGarage } from '@/lib/ApiCalls/CarApiCalls';
 import { getFollows } from '@/lib/ApiCalls/UserApiCalls';
+import { RefreshControl, ScrollView } from 'react-native';
+import LoadingModal from '@/components/ui/LoadingModal';
 
 export default function SelfProfile() {
   const { user } = useAuthentication();
@@ -17,6 +19,7 @@ export default function SelfProfile() {
   const [followers, setFollowers] = useState<User[]>();
   const [following, setFollowing] = useState<User[]>();
   const { language } = useLanguage();
+  const [refreshing, setRefreshing] = useState(false);
   const [profile, setProfile] = useState<User>();
   const [garage, setGarage] = useState<Car[]>();
   const [posts, setPosts] = useState<Post[]>();
@@ -51,12 +54,28 @@ export default function SelfProfile() {
           setFollowing(res.following as User[]);
         }
       });
-    }, []);
+    }, [refreshing]);
 
     if (!profile || !posts || !followers || !following) {
       return <UserLoading />;
     }
+    const handleRefresh = () => {
+      setRefreshing(true);
+      
+      setTimeout(() => {
+        setRefreshing(false);
+      }, 1000);
+    };
     return (
+      <ScrollView
+              refreshControl={
+                <RefreshControl onRefresh={handleRefresh} refreshing={refreshing}>
+                  <LoadingModal colorScheme={colorScheme!} loading={refreshing} />
+                </RefreshControl>
+              }
+              className="primary mx-auto"
+            >
+
       <Profile
         garage={garage!}
         user={user}
@@ -69,7 +88,8 @@ export default function SelfProfile() {
         following={following!}
         id={user.id.toString()}
         language={language}
-      />
+        />
+        </ScrollView>
     );
   }
 }

@@ -54,7 +54,7 @@ export default function Home() {
     }
   }
 
-  const handleRefresh = async () => {
+  const handleRefresh = () => {
     setRefreshing(true);
     setTimestamp(
       new Date(new Date(new Date().toISOString()).getTime() + 60 * 60 * 1000).toISOString().slice(0, -1) + '1234'
