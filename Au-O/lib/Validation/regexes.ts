@@ -4,6 +4,8 @@ export const containsCapitalLettersRegex = /^(?=.*[A-Z])/;
 export const containsSmallLettersRegex = /^(?=.*[a-z])/;
 export const containsNumbersRegex = /^(?=.*\d)/;
 export const containsSpecialCharactersRegex = /^(?=.*[^\w\s])/;
+export const containsSpecialCharactersWithDisplayCharacters = /^(?=.*[^a-zA-Z0-9 _.,-])/
+
 export const containsAlphanummeric = /^(?=.*[a-zA-Z0-9])/
 export const minPasswordRegex = /^[^\s]{8,255}$/;
 

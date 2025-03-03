@@ -9,6 +9,7 @@ import { BottomSheetTextInput } from '@gorhom/bottom-sheet';
 import { AddCommentToPost } from '@/lib/ApiCalls/CommentApiCalls';
 import ApiCallButton from '@/components/ui/ApiCallButton';
 import { AddCommentRowProps } from './props';
+import { validateComment } from '@/lib/Validation/Validation';
 
 export default function AddCommentRow({
   authorNickname,
@@ -20,6 +21,9 @@ export default function AddCommentRow({
 }: AddCommentRowProps & CommonStaticElementProps) {
   const [commentText, setCommentText] = useState<string>('');
   async function handleSubmitComment() {
+    if (!validateComment(commentText, language).valid) {
+      return
+    }
     const res = await AddCommentToPost(postId.toString(), commentText);
     if (res) {
       setCommentText('');

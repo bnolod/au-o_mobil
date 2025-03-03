@@ -178,3 +178,74 @@ export function validateNewVehicle(
     message: t.carCreated[language],
   };
 }
+export function validateComment(text: string, language: 'HU' | 'EN' = 'EN') {
+  let errors: string[] = [];
+
+  if (text.length < 1) {
+    errors.push(t.commentTooShort[language]);
+  }
+  if (text.length > 255) {
+    errors.push(t.commentTooLong[language]);
+  }
+
+  if (errors.length > 0) {
+    showErrorToast(t.postFailed[language], errors[0]);
+    return { valid: false, messages: t.carCreationFailed[language] };
+  }
+  return {
+    valid: true,
+    message: t.carCreated[language],
+  };
+}
+
+export function validateReply(text: string, language: 'HU' | 'EN' = 'EN') {
+  let errors: string[] = [];
+
+  if (text.length < 1) {
+    errors.push(t.replyTooShort[language]);
+  }
+  if (text.length > 255) {
+    errors.push(t.replyTooLong[language]);
+  }
+
+  if (errors.length > 0) {
+    showErrorToast(t.commentFailed[language], errors[0]);
+    return { valid: false, messages: t.carCreationFailed[language] };
+  }
+  return {
+    valid: true,
+    message: t.commentCreated[language],
+  };
+}
+
+export function validateNewGroup(name: string, description: string, alias: string, language: "EN" | "HU" = "EN") {
+  let errors: string[] = []
+
+  if (name.length < 6) {
+    errors.push(t.groupNameTooShort[language])
+  }
+  if (name.length > 64) {
+    errors.push(t.groupNameTooLong[language])
+  }
+  if (r.containsSpecialCharactersWithDisplayCharacters.test(name)) {
+    errors.push(t.groupNameSpecialCharacters[language])
+  }
+  if (description.length > 0) {
+    if (description.length > 255) {
+      errors.push(t.descriptionTooLong[language])
+    }
+  }
+  if (alias.length > 0) {
+    if (alias.length > 8) {
+      errors.push(t.aliasTooLong[language])
+    }
+  }
+  if (errors.length > 0) {
+    showErrorToast(t.groupFailed[language], errors[0]);
+    return { valid: false, messages: t.carCreationFailed[language] };
+  }
+  return {
+    valid: true,
+    message: t.groupCreated[language],
+  };
+}

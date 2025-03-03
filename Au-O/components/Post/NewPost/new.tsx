@@ -45,6 +45,7 @@ import { getOwnGroups } from '@/lib/ApiCalls/GroupApiCalls';
 import { CreatePostRequest } from '@/lib/request/PostCreationRequest';
 import { ImageStoreRequest, ImageUploadResponse } from '@/lib/request/ImgurRequest';
 import { Image, ImageBackground } from 'expo-image';
+import { validateUserPost } from '@/lib/Validation/Validation';
 
 export default function NewPost() {
   const { language } = useLanguage();
@@ -84,6 +85,9 @@ export default function NewPost() {
     });
   }, [images, selectedEvent, selectedGroup]);
   function handlePresent() {
+    if (!validateUserPost(newPostForm.description, newPostForm.location, newPostForm.images, language).valid) {
+      return
+    }
     bottomSheetRef.current?.present();
   }
   async function getCars() {
@@ -98,6 +102,10 @@ export default function NewPost() {
   }
   async function handleSubmit() {
     setLoading(true);
+    if (!validateUserPost(newPostForm.description, newPostForm.location, newPostForm.images, language).valid) {
+      setLoading(false);
+      return
+    }
     const uploadedImages: ImageUploadResponse[] = [];
     for (const image of images) {
       const res = await createImageForm(image, newPostForm.description, user!);
@@ -474,31 +482,10 @@ export default function NewPost() {
                       HEART: 1,
                       COOL: 0,
                     }}
-                    eventData={
-                      /*
-                   selectedEvent
-                     ? ({
-                         event_name: selectedEvent,
-                         attendees: 24,
-                         end_date: new Date().toDateString(),
-                         start_date: new Date().toDateString(),
-                         location: "teszt",
-                         group_id: selectedGroup!,
-                       } as EventPostData)
-                     : undefined
-                 */ undefined
-                    }
-                    groupData={
-                      /*
-                   selectedGroup
-                     ? {
-                         group_icon: null,
-                         group_name: selectedGroup!,
-                         group_nickname: selectedGroup!,
-                       }
-                     : undefined
-                 */ undefined
-                    }
+                    event={null}
+                    
+                    group={null}
+                  
                   />
                   <Button
                     onPress={() => bottomSheetRef.current?.dismiss()}

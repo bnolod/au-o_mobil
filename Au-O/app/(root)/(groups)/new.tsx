@@ -3,15 +3,14 @@ import Input from '@/components/ui/Input';
 import { useColorScheme } from 'nativewind';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Images } from '@/lib/staticAssetExports';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Toast from 'react-native-toast-message';
 import SocialCard from '@/components/social/base/SocialCard';
 import NewSocial from '@/components/social/base/NewSocial';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { createImageForm, getOneImageFromGallery, getTimestamp, handleGallery } from '@/lib/functions';
+import { createImageForm, getOneImageFromGallery } from '@/lib/functions';
 import { Colors } from '@/constants/Colors';
 import ThemedText from '@/components/ui/ThemedText';
-import { PostCreationTexts } from '@/constants/texts';
 import { useAuthentication } from '@/contexts/AuthenticationContext';
 import LoadingModal from '@/components/ui/LoadingModal';
 import { ImagePickerAsset } from 'expo-image-picker';
@@ -20,6 +19,8 @@ import { createGroup } from '@/lib/ApiCalls/GroupApiCalls';
 import { GroupCreationRequest } from '@/lib/request/GroupCreationRequest';
 import { imageUpload } from '@/lib/ApiCalls/ImageApiCalls';
 import { Image } from 'expo-image';
+import { validateNewGroup } from '@/lib/Validation/Validation';
+import { groupCreated, groupFailed } from '@/lib/Validation/responses';
 export default function NewPostPage() {
   const { language } = useLanguage();
   const { user } = useAuthentication();
@@ -41,6 +42,9 @@ export default function NewPostPage() {
     }
   }
   async function handleSubmit() {
+    if (!validateNewGroup(newGroupForm.name, newGroupForm.description, newGroupForm.alias, language).valid) {
+      return
+    }
     if (imagePreview) {
       const imageForm = await createImageForm(imagePreview, Date.now() + '_GROUP_BANNER', user!);
       const upload = await imageUpload(imageForm);
@@ -63,7 +67,7 @@ export default function NewPostPage() {
     if (createGroupRes) {
       Toast.show({
         type: 'success',
-        text1: 'Group successfully created',
+        text1: groupCreated[language],
       });
       setNewGroupForm({
         name: '',
@@ -78,7 +82,7 @@ export default function NewPostPage() {
     }
     Toast.show({
       type: 'error',
-      text1: 'Error creating group.',
+      text1: groupFailed[language],
     });
   }
   const { colorScheme } = useColorScheme();

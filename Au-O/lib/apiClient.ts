@@ -5,7 +5,7 @@ import {
   RegisterRequest,
   TokenResponse,
 } from '@/constants/types';
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { router } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import { deleteUser, saveUser } from './functions';
@@ -78,15 +78,14 @@ export async function apiFetch<T>(
   body?: Record<string, any>
 ): Promise<{ data: T | null; status: number } | null> {
   try {
-    const config = {
+    const config: AxiosRequestConfig = {
       method,
       url: endpoint,
       data: body || undefined,
-      credentials: 'include',
+      withCredentials: requiresAuth,
       headers: {
         'Content-Type': 'application/json',
-        // Authorization: requiresAuth && `Bearer ${await SecureStore.getItemAsync('jwtToken')}`,
-      },
+        },
     };
 
     const res = await apiClient.request<T>(config);
