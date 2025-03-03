@@ -19,6 +19,7 @@ import ApiCallButton from './ApiCallButton';
 import { Reply } from '@/lib/entity/Reply';
 import { addReaction } from '@/lib/ApiCalls/ReactionApiCalls';
 import { CommentElementProps } from './props';
+import { validateReply } from '@/lib/Validation/Validation';
 export default function CommentElement({
   item,
   language,
@@ -57,6 +58,9 @@ export default function CommentElement({
     ]);
   }
   async function handleReplySend() {
+    if (!validateReply(replyText, language).valid) {
+      return;
+    }
     const res = await sendReply(item.id.toString(), replyText);
     if (res) {
       setReplyText('');

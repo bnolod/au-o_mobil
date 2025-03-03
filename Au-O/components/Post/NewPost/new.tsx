@@ -45,6 +45,7 @@ import { getOwnGroups } from '@/lib/ApiCalls/GroupApiCalls';
 import { CreatePostRequest } from '@/lib/request/PostCreationRequest';
 import { ImageStoreRequest, ImageUploadResponse } from '@/lib/request/ImgurRequest';
 import { Image, ImageBackground } from 'expo-image';
+import { validateUserPost } from '@/lib/Validation/Validation';
 
 export default function NewPost() {
   const { language } = useLanguage();
@@ -84,6 +85,9 @@ export default function NewPost() {
     });
   }, [images, selectedEvent, selectedGroup]);
   function handlePresent() {
+    if (!validateUserPost(newPostForm.description, newPostForm.location, newPostForm.images, language).valid) {
+      return
+    }
     bottomSheetRef.current?.present();
   }
   async function getCars() {
@@ -98,6 +102,10 @@ export default function NewPost() {
   }
   async function handleSubmit() {
     setLoading(true);
+    if (!validateUserPost(newPostForm.description, newPostForm.location, newPostForm.images, language).valid) {
+      setLoading(false)
+      return
+    }
     const uploadedImages: ImageUploadResponse[] = [];
     for (const image of images) {
       const res = await createImageForm(image, newPostForm.description, user!);
@@ -167,7 +175,7 @@ export default function NewPost() {
         <Image
           source={colorScheme === 'dark' ? Images.logo_white : Images.logo_black}
           className="h-8 mx-auto my-4"
-          style={{height: 24, marginHorizontal: "auto", marginVertical: 16}}
+          style={{ height: 24, marginHorizontal: 'auto', marginVertical: 16 }}
           contentFit="contain"
         />
       </View>
@@ -358,7 +366,12 @@ export default function NewPost() {
                           <ImageBackground
                             className="w-full secondary rounded-xl mx-auto"
                             contentFit="cover"
-                            style={{width: "100%", backgroundColor: Colors[colorScheme!].secondary, borderRadius: 12, marginHorizontal: "auto"}}
+                            style={{
+                              width: '100%',
+                              backgroundColor: Colors[colorScheme!].secondary,
+                              borderRadius: 12,
+                              marginHorizontal: 'auto',
+                            }}
                             source={Images.banner_placeholder}
                           >
                             <ThemedText className="font-bold w-full mx-auto text-center text-lg p-3 rounded-xl">
@@ -474,31 +487,8 @@ export default function NewPost() {
                       HEART: 1,
                       COOL: 0,
                     }}
-                    eventData={
-                      /*
-                   selectedEvent
-                     ? ({
-                         event_name: selectedEvent,
-                         attendees: 24,
-                         end_date: new Date().toDateString(),
-                         start_date: new Date().toDateString(),
-                         location: "teszt",
-                         group_id: selectedGroup!,
-                       } as EventPostData)
-                     : undefined
-                 */ undefined
-                    }
-                    groupData={
-                      /*
-                   selectedGroup
-                     ? {
-                         group_icon: null,
-                         group_name: selectedGroup!,
-                         group_nickname: selectedGroup!,
-                       }
-                     : undefined
-                 */ undefined
-                    }
+                    event={null}
+                    group={selectedGroup}
                   />
                   <Button
                     onPress={() => bottomSheetRef.current?.dismiss()}

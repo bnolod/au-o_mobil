@@ -147,3 +147,58 @@ export const invalidYear = {
   HU: 'Érvénytelen évjárat',
   EN: 'Invalid production year.',
 };
+
+export const commentTooShort = {
+  HU: "A kommentnek legalább 1 karakterből kell állnia.",
+  EN: "Comment must be at least 1 character long."
+}
+export const commentTooLong = {
+  HU: "A komment maximum 255 karakterből állhat.",
+  EN: "Comment must not be longer than 255 characters."
+}
+export const commentFailed = {
+  HU: "Nem sikerült elküldeni a kommentet.",
+  EN: "Failed to post comment."
+}
+export const commentCreated = {
+  HU: "Komment elküldve",
+  EN: "Comment sent"
+}
+
+export const replyTooShort = {
+  HU: "A válasznak legalább 1 karakterből kell állnia.",
+  EN: "Reply must be at least 1 character long."
+}
+export const replyTooLong = {
+  HU: "A válasz maximum 255 karakterből állhat.",
+  EN: "Reply must not be longer than 255 characters."
+}
+
+export const groupNameTooShort = {
+  HU: "A csoport neve legalább 6 karakterből kell álljon.",
+  EN: "Group name must be at least 6 characters long."
+}
+export const groupNameTooLong = {
+  HU: "A csoport neve maximum 64 karakterből állhat.",
+  EN: "Group name can be 64 characters long at most."
+}
+export const groupNameSpecialCharacters = {
+  HU: "A csoport nevében nem szerepelhet speciális karakter.",
+  EN: "Group name must not contain special characters"
+}
+export const groupDescriptionTooLong = {
+  HU: "A csoport leírása maximum 255 karakterből állhat.",
+  EN: "Group description must be shorter than 255 characters"
+}
+export const aliasTooLong = {
+  HU: "A csoport rövidítése maximum 8 karakterből állhat.",
+  EN: "Group alias must be 8 characters or less."
+}
+export const groupCreated = {
+  HU: "Csoport létrehozva.",
+  EN: "Group created"
+}
+export const groupFailed = {
+  HU: "Nem sikerült létrehozni a csoportot",
+  EN: "Failed to create group."
+}
