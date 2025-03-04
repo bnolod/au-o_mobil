@@ -26,9 +26,12 @@ export interface MessageProps {
     id: number;
     nickname: string
     message: string;
+    isFirst: boolean
+    isLast: boolean
 }
 export interface MessageBarProps {
     user: User
     onSend: () => void;
-    onChange: (text: string) => void
+    onChange: (text: string
+    ) => void
 }
