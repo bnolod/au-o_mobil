@@ -17,7 +17,7 @@ export default function DirectMessagePage({ user, recipient }: DirectMessagePage
       <FlashList
 inverted
 ListHeaderComponent={() => (
-  <MessageBar onSend={() => {}} user={user}/>
+  <MessageBar onChange={() => {}} onSend={() => {}} user={user}/>
 
 )}
         className='flex-1'

@@ -30,7 +30,9 @@ export default function GroupPage({ group, colorScheme, language }: CommonStatic
 
 
   return (
-    <View>
+    <View className='flex flex-col'>
+      <View className='basis-[45%]'>
+
       <SocialBanner
         header
         id={group.id}
@@ -66,7 +68,7 @@ export default function GroupPage({ group, colorScheme, language }: CommonStatic
         </CollapsibleText>
       </View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        <View className="flex flex-row gap-4 px-4 py-2">
+        <View className="flex h-16 flex-row gap-4 px-4 py-2">
           <TouchableOpacity
             onPress={() => setSelectedTab('POSTS')}
             className={`button ${
@@ -125,11 +127,17 @@ export default function GroupPage({ group, colorScheme, language }: CommonStatic
           </TouchableOpacity>
         </View>
       </ScrollView>
+      </View>
+      <View className=' basis-5/12'>
+
+      
+
       {selectedTab === 'POSTS' && <GroupPostTab group={group} colorScheme={colorScheme} language={language} />}
       {selectedTab === 'EVENTS' && <GroupEventsTab group={group} colorScheme={colorScheme} language={language} />}
       {selectedTab === 'MEMBERS' && <GroupMembersTab group={group} colorScheme={colorScheme} language={language} />}
       {selectedTab === 'INFO' && <GroupInfoTab group={group} colorScheme={colorScheme} language={language} />}
       {selectedTab === 'CHAT' && <GroupChatTab group={group}/>}
+      </View>
     </View>
   );
 }

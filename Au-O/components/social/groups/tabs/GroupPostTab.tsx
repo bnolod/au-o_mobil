@@ -18,7 +18,7 @@ export default function GroupPostTab({group, language}: GroupTabProps) {
         }
     }
     useEffect(() => {
-        //init()
+        init()
     }, [])
     return (
         <FlashList estimatedItemSize={58} data={posts} renderItem={() => (

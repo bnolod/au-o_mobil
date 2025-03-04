@@ -1,7 +1,7 @@
 import GroupPage from '@/components/social/groups/GroupPage';
 import { useColorScheme } from 'nativewind';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { ScrollView } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { useEffect, useState } from 'react';
 import { router, useLocalSearchParams } from 'expo-router';
 import LoadingModal from '@/components/ui/LoadingModal';
@@ -30,11 +30,8 @@ export default function GroupDisplay() {
   }
   if (group)
     return (
-      <ScrollView
+      <View
         className="h-screen background"
-        showsVerticalScrollIndicator={false}
-        overScrollMode="never"
-        bounces={false}
       >
         <GroupPage
           colorScheme={colorScheme!}
@@ -52,6 +49,6 @@ export default function GroupDisplay() {
           }}
           language={language}
         />
-      </ScrollView>
+      </View>
     );
 }

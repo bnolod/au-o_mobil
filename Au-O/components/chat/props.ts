@@ -30,4 +30,5 @@ export interface MessageProps {
 export interface MessageBarProps {
     user: User
     onSend: () => void;
+    onChange: (text: string) => void
 }

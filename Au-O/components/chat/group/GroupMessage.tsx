@@ -4,7 +4,7 @@ import { GroupMessageProps } from "../props";
 
 export default function GroupMessage({user, sender, message, date}: GroupMessageProps) {
     return (
-        <View className="w-full flex flex-col my-1">
+        <View className="w-full flex-1 flex-col my-1">
             <View className="flex flex-row gap-2">
 <ThemedText className="text-highlight-light font-bold dark:text-highlight">
     {sender.username} {" "}

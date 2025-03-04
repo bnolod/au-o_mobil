@@ -8,6 +8,7 @@ import { useWebSocket } from '@/contexts/WebSocketContext';
 import { Group } from '@/lib/entity/Group';
 import { useAuthentication } from '@/contexts/AuthenticationContext';
 import GroupMessage from '@/components/chat/group/GroupMessage';
+import MessageBar from '@/components/chat/base/MessageBar';
 
 interface GroupChatTabProps {
   group: Group;
@@ -27,28 +28,31 @@ export default function GroupChatTab({ group }: GroupChatTabProps) {
   useEffect(() => {
     console.log('Messages:', messages);
     const groupMessages = messages[`group/${group.id}`] || [];
-    setChatMessages(groupMessages);
+    setChatMessages(groupMessages.toReversed());
   }, [messages, group.id]);
-
+  
   return (
-    <View className="">
-      <Input
-        label={'Üzenet'}
-        icon="pencil-outline"
-        TextInputProps={{
-          multiline: true,
-          numberOfLines: 4,
-          value: message,
-          onChangeText: (text) => setMessage(text),
-        }}
-        colorScheme={'light'}
+    <>
+      <MessageBar user={user!} onSend={() => onSend(message)} onChange={(text) => setMessage(text)} />
+    <View className="w-full flex-1 flex flex-col">
+      
+
+      { user &&
+      <FlashList
+      data={chatMessages}
+      
+      estimatedItemSize={58}
+      renderItem={({item}) => (
+        <GroupMessage
+        date={new Date().toLocaleTimeString()}
+        user={user}
+        sender={user}
+        message={item}
+        />
+      )}
       />
-      <Button className="bg-red-500 p-6" onPress={() => onSend(message)}>
-        Submit
-      </Button>
-      {user && chatMessages.map((item, index) => (
-        <GroupMessage key={index} date={new Date().toLocaleTimeString()} user={user} sender={user}  message={item}/>
-))}
+    }
     </View>
+      </>
   );
 }
