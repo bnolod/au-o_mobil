@@ -10,6 +10,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { Image } from 'expo-image';
 import GradientBackground from '@/components/ui/GradientBackground';
 import { Colors } from '@/constants/Colors';
+import { router } from 'expo-router';
 
 export default function RootHeader({ language, colorScheme }: CommonStaticElementProps) {
   const { toggleColorScheme } = useColorScheme();
@@ -32,13 +33,7 @@ export default function RootHeader({ language, colorScheme }: CommonStaticElemen
         />
         <Button
           onPress={() => {
-            toggleColorScheme();
-            if (language === 'EN') {
-              setLanguage('HU');
-            } else {
-              setLanguage('EN');
-            }
-          }}
+            router.push("/chat")}}
           className="chat-button"
         >
           <MaterialCommunityIcons name="chat-outline" size={32} color={colorScheme === 'light' ? 'black' : 'white'} />

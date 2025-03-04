@@ -162,7 +162,7 @@ export function validateNewVehicle(
   if (horsepower > 2000) {
     errors.push(t.tooMuchHorsepower[language]);
   }
-  if (!Number.isSafeInteger(displacement) || displacement < 1 || displacement > 160) {
+  if (!Number.isSafeInteger(displacement*10) || displacement*10 < 1 || displacement*10 > 160) {
     errors.push(t.invalidDisplacement[language]);
   }
 
