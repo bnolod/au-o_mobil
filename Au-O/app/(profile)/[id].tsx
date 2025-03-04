@@ -9,9 +9,10 @@ import Profile from '@/components/home/user/Profile';
 import { Car } from '@/lib/entity/Car';
 import { User } from '@/lib/entity/User';
 import { Post } from '@/lib/entity/Post';
-import { getFollows } from '@/lib/ApiCalls/UserApiCalls';
+import { getFollows, getUserById, getUserPostsById } from '@/lib/ApiCalls/UserApiCalls';
 import { RefreshControl, ScrollView } from 'react-native';
 import LoadingModal from '@/components/ui/LoadingModal';
+import { getUserGarageById } from '@/lib/ApiCalls/CarApiCalls';
 
 export default function UserProfile() {
   const [profile, setProfile] = useState<User>();
@@ -32,27 +33,27 @@ export default function UserProfile() {
     }, 1000);
   };
   async function getUser() {
-    const res = await apiFetch<User | null | undefined>(`users/user/${id}`, 'GET', true);
-    if (res && res.data) {
-      setProfile(res.data);
-    } else return;
+    const res = await getUserById(Number(id));
+    if (res) {
+      setProfile(res);
+    } else return
   }
   async function getUserPosts() {
-    const res = await apiFetch<Post[]>(`users/user/${id}/posts`, 'GET', true);
+    const res = await getUserPostsById(Number(id));
     if (res) {
-      setPosts(res.data!);
+      setPosts(res);
     } else return;
   }
-  async function getGarage(id: string) {
-    const res = await apiFetch<Car[]>(`vehicles/user/${id}/all`, 'GET', true);
+  async function getGarage(id: number) {
+    const res = await getUserGarageById(id);
     if (res) {
-      setGarage(res.data!);
+      setGarage(res);
     } else return;
   }
   useEffect(() => {
     setProfile(undefined);
     getUser();
-    getGarage(id as string);
+    getGarage(Number(id));
     getUserPosts();
     getFollows(id as string).then((res) => {
       if (res) {

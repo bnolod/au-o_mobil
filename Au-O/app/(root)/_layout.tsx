@@ -20,9 +20,10 @@ export default function RootLayout() {
     <>
       <StatusBar style="auto" />
       <Tabs
+      
         screenOptions={{
           tabBarShowLabel: false,
-
+          
           tabBarStyle: {
             backgroundColor: Colors[colorScheme!].secondary,
             height: Platform.OS === 'ios' ? 100 : 70,
@@ -101,6 +102,23 @@ export default function RootLayout() {
             title: 'Groups',
             tabBarIcon: ({ color, focused }) => (
               <MaterialCommunityIcons name={focused ? 'bookmark' : 'bookmark-outline'} size={42} color={color} />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="chat"
+          initialParams={{ colorScheme, language }}
+          
+          options={{
+            lazy: true,
+            
+            tabBarItemStyle: {
+              display: "none"
+            }  ,
+            headerShown: false,
+            title: 'Groups',
+            tabBarIcon: ({ color, focused }) => (
+             <></>
             ),
           }}
         />

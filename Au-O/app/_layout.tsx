@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { router, Stack } from 'expo-router';
@@ -55,7 +56,7 @@ export default function RootLayout() {
               <FormProvider>
                 <GestureHandlerRootView>
                   <BottomSheetModalProvider>
-                    <Stack initialRouteName="onboarding">
+                    <Stack initialRouteName="onboarding" >
                       <Stack.Screen
                         name="onboarding"
                         options={{
@@ -68,11 +69,12 @@ export default function RootLayout() {
                         name="(root)"
                         options={{
                           headerShown: false,
+                          gestureDirection: 'horizontal',
+                          gestureEnabled: true,
                           navigationBarColor: Colors[colorScheme!].secondary,
                         }}
                       />
                       <Stack.Screen name="(post)" options={{ headerShown: false, freezeOnBlur: true }} />
-
                       <Stack.Screen name="(profile)" options={{ headerShown: false, freezeOnBlur: true }} />
                       <Stack.Screen name="(garage)" options={{ headerShown: false, freezeOnBlur: true }} />
                     </Stack>

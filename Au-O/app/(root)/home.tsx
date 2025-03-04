@@ -1,12 +1,10 @@
-import { RefreshControl, ScrollView } from 'react-native';
-import React, { useCallback, useEffect, useState } from 'react';
+import { RefreshControl } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import { useAuthentication } from '@/contexts/AuthenticationContext';
-import { Keyboard, View } from 'react-native';
-import { TouchableWithoutFeedback } from 'react-native';
+import { View } from 'react-native';
 import PostCard from '@/components/Post/Post';
 import { useColorScheme } from 'nativewind';
 import { useLanguage } from '@/contexts/LanguageContext';
-// import { PostResponse } from "@/constants/types";
 import { FlashList } from '@shopify/flash-list';
 import NoPostsFound from '@/components/Post/base/NoPostsFound';
 import LoadingModal from '@/components/ui/LoadingModal';
@@ -15,6 +13,7 @@ import RootHeader from '@/components/home/base/RootHeader';
 import { Post } from '@/lib/entity/Post';
 import { loadFeed } from '@/lib/ApiCalls/PostApiCalls';
 import { loading } from '@/lib/Validation/responses';
+import { TapGestureHandler } from 'react-native-gesture-handler';
 
 export default function Home() {
   const { user } = useAuthentication();
@@ -71,17 +70,18 @@ export default function Home() {
     }
     load();
   }, [timestamp]);
-
   if (user)
     return (
-      <>
+  
+  <>
         <View className="sticky top-0 z-10">
           <RootHeader colorScheme={colorScheme!} language={language} />
         </View>
         {post && post.length > 0 ? (
+        <TapGestureHandler onGestureEvent={() => console.log('tapped')}>
           <FlashList
-            refreshControl={
-              <RefreshControl refreshing={refreshing} onRefresh={handleRefresh}>
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={handleRefresh}>
                 <LoadingModal colorScheme={colorScheme!} loading={refreshing} text={loading[language]} />
               </RefreshControl>
             }
@@ -97,29 +97,30 @@ export default function Home() {
               <PostCard
               event={null}
               group={null}
-                reaction={item.reactedWith}
-                user={user}
-                authorProfileImg={item.user.profileImg}
-                authorId={item.user.id}
-                vehicle={item.vehicle}
-                postId={item.postId}
-                key={item.postId}
-                authorNickname={item.user.nickname}
-                authorUsername={item.user.username}
-                colorScheme={colorScheme!}
-                comments={item.comments || []}
-                date={item.dateOfCreation.split('T')[0]}
-                description={item.text}
-                images={item.images}
-                language={language}
-                location={item.location}
-                reactions={item.reactionTypeMap}
+              reaction={item.reactedWith}
+              user={user}
+              authorProfileImg={item.user.profileImg}
+              authorId={item.user.id}
+              vehicle={item.vehicle}
+              postId={item.postId}
+              key={item.postId}
+              authorNickname={item.user.nickname}
+              authorUsername={item.user.username}
+              colorScheme={colorScheme!}
+              comments={item.comments || []}
+              date={item.dateOfCreation.split('T')[0]}
+              description={item.text}
+              images={item.images}
+              language={language}
+              location={item.location}
+              reactions={item.reactionTypeMap}
               />
             )}
             estimatedItemSize={300}
-          />
-        ) : (
-          <View className={'flex-1  items-center justify-center m-auto'}>
+            />
+        </TapGestureHandler>
+          ) : (
+            <View className={'flex-1  items-center justify-center m-auto'}>
             <NoPostsFound language={language} />
           </View>
         )}

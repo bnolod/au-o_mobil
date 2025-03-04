@@ -47,7 +47,7 @@ export default function GroupChatTab({ group }: GroupChatTabProps) {
         Submit
       </Button>
       {user && chatMessages.map((item, index) => (
-        <GroupMessage date={new Date().toString()} user={user} sender={user}  message={item}/>
+        <GroupMessage key={index} date={new Date().toLocaleTimeString()} user={user} sender={user}  message={item}/>
 ))}
     </View>
   );

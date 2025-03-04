@@ -1,4 +1,5 @@
 import { apiFetch } from '../apiClient';
+import { Post } from '../entity/Post';
 import { User } from '../entity/User';
 
 export async function getFollows(userId: string): Promise<{ following: User[]; followers: User[] } | null> {
@@ -47,6 +48,19 @@ export async function getUser(token: string): Promise<User | null | undefined> {
     console.error(error);
     return null;
   }
+}
+
+export async function getUserById(id: number) {
+  const res = await apiFetch<User | null | undefined>(`users/user/${id}`, 'GET', true);
+  if (res && res.data) {
+    return res.data
+  } else return null;
+}
+export async function getUserPostsById(id: number) {
+  const res = await apiFetch<Post[]>(`users/user/${id}/posts`, 'GET', true);
+  if (res && res.data) {
+    return res.data
+  } else return;
 }
 
 

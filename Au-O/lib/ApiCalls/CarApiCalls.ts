@@ -57,3 +57,9 @@ export async function deleteCar(carId: string): Promise<boolean> {
   }
   return false;
 }
+export async function getUserGarageById(id: number) {
+  const res = await apiFetch<Car[]>(`vehicles/user/${id}/all`, 'GET', true);
+  if (res && res.data) {
+    return(res.data);
+  } else return;
+}
