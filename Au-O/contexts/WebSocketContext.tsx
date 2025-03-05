@@ -8,6 +8,7 @@ interface WebSocketContextType {
   messages: { [topic: string]: string[] };
   sendMessage: (topic: string, message: string) => void;
   subscribeToTopic: (topic: string) => void;
+  stompClient : Client | null;
 }
 
 const WebSocketContext = createContext<WebSocketContextType | undefined>(undefined);
@@ -104,7 +105,7 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   };
 
   return (
-    <WebSocketContext.Provider value={{ messages, sendMessage, subscribeToTopic }}>
+    <WebSocketContext.Provider value={{stompClient, messages, sendMessage, subscribeToTopic }}>
       {children}
     </WebSocketContext.Provider>
   );
