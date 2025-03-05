@@ -22,19 +22,11 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     const connectWebSocket = async () => {
       console.log('Mounting WebSocket');
 
-      const token = await SecureStore.getItemAsync('jwtToken');
-      if (!token) {
-        console.error('JWT token not found!');
-        return;
-      }
-      console.log('JWT Token:', token);
-
-      const socket = new SockJS(process.env.EXPO_PUBLIC_WS_URL + "?token=" + token); // SockJS
+      const socket = new SockJS(process.env.EXPO_PUBLIC_WS_URL!, null,
+        { withCredentials: true } as any); // SockJS
+        console.log("socket: ",socket)
       const client = new Client({
         webSocketFactory: () => socket,
-        connectHeaders: {
-          auth: `Bearer ${token}`,
-        },
         debug: (msg) => console.log('STOMP Debug: ' + msg),
         reconnectDelay: 5000,
         heartbeatIncoming: 4000,
