@@ -1,9 +1,9 @@
 import UserLoading from '@/components/auth/UserLoading';
+import { SettingsOption } from '@/components/settings/props';
 import SettingsAside from '@/components/settings/SettingsAside';
 import Footer from '@/components/ui/Footer';
 import ThemedText from '@/components/ui/ThemedText';
 import { SettingsTexts } from '@/constants/texts';
-import { SettingsOption } from '@/constants/types';
 import { useAuthentication } from '@/contexts/AuthenticationContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { logout } from '@/lib/apiClient';

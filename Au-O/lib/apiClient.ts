@@ -81,7 +81,7 @@ export async function apiFetch<T>(
     const config: AxiosRequestConfig = {
       method,
       url: endpoint,
-      credentials: requiresAuth? 'include' : 'omit',
+      credentials: requiresAuth ? 'include' : 'omit',
       data: body || undefined,
       headers: {
         'Content-Type': 'application/json',

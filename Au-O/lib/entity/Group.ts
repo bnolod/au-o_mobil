@@ -1,3 +1,5 @@
+import { User, UserResponse } from "./User";
+
 export interface Group {
   id: number;
   name: string;
@@ -15,4 +17,14 @@ export interface GroupPost {
   groupName: string;
   groupNickname: string;
   groupIcon: string | null;
+}
+export interface GroupMemberResponse {
+  user: UserResponse;
+  role: string;
+  joinedDate: string;
+  valid: boolean
+}
+export interface GroupMemberListResponse {
+  group: Group
+  users: GroupMemberResponse[]
 }

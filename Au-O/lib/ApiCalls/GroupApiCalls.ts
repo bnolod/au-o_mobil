@@ -1,6 +1,6 @@
 import { apiFetch } from '../apiClient';
 import { GroupCreationRequest } from '../request/GroupCreationRequest';
-import { Group } from '../entity/Group';
+import { Group, GroupMemberListResponse } from '../entity/Group';
 import { ImageStoreRequest, ImageUploadResponse } from '../request/ImgurRequest';
 import { cleanupInvalidImageUploads, createImageForm } from '../functions';
 import { imageUpload } from './ImageApiCalls';
@@ -64,7 +64,15 @@ export async function joinGroup(groupId: number) {
   }
   return null;
 }
+export async function leaveGroup(groupId: number) {
+  const req = await apiFetch('groups/group/' + groupId + '/leave', 'POST', true);
+  return req!.status;
+}
+export async function getGroupMembers(groupId: number) {
+  const req = await apiFetch<GroupMemberListResponse>(`groups/group/${groupId}/members`, 'GET', true);
+  if (req) return req
 
+}
 async function submitPostToGroup(
   setLoading: (state: boolean) => void,
   images: ImagePickerAsset[],

@@ -15,12 +15,16 @@ export default function PostAuthorDisplayElement({
       <ThemedText className="txl">
         {postType === 'USER' && authorNickname}
         {postType === 'GROUP' && group && (
-          <View className='flex items-center flex-row'>
-            <ThemedText className='font-bold text-lg'>{group.memberCount}</ThemedText>
+          <View>
+          <View className='flex items-center flex-row gap-2'>
+            <ThemedText className='font-bold text-lg'>{group.name}</ThemedText>
             <ThemedText className="tsm font-normal muted ">
               {group?.alias}
-              fasz
             </ThemedText>
+          </View>
+          <ThemedText className="tsm font-normal muted ">
+            @{authorUsername}
+          </ThemedText>
           </View>
         )}
         {postType === 'EVENT' && event?.name}

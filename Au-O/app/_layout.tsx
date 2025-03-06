@@ -34,6 +34,7 @@ export default function RootLayout() {
   useEffect(() => {
     if (loaded) {
       eventEmitter.on('triggerLogout', () => {
+        router.dismissAll();
         router.replace('/(auth)/login');
       });
       SplashScreen.hideAsync();

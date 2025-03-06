@@ -27,6 +27,7 @@ export default function NewPostPage() {
   const { language } = useLanguage();
   const { user } = useAuthentication();
   const [imagePreview, setImagePreview] = useState<ImagePickerAsset | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [newGroupForm, setNewGroupForm] = useState<GroupCreationRequest>({
     name: '',
     description: '',
@@ -37,7 +38,9 @@ export default function NewPostPage() {
 
 
   async function handleSubmit() {
+    setIsLoading(true)
     if (!validateNewGroup(newGroupForm.name, newGroupForm.description, newGroupForm.alias, language).valid) {
+      setIsLoading(false)
       return;
     }
     if (imagePreview) {
@@ -48,8 +51,10 @@ export default function NewPostPage() {
         prepareGroup(upload.url);
       }
     } else {
-      prepareGroup();
+      await prepareGroup();
+      setIsLoading(false)
     }
+    setIsLoading(false)
   }
   async function prepareGroup(image?: string) {
     const createGroupRes = await createGroup({
