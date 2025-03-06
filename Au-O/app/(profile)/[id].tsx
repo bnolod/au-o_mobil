@@ -72,7 +72,7 @@ export default function UserProfile() {
       <ScrollView
         refreshControl={
           <RefreshControl onRefresh={handleRefresh} refreshing={refreshing}>
-            <LoadingModal colorScheme={colorScheme!} loading />
+            <LoadingModal colorScheme={colorScheme!} loading={refreshing} />
           </RefreshControl>
         }
         className="primary mx-auto"

@@ -3,7 +3,7 @@ import ThemedText from '@/components/ui/ThemedText';
 import { View } from 'react-native';
 import { MessageProps } from '../props';
 
-export default function UserMessage({ profilePic, id, nickname, message, isFirst, isLast }: MessageProps) {
+export default function UserMessage({ message, isFirst, isLast }: MessageProps) {
   return (
     <>
       <View className="flex flex-row-reverse items-end gap-2 pr-2">

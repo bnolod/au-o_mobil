@@ -7,7 +7,7 @@ export default function RecipientMessage({ profilePic, id, nickname, message, is
   return (
     <View className="flex flex-row  items-end gap-2 pl-2">
       <View className='w-14 p-2'/>
-      {isFirst && <Avatar className="absolute -bottom-5 w-10 h-10 secondary" image={profilePic ? { uri: profilePic } : null} nickname={nickname} />}
+      {isFirst && <Avatar className="absolute left-1 bottom-1 w-10 h-10 secondary" image={profilePic ? { uri: profilePic } : null} nickname={nickname} />}
       <View className={`bg-highlight-light dark:bg-highlight-dark p-2 max-w-[58%]
         
            ${isLast ? 'rounded-t-xl' : ''}

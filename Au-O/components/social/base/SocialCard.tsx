@@ -39,7 +39,7 @@ export default function SocialCard({
           id: event!.id,
           name: event!.name,
           bannerImage: event!.bannerImage,
-          alias: '',
+          alias: event!.name,
           count: event!.attendees,
           public: event!.public,
           creationDate: event!.creationDate,

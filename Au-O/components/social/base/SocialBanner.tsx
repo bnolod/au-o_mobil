@@ -71,7 +71,7 @@ export default function SocialBanner({
         )}
         {!image && !name && <ThemedText className="text-3xl">???</ThemedText>}
         {!image && name && (
-          <ThemedText className="text-5xl font-bold">
+          <ThemedText className={`${type === "GROUP" ? "text-5xl" : "text-3xl"} font-bold`}>
             {' '}
             {name.length > 20 && name.split(' ').length > 4 ? name.split(' ') : name}
           </ThemedText>

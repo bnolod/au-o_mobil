@@ -21,6 +21,8 @@ import { imageUpload } from '@/lib/ApiCalls/ImageApiCalls';
 import { Image } from 'expo-image';
 import { validateNewGroup } from '@/lib/Validation/Validation';
 import { groupCreated, groupFailed } from '@/lib/Validation/responses';
+import CreationHeader from '@/components/social/base/CreationHeader';
+import { openSocialGallery } from '@/components/social/base/functions';
 export default function NewPostPage() {
   const { language } = useLanguage();
   const { user } = useAuthentication();
@@ -33,17 +35,10 @@ export default function NewPostPage() {
     public: true,
   });
 
-  async function openGallery() {
-    const res = await getOneImageFromGallery();
-    if (res) {
-      setImagePreview(res);
 
-      return;
-    }
-  }
   async function handleSubmit() {
     if (!validateNewGroup(newGroupForm.name, newGroupForm.description, newGroupForm.alias, language).valid) {
-      return
+      return;
     }
     if (imagePreview) {
       const imageForm = await createImageForm(imagePreview, Date.now() + '_GROUP_BANNER', user!);
@@ -89,20 +84,18 @@ export default function NewPostPage() {
   if (!user) return <LoadingModal loading={true} colorScheme={colorScheme!} />;
   return (
     <ScrollView className="background" showsVerticalScrollIndicator={false} overScrollMode="never" bounces={false}>
-      <View className="w-full justify-evenly flex flex-col pt-safe-offset-1 secondary">
-        <Image
-          source={colorScheme === 'light' ? Images.logo_black : Images.logo_white}
-          contentFit="contain"
-          style={{ margin: 'auto', height: 32, width: 96, marginBottom: 8 }}
-        />
-      </View>
+      <CreationHeader colorScheme={colorScheme!} />
       <View className="mx-4">
         <SocialCard
           preview="CREATE"
           colorScheme={colorScheme!}
           language={language}
           type="GROUP"
-          onCreatePress={openGallery}
+          onCreatePress={async () => {
+            const glry = await openSocialGallery()
+            if (glry === null) return
+            setImagePreview(glry)
+          }}
           group={{
             alias: newGroupForm.alias.length > 0 ? newGroupForm.alias : 'NEW',
             bannerImage: imagePreview?.uri!,
@@ -115,38 +108,41 @@ export default function NewPostPage() {
             member: true,
             public: newGroupForm.public,
             validMember: true,
-            
+
             memberCount: 123,
             name: newGroupForm.name.length > 0 ? newGroupForm.name : 'New Group',
           }}
         />
       </View>
       <Pressable className="flex h-screen flex-col" onPress={() => Keyboard.dismiss()}>
-        <View className='flex flex-row justify-between items-center'>
-          <View className='w-9/12 ml-1 self-start'>
-
-        <Input
-          label="Name"
-          icon="id-card"
-          TextInputProps={{
-            placeholder: 'Name',
-            value: newGroupForm.name,
-            onChangeText: (text) => setNewGroupForm({ ...newGroupForm, name: text }),
-          }}
-          colorScheme={colorScheme!}
-          
-          />
+        <View className="flex flex-row justify-between items-center">
+          <View className="w-9/12 ml-1 self-start">
+            <Input
+              label="Name"
+              icon="id-card"
+              TextInputProps={{
+                placeholder: 'Name',
+                value: newGroupForm.name,
+                onChangeText: (text) => setNewGroupForm({ ...newGroupForm, name: text }),
+              }}
+              colorScheme={colorScheme!}
+            />
           </View>
-          <View className='w-3/12 items-center flex justify-center'>
-            <TouchableOpacity className='secondary button flex items-center justify-center' onPress={() => setNewGroupForm({ ...newGroupForm, public: !newGroupForm.public })}>
-            <MaterialCommunityIcons name={newGroupForm.public ? "door-open" : "door-closed-lock"} size={24} color={Colors[colorScheme!].text} />
-            <ThemedText>
-              {newGroupForm.public ? 'Public' : 'Private'}
-            </ThemedText>
+          <View className="w-3/12 items-center flex justify-center">
+            <TouchableOpacity
+              className="secondary button flex items-center justify-center"
+              onPress={() => setNewGroupForm({ ...newGroupForm, public: !newGroupForm.public })}
+            >
+              <MaterialCommunityIcons
+                name={newGroupForm.public ? 'door-open' : 'door-closed-lock'}
+                size={24}
+                color={Colors[colorScheme!].text}
+              />
+              <ThemedText>{newGroupForm.public ? 'Public' : 'Private'}</ThemedText>
             </TouchableOpacity>
           </View>
-          </View>
-                <Input
+        </View>
+        <Input
           label="Alias"
           icon="bookmark-check-outline"
           TextInputProps={{
@@ -173,7 +169,11 @@ export default function NewPostPage() {
           colorScheme={colorScheme!}
         />
 
-        <TouchableOpacity onPress={openGallery} className="new-post-gallery-opener mx-auto">
+        <TouchableOpacity onPress={async () => {
+            const glry = await openSocialGallery()
+            if (glry === null) return
+            setImagePreview(glry)
+          }} className="new-post-gallery-opener mx-auto">
           <View className="absolute -left-4">
             <MaterialCommunityIcons name="image-outline" color={Colors[colorScheme!].text} size={36} />
           </View>

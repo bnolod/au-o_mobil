@@ -24,7 +24,7 @@ export default function DirectMessagePage({ user, recipient }: DirectMessagePage
     if (!user || !recipient) return;
     const response = await apiFetch(`messages/user/${recipient.username}`, 'GET', true);
     if (response) {
-      console.log("response: ", response)
+      console.log('response: ', response);
       const data = response.data as ChatMessage[];
       setMessages(data);
     }
@@ -46,8 +46,8 @@ export default function DirectMessagePage({ user, recipient }: DirectMessagePage
         // Filter messages to include only those exchanged with recipient
         if (incomingMessage.user.username === recipient.username || incomingMessage.user.username === user.username) {
           setMessages((prev) => [...prev, incomingMessage]);
-          console.log("message received: ", incomingMessage)
-          console.log("messages: ", messages)
+          console.log('message received: ', incomingMessage);
+          console.log('messages: ', messages);
         }
       });
     }
@@ -60,8 +60,8 @@ export default function DirectMessagePage({ user, recipient }: DirectMessagePage
 
   // Send a message to the friend.
   const sendMessage = () => {
-    console.log("message sending")
-    console.log(message)
+    console.log('message sending');
+    console.log(message);
     if (stompClient && message.trim() !== '' && user) {
       const targetedMessage = { username: recipient.username, message };
       stompClient.publish({
@@ -71,9 +71,9 @@ export default function DirectMessagePage({ user, recipient }: DirectMessagePage
     }
   };
 
-  const onchangehandler = (str : string) => {
-    setMessage(str)
-  }
+  const onchangehandler = (str: string) => {
+    setMessage(str);
+  };
 
   // Scroll to the bottom when messages change
 
@@ -81,11 +81,38 @@ export default function DirectMessagePage({ user, recipient }: DirectMessagePage
     <>
       <KeyboardAvoidingView behavior="padding" className=" h-full flex-1 justify-between background">
         <ChatHeader mainPage={false} user={recipient} onFilterChange={() => {}} />
-        <MessageBar onChange={onchangehandler} onSend={sendMessage} user={user} />
-        {messages && user ? 
+        {/*messages && user ? 
         messages.map((msg, index) => {
           return <ThemedText key={index}>{msg.user.username}:{msg.message}</ThemedText>
-        }) : ""}
+        }) : ""*/}
+        <ScrollView>
+
+        {user && messages.map((item, index) => (
+          
+          item.user.username === user.username ? (
+            <UserMessage
+                  id={user.id}
+                  profilePic={user.profileImg}
+                  message={item.message}
+                  nickname={user.nickname}
+                  isLast={!messages[index + 1] || messages[index + 1].user.username === user.username}
+                  isFirst={!messages[index - 1] || messages[index - 1].user.username === user.username}
+                />
+              ) : (
+                <RecipientMessage
+                  id={recipient.id}
+                  profilePic={recipient.profileImg}
+                  message={item.message}
+                  nickname={recipient.nickname}
+                  isLast={(!messages[index + 1] || messages[index - 1] && messages[index-1].user.username !== recipient.username)}
+                  isFirst={!messages[index - 1] || messages[index - 1].user.username !== recipient.username}
+                  />
+                )))}
+                </ScrollView>
+              
+
+            
+        <MessageBar onChange={onchangehandler} onSend={sendMessage} user={user} />
       </KeyboardAvoidingView>
     </>
   );
