@@ -12,6 +12,47 @@ export const OnboardingTexts = {
     EN: 'Attend or organize events and make new memories!',
   },
 };
+
+export const ToastMessages = {
+  headers: {
+    error: {
+      HU: '‼ Hiba',
+      EN: '‼ Error',
+    },
+    success: {
+      HU: '✅ Siker',
+      EN: '✅ Success',
+    },
+    info: {
+      HU: '⁉ Info',
+      EN: '⁉ Info',
+    },
+  },
+  error: {
+    group: {
+      leave: {
+        HU: 'Nem hagyhatod el a csoportot, mivel te vagy az egyetlen adminisztrátor.',
+        EN: 'Could not leave group, because you are the only admin.',
+      },
+      leaveReq: {
+        HU: 'Nem sikerült kilépni.',
+        EN: 'Failed to leave group.',
+      }
+    }
+  },
+  success: {
+    group: {
+      leave: {
+        HU: 'Sikeresen elhagytad a csoportot!',
+        EN: 'Successfully left the group.',
+      }
+    }
+    
+  },
+  info: {
+
+  }
+}
 export const CallToActionTexts = {
   1: {
     HU: 'Tovább',
@@ -30,6 +71,14 @@ export const SettingsTexts = {
   header: {
     HU: 'Beállítások',
     EN: 'Settings',
+  },
+  language: {
+    HU: 'Nyelv',
+    EN: 'Language',
+  },
+  theme: {
+    HU: 'Téma',
+    EN: 'Theme',
   },
   personal: {
     HU: 'Személyes információ',
@@ -184,6 +233,16 @@ export const generalTexts = {
       HU: '',
     },
   },
+  chat: {
+    messageBarPlaceholder: {
+      HU: "Írj egy üzenetet...",
+      EN: "Type a message...",
+    },
+    filterBarPlaceholder: {
+      HU: "Keress a névjegyzékben...",
+      EN: "Search your contacts...",
+    }
+  },
   following: {
     followingCount: {
       EN: 'following',
@@ -227,6 +286,14 @@ export const generalTexts = {
         EN: 'HP',
       },
     },
+    filters: {
+      group: {
+        my: {
+          EN: "My Groups",
+          HU: "Csoportjaim"
+        }
+      }
+    }
   },
 };
 
@@ -680,6 +747,20 @@ export const UserEditTexts = {
     },
   },
 };
+export const SelectionTexts = {
+  event: {
+    EN: "Select an event",
+    HU: "Válassz egy eseményt"
+  },
+  group: {
+    EN: "Select a group",
+    HU: "Válassz egy csoportot"
+  },
+  vehicle: {
+    EN: "Select a vehicle",
+    HU: "Válassz egy jármávet"
+  },
+}
 export const EditModalTexts = {
   alert: {
     title: {
@@ -839,6 +920,32 @@ export const SocialTexts = {
       },
     },
   },
+  group: {
+    leave: {
+      header: {
+        HU: 'Csoport elhagyása',
+        EN: 'Leave group',
+      },
+      body: {
+        HU: 'Biztosan el szeretnéd hagyni ezt a csoportot?',
+        EN: 'Are you sure you want to leave this group?',
+      },
+      confirmLeave: {
+        HU: 'Elhagyás',
+        EN: 'Leave',
+      }
+    },
+    options: {
+      header: {
+        HU: 'Csoport műveletek',
+        EN: 'Group options',
+      },
+      revokeJoinRequest: {
+        HU: 'Jelentkezés visszavonása',
+        EN: 'Revoke join request',
+      }
+    }
+  },
   followers: {
     selector: {
       HU: 'Követők',
@@ -894,6 +1001,38 @@ export const GroupTexts = {
       HU: 'A csoportnak nincsenek eseményei.',
       EN: 'This group has no events.',
     }
+  },
+  actions: {
+    postToGroup: {
+      EN: "Post to group",
+      HU: "Új csoportos poszt"
+    },
+    create: {
+      EN: "Create a new Group",
+      HU: "Új csoport létrehozása"
+    },
+    application: {
+      send: {
+        EN: "Apply",
+        HU: "Jelentkezés"
+      },
+      sent: {
+        EN: "Application sent",
+        HU: "Jelentkezés elküldve"
+      }
+    },
+    visit: {
+      EN: "Visit",
+      HU: "Látogatás"
+    },
+    details: {
+      EN: "Details",
+      HU: "Részletek"
+    }
+  },
+  admin: {
+    HU: "Felhatalmazott felhasználó vagy a csopotban. Tartsd lenyomva a posztokat további műveletekért.",
+    EN: "You are an authorized user of this group. Long-press on a post for special options."
   },
   buttons: {
     join: {
@@ -1028,6 +1167,14 @@ export const EventTexts = {
         HU: "Hol lesz?"
       },
       
+    }
+  },
+  buttons: {
+    attend: {
+      attendeeCount: {
+        EN: "attendee",
+        HU: "résztvevő"
+      }
     }
   }
 }

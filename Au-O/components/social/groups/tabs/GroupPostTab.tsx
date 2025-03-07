@@ -11,6 +11,7 @@ import { Post } from '@/lib/entity/Post';
 import PostCard from '@/components/Post/Post';
 import { useAuthentication } from '@/contexts/AuthenticationContext';
 import LoadingModal from '@/components/ui/LoadingModal';
+import { GroupTexts } from '@/constants/texts';
 export default function GroupPostTab({ group, language, colorScheme }: GroupTabProps) {
   const [posts, setPosts] = useState<Post[]>([]);
   const [role, setRole] = useState<string>();
@@ -68,14 +69,12 @@ export default function GroupPostTab({ group, language, colorScheme }: GroupTabP
         ListHeaderComponent={() => <>
         {role === 'ADMIN' && (
         <ThemedText className="mx-auto my-2 w-11/12 text-center">
-          You are an
-          <Text className="font-bold text-highlight"> authorized user </Text>
-          of this group. Long-press on a post for special options.
+          {GroupTexts.admin[language]}
         </ThemedText>
       )}
       <NewSocial
         onPress={() => router.replace({ pathname: '/(root)/(groups)/[id]/new', params: { id: group.id } })}
-        text="Post to group"
+        text={GroupTexts.actions.postToGroup[language]}
       /></>}
         ListEmptyComponent={() => <GroupTabEmpty type="POSTS" language={language} />}
       />

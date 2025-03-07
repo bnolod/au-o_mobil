@@ -7,7 +7,7 @@ import LoadingModal from '@/components/ui/LoadingModal';
 import SheetSelection, { SheetSelectionRef } from '@/components/ui/SheetSelection';
 import ThemedText from '@/components/ui/ThemedText';
 import { Colors } from '@/constants/Colors';
-import { PostCreationTexts, PostEditTexts } from '@/constants/texts';
+import { PostCreationTexts, PostEditTexts, SelectionTexts } from '@/constants/texts';
 import { useAuthentication } from '@/contexts/AuthenticationContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { getOwnCars } from '@/lib/ApiCalls/CarApiCalls';
@@ -177,7 +177,7 @@ export default function EditPost() {
             placeholder={
               <View className="flex flex-row items-center">
                 {car && getCarImage(car.type, colorScheme!, 90, 52, 3.3)}
-                <ThemedText className="tlg">{car ? car.manufacturer + ' ' + car.model : 'Select a vehicle'}</ThemedText>
+                <ThemedText className="tlg">{car ? car.manufacturer + ' ' + car.model : SelectionTexts.vehicle[language]}</ThemedText>
               </View>
             }
             language={language}
@@ -278,18 +278,8 @@ export default function EditPost() {
                 preview
                 reaction={'FIRE'}
                 reactions={{ FIRE: 12, HEART: 34, COOL: 567 }}
-                eventData={undefined}
-                groupData={
-                  /*
-                  selectedGroup
-                    ? {
-                        group_icon: null,
-                        group_name: selectedGroup!,
-                        group_nickname: selectedGroup!,
-                      }
-                    : undefined
-                */ undefined
-                }
+                event={null}
+                group={post.group}
               />
               <Button onPress={() => bottomSheetRef.current?.dismiss()} className="post-dismiss-button">
                 Dismiss

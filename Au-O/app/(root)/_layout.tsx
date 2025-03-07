@@ -20,6 +20,7 @@ export default function RootLayout() {
     <>
       <StatusBar style="auto" />
       <Tabs
+      key={colorScheme + "_" + language}
       
         screenOptions={{
           tabBarShowLabel: false,

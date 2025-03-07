@@ -101,8 +101,8 @@ export default function PostCard({
   console.log(group?.alias)
   return (
     <>
-      <View className={isDeleted ? 'hidden' : 'post-container my-3 flex flex-col justify-items-center align-middle items-center bg-backdrop-primary dark:bg-backdrop-primary-dark rounded-2xl overflow-hidden'}>
-        <View className="flex flex-row py-3 px-4 bg-backdrop-secondary-dark">
+      <View className={isDeleted ? 'hidden' : 'post-container my-3 flex flex-col justify-items-center align-middle items-center primary rounded-2xl overflow-hidden'}>
+        <View className="flex flex-row py-3 px-4 secondary">
           <View className="post-header">
             <PostHeaderElement
               authorProfileImg={authorProfileImg}

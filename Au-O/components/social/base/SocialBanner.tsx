@@ -7,6 +7,7 @@ import { router } from 'expo-router';
 import { SocialBannerProps } from './props';
 import { Image, ImageBackground } from 'expo-image';
 import { Colors } from '@/constants/Colors';
+import { EventTexts, GroupTexts } from '@/constants/texts';
 
 export default function SocialBanner({
   name,
@@ -66,7 +67,7 @@ export default function SocialBanner({
       >
         {count !== null && (
           <ThemedText className="social-banner-image-text">
-            {formatNumber(count, language)} {type === 'EVENT' ? 'attendees' : 'members'}
+            {formatNumber(count, language)} {type === 'EVENT' ? EventTexts.buttons.attend.attendeeCount[language] : GroupTexts.page.memberCount[language]}
           </ThemedText>
         )}
         {!image && !name && <ThemedText className="text-3xl">???</ThemedText>}

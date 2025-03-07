@@ -15,11 +15,13 @@ export interface DirectMessageItemProps {
 export interface ChatHeaderProps {
   user: User;
   onFilterChange: (text: string) => void;
+  language: "EN" | "HU";
   mainPage: boolean;
 }
 export interface DirectMessagePageProps {
     user: User;
     recipient: User;
+    language: "EN" | "HU";
 }
 export interface MessageProps {
     profilePic: string;
@@ -30,7 +32,8 @@ export interface MessageProps {
     isLast: boolean
 }
 export interface MessageBarProps {
-    text: string
+    text: string,
+    language: "EN" | "HU",
     onSend: () => void;
     onChange: (text: string
     ) => void

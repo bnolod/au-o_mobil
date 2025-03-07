@@ -14,7 +14,7 @@ import { apiFetch } from '@/lib/apiClient';
 import { ChatMessage } from '@/lib/entitywebsock/ChatMessage';
 import ThemedText from '@/components/ui/ThemedText';
 
-export default function DirectMessagePage({ user, recipient }: DirectMessagePageProps) {
+export default function DirectMessagePage({language, user, recipient }: DirectMessagePageProps) {
   // currently logged in user
   const { stompClient } = useWebSocket();
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -89,7 +89,7 @@ export default function DirectMessagePage({ user, recipient }: DirectMessagePage
   return (
     <>
       <KeyboardAvoidingView behavior="padding" className=" h-full flex-1 justify-between background">
-        <ChatHeader mainPage={false} user={recipient} onFilterChange={() => {}} />
+        <ChatHeader language={language} mainPage={false} user={recipient} onFilterChange={() => {}} />
         {/*messages && user ? 
         messages.map((msg, index) => {
           return <ThemedText key={index}>{msg.user.username}:{msg.message}</ThemedText>
@@ -122,7 +122,7 @@ export default function DirectMessagePage({ user, recipient }: DirectMessagePage
             )}
         </ScrollView>
 
-        <MessageBar onChange={onchangehandler} onSend={sendMessage} text={message} />
+        <MessageBar language={language} onChange={onchangehandler} onSend={sendMessage} text={message} />
       </KeyboardAvoidingView>
     </>
   );

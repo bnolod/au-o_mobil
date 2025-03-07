@@ -90,7 +90,7 @@ export default function SocialCard({
                     ? group?.public
                       ? GroupTexts.buttons.join[language]
                       : group?.member
-                      ? 'application sent'
+                      ? GroupTexts.actions.application.sent[language]
                       : GroupTexts.page.apply[language]
                     : 'Attend'}
                 </Button>
@@ -125,11 +125,11 @@ export default function SocialCard({
                 {type === 'GROUP' &&
                 group?.validMember
                   ? group.public
-                    ? 'Visit'
-                    : 'Visit'
+                    ? GroupTexts.actions.visit[language]
+                    : GroupTexts.actions.visit[language]
                   : group?.public
-                  ? 'Visit'
-                  : 'Details'}
+                  ? GroupTexts.actions.visit[language]
+                  : GroupTexts.actions.details[language]}
               </Button>
             </View>
           </View>

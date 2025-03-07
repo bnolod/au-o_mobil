@@ -9,12 +9,10 @@ import { Group } from '@/lib/entity/Group';
 import { useAuthentication } from '@/contexts/AuthenticationContext';
 import GroupMessage from '@/components/chat/group/GroupMessage';
 import MessageBar from '@/components/chat/base/MessageBar';
+import { GroupTabProps } from './props';
 
-interface GroupChatTabProps {
-  group: Group;
-}
 
-export default function GroupChatTab({ group }: GroupChatTabProps) {
+export default function GroupChatTab({ group, language }: GroupTabProps) {
   const { messages, sendMessage, subscribeToTopic } = useWebSocket();
   const [message, setMessage] = useState<string>('');
   const {user} = useAuthentication()
@@ -33,7 +31,7 @@ export default function GroupChatTab({ group }: GroupChatTabProps) {
   
   return (
     <>
-      <MessageBar text={message} onSend={() => onSend(message)} onChange={(text) => setMessage(text)} />
+      <MessageBar language={language} text={message} onSend={() => onSend(message)} onChange={(text) => setMessage(text)} />
     <View className="w-full flex-1 flex flex-col">
       
 

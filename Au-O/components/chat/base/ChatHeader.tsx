@@ -7,8 +7,9 @@ import Button from "@/components/ui/Button";
 import { User } from "@/lib/entity/User";
 import { ChatHeaderProps } from "../props";
 import { router } from "expo-router";
+import { generalTexts } from "@/constants/texts";
 
-export default function ChatHeader({user, onFilterChange, mainPage}: ChatHeaderProps) {
+export default function ChatHeader({user, onFilterChange, mainPage, language}: ChatHeaderProps) {
     return (
         <View className="pt-safe px-3 secondary rounded-b-xl">
         <View className="flex flex-row items-center justify-between py-2">
@@ -28,7 +29,7 @@ export default function ChatHeader({user, onFilterChange, mainPage}: ChatHeaderP
         </View>
         {
             mainPage &&
-            <FilterBar className="primary w-full mt-2" onChange={onFilterChange} placeholder="Search your contacts" />
+            <FilterBar className="primary w-full mt-2" onChange={onFilterChange} placeholder={generalTexts.chat.filterBarPlaceholder[language]} />
         }
       </View>
     );

@@ -22,7 +22,7 @@ import { Images } from '@/lib/staticAssetExports';
 import * as ImagePicker from 'expo-image-picker';
 import Carousel from 'react-native-reanimated-carousel';
 import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
-import { PostCreationTexts } from '@/constants/texts';
+import { PostCreationTexts, SelectionTexts } from '@/constants/texts';
 import ImageNotFound from '@/components/Post/base/ImageNotFound';
 import {Image, ImageBackground} from 'expo-image'
 import PostCard from '@/components/Post/Post';
@@ -260,7 +260,7 @@ export default function NewPost() {
 
                     <SheetSelection
                       colorScheme={colorScheme!}
-                      placeholder="Select an event"
+                      placeholder={selectedEvent ? "Event" : SelectionTexts.event[language]}
                       language={language}
                       FlashListProps={{
                         data: [{ title: 'Event 1', date: '2022.12.12' }],
@@ -291,7 +291,7 @@ export default function NewPost() {
                     <View className="flex flex-row items-center">
                       {car && getCarImage(car.type, colorScheme!, 90, 52, 3.3)}
                       <ThemedText className="tlg">
-                        {car ? car.manufacturer + ' ' + car.model : 'Select a vehicle'}
+                        {car ? car.manufacturer + ' ' + car.model : SelectionTexts.vehicle[language]}
                       </ThemedText>
                     </View>
                   }

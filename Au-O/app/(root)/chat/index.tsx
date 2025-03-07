@@ -95,7 +95,7 @@ export default function DirectMessagesScreen() {
   else
     return (
       <>
-        <ChatHeader mainPage user={user} onFilterChange={() => {}}/>
+        <ChatHeader language={language} mainPage user={user} onFilterChange={() => {}}/>
         <FlashList bounces={false} data={latestMessages} renderItem={(item) => (<DirectMessageItem user={user} latestMessage={item.item} date={new Date().toDateString()}/>)} />
       </>
     );

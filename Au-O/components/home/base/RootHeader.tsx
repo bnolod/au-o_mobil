@@ -2,21 +2,17 @@ import { Platform, View } from 'react-native';
 import SearchBar from '@/components/ui/SearchBar';
 import Button from '@/components/ui/Button';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useColorScheme } from 'nativewind';
 import { Images } from '@/lib/staticAssetExports';
 import { CommonStaticElementProps } from '@/constants/types';
 import { HomeTexts } from '@/constants/texts';
-import { useLanguage } from '@/contexts/LanguageContext';
 import { Image } from 'expo-image';
 import GradientBackground from '@/components/ui/GradientBackground';
 import { Colors } from '@/constants/Colors';
 import { router } from 'expo-router';
 
 export default function RootHeader({ language, colorScheme }: CommonStaticElementProps) {
-  const { toggleColorScheme } = useColorScheme();
-  const { setLanguage } = useLanguage();
   return (
-    <GradientBackground colors={[Colors.dark.primary, Colors.dark.secondary]} start = {[0, 0]} end = {[1, 1]} >
+    <GradientBackground colors={[Colors[colorScheme].primary, Colors[colorScheme].secondary]} start = {[0, 0]} end = {[1, 1]} >
     <View className={" " + Platform.OS === 'ios' ? 'root-header-ios' : 'root-header-android'}>
       
         <Image

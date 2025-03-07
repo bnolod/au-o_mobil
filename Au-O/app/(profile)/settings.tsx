@@ -12,13 +12,37 @@ import { useColorScheme } from 'nativewind';
 import { ScrollView } from 'react-native';
 
 export default function Settings() {
-  const { colorScheme } = useColorScheme();
-  const { language } = useLanguage();
+  const { colorScheme, setColorScheme } = useColorScheme();
+  const { language, setLanguage } = useLanguage();
   const settings: SettingsOption[] = [
     {
       icon: 'account-circle-outline',
       onPress: () => {},
       title: SettingsTexts.personal[language],
+    },
+    {
+      icon: colorScheme === 'dark' ? 'weather-sunny' : 'weather-night',
+      onPress: () => {
+        if (colorScheme === "dark") {
+          setColorScheme("light");
+        }
+        else {
+          setColorScheme("dark");
+        }
+      },
+      title: SettingsTexts.theme[language],
+    },
+    {
+      icon: "flag-outline",
+      onPress: () => {
+        if (language === "EN") {
+          setLanguage("HU");
+        }
+        else {
+          setLanguage("EN");
+        }
+      },
+      title: SettingsTexts.language[language],
     },
     {
       icon: 'bookmark-outline',

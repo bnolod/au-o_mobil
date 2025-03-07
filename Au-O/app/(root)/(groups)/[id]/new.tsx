@@ -21,7 +21,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import ImageNotFound from '@/components/Post/base/ImageNotFound';
 import { createImageForm, handleGallery } from '@/lib/functions';
 import * as ImagePicker from 'expo-image-picker';
-import { PostCreationTexts } from '@/constants/texts';
+import { PostCreationTexts, SelectionTexts } from '@/constants/texts';
 import Input from '@/components/ui/Input';
 import SheetSelection, { SheetSelectionRef } from '@/components/ui/SheetSelection';
 import PostCreationSheetSelectElements from '@/components/Post/NewPost/PostCreationSheetSelectElement';
@@ -228,7 +228,7 @@ export default function NewGroupPost() {
 
                     <SheetSelection
                       colorScheme={colorScheme!}
-                      placeholder="Select an event"
+                      placeholder={SelectionTexts.event[language]}
                       language={language}
                       FlashListProps={{
                         data: [{ title: 'Event 1', date: '2022.12.12' }],
@@ -257,7 +257,7 @@ export default function NewGroupPost() {
                       <View className="flex flex-row items-center">
                         {car && getCarImage(car.type, colorScheme!, 90, 52, 3.3)}
                         <ThemedText className="tlg">
-                          {car ? car.manufacturer + ' ' + car.model : 'Select a vehicle'}
+                          {car ? car.manufacturer + ' ' + car.model : SelectionTexts.vehicle[language]}
                         </ThemedText>
                       </View>
                     }

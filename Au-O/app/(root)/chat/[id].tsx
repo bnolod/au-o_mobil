@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { ScrollView } from "react-native";
 export default function DirectMessageScreen() {
     const { colorScheme } = useColorScheme();
+    const {language} = useLanguage();
     const {id} = useLocalSearchParams();
     const { user } = useAuthentication();
     const [recipient, setRecipient] = useState<User | null>(null);
@@ -30,6 +31,6 @@ export default function DirectMessageScreen() {
     if (!user || !recipient) return <LoadingModal loading colorScheme={colorScheme!} text="Loading your chats..." />;
     return (
         
-       <DirectMessagePage user={user} recipient={recipient} />
+       <DirectMessagePage language={language} user={user} recipient={recipient} />
     )
 }

@@ -11,7 +11,7 @@ import GroupPostTab from './tabs/GroupPostTab';
 import GroupEventsTab from './tabs/GroupEventsTab';
 import GroupMembersTab from './tabs/GroupMembersTab';
 import GroupInfoTab from './tabs/GroupInfoTab';
-import { GroupTexts } from '@/constants/texts';
+import { GroupTexts, PostCreationTexts, SocialTexts, ToastMessages } from '@/constants/texts';
 import { useWebSocket } from '@/contexts/WebSocketContext';
 import GroupChatTab from './tabs/GroupChatTab';
 import { handleShare } from '@/lib/events/PostOptionEvents';
@@ -27,8 +27,8 @@ export default function GroupPage({ group, colorScheme, language }: CommonStatic
     if (res === 409) {
       Toast.show({
         type: 'error',
-        text1: 'Error',
-        text2: 'Could not leave group, because you are the only admin',
+        text1: ToastMessages.headers.error[language],
+        text2: ToastMessages.error.group.leave[language],
       });
       return
     }
@@ -36,25 +36,26 @@ export default function GroupPage({ group, colorScheme, language }: CommonStatic
       router.canGoBack() ? router.back() : router.replace({ pathname: '/(root)/(groups)/feed' });
       Toast.show({
         type: 'success',
-        text1: 'Successfully left group',
+        text1: ToastMessages.headers.success[language],
+        text2: ToastMessages.success.group.leave[language],
       });
       return;
     }
     Toast.show({
       type: 'error',
-      text1: 'Error',
-      text2: 'Could not leave group',
+      text1: ToastMessages.headers.error[language],
+      text2: ToastMessages.error.group.leaveReq[language],
     });
   }
   async function handleLeave() {
     if (group.validMember) {
       Platform.OS === 'ios'
-        ? Alert.alert('Leave group', 'Are you sure you want to leave this group?', [
-            { text: 'Leave', onPress: () => {
+        ? Alert.alert(SocialTexts.group.leave.header[language],SocialTexts.group.leave.body[language] , [
+            { text: SocialTexts.group.leave.confirmLeave[language], onPress: () => {
                 confirmLeave();
             } },
             {
-              text: 'Cancel',
+              text: GroupTexts.buttons.cancel[language],
               onPress: () => {
                 return;
               },
@@ -104,12 +105,12 @@ export default function GroupPage({ group, colorScheme, language }: CommonStatic
                   Platform.OS === 'ios'
                     ? () => {
                         //IOS
-                        Alert.alert('Options', group.name, [
+                        Alert.alert(SocialTexts.group.options.header[language], group.name, [
                           group.validMember
-                            ? { text: 'Leave', onPress: () => handleLeave() }
-                            : { text: 'Revoke join request', onPress: () => console.log('Join request revoked') },
-                          { text: 'Cancel', onPress: () => {}, style: 'cancel' },
-                          { text: 'Share', onPress: () => handleShare(group.id, language) },
+                            ? { text: SocialTexts.group.leave.confirmLeave[language], onPress: () => handleLeave() }
+                            : { text: SocialTexts.group.options.revokeJoinRequest[language], onPress: () => console.log('Join request revoked') },
+                          { text: GroupTexts.buttons.cancel[language], onPress: () => {}, style: 'cancel' },
+                          { text: PostCreationTexts.options.share[language], onPress: () => handleShare(group.id, language) },
                         ]);
                       }
                     : () => {
@@ -138,6 +139,17 @@ export default function GroupPage({ group, colorScheme, language }: CommonStatic
                 <MaterialCommunityIcons name="cards-outline" size={24} />
               </ThemedText>
               <ThemedText className="text-xl">{GroupTexts.page.posts[language]}</ThemedText>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => setSelectedTab('CHAT')}
+              className={`button ${
+                selectedTab === 'CHAT' ? 'highlight-themed' : 'secondary'
+              } flex flex-row gap-2 items-center justify-center`}
+            >
+              <ThemedText>
+                <MaterialCommunityIcons name="chat-outline" size={24} />
+              </ThemedText>
+              <ThemedText className="text-xl">Chat</ThemedText>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => setSelectedTab('EVENTS')}
@@ -173,17 +185,6 @@ export default function GroupPage({ group, colorScheme, language }: CommonStatic
               <ThemedText className="text-xl">{GroupTexts.page.info[language]}</ThemedText>
             </TouchableOpacity>
 
-            <TouchableOpacity
-              onPress={() => setSelectedTab('CHAT')}
-              className={`button ${
-                selectedTab === 'CHAT' ? 'highlight-themed' : 'secondary'
-              } flex flex-row gap-2 items-center justify-center`}
-            >
-              <ThemedText>
-                <MaterialCommunityIcons name="information-outline" size={24} />
-              </ThemedText>
-              <ThemedText className="text-xl">chat</ThemedText>
-            </TouchableOpacity>
           </View>
         </ScrollView>
       </View>
@@ -192,7 +193,7 @@ export default function GroupPage({ group, colorScheme, language }: CommonStatic
         {selectedTab === 'EVENTS' && <GroupEventsTab group={group} colorScheme={colorScheme} language={language} />}
         {selectedTab === 'MEMBERS' && <GroupMembersTab group={group} colorScheme={colorScheme} language={language} />}
         {selectedTab === 'INFO' && <GroupInfoTab group={group} colorScheme={colorScheme} language={language} />}
-        {selectedTab === 'CHAT' && <GroupChatTab group={group} />}
+        {selectedTab === 'CHAT' && <GroupChatTab colorScheme={colorScheme} language={language} group={group} />}
       </View>
     </View>
   );

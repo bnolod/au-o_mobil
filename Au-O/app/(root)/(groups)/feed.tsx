@@ -3,6 +3,7 @@ import NewSocial from '@/components/social/base/NewSocial';
 import SocialCard from '@/components/social/base/SocialCard';
 import SocialSort from '@/components/social/base/SocialSort';
 import LoadingModal from '@/components/ui/LoadingModal';
+import { GroupTexts } from '@/constants/texts';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { getAllGroups } from '@/lib/ApiCalls/GroupApiCalls';
 import { Group } from '@/lib/entity/Group';
@@ -45,7 +46,7 @@ export default function GroupFeed() {
       <View className="primary rounded-b-xl">
         <RootHeader language={language} colorScheme={colorScheme!} />
         <SocialSort language={language} colorScheme={colorScheme!} />
-        <NewSocial text="Create a new group" onPress={() => router.push('/(groups)/new')} />
+        <NewSocial text={GroupTexts.actions.create[language]} onPress={() => router.push('/(groups)/new')} />
       </View>
       <FlashList
         estimatedFirstItemOffset={250}
