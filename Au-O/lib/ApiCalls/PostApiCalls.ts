@@ -1,6 +1,7 @@
 import { ImageStoreRequest } from '../request/ImgurRequest';
 import { apiFetch } from '../apiClient';
 import { Feed } from '../entity/Feed';
+import { Post } from '../entity/Post';
 
 export async function editPost(text: string, location: string, vehicleId: number | null, id: string) {
   const res = await apiFetch(`/posts/post/${id}`, 'PUT', true, {
@@ -43,4 +44,11 @@ export async function deletePost(postId: number) {
       return true;
     }
     return false;
+}
+export async function getPostById(postId: number) {
+   const req = await apiFetch<Post>(`posts/post/${postId}`, 'GET', true);
+    if (req && req.status === 200) {
+      return req.data;
+    }
+    return null;
 }

@@ -2,8 +2,12 @@ import Avatar from '@/components/ui/Avatar';
 import ThemedText from '@/components/ui/ThemedText';
 import { View } from 'react-native';
 import { MessageProps } from '../props';
+import MessagePost from '../media/MessagePost';
 
 export default function UserMessage({ message, isFirst, isLast }: MessageProps) {
+  if (message.startsWith("{{POST_") && message.endsWith("_}}")) {
+    return <MessagePost colorScheme={"dark"} postId={Number(message.split("_")[1])} />;
+  }
   return (
     <>
       <View className="flex flex-row-reverse items-end gap-2 pr-2">
