@@ -15,7 +15,7 @@ export default function PostImage({ images }: { images: string[] }) {
         placeholder={Images.avatar_placeholder}
         placeholderContentFit='cover'
         source={{ uri: images[0] }}
-        style={{ flex: 1 }}
+        style={{ height: '100%', width: '100%' }}
         contentFit="contain"
       />
     );

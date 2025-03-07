@@ -12,10 +12,8 @@ export default function SearchBar({
 }: SearchBarProps & { colorScheme?: 'dark' | 'light' }) {
   const [query, setQuery] = useState<string>('');
   return (
-    <View className="basis-8/12 rounded-xl mx-auto h-12 secondary flex flex-row items-center justify-between"
-    style={{
-      boxShadow: colorScheme === 'light' ? '0px 4px 4px rgba(0, 0, 0, 0.25)' : '0px 4px 4px rgba(0, 0, 0, 0.25)',
-    }}>
+    <View className="basis-8/12 rounded-xl mx-auto h-12 secondary flex flex-row items-center justify-between backdrop-opacity-0"
+    >
       <TextInput
         placeholderTextColor={'#767676'}
         placeholder={placeholder}

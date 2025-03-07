@@ -34,7 +34,7 @@ export default function RootHeader({ language, colorScheme }: CommonStaticElemen
         <Button
           onPress={() => {
             router.push("/chat")}}
-          className="chat-button"
+          className=""
         >
           <MaterialCommunityIcons name="chat-outline" size={32} color={colorScheme === 'light' ? 'black' : 'white'} />
         </Button>
