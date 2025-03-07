@@ -17,9 +17,9 @@ export default function PostAuthorDisplayElement({
         {postType === 'GROUP' && group && (
           <View>
           <View className='flex items-center flex-row gap-2'>
-            <ThemedText className='font-bold text-lg'>{group.name}</ThemedText>
+            <ThemedText className='font-bold text-lg'>{group.name || group.groupName}</ThemedText>
             <ThemedText className="tsm font-normal muted ">
-              {group?.alias}
+              {group?.alias || group.groupAlias}
             </ThemedText>
           </View>
           <ThemedText className="tsm font-normal muted ">

@@ -20,6 +20,7 @@ export interface PostCardProps {
   date: string;
   images: Image[];
   description: string;
+  allowOptions?: boolean;
   location: string;
   reactions: Reactions;
   vehicle: Car | null;

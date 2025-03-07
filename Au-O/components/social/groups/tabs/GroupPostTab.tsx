@@ -1,31 +1,50 @@
-import { View } from "react-native";
-import ThemedText from "@/components/ui/ThemedText";
-import { FlashList } from "@shopify/flash-list";
-import NewSocial from "../../base/NewSocial";
-import { GroupTabProps } from "./props";
-import GroupTabEmpty from "./GroupTabEmpty";
-import { router } from "expo-router";
-import { useEffect, useState } from "react";
-import { getGroupPosts } from "@/lib/ApiCalls/GroupApiCalls";
-import { Post } from "@/lib/entity/Post";
-import PostCard from "@/components/Post/Post";
-import { useAuthentication } from "@/contexts/AuthenticationContext";
-export default function GroupPostTab({group, language, colorScheme}: GroupTabProps) {
-    const [posts, setPosts] = useState<Post[]>([]);
-    const {user} = useAuthentication();
-    async function init() {
-        const res = await getGroupPosts(group.id);
-        if (res) {
-            setPosts(res);
-        }
-    }
-    useEffect(() => {
-        init()
-    }, [])
-    return (
-        <FlashList estimatedItemSize={58} data={posts} keyExtractor={(item) => item.postId + "_" + item.dateOfCreation} renderItem={({item, index}) => (
-           <PostCard
+import { Pressable, Text, TouchableWithoutFeedback, View } from 'react-native';
+import ThemedText from '@/components/ui/ThemedText';
+import { FlashList } from '@shopify/flash-list';
+import NewSocial from '../../base/NewSocial';
+import { GroupTabProps } from './props';
+import GroupTabEmpty from './GroupTabEmpty';
+import { router } from 'expo-router';
+import { useEffect, useState } from 'react';
+import { getGroupPosts, getGroupStatus } from '@/lib/ApiCalls/GroupApiCalls';
+import { Post } from '@/lib/entity/Post';
+import PostCard from '@/components/Post/Post';
+import { useAuthentication } from '@/contexts/AuthenticationContext';
+import LoadingModal from '@/components/ui/LoadingModal';
+export default function GroupPostTab({ group, language, colorScheme }: GroupTabProps) {
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [role, setRole] = useState<string>();
+  const [loading, setLoading] = useState<boolean>();
+  const { user } = useAuthentication();
+  async function init() {
+    setLoading(true);
+    const res = await getGroupPosts(group.id);
+    if (res) {
+      setPosts(res);
+      const status = await getGroupStatus(group.id);
+      if (status) {
+        setRole(status.role);
+        setLoading(false);
+      } else setLoading(false);
+    } else setLoading(false);
+  }
+  useEffect(() => {
+    init();
+  }, []);
+  if (loading) return <LoadingModal colorScheme={colorScheme} loading={loading} text="Just a moment..." />;
+
+  return (
+    
+      <FlashList
+        estimatedItemSize={300}
+        data={posts}
+        keyExtractor={(item) => item.postId + '_' + item.dateOfCreation}
+        renderItem={({ item, index }) => (
+            <Pressable onLongPress={() => role === 'ADMIN' && console.log('long press')}>
+
+          <PostCard
             authorId={item.user.id}
+            allowOptions={role !== 'ADMIN'}
             authorUsername={item.user.username}
             authorNickname={item.user.nickname}
             authorProfileImg={item.user.profileImg}
@@ -43,14 +62,23 @@ export default function GroupPostTab({group, language, colorScheme}: GroupTabPro
             reactions={item.reactionTypeMap}
             user={user!}
             vehicle={item.vehicle}
-           />
+            />
+            </Pressable>
         )}
-        ListHeaderComponent={() => (
-            <NewSocial onPress={() => router.replace({pathname: "/(root)/(groups)/[id]/new", params: {id: group.id}})} text="Post to group" />
-        )}
-        ListEmptyComponent={() => (
-            <GroupTabEmpty type="POSTS" language={language} />
-        )}
-        />
-    )
+        ListHeaderComponent={() => <>
+        {role === 'ADMIN' && (
+        <ThemedText className="mx-auto my-2 w-11/12 text-center">
+          You are an
+          <Text className="font-bold text-highlight"> authorized user </Text>
+          of this group. Long-press on a post for special options.
+        </ThemedText>
+      )}
+      <NewSocial
+        onPress={() => router.replace({ pathname: '/(root)/(groups)/[id]/new', params: { id: group.id } })}
+        text="Post to group"
+      /></>}
+        ListEmptyComponent={() => <GroupTabEmpty type="POSTS" language={language} />}
+      />
+    
+  );
 }

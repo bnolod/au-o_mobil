@@ -1,6 +1,6 @@
 import { apiFetch } from '../apiClient';
 import { GroupCreationRequest } from '../request/GroupCreationRequest';
-import { Group, GroupMemberListResponse } from '../entity/Group';
+import { Group, GroupMemberListResponse, GroupMemberResponse } from '../entity/Group';
 import { ImageStoreRequest, ImageUploadResponse } from '../request/ImgurRequest';
 import { cleanupInvalidImageUploads, createImageForm } from '../functions';
 import { imageUpload } from './ImageApiCalls';
@@ -73,76 +73,12 @@ export async function getGroupMembers(groupId: number) {
   if (req) return req
 
 }
-async function submitPostToGroup(
-  setLoading: (state: boolean) => void,
-  images: ImagePickerAsset[],
-  setImages: (images: ImagePickerAsset[]) => void,
-  newPostForm: any,
-  setNewPostForm: (form: any) => void,
-  language: 'EN' | 'HU',
-  user: User,
-  selectedEvent: any,
-  groupId: number,
-  bottomSheetRef: any
-) {
-  setLoading(true);
-  const uploadedImages: ImageUploadResponse[] = [];
-  for (const image of images) {
-    const res = await createImageForm(image, newPostForm.description, user!);
-    if (res) {
-      const upload = await imageUpload(res);
-      if (upload) {
-        uploadedImages.push(upload);
-      }
-    }
+export async function getGroupStatus(groupId: number) {
+  const req = await apiFetch<GroupMemberResponse>('groups/group/' + groupId + '/status', 'GET', true);
+  if (req && req.status === 200) {
+    return req.data;
   }
-  setLoading(false);
-
-  if (uploadedImages.length === images.length) {
-    const imageStoreRequest: ImageStoreRequest = {
-      text: newPostForm.description || '',
-      location: newPostForm.location || '',
-      postImages: uploadedImages,
-      vehicleId: newPostForm.vehicleId,
-    };
-    const storeRes = await postToGroup(groupId, imageStoreRequest);
-    bottomSheetRef.current?.dismiss();
-    setNewPostForm({
-      description: '',
-      location: '',
-      userId: user!.id,
-      groupId: null,
-      eventId: selectedEvent ? selectedEvent.id : null,
-      images: [],
-      vehicleId: null,
-    });
-    setLoading(false);
-    if (storeRes) {
-      Toast.show({
-        type: 'success',
-        text1: PostCreationTexts.imageUploadSuccessToast.header[language],
-        text2: PostCreationTexts.imageUploadSuccessToast.message[language],
-      });
-      setImages([]);
-      router.replace('/(root)/home');
-      router.push({
-        pathname: '/(post)/page/[id]',
-        params: { id: storeRes.postId, isNew: 'true' },
-      });
-    } else {
-      Toast.show({
-        type: 'error',
-        text1: PostCreationTexts.imageUploadErrorAlert[language],
-      });
-    }
-  } else {
-    cleanupInvalidImageUploads(uploadedImages);
-    Toast.show({
-      type: 'error',
-      text1: 'Some images failed to upload (' + uploadedImages.length + '/' + images.length + ')',
-    });
-    return;
-  }
+  return null;
 }
 export async function getGroupPosts(id: number) {
   const req = await apiFetch<Post[]>(`groups/group/${id}/posts`, 'GET', true);

@@ -35,6 +35,7 @@ export default function PostCard({
   location,
   reactions,
   language,
+  allowOptions,
   colorScheme,
   postId,
   user,
@@ -97,6 +98,7 @@ export default function PostCard({
       }
     }
   }
+  console.log(group?.alias)
   return (
     <>
       <View className={isDeleted ? 'hidden' : 'post-container'}>
@@ -144,7 +146,7 @@ export default function PostCard({
             />
           </View>
         </View>
-        <Pressable onLongPress={() => showOptions()}>
+        <Pressable onLongPress={allowOptions === true || allowOptions === undefined ? showOptions : () => {}}>
           <TapCountWrapper
             onDoubleTap={async () => {
               await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
