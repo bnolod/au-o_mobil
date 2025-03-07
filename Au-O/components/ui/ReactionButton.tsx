@@ -18,14 +18,14 @@ export default function ReactionButton({
       onPress={onPress}
       className={`${state === 'active' ? 'bg-highlight-light font-black dark:bg-highlight-dark' : ''} ${
         disabled && 'pointer-events-none opacity-25'
-      } ${initialReactionState === type} bg-backdrop-secondary  dark:bg-backdrop-secondary-dark rounded-xl h-12 p-2`}
+      } ${initialReactionState === type} bg-backdrop-secondary  dark:bg-backdrop-secondary-dark rounded-2xl min-w-12 flex flex-row justify-center align-middle h-12 p-2`}
     >
       <ThemedText className="text-xl">
         {type === 'FIRE' && '🔥'}
         {type === 'HEART' && '😍'}
         {type === 'COOL' && '😎'}
       </ThemedText>
-      <ThemedText className="text-xl">{count > 0 && formatNumber(count)}</ThemedText>
+      <ThemedText className="text-xl">{count > 0 && " " + formatNumber(count) }</ThemedText>
     </Button>
   );
 }

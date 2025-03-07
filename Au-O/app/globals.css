@@ -144,7 +144,7 @@
     @apply h-12 p-0 gap-2 flex flex-row items-center rounded-xl justify-center primary;
   }
   .post-comment-input-trigger {
-    @apply h-12 primary flex items-start px-2 justify-center rounded-xl;
+    @apply h-12 primary flex items-start px-2 justify-center rounded-2xl;
   }
   .no-posts-container {
     @apply flex m-auto justify-center items-center;

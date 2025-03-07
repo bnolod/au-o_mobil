@@ -16,8 +16,8 @@ export default function RootHeader({ language, colorScheme }: CommonStaticElemen
   const { toggleColorScheme } = useColorScheme();
   const { setLanguage } = useLanguage();
   return (
-    <GradientBackground colors={[Colors.dark.primary, Colors.dark.secondary]} start = {[0, 0]} end = {[1, 1]}>
-    <View className={Platform.OS === 'ios' ? 'root-header-ios' : 'root-header-android'}>
+    <GradientBackground colors={[Colors.dark.primary, Colors.dark.secondary]} start = {[0, 0]} end = {[1, 1]} >
+    <View className={" " + Platform.OS === 'ios' ? 'root-header-ios' : 'root-header-android'}>
       
         <Image
           source={colorScheme === 'dark' ? Images.logo_white : Images.logo_black}

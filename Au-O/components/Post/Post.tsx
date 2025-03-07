@@ -101,8 +101,8 @@ export default function PostCard({
   console.log(group?.alias)
   return (
     <>
-      <View className={isDeleted ? 'hidden' : 'post-container'}>
-        <View className="post-header-container">
+      <View className={isDeleted ? 'hidden' : 'post-container my-3 flex flex-col justify-items-center align-middle items-center bg-backdrop-primary dark:bg-backdrop-primary-dark rounded-2xl overflow-hidden'}>
+        <View className="flex flex-row py-3 px-4 bg-backdrop-secondary-dark">
           <View className="post-header">
             <PostHeaderElement
               authorProfileImg={authorProfileImg}
@@ -136,10 +136,11 @@ export default function PostCard({
               group={group}
             />
           </View>
-          <View className="post-options">
+          <View className="post-options self-center">
             <PostOptionModal language={language} menuVisible={menuVisible} setMenuVisible={setMenuVisible} authorId={authorId} postId={postId} userId={user.id}/>
             <MaterialCommunityIcons
               name="dots-horizontal"
+              className='pr-12'
               size={36}
               color={colorScheme === 'dark' ? 'white' : 'black'}
               onPress={() => showOptions()}
@@ -163,7 +164,7 @@ export default function PostCard({
                 : () => {}
             }
           >
-            <View className="post-image">
+            <View className="w-screen h-[100vw] overflow-hidden flex flex-row justify-items-center align-middle items-center">
               {event && (
                 <View className="post-event-data">
                   <ThemedText className=" font-semibold text-lg">
@@ -180,6 +181,7 @@ export default function PostCard({
         </Pressable>
 
         <PostFooter
+      
           authorId={authorId!}
           authorNickname={authorNickname!}
           authorUsername={authorUsername}

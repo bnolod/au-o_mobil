@@ -57,8 +57,8 @@ export default function CommentSheet({
         setFocused(false);
       }}
     >
-      <View className="post-comment-container">
-        <View className="post-comment-sheet">
+      <View className="flex flex-row w-screen justify-between items-center bg-backdrop-secondary dark:bg-backdrop-secondary-dark py-3 px-4">
+        <View className="">
           <Avatar className="primary" image={userProfileImg} nickname={userNickname} height={12} width={12} />
         </View>
         <View className="basis-8/12">
@@ -79,7 +79,7 @@ export default function CommentSheet({
         </View>
         <View className="basis-2/12">
           <TouchableOpacity
-            className="post-comment-input"
+            className="flex flex-row items-center justify-between p-2 flex-grow rounded-2xl bg-backdrop-primary dark:bg-backdrop-primary-dark"
             onPress={() => {
               // bottomSheetModalRef.current?.present();
               handlePresent();
