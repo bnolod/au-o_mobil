@@ -20,6 +20,7 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const subscriptions = useRef(new Map<string, any>()); // Store subscriptions per topic
 
   useEffect(() => {
+    let reconnectTimeout: NodeJS.Timeout;
     const connectWebSocket = async () => {
       console.log('Mounting WebSocket');
 
@@ -40,8 +41,18 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         onDisconnect: () => {
           console.log('Disconnected from WebSocket');
           setConnected(false);
+          attemptReconnect();
         },
       });
+
+      const attemptReconnect = () => {
+      console.log("Attempting to reconnect in 5 seconds...");
+      reconnectTimeout = setTimeout(() => {
+        connectWebSocket();
+      }, 5000);
+    };
+
+    connectWebSocket();
 
       client.activate();
       setStompClient(client);
