@@ -46,6 +46,11 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
           setConnected(false);
           attemptReconnect();
         },
+        onWebSocketClose: () => {
+          console.log('WebSocket closed');
+          setConnected(false);
+          attemptReconnect();
+        }
       });
 
       const attemptReconnect = () => {
@@ -70,7 +75,7 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         stompClient.deactivate();
       }
     };
-  }, []);
+  }, [user]);
 
   
 

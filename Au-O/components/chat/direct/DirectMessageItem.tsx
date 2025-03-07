@@ -5,6 +5,9 @@ import ThemedText from '@/components/ui/ThemedText';
 import { router } from 'expo-router';
 
 export default function DirectMessageItem({ user, latestMessage, date }: DirectMessageItemProps) {
+
+  console.log("latestmessage:" + latestMessage.active)
+
   return (
     <Pressable onPress={() => router.push({pathname: "/(root)/chat/[id]", params: {id: latestMessage.id}})} className="flex flex-row gap-2 justify-between items-center primary p-3 py-5">
       <View className='flex flex-row items-center gap-4'>
@@ -12,7 +15,7 @@ export default function DirectMessageItem({ user, latestMessage, date }: DirectM
       <Avatar image={latestMessage.profileImg && { uri: latestMessage.profileImg }} nickname={latestMessage.nickname} />
       <View className='flex flex-col'>
         <ThemedText className="tlg">
-          {latestMessage.nickname} {latestMessage.isActive && <Text className='dark:text-highlight text-highlight-light'>•</Text>}
+          {latestMessage.nickname} {latestMessage.active && <Text className='font-bold dark:text-green-500 text-green-800'>{" "}• Online</Text>}
           </ThemedText>
         <ThemedText numberOfLines={1} className='font-light muted max-w-xs'>
         {user.username === latestMessage.username && <Text className='font-bold dark:text-highlight text-highlight-light'>

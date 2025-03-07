@@ -51,11 +51,10 @@ export default function DirectMessagePage({ user, recipient }: DirectMessagePage
       sub = stompClient.subscribe(`/user/queue/chat/${recipient.username}`, (msg: { body: string }) => {
         const incomingMessage = JSON.parse(msg.body) as ChatMessage;
         // Filter messages to include only those exchanged with recipient
-        if (incomingMessage.user.username === recipient.username || incomingMessage.user.username === user.username) {
           setMessages((prev) => [incomingMessage, ...prev]);
           console.log('message received: ', incomingMessage);
           console.log('messages: ', messages);
-        }
+        
       });
     }
     return () => {
