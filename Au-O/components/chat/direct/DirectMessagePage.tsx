@@ -75,6 +75,7 @@ export default function DirectMessagePage({ user, recipient }: DirectMessagePage
         destination: '/app/chat/user/',
         body: JSON.stringify(targetedMessage),
       });
+      setMessage('');
     }
   };
 
@@ -122,7 +123,7 @@ export default function DirectMessagePage({ user, recipient }: DirectMessagePage
             )}
         </ScrollView>
 
-        <MessageBar onChange={onchangehandler} onSend={sendMessage} user={user} />
+        <MessageBar onChange={onchangehandler} onSend={sendMessage} text={message} />
       </KeyboardAvoidingView>
     </>
   );

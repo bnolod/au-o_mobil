@@ -30,7 +30,7 @@ export interface MessageProps {
     isLast: boolean
 }
 export interface MessageBarProps {
-    user: User
+    text: string
     onSend: () => void;
     onChange: (text: string
     ) => void

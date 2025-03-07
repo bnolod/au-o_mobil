@@ -3,6 +3,7 @@ import React, { createContext, useContext, useEffect, useRef, useState } from 'r
 import * as SecureStore from 'expo-secure-store';
 import { Client } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
+import { useAuthentication } from './AuthenticationContext';
 
 interface WebSocketContextType {
   messages: { [topic: string]: string[] };
@@ -17,10 +18,12 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const [stompClient, setStompClient] = useState<Client | null>(null);
   const [messages, setMessages] = useState<{ [topic: string]: string[] }>({});
   const [connected, setConnected] = useState(false);
+  const {user} = useAuthentication();
   const subscriptions = useRef(new Map<string, any>()); // Store subscriptions per topic
 
   useEffect(() => {
     let reconnectTimeout: NodeJS.Timeout;
+    if (!user) return 
     const connectWebSocket = async () => {
       console.log('Mounting WebSocket');
 
@@ -52,7 +55,6 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       }, 5000);
     };
 
-    connectWebSocket();
 
       client.activate();
       setStompClient(client);

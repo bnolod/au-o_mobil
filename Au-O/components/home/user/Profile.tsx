@@ -267,7 +267,7 @@ export default function Profile({
                   : generalTexts.followButton.follow[language]}
               </Button>
               <View className="misc-button-container">
-                <Button className="profile-misc-button py-3">Message</Button>
+                <Button className="profile-misc-button py-3" onPress={() => router.replace({pathname: "/(root)/chat/[id]", params: {id: profile.id}})}>Message</Button>
                 <Button className="profile-misc-button">
                   <MaterialCommunityIcons name="dots-horizontal" size={24} />
                 </Button>

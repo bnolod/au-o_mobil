@@ -33,7 +33,7 @@ export default function GroupChatTab({ group }: GroupChatTabProps) {
   
   return (
     <>
-      <MessageBar user={user!} onSend={() => onSend(message)} onChange={(text) => setMessage(text)} />
+      <MessageBar text={message} onSend={() => onSend(message)} onChange={(text) => setMessage(text)} />
     <View className="w-full flex-1 flex flex-col">
       
 

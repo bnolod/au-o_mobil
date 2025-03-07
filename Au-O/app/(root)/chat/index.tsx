@@ -11,16 +11,18 @@ import FilterBar from '@/components/ui/FilterBar';
 import { FlashList } from '@shopify/flash-list';
 import DirectMessageItem from '@/components/chat/direct/DirectMessageItem';
 import ChatHeader from '@/components/chat/base/ChatHeader';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { apiFetch } from '@/lib/apiClient';
 import { User } from '@/lib/entity/User';
 import { useWebSocket } from '@/contexts/WebSocketContext';
 import { ChatMessage } from '@/lib/entitywebsock/ChatMessage';
 import LatestMessage from '@/lib/entitywebsock/LatestMessage';
+import { useFocusEffect } from 'expo-router';
 export default function DirectMessagesScreen() {
   const { language } = useLanguage();
   const { colorScheme } = useColorScheme();
   const { user } = useAuthentication();
+  const [fetched, setFetched] = useState(false);
   const [activeUsers, setActiveUsers] = useState<User[]>([]);
   const [latestMessages, setLatestMessages] = useState<LatestMessage[]>([])
   const {stompClient} = useWebSocket();
@@ -29,6 +31,7 @@ export default function DirectMessagesScreen() {
   
   const handleFetch = async () => {
     console.log('Fetching active users...');
+    setFetched(true)
     const response = await apiFetch('/public/activeusers/messagelist', 'GET', true);
     if (response) {
       const data = response.data as LatestMessage[];
@@ -41,10 +44,17 @@ export default function DirectMessagesScreen() {
     return users.filter((usr) => usr.id !== user!.id); // Filter out the current user by ID
   };
 
-  useEffect(() => {
-    // Fetch data on mount
-    handleFetch();
+       useFocusEffect(
+         useCallback(() => {
+           if (!fetched && stompClient?.connected) {
+             handleFetch();  
+           }
+        return () => {
+        };
+      }, [])
+    );
 
+   useEffect(() => {
     // Ensure stompClient is connected before attempting to subscribe
     const connectAndSubscribe = () => {
       if (stompClient?.connected) {
@@ -78,7 +88,7 @@ export default function DirectMessagesScreen() {
       clearInterval(intervalId);
     };
   }, [stompClient]);
-
+ 
 
 
   if (!user) return <LoadingModal loading colorScheme={colorScheme!} />;
@@ -86,7 +96,7 @@ export default function DirectMessagesScreen() {
     return (
       <>
         <ChatHeader mainPage user={user} onFilterChange={() => {}}/>
-        <FlashList data={latestMessages} renderItem={(item) => (<DirectMessageItem user={user} latestMessage={item.item} date={new Date().toDateString()}/>)} />
+        <FlashList bounces={false} data={latestMessages} renderItem={(item) => (<DirectMessageItem user={user} latestMessage={item.item} date={new Date().toDateString()}/>)} />
       </>
     );
 }

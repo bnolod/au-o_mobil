@@ -39,9 +39,10 @@ export default apiClient;
 export const login = async (request: LoginRequest): Promise<string | null> => {
   try {
     const response = await apiClient.post<string>('auth/login', request);
-    if (response) {
+    // if (response) {
       await SecureStore.setItemAsync('jwtToken', response.data);
-    }
+      await validateToken(response.data, '/login');
+    // }
     return response.data;
   } catch (error: unknown) {
     return null;
@@ -58,6 +59,7 @@ export async function validateToken(token: string, path: string) {
   const validToken = await apiFetch<string>('auth/authenticate', 'POST', true, {
     token,
   });
+  console.log("token validation")
 
   if (!validToken?.data) {
     if (path === '/onboarding' || path === '/login' || path === '/register') {
@@ -82,6 +84,7 @@ export async function apiFetch<T>(
       method,
       url: endpoint,
       credentials: requiresAuth ? 'include' : 'omit',
+      // withCredentials: true,
       data: body || undefined,
       headers: {
         'Content-Type': 'application/json',
