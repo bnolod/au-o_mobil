@@ -15,22 +15,25 @@ import { useEffect, useState } from 'react';
 import { apiFetch } from '@/lib/apiClient';
 import { User } from '@/lib/entity/User';
 import { useWebSocket } from '@/contexts/WebSocketContext';
+import { ChatMessage } from '@/lib/entitywebsock/ChatMessage';
+import LatestMessage from '@/lib/entitywebsock/LatestMessage';
 export default function DirectMessagesScreen() {
   const { language } = useLanguage();
   const { colorScheme } = useColorScheme();
   const { user } = useAuthentication();
   const [activeUsers, setActiveUsers] = useState<User[]>([]);
+  const [latestMessages, setLatestMessages] = useState<LatestMessage[]>([])
   const {stompClient} = useWebSocket();
 
 
   
   const handleFetch = async () => {
     console.log('Fetching active users...');
-    const response = await apiFetch('/public/activeusers/all', 'GET', true);
+    const response = await apiFetch('/public/activeusers/messagelist', 'GET', true);
     if (response) {
-      const data = response.data as User[];
+      const data = response.data as LatestMessage[];
       console.log('Fetched users:', data);
-      setActiveUsers(data);
+      setLatestMessages(data);
     }
   };
 
@@ -83,7 +86,7 @@ export default function DirectMessagesScreen() {
     return (
       <>
         <ChatHeader mainPage user={user} onFilterChange={() => {}}/>
-        <FlashList data={activeUsers} renderItem={(item) => (<DirectMessageItem user={item.item} contact={item.item} date={new Date().toDateString()} lastMessage='kifejezetten hosszú sor amit törni kéne itt'/>)} />
+        <FlashList data={latestMessages} renderItem={(item) => (<DirectMessageItem user={item.item} contact={item.item} date={new Date().toDateString()} lastMessage={item.item.message.message}/>)} />
       </>
     );
 }
