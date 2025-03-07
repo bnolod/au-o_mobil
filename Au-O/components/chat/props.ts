@@ -1,4 +1,5 @@
 import { User } from '@/lib/entity/User';
+import LatestMessage from '@/lib/entitywebsock/LatestMessage';
 
 export interface GroupMessageProps {
   user: User;
@@ -8,8 +9,7 @@ export interface GroupMessageProps {
 }
 export interface DirectMessageItemProps {
   user: User;
-  contact: User;
-  lastMessage: string;
+  latestMessage: LatestMessage;
   date: string;
 }
 export interface ChatHeaderProps {

@@ -7,7 +7,7 @@ import UserMessage from './UserMessage';
 import MessageBar from '../base/MessageBar';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { KeyboardAvoidingView, ScrollView, View } from 'react-native';
-import { useEffect, useState } from 'react';
+import { LegacyRef, useEffect, useRef, useState } from 'react';
 import { useWebSocket } from '@/contexts/WebSocketContext';
 import { useAuthentication } from '@/contexts/AuthenticationContext';
 import { apiFetch } from '@/lib/apiClient';
@@ -19,6 +19,7 @@ export default function DirectMessagePage({ user, recipient }: DirectMessagePage
   const { stompClient } = useWebSocket();
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [message, setMessage] = useState('');
+  const scrollViewRef = useRef<ScrollView>(null);
 
   const fetchMessages = async () => {
     if (!user || !recipient) return;
@@ -36,6 +37,12 @@ export default function DirectMessagePage({ user, recipient }: DirectMessagePage
     }
   }, [user, recipient]);
 
+  useEffect(() => {
+    if (scrollViewRef.current) {
+      scrollViewRef.current.scrollToEnd({ animated: true });
+    }
+  }, [messages]);
+
   // Subscribe to the currently logged in user's queue to receive incoming messages.
   // With Spring's convertAndSendToUser, the client must subscribe using the `/user` prefix.
   useEffect(() => {
@@ -45,7 +52,7 @@ export default function DirectMessagePage({ user, recipient }: DirectMessagePage
         const incomingMessage = JSON.parse(msg.body) as ChatMessage;
         // Filter messages to include only those exchanged with recipient
         if (incomingMessage.user.username === recipient.username || incomingMessage.user.username === user.username) {
-          setMessages((prev) => [...prev, incomingMessage]);
+          setMessages((prev) => [incomingMessage, ...prev]);
           console.log('message received: ', incomingMessage);
           console.log('messages: ', messages);
         }
@@ -75,6 +82,8 @@ export default function DirectMessagePage({ user, recipient }: DirectMessagePage
     setMessage(str);
   };
 
+  const reversedList = messages.slice().reverse();
+
   // Scroll to the bottom when messages change
 
   return (
@@ -85,12 +94,11 @@ export default function DirectMessagePage({ user, recipient }: DirectMessagePage
         messages.map((msg, index) => {
           return <ThemedText key={index}>{msg.user.username}:{msg.message}</ThemedText>
         }) : ""*/}
-        <ScrollView>
-
-        {user && messages.map((item, index) => (
-          
-          item.user.username === user.username ? (
-            <UserMessage
+        <ScrollView ref={scrollViewRef}>
+          {user &&
+            reversedList.map((item, index) =>
+              item.user.username === user.username ? (
+                <UserMessage
                   id={user.id}
                   profilePic={user.profileImg}
                   message={item.message}
@@ -104,14 +112,16 @@ export default function DirectMessagePage({ user, recipient }: DirectMessagePage
                   profilePic={recipient.profileImg}
                   message={item.message}
                   nickname={recipient.nickname}
-                  isLast={(!messages[index + 1] || messages[index - 1] && messages[index-1].user.username !== recipient.username)}
+                  isLast={
+                    !messages[index + 1] ||
+                    (messages[index - 1] && messages[index - 1].user.username !== recipient.username)
+                  }
                   isFirst={!messages[index - 1] || messages[index - 1].user.username !== recipient.username}
-                  />
-                )))}
-                </ScrollView>
-              
+                />
+              )
+            )}
+        </ScrollView>
 
-            
         <MessageBar onChange={onchangehandler} onSend={sendMessage} user={user} />
       </KeyboardAvoidingView>
     </>
