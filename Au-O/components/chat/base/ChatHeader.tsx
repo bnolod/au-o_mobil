@@ -14,7 +14,7 @@ export default function ChatHeader({user, onFilterChange, mainPage, language}: C
         <View className="pt-safe px-3 secondary rounded-b-xl">
         <View className="flex flex-row items-center justify-between py-2">
           <Pressable onPress={() => {router.replace({pathname: "/(profile)/[id]", params: {id: user.id}})}} className="flex flex-row gap-4">
-            <Avatar image={user.profileImg ? { uri: user.profileImg } : null} nickname={user.nickname} />
+            <Avatar image={user.profileImg ?  user.profileImg : null} nickname={user.nickname} />
             <View className="flex justify-center">
               <ThemedText className="t2x">{user.nickname}</ThemedText>
               <ThemedText className="tsm muted">@{user.username}</ThemedText>

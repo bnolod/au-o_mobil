@@ -9,15 +9,15 @@ import { generalTexts } from '@/constants/texts';
 
 export default function MessageBar({ text, onSend, onChange, language }: MessageBarProps) {
   return (
-    <View className="flex flex-row w-11/12 mx-auto gap-2 items-center">
-      <TextInput value={text} onChangeText={onChange} className="basis-10/12 secondary text-black dark:text-white p-6 rounded-xl" placeholder={generalTexts.chat.messageBarPlaceholder[language]} />
+    <View className="flex flex-row w-full px-2 gap-2 mx-auto justify-between my-2">
+      <TextInput value={text} onChangeText={onChange} className="flex-1 secondary text-black dark:text-white p-3 rounded-xl" placeholder={generalTexts.chat.messageBarPlaceholder[language]} />
       <ApiCallButton
 delay={1000}
         apiCall={async () => onSend()}
-        className="secondary my-2 rounded-xl flex-1 aspect-square flex items-center justify-center"
+        className=" secondary aspect-square rounded-xl items-center justify-center"
       >
         <ThemedText>
-        <MaterialCommunityIcons name="send-outline" size={30} />
+        <MaterialCommunityIcons className=''  name="send-outline" size={24} />
         </ThemedText>
       </ApiCallButton>
     </View>

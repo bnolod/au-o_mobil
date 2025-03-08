@@ -101,8 +101,8 @@ export default function PostCard({
   console.log(group?.alias)
   return (
     <>
-      <View className={isDeleted ? 'hidden' : 'post-container my-3 flex flex-col justify-items-center align-middle items-center primary rounded-2xl overflow-hidden'}>
-        <View className="flex flex-row py-3 px-4 secondary">
+      <View className={isDeleted ? 'hidden' : 'post-container my-3 flex flex-col justify-items-center align-middle items-center primary rounded-lg overflow-hidden'}>
+        <View className="flex flex-row py-2 px-2 secondary">
           <View className="post-header">
             <PostHeaderElement
               authorProfileImg={authorProfileImg}
@@ -119,7 +119,6 @@ export default function PostCard({
               event={event}
               group={group}
             />
-
             <PostAuthorDisplayElement
               authorProfileImg={authorProfileImg}
               authorUsername={authorUsername}
@@ -140,8 +139,8 @@ export default function PostCard({
             <PostOptionModal language={language} menuVisible={menuVisible} setMenuVisible={setMenuVisible} authorId={authorId} postId={postId} userId={user.id}/>
             <MaterialCommunityIcons
               name="dots-horizontal"
-              className='pr-12'
-              size={36}
+              className='pr-6'
+              size={24}
               color={colorScheme === 'dark' ? 'white' : 'black'}
               onPress={() => showOptions()}
             />

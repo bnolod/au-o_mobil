@@ -103,8 +103,14 @@ export default function DirectMessagePage({language, user, recipient }: DirectMe
                   profilePic={user.profileImg}
                   message={item.message}
                   nickname={user.nickname}
-                  isLast={!messages[index + 1] || messages[index + 1].user.username === user.username}
-                  isFirst={!messages[index - 1] || messages[index - 1].user.username === user.username}
+                  isLast={
+                    !reversedList[index - 1] || 
+                    (reversedList[index + 1] && reversedList[index + 1].user.username !== user.username)
+                  }
+                  isFirst={
+                    !reversedList[index + 1] || 
+                    reversedList[index + 1].user.username !== user.username
+                  }
                 />
               ) : (
                 <RecipientMessage
@@ -113,10 +119,14 @@ export default function DirectMessagePage({language, user, recipient }: DirectMe
                   message={item.message}
                   nickname={recipient.nickname}
                   isLast={
-                    !messages[index + 1] ||
-                    (messages[index - 1] && messages[index - 1].user.username !== recipient.username)
+                    !reversedList[index - 1] || 
+                    (reversedList[index + 1] && reversedList[index + 1].user.username !== recipient.username)
                   }
-                  isFirst={!messages[index - 1] || messages[index - 1].user.username !== recipient.username}
+                  isFirst={
+                    !reversedList[index + 1] || 
+                    reversedList[index + 1].user.username !== recipient.username
+                  }
+                  
                 />
               )
             )}

@@ -72,7 +72,7 @@
     @apply flex flex-col w-full   shadow-md my-2;
   }
   .post-header-container {
-    @apply flex flex-row rounded-t-xl primary items-center w-full p-2 justify-between;
+    @apply flex flex-row primary items-center w-full p-2 justify-between;
   }
   .post-header {
     @apply flex-row flex items-center basis-11/12;
@@ -144,7 +144,7 @@
     @apply h-12 p-0 gap-2 flex flex-row items-center rounded-xl justify-center primary;
   }
   .post-comment-input-trigger {
-    @apply h-12 primary flex items-start px-2 justify-center rounded-2xl;
+    @apply h-12 primary flex items-start px-2 justify-center rounded-xl;
   }
   .no-posts-container {
     @apply flex m-auto justify-center items-center;

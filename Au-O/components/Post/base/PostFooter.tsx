@@ -26,7 +26,7 @@ export default function PostFooter({
   colorScheme,
 }: PostFooterProps & CommonStaticElementProps) {
   return (
-    <View className="rounded-b-3xl overflow-hidden">
+    <View className="overflow-hidden">
       <View className="post-reaction-container">
         <View className=" gap-2 flex flex-row basis-7/12">
           <ReactionButton

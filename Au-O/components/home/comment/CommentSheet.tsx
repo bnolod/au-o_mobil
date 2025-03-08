@@ -57,7 +57,7 @@ export default function CommentSheet({
         setFocused(false);
       }}
     >
-      <View className="flex flex-row w-screen justify-between items-center bg-backdrop-secondary dark:bg-backdrop-secondary-dark py-3 px-4">
+      <View className="flex flex-row w-screen justify-between items-center bg-backdrop-secondary dark:bg-backdrop-secondary-dark py-1 px-2">
         <View className="">
           <Avatar className="primary" image={userProfileImg} nickname={userNickname} height={12} width={12} />
         </View>
@@ -79,7 +79,7 @@ export default function CommentSheet({
         </View>
         <View className="basis-2/12">
           <TouchableOpacity
-            className="flex flex-row items-center justify-between p-2 flex-grow rounded-2xl bg-backdrop-primary dark:bg-backdrop-primary-dark"
+            className="flex flex-row items-center justify-between p-2 flex-grow rounded-xl bg-backdrop-primary dark:bg-backdrop-primary-dark"
             onPress={() => {
               // bottomSheetModalRef.current?.present();
               handlePresent();
