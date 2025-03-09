@@ -97,6 +97,7 @@ export default function CommentSheet({
         {!preview && (
           <>
             <BottomSheetModal
+            
               onChange={(index) => {
                 if (index === 1) {
                   bottomSheetModalRef.current?.dismiss();
@@ -122,8 +123,8 @@ export default function CommentSheet({
               enableHandlePanningGesture
               
               handleStyle={{
-                backgroundColor: Colors[colorScheme].secondary,
-
+                backgroundColor: Colors[colorScheme].primary,
+                
                 borderTopRightRadius: 10,
                 borderTopLeftRadius: 10,
               }}
@@ -144,13 +145,12 @@ export default function CommentSheet({
                   />
                 }
                 bounces={false}
-                
+                className={`bg-backdrop-primary dark:bg-backdrop-primary-dark`}
                 data={renderedComments}
                 ListEmptyComponent={<CommentsEmpty language={language} colorScheme={colorScheme} />}
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id.toString()}
                 contentContainerStyle={{
-                  backgroundColor: Colors[colorScheme].secondary,
                   paddingVertical: 12,
                   width: '100%',
                 }}

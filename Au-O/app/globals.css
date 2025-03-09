@@ -167,7 +167,7 @@
     @apply flex muted  justify-center flex-col items-center mt-4;
   }
   .comment {
-    @apply primary w-full py-2 px-4 flex flex-col items-start gap-2 justify-between;
+    @apply w-full py-2 px-4 flex flex-col items-start gap-2 justify-between;
   }
   .comment-header {
     @apply flex flex-row items-center  justify-center gap-1;
@@ -185,7 +185,7 @@
     @apply basis-2/12 flex h-auto  items-center justify-center;
   }
   .comment-reply-line {
-    @apply w-1 h-full secondary px-1 my-5 flex-1 rounded-full mx-auto;
+    @apply w-1 h-full secondary px-1 flex-1 rounded-full mx-auto;
   }
   .comment-text-body {
     @apply basis-10/12 flex flex-col;
@@ -194,7 +194,7 @@
     @apply flex flex-row mt-2 gap-2;
   }
   .reply {
-    @apply primary w-full mt-2 gap-2 flex flex-col items-start justify-between;
+    @apply w-full mt-2 gap-2 flex flex-col items-start justify-between;
   }
   .reply-avatar {
     @apply flex flex-row items-center;

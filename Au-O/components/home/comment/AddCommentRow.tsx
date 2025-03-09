@@ -41,17 +41,17 @@ export default function AddCommentRow({
     }
   }
   return (
-    <View className="post-comment-add">
-      <View className="basis-10/12 rounded-xl">
+    <View className="flex flex-row justify-between px-2 w-full bg-backdrop-secondary dark:bg-backdrop-primary-dark gap-4">
+      <View className="flex-1 rounded-xl">
         <BottomSheetTextInput
           value={commentText}
           autoFocus={focus}
-          className="primary h-12 rounded-xl px-2"
+          className=" h-12 rounded-xl px-2"
           placeholderClassName="text-gray-500"
           placeholderTextColor={'#767676'}
           onChangeText={(text) => setCommentText(text)}
           style={{
-            backgroundColor: Colors[colorScheme].primary,
+            backgroundColor: Colors[colorScheme].secondary,
             color: Colors[colorScheme].text,
           }}
           placeholder={
@@ -59,7 +59,7 @@ export default function AddCommentRow({
           }
         />
       </View>
-      <View className="basis-1/12">
+      <View className="">
         <ApiCallButton className="post-comment-send-reply-button" apiCall={handleSubmitComment} delay={1000}>
           <MaterialCommunityIcons name="send" size={24} color={Colors[colorScheme].text} />
         </ApiCallButton>
