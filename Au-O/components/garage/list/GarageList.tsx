@@ -20,6 +20,7 @@ export default function GarageList({
     <FlashList
       ListEmptyComponent={<NoPostsFound language={language} />}
       data={cars}
+      style={{ padding: 10 }}
       estimatedItemSize={99}
       renderItem={({ item }) => (
         <GarageItem

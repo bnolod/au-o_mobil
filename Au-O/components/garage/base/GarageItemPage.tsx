@@ -29,14 +29,14 @@ export default function GarageItemPage({
 
           <View className="flex items-center p-5">{getCarImage(car.type, colorScheme, 140 * 2, 85 * 2, 4)}</View>
       </View>
-        <View className="flex flex-row justify-evenly items-center w-full rounded-xl">
+        <View className="flex flex-col items-center w-full rounded-xl">
           <ThemedText className="text-3xl font-bold py-2">{car.manufacturer}</ThemedText>
           <ThemedText className="text-2xl py-2">{car.model}</ThemedText>
           {isOwner && (
             <MaterialCommunityIcons
               name="pencil"
               size={24}
-              color={Colors[colorScheme!].text}
+              color={Colors[colorScheme!].tabIconDefault}
               onPress={() =>
                 router.push({
                   pathname: '/(garage)/edit/[id]',

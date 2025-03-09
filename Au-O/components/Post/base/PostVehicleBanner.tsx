@@ -24,20 +24,20 @@ export default function PostVehicleBanner({
                 params: { id: vehicle.id },
               })
       }
-      className="w-full h-12 primary rounded-t-xl "
+      className=" primary py-3 bg-background-dark/75  w-screen absolute  bottom-0"
     >
-      <View className="post-vehicle-container">
+      <View className="flex flex-row items-center justify-between px-6">
         <View className="scale-125">{getCarImage(vehicle.type, colorScheme, 52, 36, 3)}</View>
-        <View className="post-vehicle-data">
-          <ThemedText className="tlg text-highlight-light">{vehicle.manufacturer}</ThemedText>
-          <ThemedText className="text-lg text-highlight-light">{vehicle.model}</ThemedText>
+        <View className="flex flex-col w-8/12 truncate pl-2">
+          <ThemedText className="text-md font-black truncate text-highlight-light">{vehicle.manufacturer}</ThemedText>
+          <ThemedText className="text-md truncate text-highlight-light">{vehicle.model}</ThemedText>
         </View>
-        <View className="post-vehicle-misc-data">
-          <ThemedText>{vehicle.productionYear}</ThemedText>
-          <ThemedText>
+        <View className="">
+          {/* <ThemedText>{vehicle.productionYear}</ThemedText> */}
+          {/* <ThemedText>
             {vehicle.horsepower} {generalTexts.profileAttributes.cars.horsepower[language]}
           </ThemedText>
-          <ThemedText>{vehicle.displacement / 10} l</ThemedText>
+          <ThemedText>{vehicle.displacement / 10} l</ThemedText> */}
         </View>
         <MaterialCommunityIcons name="chevron-right" size={32} color={colorScheme === 'dark' ? 'white' : 'black'} />
       </View>
