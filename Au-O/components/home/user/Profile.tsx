@@ -216,7 +216,7 @@ export default function Profile({
               dismissSheet={() => followerSheetRef.current?.dismiss()}
             />
           </BottomSheetModal>
-          <View className="profile-descriptions">
+          <View className="pl-4">
             <ThemedText className="txl" onLongPress={() => setNicknameEdit(true)}>
               {nicknameValue}
             </ThemedText>
@@ -225,7 +225,7 @@ export default function Profile({
           <View className="profile-description">
             <View className={`profile-description-text ${isOwner && 'basis-5/6'}`}>
               <CollapsibleText
-                className="text-lg px-4"
+                className="text-lg px-4 opacity-90"
                 TextProps={{
                   onLongPress: () => {
                     if (!isOwner) return;
@@ -248,10 +248,10 @@ export default function Profile({
             )}
           </View>
           {!isOwner ? (
-            <View className="">
+            <View className="flex flex-row items-center px-5">
               <Button
                 className={`follow-button ${
-                  followers.some((follower) => follower.id === user.id) && 'bg-transparent button'
+                  followers.some((follower) => follower.id === user.id) && 'bg-backdrop-primary opacity-50 dark:bg-backdrop-primary-dark button'
                 } `}
                 hapticFeedback="medium"
                 style={{
@@ -267,14 +267,14 @@ export default function Profile({
                   : generalTexts.followButton.follow[language]}
               </Button>
               <View className="misc-button-container">
-                <Button className="profile-misc-button py-3" onPress={() => router.replace({pathname: "/(root)/chat/[id]", params: {id: profile.id}})}>Message</Button>
+                <Button className="profile-misc-button dark:bg-highlight-dark bg-highlight-light py-3" onPress={() => router.replace({pathname: "/(root)/chat/[id]", params: {id: profile.id}})}>Message</Button>
                 <Button className="profile-misc-button">
                   <MaterialCommunityIcons name="dots-horizontal" size={24} />
                 </Button>
               </View>
             </View>
           ) : (
-            <ThemedText className="mx-auto my-3 font-semibold">{UserEditTexts.header[language]}</ThemedText>
+            <ThemedText className="mx-auto my-3 opacity-25">{UserEditTexts.header[language]}</ThemedText>
           )}
           <ProfileTabSelector colorScheme={colorScheme} selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
         </View>

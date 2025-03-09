@@ -78,8 +78,8 @@ export default function PostFooter({
         </View>
       </View>
       <View className="post-description-container">
-        <CollapsibleText className="post-description" restrictedLineCount={3}>
-          <Text className="post-author-text">{authorUsername + '  '}</Text>
+        <CollapsibleText className="post-description w-full" restrictedLineCount={3}>
+          <Text className="text-highlight font-black">@{authorUsername + '  '}</Text>
           {description}
         </CollapsibleText>
       </View>

@@ -30,7 +30,7 @@ export default function PostAuthorDisplayElement({
         {postType === 'EVENT' && event?.name}
         {postType === 'INVALID' && 'Invalid'}
       </ThemedText>
-      <ThemedText className={`tsm flex-wrap flex muted `}>{postType === 'USER' && '@' + authorUsername}</ThemedText>
+      {/* <ThemedText className={`tsm flex-wrap flex muted `}>{postType === 'USER' && '@' + authorUsername}</ThemedText> */}
     </View>
   );
 }

@@ -6,7 +6,7 @@ import PostGrid from '@/components/social/base/PostGrid';
 import CollapsibleText from '@/components/ui/CollapsibleText';
 import { getCarImage } from '@/components/graphics/cars';
 import { CommonStaticElementProps } from '@/constants/types';
-import { generalTexts, SocialTexts } from '@/constants/texts';
+import { generalTexts, PostCreationTexts, SocialTexts } from '@/constants/texts';
 import { router } from 'expo-router';
 import { GarageItemPageProps } from './props';
 import { Images } from '@/lib/staticAssetExports';
@@ -27,15 +27,16 @@ export default function GarageItemPage({
       <View className="rounded-b-3xl">
       <View className="h-64">
 
-          <View className="flex items-center p-5">{getCarImage(car.type, colorScheme, 140 * 2, 85 * 2, 4)}</View>
+          <View className="flex w-full ml-5 items-center">{getCarImage(car.type, colorScheme, 140 *2.1 , 85 * 3, 3)}</View>
       </View>
-        <View className="flex flex-col items-center w-full rounded-xl">
-          <ThemedText className="text-3xl font-bold py-2">{car.manufacturer}</ThemedText>
-          <ThemedText className="text-2xl py-2">{car.model}</ThemedText>
+        <View className="flex flex-col pl-6 pr-2 w-full rounded-xl">
+          <View className='flex flex-row justify-between pr-6'>
+          <ThemedText className="text-6xl font-bold truncate">{car.manufacturer}</ThemedText>
           {isOwner && (
             <MaterialCommunityIcons
               name="pencil"
-              size={24}
+              className='self-center'
+              size={28}
               color={Colors[colorScheme!].tabIconDefault}
               onPress={() =>
                 router.push({
@@ -45,16 +46,20 @@ export default function GarageItemPage({
               }
             />
           )}
+          </View>
+          <ThemedText className="text-4xl pl-2">{car.model}</ThemedText>
+
         </View>
-        <View className="garage-description-container">
-          <CollapsibleText className="text-lg text-center my-2">{car.description}</CollapsibleText>
+        <View className="garage-description-container pl-6 pt-2">
+        <ThemedText className=" opacity-50 text-md -mb-3">{PostCreationTexts.form.description.label[language]}</ThemedText>
+          <CollapsibleText className="text-lg ">{car.description}</CollapsibleText>
         </View>
       </View>
       </GradientBackground>
       <View className="flex flex-col px-5 ">
         <View className="flex flex-row px-5 py-2">
           <MaterialCommunityIcons name="horse" size={42} color={Colors[colorScheme!].text} />
-          <ThemedText className="text-2xl self-center mx-2"> Ló: 
+          <ThemedText className="text-2xl self-center mx-2"> 
             {car.horsepower} {generalTexts.profileAttributes.cars.horsepower[language]}
           </ThemedText>
         </View>
