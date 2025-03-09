@@ -21,7 +21,7 @@ export default function GarageItem({
     <>
       <Pressable
         onPress={onPress}
-        className=" h-24 flex flex-row dark:bg-backdrop-secondary-dark justify-between rounded-xl mt-3 shadow-md shadow-[#00000022] "
+        className="h-24 flex flex-row dark:bg-backdrop-secondary-dark justify-between rounded-xl mt-3 shadow-sm shadow-[#00000022] "
       >
         <View className="">
           <ImageBackground contentFit="cover" style={{ flex: 1 }} source={Images.banner_placeholder}>

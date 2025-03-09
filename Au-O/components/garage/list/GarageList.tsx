@@ -22,6 +22,7 @@ export default function GarageList({
       data={cars}
       style={{ padding: 10 }}
       estimatedItemSize={99}
+      contentContainerClassName='pb-24'
       renderItem={({ item }) => (
         <GarageItem
           isOwner={userId.toString() === item.owner?.id.toString()}
