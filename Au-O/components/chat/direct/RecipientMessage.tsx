@@ -17,8 +17,9 @@ export default function RecipientMessage({ profilePic, id, nickname, message, is
         />
       )}
       <View
-        className={`bg-highlight-light rounded-r-[2rem] rounded-l-lg dark:bg-highlight-dark py-3 pl-3 pr-4 mt-1  max-w-[58%]
-          ${isFirst ? 'rounded-bl-[1.5rem]' : ''}`}
+        className={`bg-highlight-light rounded-r-[2rem] rounded-l-md dark:bg-highlight-dark py-3 px-4 mt-1  max-w-[58%]
+          ${isFirst ? ' rounded-bl-[1.5rem] ' : ''}
+          ${isLast ? ' rounded-tl-[1.5rem] ' : ''}`}
       >
         <ThemedText className="text-xl leading-tight">{message}</ThemedText>
       </View>

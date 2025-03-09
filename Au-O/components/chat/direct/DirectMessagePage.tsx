@@ -105,7 +105,7 @@ export default function DirectMessagePage({language, user, recipient }: DirectMe
                   nickname={user.nickname}
                   isLast={
                     !reversedList[index - 1] || 
-                    (reversedList[index + 1] && reversedList[index + 1].user.username !== user.username)
+                    (reversedList[index - 1] && reversedList[index - 1].user.username !== user.username)
                   }
                   isFirst={
                     !reversedList[index + 1] || 
@@ -120,7 +120,7 @@ export default function DirectMessagePage({language, user, recipient }: DirectMe
                   nickname={recipient.nickname}
                   isLast={
                     !reversedList[index - 1] || 
-                    (reversedList[index + 1] && reversedList[index + 1].user.username !== recipient.username)
+                    (reversedList[index - 1] && reversedList[index - 1].user.username !== recipient.username)
                   }
                   isFirst={
                     !reversedList[index + 1] || 
