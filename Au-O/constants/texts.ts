@@ -1178,3 +1178,9 @@ export const EventTexts = {
     }
   }
 }
+export const ChatTexts = {
+  sentPost: {
+    HU: "Posztot küldött",
+    EN: "Sent a post"
+  }
+}

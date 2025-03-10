@@ -100,6 +100,7 @@ export default function DirectMessagePage({language, user, recipient }: DirectMe
               item.user.username === user.username ? (
                 <UserMessage
                   id={user.id}
+                  key={index}
                   profilePic={user.profileImg}
                   message={item.message}
                   nickname={user.nickname}

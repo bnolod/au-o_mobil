@@ -1,8 +1,124 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { PostCreationTexts, PostStatusTexts } from '@/constants/texts';
-import { ActionSheetIOS, Alert, Platform } from 'react-native';
+import { ActionSheetIOS, Platform, Pressable, View } from 'react-native';
 import { handleDelete, handleEdit, handleReport, handleShare } from '@/lib/events/PostOptionEvents';
-export default function PostOptionMenu(
+import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
+import { Colors } from '@/constants/Colors';
+import { ScrollView } from 'react-native';
+import Avatar from '@/components/ui/Avatar';
+import ThemedText from '@/components/ui/ThemedText';
+import { apiFetch } from '@/lib/apiClient';
+import LatestMessage from '@/lib/entitywebsock/LatestMessage';
+import Button from '@/components/ui/Button';
+import { useWebSocket } from '@/contexts/WebSocketContext';
+export default function PostOptionModal({
+  language,
+  menuVisible,
+  setVisible,
+  colorScheme,
+  postId,
+  authorId,
+  userId,
+}: {
+  menuVisible: boolean;
+  setVisible: (b: boolean) => void;
+  language: 'EN' | 'HU';
+  postId: number | null;
+  authorId: number | null;
+  colorScheme: 'light' | 'dark';
+  userId: number | null;
+}) {
+  const isOwner = userId === authorId;
+  function dismiss() {
+    setVisible(false);
+    ref.current?.dismiss();
+  }
+  function show() {
+    setVisible(true);
+    ref.current?.present();
+  }
+  useEffect(() => {
+    if (menuVisible) {
+      show()
+    } else {
+      dismiss()
+    }
+  }, [menuVisible]);
+  const ref = useRef<BottomSheetModal>(null);
+  const {stompClient} = useWebSocket();
+  async function handlePostSend(username: string, postId: number) {
+
+    if (stompClient) {
+      const targetedMessage = { username, message: `{{POST_${postId}_}}` };
+      stompClient.publish({
+        destination: '/app/chat/user/',
+        body: JSON.stringify(targetedMessage),
+      });
+    }
+  }
+  const [recipients, setRecipients] = useState<LatestMessage[]>([]);
+    const handleFetch = async () => {
+      console.log('Fetching active users...');
+      const response = await apiFetch<LatestMessage[]>('/public/activeusers/messagelist', 'GET', true);
+      if (response && response.data) {
+        setRecipients(response.data);
+      }
+    };
+    useEffect(() => {
+      handleFetch()
+    }, [])
+  return (
+    <BottomSheetModal enableOverDrag={false} enableDismissOnClose handleIndicatorStyle={{
+      backgroundColor: Colors[colorScheme].text,
+      width: "33%"
+    }} handleStyle={{
+      backgroundColor: Colors[colorScheme].primary,
+    }} onDismiss={() => dismiss()} ref={ref}>
+      <BottomSheetView>
+        <View className="flex flex-col primary p-3 min-h-96 gap-6 justify-between pb-safe-offset-1 w-full">
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} className=" p-3 secondary rounded-xl max-h-28">
+          <View className='flex flex-row items-center gap-4'>
+            
+          {
+            recipients.map((rec) => (
+              <Pressable className='flex gap-2 flex-col items-center' onPress={async () => {
+                if (rec && postId) {
+                  handlePostSend(rec.username, postId!).then(() => dismiss())
+                }
+
+              } }>
+              <Avatar image={rec.profileImg} nickname={rec.nickname} />
+              <ThemedText className='tlg'>
+                {rec.nickname}
+              </ThemedText>
+                </Pressable>
+            ))
+          }
+          </View>
+
+        </ScrollView>
+          <View className='flex flex-col gap-4'>
+        {isOwner &&<Button className=' highlight-themed button primary btn-fill' innerTextClassName='txl' onPress={() => {dismiss(); handleEdit(authorId, userId, postId)}}>
+          {PostCreationTexts.options.edit[language]}
+        </Button>}
+        {isOwner &&<Button className=' highlight-themed button primary btn-fill' innerTextClassName='txl'  onPress={() => {dismiss(); handleDelete(authorId, userId, language, postId)}}>
+          {PostCreationTexts.deletePost[language]}
+        </Button>}
+
+        <Button className=' highlight-themed button primary btn-fill' innerTextClassName='txl'  onPress={() => {dismiss(); handleReport()}}>
+          {PostCreationTexts.options.report[language]}
+        </Button>
+        <Button className=' border-highlight-light dark:border-highlight-dark border-2 button btn-fill' innerTextClassName='txl' onPress={() => dismiss()}>
+          {PostCreationTexts.options.cancel[language]}
+        </Button>
+        </View>
+          </View>
+      </BottomSheetView>
+    </BottomSheetModal>
+  );
+}
+/**@deprecated */
+export function DeprecatedPostOptionMenu(
   preview: boolean,
   language: 'EN' | 'HU',
   postId: number,
@@ -20,10 +136,6 @@ export default function PostOptionMenu(
   if (authorId && authorId === userId) {
     iosOptions.push(PostCreationTexts.options.edit[language], PostCreationTexts.deletePost[language]);
   }
-
-
-
-
 
   if (Platform.OS === 'ios') {
     return ActionSheetIOS.showActionSheetWithOptions(
@@ -51,6 +163,5 @@ export default function PostOptionMenu(
     );
   } else if (Platform.OS === 'android') {
     onShow && onShow();
-    
   }
 }

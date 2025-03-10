@@ -19,7 +19,7 @@ import PostFooter from './base/PostFooter';
 import PostVehicleBanner from './base/PostVehicleBanner';
 import { deleteImgurImage } from '@/lib/ApiCalls/ImageApiCalls';
 import AlertModal from '../ui/AlertModal';
-import PostOptionModal from './base/PostEditModal';
+import PostOptionModal from './base/PostOptionMenu';
 export default function PostCard({
   preview = false,
   authorNickname,
@@ -43,32 +43,7 @@ export default function PostCard({
   vehicle,
 }: PostCardProps) {
   const postType = getPostType(authorNickname, authorUsername, group, event);
-  async function showOptions() {
-    if (!preview) {
-      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-      PostOptionMenu(
-        preview,
-        language,
-        postId!,
-        user!.id,
-        authorId,
-        () => {
-          setIsDeleted(true);
-          for (const img of images) {
-            async function handleImageDelete() {
-              const res = await deleteImgurImage(img.deleteHash);
-              if (res === true) {
-                console.log('Image deleted.');
-              }
-            }
-          }
-        },
-        () => {
-          setMenuVisible((prev) => !prev);
-        }
-      );
-    }
-  }
+
   const [menuVisible, setMenuVisible] = useState<boolean>(false);
   const [isDeleted, setIsDeleted] = useState<boolean>(false);
   const [currentReaction, setCurrentReaction] = useState<null | 'FIRE' | 'HEART' | 'COOL'>(reaction);
@@ -136,17 +111,17 @@ export default function PostCard({
             />
           </View>
           <View className="post-options self-center">
-            <PostOptionModal language={language} menuVisible={menuVisible} setMenuVisible={setMenuVisible} authorId={authorId} postId={postId} userId={user.id}/>
-            <MaterialCommunityIcons
+            <PostOptionModal colorScheme={colorScheme} setVisible={setMenuVisible} language={language} menuVisible={menuVisible} authorId={authorId} postId={postId} userId={user.id}/>
+             <MaterialCommunityIcons
               name="dots-horizontal"
               className='pr-6'
               size={24}
               color={colorScheme === 'dark' ? 'white' : 'black'}
-              onPress={() => showOptions()}
+              onPress={() => {setMenuVisible(true)}}
             />
           </View>
         </View>
-        <Pressable onLongPress={allowOptions === true || allowOptions === undefined ? showOptions : () => {}}>
+        <Pressable onLongPress={allowOptions === true || allowOptions === undefined ? () => setMenuVisible(true) : () => {}}>
           <TapCountWrapper
             onDoubleTap={async () => {
               await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);

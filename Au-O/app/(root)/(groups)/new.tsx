@@ -77,7 +77,7 @@ export default function NewPostPage() {
         public: true,
       });
       router.replace('/(root)/(groups)/feed');
-      router.push({ pathname: '/(root)/(groups)/[id]', params: { id: createGroupRes.id } });
+      router.push({ pathname: '/(groups)/[id]', params: { id: createGroupRes.id } });
       return;
     }
     Toast.show({
