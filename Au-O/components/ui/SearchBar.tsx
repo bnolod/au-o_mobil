@@ -29,9 +29,7 @@ export default function SearchBar({
         className="flex items-center mr-2"
         onPress={() => {
           Keyboard.dismiss();
-          onSearch(query);
-          setQuery('');
-        }}
+          onSearch(query);        }}
         hapticFeedback="medium"
       >
         <MaterialCommunityIcons name="magnify" size={32} color={colorScheme === 'light' ? 'black' : 'white'} />

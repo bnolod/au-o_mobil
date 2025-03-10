@@ -9,7 +9,7 @@ export default function RecipientMessage({ profilePic, id, nickname, message, is
       <View className={`w-14 pt-2`} />
       {isFirst && (
         <Avatar
-          className="absolute -bottom-2 ml-2 self-center secondary"
+          className="absolute bottom-1 ml-2 self-center secondary"
           height={12}
           width={12}
           image={profilePic ? profilePic : null}

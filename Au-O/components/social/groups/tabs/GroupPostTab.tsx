@@ -38,6 +38,8 @@ export default function GroupPostTab({ group, language, colorScheme }: GroupTabP
     
       <FlashList
         estimatedItemSize={300}
+        ListFooterComponent={<></>}
+        ListFooterComponentStyle={{marginTop: 120}}
         data={posts}
         keyExtractor={(item) => item.postId + '_' + item.dateOfCreation}
         renderItem={({ item, index }) => (

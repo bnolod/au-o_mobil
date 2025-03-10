@@ -18,12 +18,12 @@ export default function PostAuthorDisplayElement({
           <View>
           <View className='flex items-center flex-row gap-2'>
             <ThemedText className='font-bold text-lg'>{group.name || group.groupName}</ThemedText>
-            <ThemedText className="tsm font-normal muted ">
+            <ThemedText className="tsm font-normal muted">
               {group?.alias || group.groupAlias}
             </ThemedText>
           </View>
           <ThemedText className="tsm font-normal muted ">
-            @{authorUsername}
+            {authorNickname}
           </ThemedText>
           </View>
         )}

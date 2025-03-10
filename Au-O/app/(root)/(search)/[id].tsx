@@ -26,9 +26,12 @@ export default function SearchPage() {
   async function getSearchResult() {
     if (!searchId) return;
     try {
+      if(id != ''){
+        console.log(searchId)
       const res = await searchUsers(searchId);
       setSearchResult(res ?? []);
       setLoading(false);
+      }
     } catch (error) {
       console.error('Error fetching search results:', error);
     }

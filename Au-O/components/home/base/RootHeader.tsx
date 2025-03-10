@@ -29,6 +29,7 @@ export default function RootHeader({ language, colorScheme }: CommonStaticElemen
           placeholder={HomeTexts.search.placeholder[language]}
           colorScheme={colorScheme}
           onSearch={(query) => {
+            if(query.length != 0)
             router.replace({
               pathname: '/(root)/(search)/[id]',
               params: { id: query },

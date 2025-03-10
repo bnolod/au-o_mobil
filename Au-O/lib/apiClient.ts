@@ -1,10 +1,4 @@
-import {
-  HttpError,
-  HttpMethod,
-  LoginRequest,
-  RegisterRequest,
-  TokenResponse,
-} from '@/constants/types';
+import { HttpError, HttpMethod, LoginRequest, RegisterRequest, TokenResponse } from '@/constants/types';
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { router } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
@@ -40,8 +34,8 @@ export const login = async (request: LoginRequest): Promise<string | null> => {
   try {
     const response = await apiClient.post<string>('auth/login', request);
     // if (response) {
-      await SecureStore.setItemAsync('jwtToken', response.data);
-      await validateToken(response.data, '/login');
+    await SecureStore.setItemAsync('jwtToken', response.data);
+    await validateToken(response.data, '/login');
     // }
     return response.data;
   } catch (error: unknown) {
@@ -59,7 +53,7 @@ export async function validateToken(token: string, path: string) {
   const validToken = await apiFetch<string>('auth/authenticate', 'POST', true, {
     token,
   });
-  console.log("token validation")
+  console.log('token validation');
 
   if (!validToken?.data) {
     if (path === '/onboarding' || path === '/login' || path === '/register') {
@@ -88,7 +82,7 @@ export async function apiFetch<T>(
       data: body || undefined,
       headers: {
         'Content-Type': 'application/json',
-        },
+      },
     };
 
     const res = await apiClient.request<T>(config);
@@ -118,7 +112,6 @@ export async function handleLogin(request: LoginRequest): Promise<string> {
 
   return response!.data!.token;
 }
-
 
 export async function updateProfilePicture(imageForm: FormData) {
   const image = await imageUpload(imageForm);

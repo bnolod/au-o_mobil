@@ -75,8 +75,8 @@ export default function GroupPage({ group, colorScheme, language }: CommonStatic
   }, [group.id]);
 
   return (
-    <View className="flex flex-col">
-      <View className="basis-[45%]">
+    <ScrollView className="pb-safe-offset-96">
+      <View className="">
         <SocialBanner
           header
           id={group.id}
@@ -195,6 +195,6 @@ export default function GroupPage({ group, colorScheme, language }: CommonStatic
         {selectedTab === 'INFO' && <GroupInfoTab group={group} colorScheme={colorScheme} language={language} />}
         {selectedTab === 'CHAT' && <GroupChatTab colorScheme={colorScheme} language={language} group={group} />}
       </View>
-    </View>
+    </ScrollView>
   );
 }
