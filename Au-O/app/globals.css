@@ -101,12 +101,7 @@
   .post-vehicle-data {
     @apply flex justify-center flex-row items-center gap-3;
   }
-  .post-dismiss-button {
-    @apply my-2 btn-highlight button btn-fill btn-outline;
-  }
-  .post-submit-button {
-    @apply mt-2 btn-highlight button btn-fill;
-  }
+
   .post-vehicle-misc-data {
     @apply flex justify-center flex-row muted  items-center gap-3;
   }

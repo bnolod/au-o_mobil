@@ -1,4 +1,4 @@
-import { View } from 'react-native';
+import { RefreshControl, ScrollView, View } from 'react-native';
 import ThemedText from '@/components/ui/ThemedText';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Colors } from '@/constants/Colors';
@@ -17,11 +17,12 @@ export default function GarageItemPage({
   colorScheme,
   isOwner,
   car,
+  posts,
   language,
   profileImg,
 }: GarageItemPageProps & CommonStaticElementProps) {
   return (
-    <View className="garage-page">
+    <ScrollView  className="garage-page">
       
       <GradientBackground colors={['#EF1A2D', 'transparent']}>
       <View className="rounded-b-3xl">
@@ -77,7 +78,8 @@ export default function GarageItemPage({
       <ThemedText className="mx-auto text-2xl mb-2 font-bold">
         {SocialTexts.creation.car.featuredPosts[language]}
       </ThemedText>
-      <PostGrid colorScheme={colorScheme!} language={language} posts={[]} />
-    </View>
+
+      {posts.length > 0 && <PostGrid colorScheme={colorScheme!} language={language} posts={posts} />}
+    </ScrollView>
   );
 }

@@ -281,10 +281,10 @@ export default function EditPost() {
                 event={null}
                 group={post.group}
               />
-              <Button onPress={() => bottomSheetRef.current?.dismiss()} className="post-dismiss-button">
+              <Button onPress={() => bottomSheetRef.current?.dismiss()} className="button primary my-4 btn-fill" innerTextClassName='tlg'>
                 Dismiss
               </Button>
-              <Button onPress={handleSubmit} className="post-dismiss-button">
+              <Button onPress={handleSubmit} className="button highlight-themed btn-fill" innerTextClassName='tlg'>
                 Post
               </Button>
             </BottomSheetView>

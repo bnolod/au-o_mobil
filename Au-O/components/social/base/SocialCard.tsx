@@ -102,7 +102,7 @@ export default function SocialCard({
                     ? () => {
                         if (type === 'EVENT')
                           router.push({
-                            pathname: `/(root)/(events)/[id]`,
+                            pathname: `/(events)/[id]`,
                             params: {
                               id: item.id,
                             },
@@ -111,7 +111,7 @@ export default function SocialCard({
                         if (group?.validMember) {
 
                           router.push({
-                            pathname: `/(root)/(groups)/[id]`,
+                            pathname: `/(groups)/[id]`,
                             params: {
                               id: item.id,
                             },

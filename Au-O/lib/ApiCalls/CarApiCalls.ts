@@ -1,6 +1,7 @@
 import { apiFetch } from '@/lib/apiClient';
 import { CarCreationRequest } from '@/lib/request/CarCreationRequest';
 import { Car } from '../entity/Car';
+import { Post } from '../entity/Post';
 
 export async function getOwnGarage(): Promise<Car[] | null> {
   const req = await apiFetch<Car[]>('vehicles/own', 'GET', true);
@@ -62,4 +63,11 @@ export async function getUserGarageById(id: number) {
   if (res && res.data) {
     return(res.data);
   } else return;
+}
+export async function getPostsByVehicleId(id: number) {
+  const res = await apiFetch<Post[]>("posts/vehicle/" + id, 'GET', true);
+  if (res && res.data) {
+    return res.data
+  }
+  return null
 }

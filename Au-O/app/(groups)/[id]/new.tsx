@@ -87,7 +87,7 @@ export default function NewGroupPost() {
       location: '',
       vehicleId: null,
     })
-    router.replace({pathname: "/(root)/(groups)/[id]/post/[postId]", params: {id: group!.id, postId: res.postId.toString()}})
+    router.replace({pathname: "/(groups)/[id]/post/[postId]", params: {id: group!.id, postId: res.postId.toString()}})
   }
 
     setLoading(false);

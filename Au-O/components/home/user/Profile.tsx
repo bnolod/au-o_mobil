@@ -314,7 +314,7 @@ export default function Profile({
         )}
         {selectedTab === 'GROUPS' && (
           <View>
-          <OwnGroupList userId={profile.id}></OwnGroupList>
+          <OwnGroupList userId={profile.id}/>
           </View>
         )}
       </>

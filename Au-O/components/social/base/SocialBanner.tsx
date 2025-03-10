@@ -28,14 +28,14 @@ export default function SocialBanner({
           : () => {
               if (type === 'EVENT')
                 router.push({
-                  pathname: `/(root)/(events)/[id]`,
+                  pathname: `/(events)/[id]`,
                   params: {
                     id,
                   },
                 });
               else
                 router.push({
-                  pathname: `/(root)/(groups)/[id]`,
+                  pathname: `/(groups)/[id]`,
                   params: {
                     id,
                   },

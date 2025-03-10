@@ -12,7 +12,7 @@ export default function PostGrid({ colorScheme, language, posts }: { posts: Post
     <View className="ml-2 mt-4">
       <FlashList
         estimatedItemSize={200}
-        
+        keyExtractor={(item) => item.postId+'_'}
         ListEmptyComponent={() => <NoPostsFound language={language} />}
         data={
           posts && posts.length > 0

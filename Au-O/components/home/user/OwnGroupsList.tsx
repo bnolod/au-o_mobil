@@ -1,6 +1,7 @@
 import SocialCard from '@/components/social/base/SocialCard';
 import { getGroupsOfUser } from '@/lib/ApiCalls/GroupApiCalls';
 import { Group } from '@/lib/entity/Group';
+import { FlashList } from '@shopify/flash-list';
 import { useEffect, useState } from 'react';
 import { ScrollView } from 'react-native';
 
@@ -12,25 +13,18 @@ export default function OwnGroupList(props: OwnGroupListProps) {
   const [groups, setGroups] = useState<Group[]>([]);
 
   const getGroups = async () => {
-            console.log("ÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁ")
     const res = await getGroupsOfUser(props.userId);
     setGroups(res!);
-    console.log('########## getting groups');
   };
 
   useEffect(() => {
-            console.log("argrljjerngjkrng")
     getGroups();
-    console.log("a222222222222222222222")
-    console.log("groups:"+groups)
 
   }, []);
 
   return (
-    <ScrollView>
-      {groups.map((group) => {
-        return <SocialCard type="GROUP" group={group} colorScheme={'dark'} language={'HU'} />;
-      })}
-    </ScrollView>
+    <FlashList data={groups} renderItem={({item}) => (
+      <SocialCard type="GROUP" group={item} colorScheme={'dark'} language={'HU'} />
+    )}/>
   );
 }
