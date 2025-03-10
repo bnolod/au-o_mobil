@@ -88,3 +88,14 @@ export async function getGroupPosts(id: number) {
   return null;
 
 }
+
+export async function getGroupsOfUser(id: number) {
+  const req = await apiFetch<Group[]>(`groups/user/${id}`, 'GET', true);
+  if (req && req.status === 200) {
+    console.log("data:"+req.data)
+    return req.data;
+  }
+  console.log("data nincs")
+  return null;
+
+}

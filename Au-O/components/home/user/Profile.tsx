@@ -3,7 +3,7 @@ import ThemedText from '@/components/ui/ThemedText';
 import { RefreshControl, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { updateProfilePicture } from '@/lib/apiClient';
 import { CommonStaticElementProps } from '@/constants/types';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { router } from 'expo-router';
 import UserLoading from '@/components/auth/UserLoading';
 import RootHeader from '@/components/home/base/RootHeader';
@@ -26,6 +26,11 @@ import { followUser, unfollowUser, updateBio, updateNickname } from '@/lib/ApiCa
 import { ProfileProps } from './props';
 import ProfileTabSelector from './TabSelector';
 import LoadingModal from '@/components/ui/LoadingModal';
+import { Group } from '@/lib/entity/Group';
+import { getGroupsOfUser } from '@/lib/ApiCalls/GroupApiCalls';
+import GroupListItem from '@/components/social/groups/GroupListItem';
+import SocialCard from '@/components/social/base/SocialCard';
+import OwnGroupList from './OwnGroupsList';
 export default function Profile({
   user,
   language,
@@ -41,12 +46,13 @@ export default function Profile({
 }: ProfileProps & CommonStaticElementProps) {
   const [bioEdit, setBioEdit] = useState<boolean>(false);
   const [bioValue, setBioValue] = useState<string>(profile.bio);
-
   const [nicknameEdit, setNicknameEdit] = useState<boolean>(false);
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const [nicknameValue, setNicknameValue] = useState<string>(profile.nickname);
   const [selectedTab, setSelectedTab] = useState<'POST' | 'GROUPS' | 'SAVED' | 'GARAGE'>('POST');
   const followerSheetRef = useRef<BottomSheetModal>(null);
+
+  
 
   async function handleFollow() {
     if (user && !followers.some((follower) => follower.id === user.id)) {
@@ -305,6 +311,11 @@ export default function Profile({
         )}
         {selectedTab === 'GARAGE' && garage.length !== 0 && (
           <GarageList userId={user.id.toString()} colorScheme={colorScheme} cars={garage} language={language} />
+        )}
+        {selectedTab === 'GROUPS' && (
+          <View>
+          <OwnGroupList userId={profile.id}></OwnGroupList>
+          </View>
         )}
       </>
     );
