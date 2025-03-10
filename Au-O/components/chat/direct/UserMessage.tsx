@@ -3,10 +3,14 @@ import ThemedText from '@/components/ui/ThemedText';
 import { View } from 'react-native';
 import { MessageProps } from '../props';
 import MessagePost from '../media/MessagePost';
+import GroupInvite from '../media/GroupInvite';
 
-export default function UserMessage({ message, isFirst, isLast }: MessageProps) {
+export default function UserMessage({ message, isFirst, isLast, colorScheme }: MessageProps) {
   if (message.startsWith("{{POST_") && message.endsWith("_}}")) {
-    return <MessagePost colorScheme={"dark"} postId={Number(message.split("_")[1])} />;
+    return <MessagePost sender colorScheme={colorScheme} postId={Number(message.split("_")[1])} />;
+  }
+  if (message.startsWith("{{GROUP_") && message.endsWith("_}}")) {
+    return <GroupInvite sender colorScheme={colorScheme} groupId={Number(message.split("_")[1])} />;
   }
   return (
     <>

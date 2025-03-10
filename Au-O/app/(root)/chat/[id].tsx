@@ -31,6 +31,6 @@ export default function DirectMessageScreen() {
     if (!user || !recipient) return <LoadingModal loading colorScheme={colorScheme!} text="Loading your chats..." />;
     return (
         
-       <DirectMessagePage language={language} user={user} recipient={recipient} />
+       <DirectMessagePage colorScheme={colorScheme!} language={language} user={user} recipient={recipient} />
     )
 }

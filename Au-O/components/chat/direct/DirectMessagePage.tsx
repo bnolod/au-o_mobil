@@ -14,7 +14,7 @@ import { apiFetch } from '@/lib/apiClient';
 import { ChatMessage } from '@/lib/entitywebsock/ChatMessage';
 import ThemedText from '@/components/ui/ThemedText';
 
-export default function DirectMessagePage({language, user, recipient }: DirectMessagePageProps) {
+export default function DirectMessagePage({language, colorScheme, user, recipient }: DirectMessagePageProps) {
   // currently logged in user
   const { stompClient } = useWebSocket();
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -90,18 +90,15 @@ export default function DirectMessagePage({language, user, recipient }: DirectMe
     <>
       <KeyboardAvoidingView behavior="padding" className=" h-full flex-1 justify-between background">
         <ChatHeader language={language} mainPage={false} user={recipient} onFilterChange={() => {}} />
-        {/*messages && user ? 
-        messages.map((msg, index) => {
-          return <ThemedText key={index}>{msg.user.username}:{msg.message}</ThemedText>
-        }) : ""*/}
         <ScrollView ref={scrollViewRef}>
           {user &&
             reversedList.map((item, index) =>
               item.user.username === user.username ? (
                 <UserMessage
                   id={user.id}
-                  key={index}
+                  key={"S_"+index}
                   profilePic={user.profileImg}
+                  colorScheme={colorScheme}
                   message={item.message}
                   nickname={user.nickname}
                   isLast={
@@ -116,6 +113,8 @@ export default function DirectMessagePage({language, user, recipient }: DirectMe
               ) : (
                 <RecipientMessage
                   id={recipient.id}
+                  colorScheme={colorScheme}
+                  key={"R_" + index}
                   profilePic={recipient.profileImg}
                   message={item.message}
                   nickname={recipient.nickname}

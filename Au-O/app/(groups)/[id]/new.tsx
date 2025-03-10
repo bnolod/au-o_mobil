@@ -103,7 +103,7 @@ export default function NewGroupPost() {
     }
   }
   async function getGroups() {
-    const res = await getGroup(id as string);
+    const res = await getGroup(Number(id as string));
     if (res) {
       setGroup(res);
     }
@@ -230,10 +230,12 @@ export default function NewGroupPost() {
                       colorScheme={colorScheme!}
                       placeholder={SelectionTexts.event[language]}
                       language={language}
+                      
                       FlashListProps={{
                         data: [{ title: 'Event 1', date: '2022.12.12' }],
-                        renderItem: ({ item, index }) => (
+                        renderItem: ({ item }) => (
                           <PostCreationSheetSelectElements
+                          
                             onPress={() => console.log(item.title)}
                             event={{ title: item.title }}
                             title={item.title}

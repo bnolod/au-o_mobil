@@ -19,7 +19,7 @@ export async function createGroup(request: GroupCreationRequest) {
   }
   return null;
 }
-export async function getGroup(groupId: string) {
+export async function getGroup(groupId: number) {
   const req = await apiFetch<Group>('groups/group/' + groupId, 'GET', true);
   if (req && req.status === 200) {
     return req.data;

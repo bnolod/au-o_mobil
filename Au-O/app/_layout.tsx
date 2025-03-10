@@ -14,7 +14,7 @@ import { AuthenticationProvider } from '@/contexts/AuthenticationContext';
 import { FormProvider } from '@/contexts/FormContext';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import Toast from 'react-native-toast-message';
+import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
 import { Platform } from 'react-native';
 import { eventEmitter } from '@/lib/events';
 import { Colors } from '@/constants/Colors';
@@ -57,7 +57,7 @@ export default function RootLayout() {
               <FormProvider>
                 <GestureHandlerRootView>
                   <BottomSheetModalProvider>
-                    <Stack initialRouteName="onboarding" >
+                    <Stack initialRouteName="onboarding">
                       <Stack.Screen
                         name="onboarding"
                         options={{
@@ -83,7 +83,47 @@ export default function RootLayout() {
                     </Stack>
                   </BottomSheetModalProvider>
                 </GestureHandlerRootView>
-                <Toast topOffset={Platform.OS === 'ios' ? 60 : 30} />
+                <Toast
+                  /*config={{
+                    success: (props) => (
+                      <BaseToast
+                        style={{
+                          backgroundColor: Colors[colorScheme!].primary,
+                        }}
+                        text1Style={{
+                          color: Colors[colorScheme!].text,
+                          fontWeight: 'bold',
+                          fontSize: 18,
+                          textAlign: 'center',
+                        }}
+                        text2Style={{
+                          color: Colors[colorScheme!].text,
+                          fontSize: 14,
+                        }}
+                        {...props}
+                      />
+                    ),
+                    error: (props) => (
+                      <BaseToast
+                        style={{
+                          backgroundColor: Colors[colorScheme!].primary,
+                        }}
+                        text1Style={{
+                          color: Colors[colorScheme!].text,
+                          fontWeight: 'bold',
+                          fontSize: 18,
+                          textAlign: 'center',
+                        }}
+                        text2Style={{
+                          color: Colors[colorScheme!].text,
+                          fontSize: 14,
+                        }}
+                        {...props}
+                      />
+                    ),
+                  }}*/
+                  topOffset={Platform.OS === 'ios' ? 60 : 30}
+                />
               </FormProvider>
             </WebSocketProvider>
           </AuthenticationProvider>

@@ -22,9 +22,11 @@ export interface DirectMessagePageProps {
     user: User;
     recipient: User;
     language: "EN" | "HU";
+    colorScheme: "dark" | "light";
 }
 export interface MessageProps {
     profilePic: string;
+    colorScheme: "dark" | "light";
     id: number;
     nickname: string
     message: string;

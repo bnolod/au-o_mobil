@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { PostCreationTexts, PostStatusTexts } from '@/constants/texts';
+import { ChatTexts, PostCreationTexts, PostStatusTexts, SocialTexts } from '@/constants/texts';
 import { ActionSheetIOS, Platform, Pressable, View } from 'react-native';
 import { handleDelete, handleEdit, handleReport, handleShare } from '@/lib/events/PostOptionEvents';
 import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
@@ -11,6 +11,8 @@ import { apiFetch } from '@/lib/apiClient';
 import LatestMessage from '@/lib/entitywebsock/LatestMessage';
 import Button from '@/components/ui/Button';
 import { useWebSocket } from '@/contexts/WebSocketContext';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import Toast from 'react-native-toast-message';
 export default function PostOptionModal({
   language,
   menuVisible,
@@ -75,15 +77,31 @@ export default function PostOptionModal({
       backgroundColor: Colors[colorScheme].primary,
     }} onDismiss={() => dismiss()} ref={ref}>
       <BottomSheetView>
-        <View className="flex flex-col primary p-3 min-h-96 gap-6 justify-between pb-safe-offset-1 w-full">
+        <View className="flex flex-col primary p-3 min-h-96 justify-between pb-safe-offset-1 w-full">
+            <View className='flex flex-row items-center justify-between gap-3'>
+                <ThemedText className='ml-3'>
+                <MaterialCommunityIcons name='send-outline'/>
+                </ThemedText>
+              <ThemedText className='tlg'>
+                  Quick Send
+              </ThemedText>
+              <View className='primary w-2/3 h-0.5 bg-white'/>
+            </View>
+
         <ScrollView horizontal showsHorizontalScrollIndicator={false} className=" p-3 secondary rounded-xl max-h-28">
           <View className='flex flex-row items-center gap-4'>
             
           {
             recipients.map((rec) => (
-              <Pressable className='flex gap-2 flex-col items-center' onPress={async () => {
+              <Pressable className='flex gap-2 rounded-xl mt-2 flex-col items-center' onPress={async () => {
                 if (rec && postId) {
-                  handlePostSend(rec.username, postId!).then(() => dismiss())
+                  handlePostSend(rec.username, postId!).then(() => {
+                    Toast.show({
+                      type: 'success',
+                      text1: ChatTexts.messagedPosts(rec.nickname)[language]
+                    })
+                    dismiss()
+                  })
                 }
 
               } }>

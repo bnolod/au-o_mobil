@@ -1182,5 +1182,9 @@ export const ChatTexts = {
   sentPost: {
     HU: "Posztot küldött",
     EN: "Sent a post"
+  },
+  messagedPosts(recipient: string) {
+    return {HU: `Poszt elküldve ${recipient} részére`,
+            EN: `Sent post to ${recipient}`}
   }
 }
