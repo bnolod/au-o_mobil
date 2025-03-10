@@ -1,6 +1,6 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useState } from 'react';
-import { TextInput, View } from 'react-native';
+import { Keyboard, TextInput, View } from 'react-native';
 import Button from './Button';
 import { SearchBarProps } from './props';
 
@@ -12,8 +12,7 @@ export default function SearchBar({
 }: SearchBarProps & { colorScheme?: 'dark' | 'light' }) {
   const [query, setQuery] = useState<string>('');
   return (
-    <View className="basis-8/12 rounded-xl mx-auto h-12 secondary flex flex-row items-center justify-between backdrop-opacity-0"
-    >
+    <View className="basis-8/12 rounded-xl mx-auto h-12 secondary flex flex-row items-center justify-between backdrop-opacity-0">
       <TextInput
         placeholderTextColor={'#767676'}
         placeholder={placeholder}
@@ -26,7 +25,15 @@ export default function SearchBar({
               }
         }
       />
-      <Button className="flex items-center mr-2" onPress={() => onSearch(query)} hapticFeedback="medium">
+      <Button
+        className="flex items-center mr-2"
+        onPress={() => {
+          Keyboard.dismiss();
+          onSearch(query);
+          setQuery('');
+        }}
+        hapticFeedback="medium"
+      >
         <MaterialCommunityIcons name="magnify" size={32} color={colorScheme === 'light' ? 'black' : 'white'} />
       </Button>
     </View>

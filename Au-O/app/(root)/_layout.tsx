@@ -117,7 +117,7 @@ export default function RootLayout() {
               display: "none"
             }  ,
             headerShown: false,
-            title: 'Groups',
+            title: 'Chat',
             tabBarIcon: ({ color, focused }) => (
              <></>
             ),
@@ -155,6 +155,18 @@ export default function RootLayout() {
             ),
           }}
         />
+        <Tabs.Screen name="(search)" options={{
+            lazy: true,
+            
+            tabBarItemStyle: {
+              display: "none"
+            }  ,
+            headerShown: false,
+            title: 'Search',
+            tabBarIcon: ({ color, focused }) => (
+             <></>
+            ),
+          }} />
       </Tabs>
     </>
   );

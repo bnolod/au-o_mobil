@@ -25,6 +25,7 @@ export default function UserProfile() {
   const [followers, setFollowers] = useState<User[]>([]);
   const [following, setFollowing] = useState<User[]>([]);
   const [posts, setPosts] = useState<Post[]>([]);
+  
   const handleRefresh = () => {
     setRefreshing(true);
 
@@ -36,7 +37,7 @@ export default function UserProfile() {
     const res = await getUserById(Number(id));
     if (res) {
       setProfile(res);
-    } else return
+    } else return;
   }
   async function getUserPosts() {
     const res = await getUserPostsById(Number(id));
@@ -89,7 +90,6 @@ export default function UserProfile() {
           following={following!}
           id={profile.id.toString()}
           language={language}
-
         />
       </ScrollView>
     );

@@ -141,3 +141,26 @@ export async function updateProfilePicture(imageForm: FormData) {
   return false;
 }
 
+export async function searchUsers(query: string) {
+  const req = await fetch(`${apiClient.defaults.baseURL}/users/search?search=${query}`, {
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    method: 'GET',
+  });
+  const res = await req.json();
+  return res;
+}
+
+export async function searchGroups(query: string) {
+  const req = await fetch(`${apiClient.defaults.baseURL}/groups/search?search=${query}`, {
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    method: 'GET',
+  });
+  const res = await req.json();
+  return res;
+}
