@@ -24,7 +24,8 @@ export default function MessagePost({sender, postId, colorScheme }: PostMessageP
   }, []);
 
   return (
-    <View className={`flex mt-1 overflow-hidden w-2/3 ${sender ? "self-end mr-2" : "self-start ml-2"} aspect-square rounded-xl`}>
+    <View className={`flex mt-1 ml-16 overflow-hidden w-2/3 ${sender ? "self-end mr-2" : "self-start ml-2"} aspect-square rounded-xl`}>
+      
       {post && (
         <>
           <View className='flex flex-col'>
