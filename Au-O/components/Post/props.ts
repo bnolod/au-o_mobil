@@ -7,6 +7,7 @@ import { Group } from '@/lib/entity/Group';
 import { SocialEvent } from '@/lib/entity/SocialEvent';
 
 export interface PostCardProps {
+  favorite: boolean;
   postId: number | null;
   reaction: null | 'FIRE' | 'HEART' | 'COOL';
   preview?: boolean;

@@ -1,12 +1,6 @@
-import PostCard from '@/components/Post/Post';
-import Button from '@/components/ui/Button';
 import LoadingModal from '@/components/ui/LoadingModal';
-import ThemedText from '@/components/ui/ThemedText';
-import { Colors } from '@/constants/Colors';
-// import { PostResponse } from "@/constants/types";
 import { useLanguage } from '@/contexts/LanguageContext';
 import { apiFetch } from '@/lib/apiClient';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useColorScheme } from 'nativewind';
 import { useEffect, useState } from 'react';

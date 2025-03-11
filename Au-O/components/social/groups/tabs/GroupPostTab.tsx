@@ -46,6 +46,7 @@ export default function GroupPostTab({ group, language, colorScheme }: GroupTabP
             <Pressable onLongPress={() => role === 'ADMIN' && console.log('long press')}>
 
           <PostCard
+            favorite={item.favorite}
             authorId={item.user.id}
             allowOptions={role !== 'ADMIN'}
             authorUsername={item.user.username}

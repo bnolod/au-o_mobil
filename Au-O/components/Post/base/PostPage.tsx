@@ -11,6 +11,7 @@ export default function PostPage({id, isNew, colorScheme, language, user, post} 
       return (
         <View className="flex justify-start pt-safe-offset-1 items-center h-full">
           <PostCard
+            favorite={post.favorite}
             user={user!}
             group={post.group}
             event={null}

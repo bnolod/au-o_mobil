@@ -38,9 +38,9 @@ export default function PostOptionModal({
   const handleFavorite = async () => {
     const res = await favoritePost(postId!)
     if ( res == "added") {
-      favorite = true;
+      setIsFavorite(true);
     } else {
-      favorite = false;
+      setIsFavorite(false);
     }
   }
 
@@ -60,6 +60,7 @@ export default function PostOptionModal({
       dismiss();
     }
   }, [menuVisible]);
+  const [isFavorite, setIsFavorite] = useState<boolean>(favorite);
   const ref = useRef<BottomSheetModal>(null);
   const [targets, setTargets] = useState<string[]>([]);
   const { stompClient } = useWebSocket();
@@ -195,18 +196,17 @@ export default function PostOptionModal({
           <View className="flex flex-row gap-4">
           {/* favorite ize ikon */}
           <Button
-              className={` ${favorite? "opacity-50" : ""}`}
               onPress={() => {
                 handleFavorite();
               }}
             >
-              <MaterialCommunityIcons name="bookmark" size={40} className="self-center">
+              <MaterialCommunityIcons name="bookmark" size={40} className="self-center" color={isFavorite? Colors.highlight.main : Colors.dark.text}>
 
               </MaterialCommunityIcons>
             </Button>
             <Button
-              className=" highlight-themed button primary flex-1 "
-              innerTextClassName="txl"
+              className=" highlight-themed button primary flex justify-center flex-1 "
+              innerTextClassName="txl self-center"
               onPress={() => {
                 dismiss();
                 handleReport();
@@ -215,8 +215,8 @@ export default function PostOptionModal({
               {PostCreationTexts.options.report[language]}
             </Button>
             <Button
-              className=" border-highlight-light flex-1 dark:border-highlight-dark border-2 button "
-              innerTextClassName="txl"
+              className=" border-highlight-light flex justify-center flex-1 dark:border-highlight-dark border-2 button "
+              innerTextClassName="txl self-center"
               onPress={() => dismiss()}
             >
               {PostCreationTexts.options.cancel[language]}

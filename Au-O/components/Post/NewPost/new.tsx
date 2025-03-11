@@ -456,6 +456,7 @@ export default function NewPost() {
               >
                 <BottomSheetView>
                   <PostCard
+                    favorite
                     user={user}
                     reaction={'FIRE'}
                     postId={null}

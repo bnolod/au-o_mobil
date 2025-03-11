@@ -37,6 +37,7 @@ export default function PostCard({
   language,
   allowOptions,
   colorScheme,
+  favorite,
   postId,
   user,
   reaction,
@@ -111,7 +112,7 @@ export default function PostCard({
             />
           </View>
           <View className="post-options self-center">
-            <PostOptionModal colorScheme={colorScheme} setVisible={setMenuVisible} language={language} menuVisible={menuVisible} authorId={authorId} postId={postId} userId={user.id}/>
+            <PostOptionModal colorScheme={colorScheme} setVisible={setMenuVisible} language={language} menuVisible={menuVisible} authorId={authorId} postId={postId} userId={user.id} favorite={favorite}/>
              <MaterialCommunityIcons
               name="dots-horizontal"
               className='pr-6'
