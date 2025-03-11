@@ -24,7 +24,7 @@ export default function PostVehicleBanner({
                 params: { id: vehicle.id },
               })
       }
-      className=" primary py-3 bg-background-dark/75  w-screen absolute  bottom-0"
+      className=" primary py-3 bg-background/75  dark:bg-background-dark/75  w-screen absolute  bottom-0"
     >
       <View className="flex flex-row items-center justify-between px-6">
         <View className="scale-125">{getCarImage(vehicle.type, colorScheme, 52, 36, 3)}</View>

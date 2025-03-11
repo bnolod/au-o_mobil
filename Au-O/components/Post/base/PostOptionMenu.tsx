@@ -70,6 +70,7 @@ export default function PostOptionModal({
   useFocusEffect(
     useCallback(() => {
       handleFetch();
+      return
     }, [stompClient]) 
   );
   return (
