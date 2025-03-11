@@ -24,11 +24,11 @@ export default function MessagePost({sender, postId, colorScheme }: PostMessageP
   }, []);
 
   return (
-    <View className={`flex my-2 overflow-hidden w-2/3 ${sender ? "self-end" : "self-start"} aspect-square rounded-xl`}>
+    <View className={`flex mt-1 overflow-hidden w-2/3 ${sender ? "self-end mr-2" : "self-start ml-2"} aspect-square rounded-xl`}>
       {post && (
         <>
           <View className='flex flex-col'>
-            <View className={`${sender ? "secondary" : "highlight-themed"} p-3 flex flex-row items-center gap-2`}>
+            <View className={`${sender ? "secondary" : "highlight-themed"} p-1 flex flex-row items-center gap-2`}>
                 <Avatar image={post.user.profileImg} nickname={post.user.nickname} />
               <ThemedText className='tlg'>{post.user.username}</ThemedText>
             </View>
