@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { ChatTexts, PostCreationTexts, PostStatusTexts, SocialTexts } from '@/constants/texts';
 import { ActionSheetIOS, Platform, Pressable, View } from 'react-native';
 import { handleDelete, handleEdit, handleReport, handleShare } from '@/lib/events/PostOptionEvents';
@@ -13,6 +13,7 @@ import Button from '@/components/ui/Button';
 import { useWebSocket } from '@/contexts/WebSocketContext';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Toast from 'react-native-toast-message';
+import { useFocusEffect } from 'expo-router';
 export default function PostOptionModal({
   language,
   menuVisible,
@@ -41,15 +42,15 @@ export default function PostOptionModal({
   }
   useEffect(() => {
     if (menuVisible) {
-      show()
+      show();
     } else {
-      dismiss()
+      dismiss();
     }
   }, [menuVisible]);
   const ref = useRef<BottomSheetModal>(null);
-  const {stompClient} = useWebSocket();
+  const [targets, setTargets] = useState<string[]>([]);
+  const { stompClient } = useWebSocket();
   async function handlePostSend(username: string, postId: number) {
-
     if (stompClient) {
       const targetedMessage = { username, message: `{{POST_${postId}_}}` };
       stompClient.publish({
@@ -59,78 +60,142 @@ export default function PostOptionModal({
     }
   }
   const [recipients, setRecipients] = useState<LatestMessage[]>([]);
-    const handleFetch = async () => {
-      console.log('Fetching active users...');
-      const response = await apiFetch<LatestMessage[]>('/public/activeusers/messagelist', 'GET', true);
-      if (response && response.data) {
-        setRecipients(response.data);
-      }
-    };
-    useEffect(() => {
-      handleFetch()
-    }, [])
+  const handleFetch = async () => {
+    console.log('Fetching active users...');
+    const response = await apiFetch<LatestMessage[]>('/public/activeusers/messagelist', 'GET', true);
+    if (response && response.data) {
+      setRecipients(response.data);
+    }
+  };
+  useFocusEffect(
+    useCallback(() => {
+      handleFetch();
+    }, [stompClient]) 
+  );
   return (
-    <BottomSheetModal enableOverDrag={false} enableDismissOnClose handleIndicatorStyle={{
-      backgroundColor: Colors[colorScheme].text,
-      width: "33%"
-    }} handleStyle={{
-      backgroundColor: Colors[colorScheme].primary,
-    }} onDismiss={() => dismiss()} ref={ref}>
+    <BottomSheetModal
+      enableOverDrag={false}
+      enableDismissOnClose
+      handleIndicatorStyle={{
+        backgroundColor: Colors[colorScheme].text,
+        width: '33%',
+      }}
+      handleStyle={{
+        backgroundColor: Colors[colorScheme].primary,
+      }}
+      onDismiss={() => dismiss()}
+      ref={ref}
+    >
       <BottomSheetView>
         <View className="flex flex-col primary p-3 min-h-96 justify-between pb-safe-offset-1 w-full">
-            <View className='flex flex-row items-center justify-between gap-3'>
-                <ThemedText className='ml-3'>
-                <MaterialCommunityIcons name='send-outline'/>
-                </ThemedText>
-              <ThemedText className='tlg'>
-                  Quick Send
-              </ThemedText>
-              <View className='primary w-2/3 h-0.5 bg-white'/>
-            </View>
+          <View className="flex flex-row items-center justify-between gap-3">
+            <ThemedText className="ml-3">
+              <MaterialCommunityIcons name="send-outline" />
+            </ThemedText>
+            <ThemedText className="tlg">Quick Send</ThemedText>
+            <View className="primary w-2/3 h-0.5 bg-white" />
+          </View>
 
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} className=" p-3 secondary rounded-xl max-h-28">
-          <View className='flex flex-row items-center gap-4'>
-            
-          {
-            recipients.map((rec) => (
-              <Pressable className='flex gap-2 rounded-xl mt-2 flex-col items-center' onPress={async () => {
-                if (rec && postId) {
-                  handlePostSend(rec.username, postId!).then(() => {
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} className=" p-3 secondary rounded-xl max-h-28">
+            <View className="flex flex-row items-center gap-4">
+              {recipients.map((rec) => (
+                <Pressable
+                  key={rec.username}
+                  className="flex relative gap-2 rounded-xl mt-2 flex-col items-center"
+                  onPress={async () => {
+                    if (rec && postId) {
+                      if (targets.find((t) => t === rec.username)) {
+                        setTargets(targets.filter((t) => t !== rec.username));
+                      } else setTargets([...targets, rec.username]);
+                      /* handlePostSend(rec.username, postId!).then(() => {
                     Toast.show({
                       type: 'success',
                       text1: ChatTexts.messagedPosts(rec.nickname)[language]
                     })
                     dismiss()
-                  })
-                }
-
-              } }>
-              <Avatar image={rec.profileImg} nickname={rec.nickname} />
-              <ThemedText className='tlg'>
-                {rec.nickname}
-              </ThemedText>
+                  }) */
+                    }
+                  }}
+                >
+                  <Avatar image={rec.profileImg} nickname={rec.nickname} />
+                  <ThemedText className="tlg">{rec.nickname}</ThemedText>
+                  <View className="absolute -top-2 -left-2">
+                    <MaterialCommunityIcons
+                      name="check-circle"
+                      size={28}
+                      color={Colors.highlight[colorScheme]}
+                      style={{ opacity: targets.find((t) => t === rec.username) ? 1 : 0 }}
+                    />
+                  </View>
                 </Pressable>
-            ))
-          }
+              ))}
+            </View>
+          </ScrollView>
+          <View className="flex flex-col gap-4">
+            {targets && targets.length > 0 && (
+              <Button
+               disabled={targets.length > 9}
+                className=" highlight-themed button primary btn-fill"
+                innerTextClassName="txl"
+                onPress={() => {
+                  for (const target of targets) {
+                    handlePostSend(target, postId!);
+                  }
+                  setTargets([])
+                  dismiss();
+                  Toast.show({
+                    type: 'success',
+                    text1: ChatTexts.messagedPosts(targets.join(', '))[language],
+                  });
+                }}
+              >
+                {ChatTexts.sendPost[language]}
+              </Button>
+            )}
+            {isOwner && (
+              <Button
+                className=" highlight-themed button primary btn-fill"
+                innerTextClassName="txl"
+                onPress={() => {
+                  dismiss();
+                  handleEdit(authorId, userId, postId);
+                }}
+              >
+                {PostCreationTexts.options.edit[language]}
+              </Button>
+            )}
+            {isOwner && (
+              <Button
+                className=" highlight-themed button primary btn-fill"
+                innerTextClassName="txl"
+                onPress={() => {
+                  dismiss();
+                  handleDelete(authorId, userId, language, postId);
+                }}
+              >
+                {PostCreationTexts.deletePost[language]}
+              </Button>
+            )}
+
+            <Button
+              className=" highlight-themed button primary btn-fill"
+              innerTextClassName="txl"
+              onPress={() => {
+                dismiss();
+                handleReport();
+              }}
+            >
+              {PostCreationTexts.options.report[language]}
+            </Button>
+            <Button
+              className=" border-highlight-light dark:border-highlight-dark border-2 button btn-fill"
+              innerTextClassName="txl"
+              onPress={() => dismiss()}
+            >
+              {PostCreationTexts.options.cancel[language]}
+            </Button>
           </View>
-
-        </ScrollView>
-          <View className='flex flex-col gap-4'>
-        {isOwner &&<Button className=' highlight-themed button primary btn-fill' innerTextClassName='txl' onPress={() => {dismiss(); handleEdit(authorId, userId, postId)}}>
-          {PostCreationTexts.options.edit[language]}
-        </Button>}
-        {isOwner &&<Button className=' highlight-themed button primary btn-fill' innerTextClassName='txl'  onPress={() => {dismiss(); handleDelete(authorId, userId, language, postId)}}>
-          {PostCreationTexts.deletePost[language]}
-        </Button>}
-
-        <Button className=' highlight-themed button primary btn-fill' innerTextClassName='txl'  onPress={() => {dismiss(); handleReport()}}>
-          {PostCreationTexts.options.report[language]}
-        </Button>
-        <Button className=' border-highlight-light dark:border-highlight-dark border-2 button btn-fill' innerTextClassName='txl' onPress={() => dismiss()}>
-          {PostCreationTexts.options.cancel[language]}
-        </Button>
         </View>
-          </View>
       </BottomSheetView>
     </BottomSheetModal>
   );
