@@ -410,6 +410,7 @@ export default function NewPost() {
                 <BottomSheetView>
                   <PostCard
                     user={user!}
+                    favorite={false}
                     reaction={'FIRE'}
                     postId={null}
                     authorProfileImg={user!.profileImg}

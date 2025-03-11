@@ -13,7 +13,7 @@ import { Colors } from '@/constants/Colors';
 import { Images } from '@/lib/staticAssetExports';
 import Button from '@/components/ui/Button';
 
-export default function GroupInvite({ sender, colorScheme, groupId }: GroupInviteProps) {
+export default function GroupInvite({ sender, colorScheme, groupId, avatar }: GroupInviteProps) {
   const [group, setGroup] = useState<Group | null>(null);
 
   async function fetchGroup() {
@@ -26,7 +26,8 @@ export default function GroupInvite({ sender, colorScheme, groupId }: GroupInvit
     fetchGroup()
   }, [])
   return (
-    <View className={`flex my-2 flex-col overflow-hidden w-2/3 ${sender ? 'self-end' : 'self-start'} rounded-xl`}>
+    <View className='relative'>
+    <View className={`flex my-2 flex-col overflow-hidden w-2/3 ${sender ? 'self-end mr-2' : 'self-start ml-16'} rounded-xl`}>
       {group && (
         <>
           <View className="flex flex-col">
@@ -40,7 +41,7 @@ export default function GroupInvite({ sender, colorScheme, groupId }: GroupInvit
                 backgroundColor: sender ? Colors[colorScheme].secondary : Colors[colorScheme].primary,
               }}
               source={group.bannerImage ? {uri: group.bannerImage} : Images.banner_placeholder}
-            >
+              >
               <ThemedText className="t2x text-center m-auto" >{group.alias}</ThemedText>
             </ImageBackground>
           </View>
@@ -49,17 +50,19 @@ export default function GroupInvite({ sender, colorScheme, groupId }: GroupInvit
               <Text
                 onPress={() => router.push({ pathname: '/(groups)/[id]', params: { id: group.id } })}
                 className={`font-bold ${sender ? 'text-highlight' : 'text'}`}
-              >
+                >
                 You have been invited to{' '}
               </Text>
               <ThemedText numberOfLines={2}>{group.name}</ThemedText>
             </ThemedText>
-            <Button innerTextClassName='tlg' className='button highlight-themed btn-fill' onPress={() => router.push({ pathname: '/(groups)/[id]', params: { id: group.id } })}>
+            <Button innerTextClassName='tlg' className={`button ${sender ? "highlight-themed" : "secondary"}  btn-fill`} onPress={() => router.push({ pathname: '/(groups)/[id]', params: { id: group.id } })}>
               Visit
               </Button>
           </View>
         </>
       )}
     </View>
+    {avatar && !sender &&<Avatar className='w-12 h-12 secondary absolute bottom-2' image={avatar.profileImg} nickname={avatar.nickname} />}
+      </View>
   );
 }

@@ -10,7 +10,7 @@ import ThemedText from '@/components/ui/ThemedText';
 import Avatar from '@/components/ui/Avatar';
 import { Images } from '@/lib/staticAssetExports';
 
-export default function MessagePost({sender, postId, colorScheme }: PostMessageProps) {
+export default function MessagePost({sender, postId, avatar }: PostMessageProps) {
   const [post, setPost] = useState<Post>();
   async function init() {
     const res = await getPostById(postId);
@@ -24,7 +24,9 @@ export default function MessagePost({sender, postId, colorScheme }: PostMessageP
   }, []);
 
   return (
-    <View className={`flex mt-1 ml-16 overflow-hidden w-2/3 ${sender ? "self-end mr-2" : "self-start ml-2"} aspect-square rounded-xl`}>
+    <View className='relative'>
+
+    <View className={`flex mt-1 ml-16 overflow-hidden w-2/3 ${sender ? "self-end mr-2" : "self-start ml-16"} aspect-square rounded-xl`}>
       
       {post && (
         <>
@@ -48,5 +50,8 @@ export default function MessagePost({sender, postId, colorScheme }: PostMessageP
         </>
       )}
     </View>
+        {avatar && !sender &&<Avatar className='w-12 h-12 secondary absolute bottom-2' image={avatar.profileImg} nickname={avatar.nickname} />}
+    
+      </View>
   );
 }

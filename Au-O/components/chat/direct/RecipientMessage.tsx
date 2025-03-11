@@ -7,10 +7,16 @@ import GroupInvite from '../media/GroupInvite';
 
 export default function RecipientMessage({ profilePic, id, nickname, message, isLast, isFirst, colorScheme }: MessageProps) {
    if (message.startsWith("{{POST_") && message.endsWith("_}}")) {
-      return <MessagePost sender={false} colorScheme={colorScheme} postId={Number(message.split("_")[1])} />;
+      return <MessagePost avatar={{
+        profileImg: profilePic,
+        nickname: nickname,
+      }} sender={false} colorScheme={colorScheme} postId={Number(message.split("_")[1])} />;
     }
       if (message.startsWith("{{GROUP_") && message.endsWith("_}}")) {
-        return <GroupInvite sender={false} colorScheme={colorScheme} groupId={Number(message.split("_")[1])} />;
+        return <GroupInvite avatar={{
+          profileImg: profilePic,
+          nickname: nickname,
+        }} sender={false} colorScheme={colorScheme} groupId={Number(message.split("_")[1])} />;
       }
   
   return (

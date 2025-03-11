@@ -11,6 +11,7 @@ import { User } from '../entity/User';
 import { router } from 'expo-router';
 import { CreatePostRequest } from '../request/PostCreationRequest';
 import { Post } from '../entity/Post';
+import { GroupEditRequest } from '../request/GroupEditRequest';
 
 export async function createGroup(request: GroupCreationRequest) {
   const req = await apiFetch<Group>('groups/group', 'POST', true, request);
@@ -48,7 +49,13 @@ export async function handleJoinRequest(groupId: number, userId: number, accept:
   }
   return null;
 }
-
+export async function revokeRequest() {
+  const req = await apiFetch('groups/revokeRequest', 'POST', true);
+  if (req && req.status === 200) {
+    return req.data;
+  }
+  return null;
+}
 export async function postToGroup(groupId: number, post: ImageStoreRequest) {
   const req = await apiFetch<Post>(`groups/group/${groupId}/post`, 'POST', true, post);
   if (req && req.status === 200) {
@@ -56,7 +63,13 @@ export async function postToGroup(groupId: number, post: ImageStoreRequest) {
   }
   return null;
 }
-
+export async function deleteGroup(groupId: number) {
+  const req = await apiFetch('groups/group/' + groupId, 'DELETE', true);
+  if (req && req.status === 200) {
+    return true;
+  }
+  return false;
+}
 export async function joinGroup(groupId: number) {
   const req = await apiFetch('groups/group/' + groupId + '/join', 'POST', true);
   if (req && req.status === 200) {
@@ -79,6 +92,10 @@ export async function getGroupStatus(groupId: number) {
     return req.data;
   }
   return null;
+}
+export async function modifyGroup(groupId: number, request: GroupEditRequest) {
+  const req = await apiFetch<Group>(`groups/group/${groupId}`, "PUT", true, request )
+  return req!.status === 200
 }
 export async function getGroupPosts(id: number) {
   const req = await apiFetch<Post[]>(`groups/group/${id}/posts`, 'GET', true);

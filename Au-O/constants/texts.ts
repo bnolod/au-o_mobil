@@ -990,6 +990,10 @@ export const GroupTexts = {
     memberCount: {
       HU: 'tag',
       EN: 'members',
+    },
+    edit: {
+      HU: 'Szerkesztés',
+      EN: 'Edit'
     }
   },
   empty: {
@@ -1072,6 +1076,32 @@ export const GroupTexts = {
       EN: 'New group event',
     }
   },
+  options: {
+    edit: {
+      HU: "Csoport szerkesztése",
+      EN: "Edit Group"
+    },
+    delete: {
+      HU: "Csoport törlése",
+      EN: "Delete Group"
+    },
+    confirmDeleteGroup: {
+      HU: "Biztosan ki szeretnéd törölni ezt a csoportot? Ezt nem lehet visszavonni.",
+      EN: "Are you sure you want to delete this group? This cannot be undone."
+    },
+    leave: {
+      HU: "Csoport elhagyása",
+      EN: "Leave Group"
+    },
+    revokeJoinRequest: {
+      HU: "Jelentkezés visszavonása",
+      EN: "Revoke join request"
+    },
+    confirmRevoke: {
+      HU: "Biztosan visszavonod a jelentkezésed?",
+      EN: "Are you sure you want to revoke your join request?"
+    }
+  },
   creation: {
     name: {
       HU: 'Név',
@@ -1104,6 +1134,16 @@ export const GroupTexts = {
         HU: 'Sikeresen frissítetted a csoport adatait.',
         EN: 'Your group has been successfully updated.',
       },
+    },
+    edit: {
+      success: {
+        HU: "Sikeres csoport szerkesztés",
+        EN: "Group edited successfully"
+      },
+      failed: {
+        HU: "Nem sikerült szerkeszteni."
+        ,EN: "Could not edit group"
+      }
     },
     deleted: {
       header: {
@@ -1182,6 +1222,10 @@ export const ChatTexts = {
   sentPost: {
     HU: "Posztot küldött",
     EN: "Sent a post"
+  },
+  invited: {
+    HU: "Meghívott egy csoportba",
+    EN: "Invited you to a group"
   },
   messagedPosts(recipient: string) {
     return {HU: `Poszt elküldve ${recipient} részére`,

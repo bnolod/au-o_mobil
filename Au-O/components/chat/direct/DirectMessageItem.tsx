@@ -31,7 +31,8 @@ export default function DirectMessageItem({ user, latestMessage, date, language 
             {user.username == latestMessage.message.user.username && (
               <Text className="font-bold dark:text-highlight text-highlight-light">You: </Text>
             )}
-            {latestMessage.message.message.startsWith("{{POST") ? "📷 " + ChatTexts.sentPost[language] : latestMessage.message.message}
+            {latestMessage.message.message.startsWith("{{POST") ? "📷 " + ChatTexts.sentPost[language] :
+            latestMessage.message.message.startsWith("{{GROUP") ? "🥳 " + ChatTexts.invited[language] : latestMessage.message.message}
           </ThemedText>
         </View>
       </View>

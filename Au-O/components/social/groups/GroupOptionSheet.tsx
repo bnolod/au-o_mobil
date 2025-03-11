@@ -1,71 +1,89 @@
 import Avatar from '@/components/ui/Avatar';
 import ThemedText from '@/components/ui/ThemedText';
 import { Colors } from '@/constants/Colors';
-import { ChatTexts, PostCreationTexts } from '@/constants/texts';
+import { ChatTexts, GroupTexts, PostCreationTexts } from '@/constants/texts';
 import { CommonStaticElementProps } from '@/constants/types';
 import { useWebSocket } from '@/contexts/WebSocketContext';
 import LatestMessage from '@/lib/entitywebsock/LatestMessage';
 import { handleDelete, handleEdit, handleReport } from '@/lib/events/PostOptionEvents';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Pressable, ScrollView, View } from 'react-native';
 import Toast from 'react-native-toast-message';
 import Button from '@/components/ui/Button';
 import { Group } from '@/lib/entity/Group';
 import { useFocusEffect } from 'expo-router';
 import { getGroup } from '@/lib/ApiCalls/GroupApiCalls';
+import { apiFetch } from '@/lib/apiClient';
+import { handleDeleteRequest, handleLeave, revokeJoinRequest } from '@/lib/events';
 
 export default function GroupOptionSheet({
   colorScheme,
-  groupId,
+  isOwner,
   language,
   menuVisible,
   setVisible,
-  isMember,
-  isValidMember,
-  isPublic,
-  isOwner,
-
-}: {    
+group,
+}: {
   menuVisible: boolean;
+  isOwner: boolean;
   setVisible: (b: boolean) => void;
-isMember: boolean;
-isValidMember: boolean;
-isPublic: boolean;
-isOwner: boolean;
-  groupId: number;
+group: Group
 } & CommonStaticElementProps) {
-    function dismiss() {
-        setVisible(false);
-        ref.current?.dismiss();
-      }
-      function show() {
-        setVisible(true);
-        ref.current?.present();
-      }
-  const [group, setGroup] = useState<Group>()
+  function dismiss() {
+    setVisible(false);
+    ref.current?.dismiss();
+  }
+  function show() {
+    setVisible(true);
+    ref.current?.present();
+  }
   const [recipients, setRecipients] = useState<LatestMessage[]>([]);
   const [targets, setTargets] = useState<string[]>([]);
   const { stompClient } = useWebSocket();
   const ref = useRef<BottomSheetModal>(null);
 
-      
-
+  useEffect(() => {
+    if (menuVisible) {
+      show();
+    } else {
+      dismiss();
+    }
+  }, [menuVisible]);
+  const handleFetch = async () => {
+    console.log('Fetching active users...');
+    const response = await apiFetch<LatestMessage[]>('/public/activeusers/messagelist', 'GET', true);
+    if (response && response.data) {
+      setRecipients(response.data);
+    }
+  };
+  async function handleInvite(username: string, groupId: number) {
+    if (stompClient) {
+      const targetedMessage = { username, message: `{{GROUP_${groupId}_}}` };
+      stompClient.publish({
+        destination: '/app/chat/user/',
+        body: JSON.stringify(targetedMessage),
+      });
+    }
+  }
   useFocusEffect(
     useCallback(() => {
+      handleFetch();
     }, [stompClient])
-  )
+  );
   let isAllowed;
-  if (isPublic) {
-    isAllowed = isMember;
+  if (group.public) {
+    isAllowed = group.member;
   } else {
-    isAllowed = isValidMember;
+    isAllowed = group.validMember;
   } //TODO: pass status as prop to GroupPostTab
 
   if (isOwner) {
     isAllowed = true;
   }
+  const canInvite = (isOwner) || (group.validMember && group.public) 
+  //csak authorized felhasználó tud privát csoportba inviteolni, nyilvános csoportba a valid felhasználók tudnak.
   return (
     <BottomSheetModal
       enableOverDrag={false}
@@ -81,104 +99,122 @@ isOwner: boolean;
       ref={ref}
     >
       <BottomSheetView>
-        <View className="flex flex-col primary p-3 min-h-96 justify-between pb-safe-offset-1 w-full">
-          <View className="flex flex-row items-center justify-between gap-3">
-            <ThemedText className="ml-3">
-              <MaterialCommunityIcons name="send-outline" />
-            </ThemedText>
-            <ThemedText className="tlg">Quick Send</ThemedText>
-            <View className="primary w-2/3 h-0.5 bg-white" />
+        <View className="flex flex-col primary p-3 min-h-[25rem] gap-4 justify-end pb-safe-offset-1 w-full">
+          <View className="flex flex-col w-full items-center mb-auto justify-between gap-3">
+            {canInvite && <View className="flex flex-row w-full items-center mb-auto justify-between gap-3">
+              <ThemedText className="ml-3">
+                <MaterialCommunityIcons name="send-outline" />
+              </ThemedText>
+              <ThemedText className="tlg">Invite to Group</ThemedText>
+              <View className="primary w-2/3 h-0.5 bg-white" />
+            </View>
+        }
+            {canInvite && <ScrollView 
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              className=" p-3 secondary rounded-xl max-h-28 w-full"
+            >
+              <View className="flex flex-row items-center gap-4">
+                {recipients.map((rec) => (
+                  <Pressable
+                    key={rec.username}
+                    className="flex relative gap-2 rounded-xl mt-2 flex-col items-center"
+                    onPress={async () => {
+                      if (rec && group.id) {
+                        if (targets.find((t) => t === rec.username)) {
+                          setTargets(targets.filter((t) => t !== rec.username));
+                        } else setTargets([...targets, rec.username]);
+                      }
+                    }}
+                  >
+                    <Avatar image={rec.profileImg} nickname={rec.nickname} />
+                    <ThemedText className="tlg">{rec.nickname}</ThemedText>
+                    <View className="absolute -top-2 -left-2">
+                      <MaterialCommunityIcons
+                        name="check-circle"
+                        size={28}
+                        color={Colors.highlight[colorScheme]}
+                        style={{ opacity: targets.find((t) => t === rec.username) ? 1 : 0 }}
+                      />
+                    </View>
+                  </Pressable>
+                ))}
+              </View>
+            </ScrollView>}
           </View>
 
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} className=" p-3 secondary rounded-xl max-h-28">
-            <View className="flex flex-row items-center gap-4">
-              {recipients.map((rec) => (
-                <Pressable
-                  key={rec.username}
-                  className="flex relative gap-2 rounded-xl mt-2 flex-col items-center"
-                  onPress={async () => {
-                    if (rec && groupId) {
-                      if (targets.find((t) => t === rec.username)) {
-                        setTargets(targets.filter((t) => t !== rec.username));
-                      } else setTargets([...targets, rec.username]);
-                      /* handlePostSend(rec.username, groupId!).then(() => {
-                      Toast.show({
-                        type: 'success',
-                        text1: ChatTexts.messagedPosts(rec.nickname)[language]
-                      })
-                      dismiss()
-                    }) */
-                    }
-                  }}
-                >
-                  <Avatar image={rec.profileImg} nickname={rec.nickname} />
-                  <ThemedText className="tlg">{rec.nickname}</ThemedText>
-                  <View className="absolute -top-2 -left-2">
-                    <MaterialCommunityIcons
-                      name="check-circle"
-                      size={28}
-                      color={Colors.highlight[colorScheme]}
-                      style={{ opacity: targets.find((t) => t === rec.username) ? 1 : 0 }}
-                    />
-                  </View>
-                </Pressable>
-              ))}
-            </View>
-          </ScrollView>
-          <View className="flex flex-col gap-4">
-            {targets && targets.length > 0 && (
+          {targets && targets.length > 0 && (
+            <Button
+              disabled={targets.length > 9}
+              className=" highlight-themed button primary w-full"
+              innerTextClassName="txl"
+              onPress={() => {
+                for (const target of targets) {
+                  handleInvite(target, group.id);
+                }
+                setTargets([]);
+                dismiss();
+                Toast.show({
+                  type: 'success',
+                  text1: ChatTexts.messagedPosts(targets.join(', '))[language],
+                });
+              }}
+            >
+              {ChatTexts.sendPost[language]}
+            </Button>
+          )}
+          {isOwner && (
+            <View className="flex flex-row gap-4">
               <Button
-                disabled={targets.length > 9}
-                className=" highlight-themed button primary btn-fill"
+                className=" highlight-themed button primary flex-1"
                 innerTextClassName="txl"
                 onPress={() => {
-                  setTargets([]);
                   dismiss();
-                  Toast.show({
-                    type: 'success',
-                    text1: ChatTexts.messagedPosts(targets.join(', '))[language],
+                }}
+              >
+                {GroupTexts.options.edit[language]}
+              </Button>
+              <Button
+                className=" highlight-themed button primary flex-1"
+                innerTextClassName="txl"
+                onPress={() => {
+                  handleDeleteRequest(group, language).then(() => {
+                    dismiss();
                   });
                 }}
               >
-                {ChatTexts.sendPost[language]}
+                {GroupTexts.options.delete[language]}
               </Button>
-            )}
-            {isAllowed && (
+            </View>
+          )}
+          <View className="flex flex-row gap-4">
+            {!isOwner && group.validMember && (
               <Button
-                className=" highlight-themed button primary btn-fill"
-                innerTextClassName="txl"
+                className=" highlight-themed button primary flex justify-center flex-1 "
+                innerTextClassName="txl self-center"
                 onPress={() => {
                   dismiss();
+                  handleLeave(group, language);
                 }}
               >
-                {PostCreationTexts.options.edit[language]}
+                {GroupTexts.options.leave[language]}
               </Button>
             )}
-            {isAllowed && (
+            {!isOwner && !group.validMember && group.member && (
               <Button
-                className=" highlight-themed button primary btn-fill"
-                innerTextClassName="txl"
+                className=" highlight-themed button primary flex justify-center flex-1 "
+                innerTextClassName="txl self-center"
                 onPress={() => {
                   dismiss();
+                  revokeJoinRequest(group, language);
                 }}
               >
-                {PostCreationTexts.deletePost[language]}
+                {GroupTexts.options.revokeJoinRequest[language]}
               </Button>
             )}
-
             <Button
-              className=" highlight-themed button primary btn-fill"
-              innerTextClassName="txl"
-              onPress={() => {
-                dismiss();
-                handleReport();
-              }}
-            >
-              {PostCreationTexts.options.report[language]}
-            </Button>
-            <Button
-              className=" border-highlight-light dark:border-highlight-dark border-2 button btn-fill"
-              innerTextClassName="txl"
+              className=" border-highlight-light flex justify-center flex-1 dark:border-highlight-dark border-2 button "
+              innerTextClassName="txl self-center"
               onPress={() => dismiss()}
             >
               {PostCreationTexts.options.cancel[language]}

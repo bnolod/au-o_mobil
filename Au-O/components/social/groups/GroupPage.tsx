@@ -20,62 +20,22 @@ import { router } from 'expo-router';
 import Toast from 'react-native-toast-message';
 import GroupOptionSheet from './GroupOptionSheet';
 import LoadingModal from '@/components/ui/LoadingModal';
+import GroupEditTab from './tabs/GroupEditTab';
 
 export default function GroupPage({ group, colorScheme, language }: CommonStaticElementProps & { group: Group }) {
-  const [selectedTab, setSelectedTab] = useState<'POSTS' | 'EVENTS' | 'MEMBERS' | 'INFO' | 'CHAT'>('POSTS');
+  const [selectedTab, setSelectedTab] = useState<'POSTS' | 'EVENTS' | 'MEMBERS' | 'INFO' | 'CHAT' | 'EDIT'>('POSTS');
   const { subscribeToTopic } = useWebSocket();
   const [status, setStatus] = useState<GroupMemberResponse>();
   const [optionSheetShown, setOptionSheetShown] = useState(false);
-  async function confirmLeave() {
-    const res = await leaveGroup(group.id);
-    if (res === 409) {
-      Toast.show({
-        type: 'error',
-        text1: ToastMessages.headers.error[language],
-        text2: ToastMessages.error.group.leave[language],
-      });
-      return
-    }
-    if (res === 200) {
-      router.canGoBack() ? router.back() : router.replace({ pathname: '/(root)/(groups)/feed' });
-      Toast.show({
-        type: 'success',
-        text1: ToastMessages.headers.success[language],
-        text2: ToastMessages.success.group.leave[language],
-      });
-      return;
-    }
-    Toast.show({
-      type: 'error',
-      text1: ToastMessages.headers.error[language],
-      text2: ToastMessages.error.group.leaveReq[language],
-    });
-  }
+  
   async function getStatus() {
     const res = await getGroupStatus(group.id);
     if (res) {
+
       setStatus(res)
     }
   }
-  async function handleLeave() {
-    if (group.validMember) {
-      Platform.OS === 'ios'
-        ? Alert.alert(SocialTexts.group.leave.header[language],SocialTexts.group.leave.body[language] , [
-            { text: SocialTexts.group.leave.confirmLeave[language], onPress: () => {
-                confirmLeave();
-            } },
-            {
-              text: GroupTexts.buttons.cancel[language],
-              onPress: () => {
-                return;
-              },
-              style: 'cancel',
-            },
-          ])
-        : {};
-      
-    }
-  }
+  
   useEffect(() => {
     subscribeToTopic(`group/${group.id}`);
     getStatus();
@@ -84,6 +44,7 @@ export default function GroupPage({ group, colorScheme, language }: CommonStatic
     };
   }, [group.id]);
   if (!group || !status) return <LoadingModal colorScheme={colorScheme} loading={!group || !status}/>
+  else
   return (
     <ScrollView className="pb-safe-offset-96">
       <View className="">
@@ -109,7 +70,7 @@ export default function GroupPage({ group, colorScheme, language }: CommonStatic
               {group.name} <ThemedText className="tsm font-light muted ">{group.alias} </ThemedText>
             </ThemedText>
             <ThemedText></ThemedText>
-            <GroupOptionSheet  isPublic={group.public} colorScheme={colorScheme} isMember={group.member} isOwner={status!.role === "ADMIN"} isValidMember={group.validMember} language={language} groupId={group.id} menuVisible={optionSheetShown} setVisible={setOptionSheetShown} />
+            <GroupOptionSheet  group={group} colorScheme={colorScheme} isOwner={status!.role === "ADMIN"} language={language} menuVisible={optionSheetShown} setVisible={setOptionSheetShown} />
             <Button className="button py-0 background mr-0 basis-2/12  items-center justify-center">
             
               <MaterialCommunityIcons
@@ -197,6 +158,20 @@ export default function GroupPage({ group, colorScheme, language }: CommonStatic
               </ThemedText>
               <ThemedText className="text-xl">{GroupTexts.page.info[language]}</ThemedText>
             </TouchableOpacity>
+            { status.role === "ADMIN" &&
+
+              <TouchableOpacity
+              onPress={() => setSelectedTab('EDIT')}
+              className={`button ${
+                selectedTab === 'EDIT' ? 'highlight-themed' : 'secondary'
+                } flex flex-row gap-2 items-center justify-center`}
+                >
+              <ThemedText>
+                <MaterialCommunityIcons name="wrench-outline" size={24} />
+              </ThemedText>
+              <ThemedText className="text-xl">{GroupTexts.page.edit[language]}</ThemedText>
+            </TouchableOpacity>
+            }
 
           </View>
         </ScrollView>
@@ -207,6 +182,7 @@ export default function GroupPage({ group, colorScheme, language }: CommonStatic
         {selectedTab === 'MEMBERS' && <GroupMembersTab group={group} colorScheme={colorScheme} language={language} />}
         {selectedTab === 'INFO' && <GroupInfoTab group={group} colorScheme={colorScheme} language={language} />}
         {selectedTab === 'CHAT' && <GroupChatTab colorScheme={colorScheme} language={language} group={group} />}
+        {selectedTab === 'EDIT' && status.role === "ADMIN" && <GroupEditTab colorScheme={colorScheme} language={language} group={group} />}
       </View>
     </ScrollView>
   );
