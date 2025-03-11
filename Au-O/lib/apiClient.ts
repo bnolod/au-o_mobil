@@ -29,7 +29,11 @@ apiClient.interceptors.request.use(
 );
 
 export default apiClient;
-
+/**
+ * 
+ * @param request Bejelentkezési adatok
+ * @returns Promise<string> token
+ */
 export const login = async (request: LoginRequest): Promise<string | null> => {
   try {
     const response = await apiClient.post<string>('auth/login', request);
@@ -42,13 +46,21 @@ export const login = async (request: LoginRequest): Promise<string | null> => {
     return null;
   }
 };
+/**
+ * @description Kitörli a helyileg tárolt felhasználói adatokat, elkezdi a kijelentkeztetési folyamatot
+ */
 export async function logout() {
   await SecureStore.deleteItemAsync('jwtToken');
   await deleteUser();
 
   eventEmitter.emit('triggerLogout');
 }
-
+/**
+ * 
+ * @param token Hozzáférési token
+ * @param path Jelenlegi útvonal
+ * @returns new token
+ */
 export async function validateToken(token: string, path: string) {
   const validToken = await apiFetch<string>('auth/authenticate', 'POST', true, {
     token,
@@ -66,7 +78,14 @@ export async function validateToken(token: string, path: string) {
   }
   return validToken?.data;
 }
-
+/**
+ * @field BaseURL-hez hozzáfűzött végpontot éri el
+ * @param endpoint Lekérdezés végpontja
+ * @param method HTTP-metódus kiválasztása
+ * @param requiresAuth Authentikációs érvényesítők küldése
+ * @param body Lekérdezés törzse
+ * @returns Promise<{ data: T | null; status: number } | null>
+ */
 export async function apiFetch<T>(
   endpoint: string,
   method: HttpMethod = 'GET',
@@ -94,7 +113,11 @@ export async function apiFetch<T>(
     return null;
   }
 }
-
+/**
+ * @description Regisztráció kezelése
+ * @param request Regisztrációs adatok
+ * @returns Promise<string> token
+ */
 export async function handleRegister(request: RegisterRequest): Promise<string> {
   try {
     const response = await apiFetch<TokenResponse>('auth/register', 'POST', false, request);
@@ -107,12 +130,21 @@ export async function handleRegister(request: RegisterRequest): Promise<string> 
   }
 }
 
+/**
+ * @description Bejelentkezés kezelése
+ * @param request Bejelentkezési adatok
+ * @returns Promise<string> token
+ */
 export async function handleLogin(request: LoginRequest): Promise<string> {
   const response = await apiFetch<TokenResponse>('auth/login', 'POST', false, request);
 
   return response!.data!.token;
 }
-
+/**
+ * 
+ * @param imageForm Kép űrlapja
+ * @returns Promise<boolean>
+ */
 export async function updateProfilePicture(imageForm: FormData) {
   const image = await imageUpload(imageForm);
   if (image) {
@@ -133,7 +165,11 @@ export async function updateProfilePicture(imageForm: FormData) {
   }
   return false;
 }
-
+/**
+ * @description Keresési metódus felhasználókkal
+ * @param query Keresési string
+ * @returns Szűrt felhasználói lista
+ */
 export async function searchUsers(query: string) {
   const req = await fetch(`${apiClient.defaults.baseURL}/users/search?search=${query}`, {
     credentials: 'include',
@@ -145,6 +181,11 @@ export async function searchUsers(query: string) {
   const res = await req.json();
   return res;
 }
+/**
+ * @description Keresési metódus csoportokkal
+ * @param query Keresési string
+ * @returns Szűrt felhasználói lista
+ */
 
 export async function searchGroups(query: string) {
   const req = await fetch(`${apiClient.defaults.baseURL}/groups/search?search=${query}`, {

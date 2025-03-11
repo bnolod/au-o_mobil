@@ -164,16 +164,7 @@ group: Group
             </Button>
           )}
           {isOwner && (
-            <View className="flex flex-row gap-4">
-              <Button
-                className=" highlight-themed button primary flex-1"
-                innerTextClassName="txl"
-                onPress={() => {
-                  dismiss();
-                }}
-              >
-                {GroupTexts.options.edit[language]}
-              </Button>
+             
               <Button
                 className=" highlight-themed button primary flex-1"
                 innerTextClassName="txl"
@@ -185,7 +176,6 @@ group: Group
               >
                 {GroupTexts.options.delete[language]}
               </Button>
-            </View>
           )}
           <View className="flex flex-row gap-4">
             {!isOwner && group.validMember && (

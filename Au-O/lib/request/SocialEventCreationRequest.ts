@@ -1,3 +1,6 @@
+/**
+ * @description Not implemented yet
+ */
 export default interface SocialEventCreationRequest {
   name: string;
   description: string;
