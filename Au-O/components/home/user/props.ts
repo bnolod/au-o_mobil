@@ -12,6 +12,7 @@ export interface ProfileProps {
   user: User;
   profile: User;
   id: string;
+  refreshing: boolean
   garage: Car[];
   followers: User[];
   following: User[];

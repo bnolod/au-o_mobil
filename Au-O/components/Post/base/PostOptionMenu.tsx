@@ -122,13 +122,6 @@ export default function PostOptionModal({
                       if (targets.find((t) => t === rec.username)) {
                         setTargets(targets.filter((t) => t !== rec.username));
                       } else setTargets([...targets, rec.username]);
-                      /* handlePostSend(rec.username, postId!).then(() => {
-                    Toast.show({
-                      type: 'success',
-                      text1: ChatTexts.messagedPosts(rec.nickname)[language]
-                    })
-                    dismiss()
-                  }) */
                     }
                   }}
                 >
@@ -180,7 +173,6 @@ export default function PostOptionModal({
               >
                 {PostCreationTexts.options.edit[language]}
               </Button>
-            
               <Button
                 className=" highlight-themed button primary flex-1"
                 innerTextClassName="txl"
@@ -200,7 +192,7 @@ export default function PostOptionModal({
                 handleFavorite();
               }}
             >
-              <MaterialCommunityIcons name="bookmark" size={40} className="self-center" color={isFavorite? Colors.highlight.main : Colors.dark.text}>
+              <MaterialCommunityIcons name={isFavorite ? "bookmark" : "bookmark-outline"} size={40} className="self-center" color={isFavorite? Colors.highlight.main : Colors.dark.text}>
 
               </MaterialCommunityIcons>
             </Button>

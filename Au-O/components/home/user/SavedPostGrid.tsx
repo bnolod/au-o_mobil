@@ -9,7 +9,8 @@ export default function SavedPostGrid({
   colorScheme,
   language,
   userId,
-}: { userId: number } & CommonStaticElementProps) {
+  refreshing,
+}: { userId: number, refreshing: boolean } & CommonStaticElementProps) {
   const [posts, setPosts] = useState<Post[] | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -21,7 +22,7 @@ export default function SavedPostGrid({
 
   useEffect(() => {
     handleFetch();
-  }, [userId]);
+  }, [refreshing, userId]);
 
   if (loading) {
     return <LoadingModal colorScheme={colorScheme} loading />;

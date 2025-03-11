@@ -7,6 +7,7 @@ import { ScrollView } from 'react-native';
 
 interface OwnGroupListProps {
   userId: number;
+  refreshing: boolean;
 }
 
 export default function OwnGroupList(props: OwnGroupListProps) {
@@ -20,7 +21,7 @@ export default function OwnGroupList(props: OwnGroupListProps) {
   useEffect(() => {
     getGroups();
 
-  }, []);
+  }, [props.refreshing]);
 
   return (
     <FlashList data={groups} renderItem={({item}) => (

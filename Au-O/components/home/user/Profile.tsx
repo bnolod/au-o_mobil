@@ -1,6 +1,6 @@
 import Button from '@/components/ui/Button';
 import ThemedText from '@/components/ui/ThemedText';
-import { RefreshControl, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import {  TouchableOpacity, View } from 'react-native';
 import { updateProfilePicture } from '@/lib/apiClient';
 import { CommonStaticElementProps } from '@/constants/types';
 import { useEffect, useRef, useState } from 'react';
@@ -25,11 +25,6 @@ import NewSocial from '@/components/social/base/NewSocial';
 import { followUser, unfollowUser, updateBio, updateNickname } from '@/lib/ApiCalls/UserApiCalls';
 import { ProfileProps } from './props';
 import ProfileTabSelector from './TabSelector';
-import LoadingModal from '@/components/ui/LoadingModal';
-import { Group } from '@/lib/entity/Group';
-import { getGroupsOfUser } from '@/lib/ApiCalls/GroupApiCalls';
-import GroupListItem from '@/components/social/groups/GroupListItem';
-import SocialCard from '@/components/social/base/SocialCard';
 import OwnGroupList from './OwnGroupsList';
 import SavedPostGrid from './SavedPostGrid';
 export default function Profile({
@@ -43,12 +38,11 @@ export default function Profile({
   garage,
   setFollowers,
   following,
-  setFollowing,
+  refreshing,
 }: ProfileProps & CommonStaticElementProps) {
   const [bioEdit, setBioEdit] = useState<boolean>(false);
   const [bioValue, setBioValue] = useState<string>(profile.bio);
   const [nicknameEdit, setNicknameEdit] = useState<boolean>(false);
-  const [refreshing, setRefreshing] = useState<boolean>(false);
   const [nicknameValue, setNicknameValue] = useState<string>(profile.nickname);
   const [selectedTab, setSelectedTab] = useState<'POST' | 'GROUPS' | 'SAVED' | 'GARAGE'>('POST');
   const followerSheetRef = useRef<BottomSheetModal>(null);
@@ -315,12 +309,12 @@ export default function Profile({
         )}
         {selectedTab === 'GROUPS' && (
           <View>
-          <OwnGroupList userId={profile.id}/>
+          <OwnGroupList refreshing={refreshing} userId={profile.id}/>
           </View>
         )}
         {selectedTab === 'SAVED' && (
           <View>
-          <SavedPostGrid colorScheme={colorScheme} language={language} userId={user.id} />
+          <SavedPostGrid refreshing={refreshing} colorScheme={colorScheme} language={language} userId={user.id} />
           </View>
         )}
       </>

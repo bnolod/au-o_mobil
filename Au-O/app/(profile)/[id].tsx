@@ -87,6 +87,7 @@ export default function UserProfile() {
           colorScheme={colorScheme || 'dark'}
           posts={posts!}
           followers={followers!}
+          refreshing={refreshing}
           following={following!}
           id={profile.id.toString()}
           language={language}

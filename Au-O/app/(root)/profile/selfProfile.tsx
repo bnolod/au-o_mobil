@@ -83,6 +83,7 @@ export default function SelfProfile() {
         setFollowers={setFollowers}
         setFollowing={setFollowing}
         colorScheme={colorScheme!}
+        refreshing={refreshing}
         posts={posts!}
         followers={followers!}
         following={following!}
