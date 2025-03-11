@@ -6,7 +6,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import ThemedText from '@/components/ui/ThemedText';
 import CollapsibleText from '@/components/ui/CollapsibleText';
 import { useEffect, useState } from 'react';
-import { Group } from '@/lib/entity/Group';
+import { Group, GroupMemberResponse } from '@/lib/entity/Group';
 import GroupPostTab from './tabs/GroupPostTab';
 import GroupEventsTab from './tabs/GroupEventsTab';
 import GroupMembersTab from './tabs/GroupMembersTab';
@@ -15,13 +15,17 @@ import { GroupTexts, PostCreationTexts, SocialTexts, ToastMessages } from '@/con
 import { useWebSocket } from '@/contexts/WebSocketContext';
 import GroupChatTab from './tabs/GroupChatTab';
 import { handleShare } from '@/lib/events/PostOptionEvents';
-import { leaveGroup } from '@/lib/ApiCalls/GroupApiCalls';
+import { getGroupStatus, leaveGroup } from '@/lib/ApiCalls/GroupApiCalls';
 import { router } from 'expo-router';
 import Toast from 'react-native-toast-message';
+import GroupOptionSheet from './GroupOptionSheet';
+import LoadingModal from '@/components/ui/LoadingModal';
 
 export default function GroupPage({ group, colorScheme, language }: CommonStaticElementProps & { group: Group }) {
   const [selectedTab, setSelectedTab] = useState<'POSTS' | 'EVENTS' | 'MEMBERS' | 'INFO' | 'CHAT'>('POSTS');
   const { subscribeToTopic } = useWebSocket();
+  const [status, setStatus] = useState<GroupMemberResponse>();
+  const [optionSheetShown, setOptionSheetShown] = useState(false);
   async function confirmLeave() {
     const res = await leaveGroup(group.id);
     if (res === 409) {
@@ -47,6 +51,12 @@ export default function GroupPage({ group, colorScheme, language }: CommonStatic
       text2: ToastMessages.error.group.leaveReq[language],
     });
   }
+  async function getStatus() {
+    const res = await getGroupStatus(group.id);
+    if (res) {
+      setStatus(res)
+    }
+  }
   async function handleLeave() {
     if (group.validMember) {
       Platform.OS === 'ios'
@@ -68,12 +78,12 @@ export default function GroupPage({ group, colorScheme, language }: CommonStatic
   }
   useEffect(() => {
     subscribeToTopic(`group/${group.id}`);
-
+    getStatus();
     return () => {
       // Cleanup any subscriptions here if needed
     };
   }, [group.id]);
-
+  if (!group || !status) return <LoadingModal colorScheme={colorScheme} loading={!group || !status}/>
   return (
     <ScrollView className="pb-safe-offset-96">
       <View className="">
@@ -99,10 +109,12 @@ export default function GroupPage({ group, colorScheme, language }: CommonStatic
               {group.name} <ThemedText className="tsm font-light muted ">{group.alias} </ThemedText>
             </ThemedText>
             <ThemedText></ThemedText>
+            <GroupOptionSheet  isPublic={group.public} colorScheme={colorScheme} isMember={group.member} isOwner={status!.role === "ADMIN"} isValidMember={group.validMember} language={language} groupId={group.id} menuVisible={optionSheetShown} setVisible={setOptionSheetShown} />
             <Button className="button py-0 background mr-0 basis-2/12  items-center justify-center">
+            
               <MaterialCommunityIcons
-                onPress={
-                  Platform.OS === 'ios'
+                onPress={ () =>
+                  /*Platform.OS === 'ios'
                     ? () => {
                         //IOS
                         Alert.alert(SocialTexts.group.options.header[language], group.name, [
@@ -114,8 +126,9 @@ export default function GroupPage({ group, colorScheme, language }: CommonStatic
                         ]);
                       }
                     : () => {
-                        //ANDROID
-                      }
+                        //TODO: ANDROID
+                      }*/
+                     setOptionSheetShown(true)
                 }
                 name="dots-horizontal"
                 size={32}
