@@ -1,5 +1,11 @@
 /**
  * Csoport létrehozásának kérésének entitása
+ * @category Request
+ * @module Au-O/lib/request/GroupCreationRequest
+ */
+
+/**
+ * Csoport létrehozásának kérésének entitása
  * @interface
  * @see Group
  */

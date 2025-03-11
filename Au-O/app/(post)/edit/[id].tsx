@@ -10,7 +10,7 @@ import { Colors } from '@/constants/Colors';
 import { PostCreationTexts, PostEditTexts, SelectionTexts } from '@/constants/texts';
 import { useAuthentication } from '@/contexts/AuthenticationContext';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { getOwnCars } from '@/lib/ApiCalls/CarApiCalls';
+import { getOwnGarage } from '@/lib/ApiCalls/CarApiCalls';
 import { editPost } from '@/lib/ApiCalls/PostApiCalls';
 import { apiFetch } from '@/lib/apiClient';
 import { Car } from '@/lib/entity/Car';
@@ -89,7 +89,7 @@ export default function EditPost() {
     } else setLoading(null);
   }
   async function getCars() {
-    const res = await getOwnCars();
+    const res = await getOwnGarage();
     if (res) {
       setCars(res);
     }

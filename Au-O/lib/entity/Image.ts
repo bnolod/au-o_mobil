@@ -1,4 +1,10 @@
 /**
+ * Kép entitások
+ * @category Entity
+ * @module Au-O/lib/entity/Image
+ */
+
+/**
    * Kép feltöltések válasza
    */
 export interface Image {

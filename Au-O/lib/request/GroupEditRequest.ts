@@ -1,5 +1,11 @@
 /**
  * Csoport szerkesztésének kérésének entitása
+ * @category Request
+ * @module Au-O/lib/request/GroupEditRequest
+ */
+
+/**
+ * Csoport szerkesztésének kérésének entitása
     * @interface
     * @see Group
     

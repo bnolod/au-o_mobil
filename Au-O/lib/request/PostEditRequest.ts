@@ -1,3 +1,9 @@
+/**
+ * Poszt szerkesztésének kérésének entitása
+ * @category Request
+ * @module Au-O/lib/request/PostEditRequest
+ */
+
 import { GroupPost } from '../entity/Group';
 import { EventPost } from '../entity/SocialEvent';
 /**

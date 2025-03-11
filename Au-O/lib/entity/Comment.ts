@@ -1,3 +1,9 @@
+/**
+ * Komment entitások
+ * @category Entity
+ * @module Au-O/lib/entity/Comment
+ */
+
 import { Reactions } from '@/constants/types';
 import { User } from './User';
 import { Reply } from './Reply';

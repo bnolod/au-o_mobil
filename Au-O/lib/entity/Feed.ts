@@ -1,3 +1,9 @@
+/**
+ * Feed entitások
+ * @category Entity
+ * @module Au-O/lib/entity/Feed
+ */
+
 import { Post } from './Post';
 /**
  * A feed tartalma

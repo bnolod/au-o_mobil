@@ -1,3 +1,9 @@
+/**
+ * Autó entitások
+ * @category Entity
+ * @module Au-O/lib/entity/Car
+ */
+
 import { CarType } from '@/constants/types';
 import { User } from './User';
 /**

@@ -24,7 +24,7 @@ export default function AddCommentRow({
     if (!validateComment(commentText, language).valid) {
       return
     }
-    const res = await AddCommentToPost(postId.toString(), commentText);
+    const res = await AddCommentToPost(postId, commentText);
     if (res) {
       setCommentText('');
       onPostComment(res);
