@@ -314,7 +314,7 @@ export default function Profile({
         )}
         {selectedTab === 'SAVED' && (
           <View>
-          <SavedPostGrid refreshing={refreshing} colorScheme={colorScheme} language={language} userId={user.id} />
+          <SavedPostGrid refreshing={refreshing} colorScheme={colorScheme} language={language} userId={profile.id} />
           </View>
         )}
       </>
