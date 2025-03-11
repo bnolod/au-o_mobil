@@ -11,8 +11,8 @@ export default function PostAuthorDisplayElement({
 }: PostDispayElementProps) {
   
   return (
-    <View className={`flex  ${postType !== 'USER' ? 'post-author-display-true' : ' post-author-display-false'}`}>
-      <ThemedText className="txl">
+    <View className={`flex flex-1  ${postType !== 'USER' ? 'post-author-display-true' : ' post-author-display-false'}`}>
+      <ThemedText className="txl ">
         {postType === 'USER' && authorNickname}
         {postType === 'GROUP' && group && (
           <View>
