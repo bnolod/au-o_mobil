@@ -70,8 +70,8 @@ export default function PostOptionModal({
   useFocusEffect(
     useCallback(() => {
       handleFetch();
-      return
-    }, [stompClient]) 
+      return;
+    }, [stompClient])
   );
   return (
     <BottomSheetModal
@@ -88,16 +88,16 @@ export default function PostOptionModal({
       ref={ref}
     >
       <BottomSheetView>
-        <View className="flex flex-col primary p-3 min-h-96 justify-between pb-safe-offset-1 w-full">
-          <View className="flex flex-row items-center justify-between gap-3">
+        <View className="flex flex-col primary p-3 min-h-[25rem] gap-4 justify-end pb-safe-offset-1 w-full">
+          <View className="flex flex-col w-full items-center mb-auto justify-between gap-3">
+            <View className="flex flex-row w-full items-center mb-auto justify-between gap-3">
             <ThemedText className="ml-3">
               <MaterialCommunityIcons name="send-outline" />
             </ThemedText>
             <ThemedText className="tlg">Quick Send</ThemedText>
             <View className="primary w-2/3 h-0.5 bg-white" />
-          </View>
-
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} className=" p-3 secondary rounded-xl max-h-28">
+            </View>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} className=" p-3 secondary rounded-xl max-h-28 w-full">
             <View className="flex flex-row items-center gap-4">
               {recipients.map((rec) => (
                 <Pressable
@@ -132,30 +132,32 @@ export default function PostOptionModal({
               ))}
             </View>
           </ScrollView>
-          <View className="flex flex-col gap-4">
-            {targets && targets.length > 0 && (
+          </View>
+
+          {targets && targets.length > 0 && (
+            <Button
+              disabled={targets.length > 9}
+              className=" highlight-themed button primary w-full"
+              innerTextClassName="txl"
+              onPress={() => {
+                for (const target of targets) {
+                  handlePostSend(target, postId!);
+                }
+                setTargets([]);
+                dismiss();
+                Toast.show({
+                  type: 'success',
+                  text1: ChatTexts.messagedPosts(targets.join(', '))[language],
+                });
+              }}
+            >
+              {ChatTexts.sendPost[language]}
+            </Button>
+          )}
+          {isOwner && (
+          <View className="flex flex-row gap-4">
               <Button
-               disabled={targets.length > 9}
-                className=" highlight-themed button primary btn-fill"
-                innerTextClassName="txl"
-                onPress={() => {
-                  for (const target of targets) {
-                    handlePostSend(target, postId!);
-                  }
-                  setTargets([])
-                  dismiss();
-                  Toast.show({
-                    type: 'success',
-                    text1: ChatTexts.messagedPosts(targets.join(', '))[language],
-                  });
-                }}
-              >
-                {ChatTexts.sendPost[language]}
-              </Button>
-            )}
-            {isOwner && (
-              <Button
-                className=" highlight-themed button primary btn-fill"
+                className=" highlight-themed button primary flex-1"
                 innerTextClassName="txl"
                 onPress={() => {
                   dismiss();
@@ -164,10 +166,9 @@ export default function PostOptionModal({
               >
                 {PostCreationTexts.options.edit[language]}
               </Button>
-            )}
-            {isOwner && (
+            
               <Button
-                className=" highlight-themed button primary btn-fill"
+                className=" highlight-themed button primary flex-1"
                 innerTextClassName="txl"
                 onPress={() => {
                   dismiss();
@@ -176,10 +177,13 @@ export default function PostOptionModal({
               >
                 {PostCreationTexts.deletePost[language]}
               </Button>
-            )}
+            </View>
+          )}
+          <View className="flex flex-row gap-4">
+            
 
             <Button
-              className=" highlight-themed button primary btn-fill"
+              className=" highlight-themed button primary flex-1 "
               innerTextClassName="txl"
               onPress={() => {
                 dismiss();
@@ -189,7 +193,7 @@ export default function PostOptionModal({
               {PostCreationTexts.options.report[language]}
             </Button>
             <Button
-              className=" border-highlight-light dark:border-highlight-dark border-2 button btn-fill"
+              className=" border-highlight-light flex-1 dark:border-highlight-dark border-2 button "
               innerTextClassName="txl"
               onPress={() => dismiss()}
             >
