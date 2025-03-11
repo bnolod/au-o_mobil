@@ -8,7 +8,7 @@ import { handleTabSelection } from "@/lib/events";
 export default function ProfileTabSelector({colorScheme, selectedTab, setSelectedTab} : ProfileTabSelectorProps) {
     return (
         
-        <View className="p-4 secondary rounded-b-2xl">
+        <View className="p-4 rounded-b-2xl">
         <View
           className="profile-selector-container"
           style={{

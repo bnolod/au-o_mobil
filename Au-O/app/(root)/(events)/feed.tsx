@@ -12,8 +12,8 @@ export default function EventFeed() {
   const { colorScheme } = useColorScheme();
   return (
     <ScrollView stickyHeaderHiddenOnScroll stickyHeaderIndices={[0]}>
-      <View className="primary rounded-b-xl">
-        <RootHeader language={language} colorScheme={colorScheme!} />
+      <View className="primary rounded-b-xl pt-safe-offset-0">
+        {/* <RootHeader language={language} colorScheme={colorScheme!} /> */}
         <SocialSort language={language} colorScheme={colorScheme!} />
       <NewSocial text="Create a new event" onPress={() => router.push('/(events)/new')} />
       </View>

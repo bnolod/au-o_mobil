@@ -1,6 +1,6 @@
 import Button from '@/components/ui/Button';
 import ThemedText from '@/components/ui/ThemedText';
-import {  TouchableOpacity, View } from 'react-native';
+import {  Text, TouchableOpacity, View } from 'react-native';
 import { updateProfilePicture } from '@/lib/apiClient';
 import { CommonStaticElementProps } from '@/constants/types';
 import { useEffect, useRef, useState } from 'react';
@@ -66,8 +66,8 @@ export default function Profile({
   if (isOwner === undefined) return <UserLoading />;
   if (user && profile !== undefined && profile !== null)
     return (
-  <>
-        <RootHeader colorScheme={colorScheme!} language={language} />
+  <View >
+        {/* <RootHeader colorScheme={colorScheme!} language={language} /> */}
         <TextEditModal
           language={language}
           initialValue={bioValue}
@@ -128,8 +128,25 @@ export default function Profile({
           }
           lines={1}
         />
-        <View className="profile">
+        <View className={`secondary rounded-b-xl flex pb-4 mb-4  ${isOwner? "" : "pt-safe-offset-0"}`}>
+        {isOwner && (
+              <View
+                className="bg-backdrop-primary dark:bg-backdrop-primary-dark pt-safe-offset-4 p-4 flex flex-row gap-2 w-full justify-between"
+                style={{}}
+              >
+                <View className='flex flex-row'>
+                <ThemedText className='self-center text-xl opacity-75'>Logged in as <Text className='font-bold'>{user.username}</Text></ThemedText>
+                
+                </View>
+                
+                <TouchableOpacity onPress={() => router.push('/(profile)/settings')} className='flex flex-row gap-2' >
+                <ThemedText className='self-center text-xl opacity-75'>Settings</ThemedText>
+                <MaterialCommunityIcons name="cog-outline" size={32} color={Colors[colorScheme!].text} className='opacity-85' />
+                </TouchableOpacity>
+              </View>
+            )}
           <View className="profile-data">
+            
             <TouchableOpacity
               onLongPress={async () => {
                 if (!isOwner) return;
@@ -238,15 +255,7 @@ export default function Profile({
               </CollapsibleText>
               {isOwner && <ThemedText className="tsm muted">{UserEditTexts.prompts.edit[language]}</ThemedText>}
             </View>
-            {isOwner && (
-              <TouchableOpacity
-                className="profile-settings"
-                style={{}}
-                onPress={() => router.push('/(profile)/settings')}
-              >
-                <MaterialCommunityIcons name="cog-outline" size={32} color={Colors[colorScheme!].text} />
-              </TouchableOpacity>
-            )}
+            
           </View>
           {!isOwner ? (
             <View className="flex flex-row items-center px-5">
@@ -308,15 +317,11 @@ export default function Profile({
           <GarageList userId={user.id.toString()} colorScheme={colorScheme} cars={garage} language={language} />
         )}
         {selectedTab === 'GROUPS' && (
-          <View>
           <OwnGroupList refreshing={refreshing} userId={profile.id}/>
-          </View>
         )}
         {selectedTab === 'SAVED' && (
-          <View>
           <SavedPostGrid refreshing={refreshing} colorScheme={colorScheme} language={language} userId={profile.id} />
-          </View>
         )}
-      </>
+      </View>
     );
 }
