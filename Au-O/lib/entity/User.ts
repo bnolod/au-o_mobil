@@ -1,34 +1,74 @@
 /**
+ * Biztosított felhasználó entitás
  * @extends UserResponse
- * @param password Jelszó
- * @param email E-mail
- * @param role Jogosultságok
- * @param dateOfBirth Születési dátum
+ * @interface
  */
 export interface User extends UserResponse {
-
+  /**
+   * Jelszó
+   * @type {string}
+   */
   password: string;
+  /**
+   * Jogosultságok
+   * @type {string}
+   */
   role: string;
+  /**
+   * Email cím
+   * @type {string}
+   */
   email: string;
+  /**
+   * Születési dátum
+   * @type {string}
+   */
   dateOfBirth: string;
+
 }
 /**
- * @param id Azonosító
- * @param username Felhasználónév
- * @param nickname Becenév
- * @param isPublic Láthatóság
- * @param profileImg Profilkép URL
- * @param bio Leírás
- * @param dateOfSignup Regisztráció dátuma
- * @param delted Megjelölve törlésre
+ * Felhasználó válasza
+ * @interface
  */
 export interface UserResponse {
+  /**
+   * Azonosító
+   * @type {number}
+   */
   id: number;
+  /**
+   * Felhasználónév
+   * @type {string}
+   */
   username: string;
+  /**
+   * Becenév
+   * @type {string}
+   */
   nickname: string;
+  /**
+   * Láthatóság
+   * @type {boolean}
+   */
   isPublic: boolean;
+  /**
+   * Profilkép URL
+   * @type {string}
+   */
   profileImg: string;
+  /**
+   * Leírás
+   * @type {string}
+   */
   bio: string;
+  /**
+   * Regisztráció dátuma
+   * @type {string}
+   */
   dateOfSignup: string;
+  /**
+   * Megjelölve törlésre
+   * @type {boolean}
+   */
   deleted: false
 }

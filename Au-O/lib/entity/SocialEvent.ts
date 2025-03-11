@@ -1,6 +1,7 @@
 
 /**
  * @description to be implemented
+ * @todo
  */
 export interface SocialEvent {
   id: number;
@@ -18,6 +19,7 @@ export interface SocialEvent {
 }
 /**
  * @description to be implemented
+ * @todo
  */
 
 export interface EventPost {

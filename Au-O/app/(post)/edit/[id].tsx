@@ -261,6 +261,7 @@ export default function EditPost() {
           >
             <BottomSheetView>
               <PostCard
+              favorite={post.favorite}
                 user={user!}
                 vehicle={car ? car : null}
                 postId={null}

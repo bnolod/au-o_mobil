@@ -1,15 +1,7 @@
 import { apiFetch } from '../apiClient';
 import { GroupCreationRequest } from '../request/GroupCreationRequest';
 import { Group, GroupMemberListResponse, GroupMemberResponse } from '../entity/Group';
-import { ImageStoreRequest, ImageUploadResponse } from '../request/ImgurRequest';
-import { cleanupInvalidImageUploads, createImageForm } from '../functions';
-import { imageUpload } from './ImageApiCalls';
-import { PostCreationTexts } from '@/constants/texts';
-import Toast from 'react-native-toast-message';
-import { ImagePickerAsset } from 'expo-image-picker';
-import { User } from '../entity/User';
-import { router } from 'expo-router';
-import { CreatePostRequest } from '../request/PostCreationRequest';
+import { ImageStoreRequest } from '../request/ImgurRequest';
 import { Post } from '../entity/Post';
 import { GroupEditRequest } from '../request/GroupEditRequest';
 

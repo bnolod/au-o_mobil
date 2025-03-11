@@ -1,22 +1,44 @@
 /**
- * @description Kép eltárolásának kérésének entitása
- * @param text Kép leírása
- * @param postImages Kép URI-k
- * @param location Kép helye
- * @param vehicleId Opcionális autó azonosító
+ * Kép eltárolásának kérésének entitása
+ * @interface
+ * @see Image
  */
-  export interface ImageStoreRequest {
-    text: string;
-    postImages: ImageUploadResponse[];
-    location: string;
-    vehicleId: number | null;
-  }
+export interface ImageStoreRequest {
   /**
-   * @description Kép feltöltések válasza
-   * @param url Kép URL
-   * @param deleteHash Kép törlési hash
+   * Kép szövege
+   * @type {string}
    */
-  export interface ImageUploadResponse {
-    url: string;
-    deleteHash: string;
-  }
+  text: string;
+  /**
+   * Képek
+   * @type {ImageUploadResponse[]}
+   */
+  postImages: ImageUploadResponse[];
+  /**
+   * Hely
+   * @type {string}
+   */
+  location: string;
+  /**
+   * Jármű azonosító
+   * @type {number | null}
+   */
+  vehicleId: number | null;
+}
+/**
+ * Kép feltöltések válasza
+ * @deprecated
+ * @interface
+ */
+export interface ImageUploadResponse {
+  /**
+   * Kép URL
+   * @type {string}
+   */
+  url: string;
+  /**
+   * Kép törlésének hash értéke
+   * @type {string}
+   */
+  deleteHash: string;
+}

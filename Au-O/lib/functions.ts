@@ -4,18 +4,18 @@ import * as FileSystem from 'expo-file-system';
 import * as ImagePicker from 'expo-image-picker';
 import Toast from 'react-native-toast-message';
 import { User } from './entity/User';
-import { ImageUploadResponse } from './request/ImgurRequest';
 import { Group } from './entity/Group';
 import { SocialEvent } from './entity/SocialEvent';
+import { Image } from './entity/Image';
 
 /**
  * 
- * @param formKey Context-ben eltárolt űrlap kulcsa
- * @param key Űrlapon belüli mező kulcsa
- * @param value Kulcs által jelölt mező értéke
- * @param getFormData Űrlap adat getter funkciója
- * @param setFormData Űrlap funkció setter funkciója
- * @returns void
+ * @param {string} formKey Context-ben eltárolt űrlap kulcsa
+ * @param {string} key Űrlapon belüli mező kulcsa
+ * @param {string} value Kulcs által jelölt mező értéke
+ * @param { (formKey: string) => any } getFormData Űrlap adat getter funkciója
+ * @param {(formKey: string, data: any) => void} setFormData Űrlap funkció setter funkciója
+ * @returns {void}
  */
 export function handleFormInputChange(
   formKey: string,
@@ -31,27 +31,28 @@ export function handleFormInputChange(
   });
 }
 /**
- * @description Aktuális időbélyeg mentése a SecureStore-ba
- * @returns Promise<void>
+ * Aktuális időbélyeg mentése a SecureStore-ba
+ * @async
+ * @returns {Promise<void>}
  */
 export async function setTimestamp() {
   await SecureStore.setItemAsync('timestamp', new Date().getTime().toString());
 }
 /**
- * @description Az aktuális időbélyeg lekérdezése a SecureStore-ból
- * @returns Promise<string | null>
+ * Az aktuális időbélyeg lekérdezése a SecureStore-ból
+ * @async
+ * @returns {Promise<string | null>} Időbélyeg string
  */
 export async function getTimestamp() {
   return await SecureStore.getItemAsync('timestamp');
 }
 /**
- * 
- * @param nickname Poszt készítőjének beceneve
- * @param username Poszt készítőjének felhasználóneve
- * @param group Opcionális csoport entitás
- * @param event Opcionális esemény entitás
- * @returns "USER" | "GROUP" | "EVENT" | "INVALID"
- * @description A poszt típusának meghatározása a megadott paraméterek alapján
+ * A poszt típusának meghatározása a megadott paraméterek alapján
+ * @param {string} nickname Poszt készítőjének beceneve
+ * @param {string} username Poszt készítőjének felhasználóneve
+ * @param {Group} group Opcionális csoport entitás
+ * @param {SocialEvent} event Opcionális esemény entitás
+ * @returns {"USER" | "GROUP" | "EVENT" | "INVALID"} Poszt típusa
  */
 export function getPostType(
   nickname: string,
@@ -72,19 +73,19 @@ export function getPostType(
   } else return 'INVALID';
 }
 /**
- * @description Időbélyeg létrehozása
- * @returns string
+ * Időbélyeg létrehozása
+ * @returns {string} Időbélyeg string
  */
 export function createTimestamp() {
   return new Date().getTime().toString();
 }
 /**
- * 
- * @param images Képek tömbje
- * @returns Promise<void>
- * @description Nem megfelelő képfeltöltések törlése
+ * Nem megfelelő képfeltöltések törlése
+ * @async
+ * @param {ImageUploadResponse[]} images Képek tömbje
+ * @returns {Promise<void>}
  */
-export async function cleanupInvalidImageUploads(images: ImageUploadResponse[]) {
+export async function cleanupInvalidImageUploads(images: Image[]) {
   images.map(async (image) => {
     await fetch(`https://api.imgur.com/3/image/${image.deleteHash}`, {
       method: 'DELETE',
@@ -95,20 +96,21 @@ export async function cleanupInvalidImageUploads(images: ImageUploadResponse[]) 
   });
 }
 /**
- * 
- * @param image Kép entitás
- * @returns Promise<any>
- * @description Kép konvertálása Base64 formátumba
+ * Kép konvertálása Base64 formátumba
+ * @async
+ * @param {string} image Kép entitás URI
+ * @returns {Promise<string>} Kép Base64 string
  */
-export async function convertToBlob(image: any): Promise<any> {
+export async function convertToBlob(image: string): Promise<string> {
   const base64 = await FileSystem.readAsStringAsync(image, {
     encoding: FileSystem.EncodingType.Base64,
   });
   return base64;
 }
 /**
- * @description Egy darab Kép kiválasztása a galériából
- * @returns Promise<ImagePicker.ImagePickerAsset | undefined>
+ * Egy darab Kép kiválasztása a galériából
+ * @async
+ * @returns {Promise<ImagePicker.ImagePickerAsset | undefined>} Kép entitás
  */
 export async function getOneImageFromGallery() {
   let result = await ImagePicker.launchImageLibraryAsync({
@@ -123,11 +125,11 @@ export async function getOneImageFromGallery() {
   }
 }
 /**
- * 
- * @param images Képek tömbje
- * @param language Nyelv
- * @returns Promise<ImagePicker.ImagePickerAsset[]>
- * @description Több kép kiválasztása a galériából
+ * Több kép kiválasztása a galériából
+ * @async
+ * @param {ImagePicker.ImagePickerAsset[]} images Képek tömbje
+ * @param {"HU" | "EN"} language Nyelv
+ * @returns {Promise<ImagePicker.ImagePickerAsset[]>} Képek tömbje
  */
 export async function handleGallery(images: ImagePicker.ImagePickerAsset[], language: 'HU' | 'EN' = 'EN') {
   if (images.length < 10) {
@@ -155,10 +157,10 @@ export async function handleGallery(images: ImagePicker.ImagePickerAsset[], lang
   }
 }
 /**
- * @description Két string hasonlósági faktorát számolja ki
- * @param s1 Elsődleges string
- * @param s2 Másodlagos string
- * @returns number
+ * Két string hasonlósági faktorát számolja ki
+ * @param {string} s1 Elsődleges string
+ * @param {string} s2 Másodlagos string
+ * @returns {number} Hasonlósági faktor
  */
 export function getStringSimilarity(s1: string, s2: string) {
   function editDistance(a: string, b: string) {
@@ -185,11 +187,11 @@ export function getStringSimilarity(s1: string, s2: string) {
   return (maxLenght - editDistance(s1, s2)) / maxLenght;
 } //köszönöm random fickó stackoverflown
 /**
- * @description Szűrési funkció
- * @param query Lekérdezés
- * @param items Szűrésre szánt elemek
- * @param attribute Szűrésre szánt elem attribútuma
- * @returns any[]
+ * Szűrési funkció
+ * @param {string} query Lekérdezés
+ * @param {any[]} items Szűrésre szánt elemek
+ * @param {any} attribute Szűrésre szánt elem attribútuma
+ * @returns {any[]} Szűrt elemek tömbje
  */
 export const searchFilter = (query: string, items: any[], attribute: any) => {
   return items
@@ -199,22 +201,24 @@ export const searchFilter = (query: string, items: any[], attribute: any) => {
     .map(({ item }) => item);
 };
 /**
- * @description Felhasználó entitás elmentése a SecureStore-ba
- * @param user Felhasználó entitás
+ * Felhasználó entitás elmentése a SecureStore-ba
+ * @async
+ * @param {User} user Felhasználó entitás
  */
 export async function saveUser(user: User) {
   await SecureStore.setItemAsync('user', JSON.stringify(user));
 }
 /**
- * @description Felhasználó entitás törlése a SecureStore-ból
- * @param user Felhasználó entitás
+ * Felhasználó entitás törlése a SecureStore-ból
+ * @async
+ * @returns {Promise<void>}
  */
 export async function deleteUser() {
   await SecureStore.deleteItemAsync('user');
 }
 /**
- * @description Validációt ellenőrző funkció
- * @returns boolean
+ * Validációt ellenőrző funkció
+ * @returns {boolean} Validáció eredménye
  */
 export function checkUser() {
   const user = SecureStore.getItem('user');
@@ -224,19 +228,18 @@ export function checkUser() {
   return false;
 }
 /**
- * 
- * @param date Dátum string
- * @returns formattált dátum string
+ * Dátum formázásáért felelő funkció
+ * @param {string} date Dátum string
+ * @returns {string} formattált dátum string
  */
 export function formatDate(date: string) {
   return date.replaceAll('-', '. ') + '.';
 }
 /**
- * 
- * @param title Cím string
- * @param message Üzenet string
- * @returns void
- * @description Hibaüzenet megjelenítése
+ * Hibaüzenet megjelenítése
+ * @param {string} title Cím string
+ * @param {string} message Üzenet string
+ * @returns {void}
  */
 export function showErrorToast(title: string, message?: string) {
   Toast.show({
@@ -247,11 +250,12 @@ export function showErrorToast(title: string, message?: string) {
   });
 }
 /**
- * 
- * @param element Feltöltendő kép
- * @param description Kép leírása
- * @param user Feltöltést kezdeményező felhasználó entitás
- * @returns Többrészes űrlappá alakított kép feltöltésre kész elem
+ *  Többrészes űrlappá alakított kép feltöltésre kész elem létrehozása
+ * @async
+ * @param {ImagePicker.ImagePickerAsset} element Feltöltendő kép
+ * @param {string} description Kép leírása
+ * @param {User} user Feltöltést kezdeményező felhasználó entitás
+ * @returns {Promise<FormData>} Többrészes űrlappá alakított kép feltöltésre kész elem
  */
 export async function createImageForm(element: ImagePicker.ImagePickerAsset, description: string, user: User | null) {
   const imageForm = new FormData();
@@ -263,11 +267,10 @@ export async function createImageForm(element: ImagePicker.ImagePickerAsset, des
   return imageForm;
 }
 /**
- * 
- * @param number Formázásra szánt szám
- * @param language Nyelv
- * @returns Formázott szám string
- * @description Szám formázása
+ * Szám formázása
+ * @param {number} number Formázásra szánt szám
+ * @param {"EN" | "HU"} language Nyelv
+ * @returns {string} Formázott szám string
  */
 export function formatNumber(number: number, language?: 'HU' | 'EN') {
   let lang = language || 'EN';

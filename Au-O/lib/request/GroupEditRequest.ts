@@ -1,13 +1,29 @@
 /**
- * @description Csoport szerkesztésének kérésének entitása
- * @param name Csoport neve
- * @param description Csoport leírása
- * @param alias Csoport rövidített neve
- * @param public Csoport láthatósága
+ * Csoport szerkesztésének kérésének entitása
+    * @interface
+    * @see Group
+    
  */
 export interface GroupEditRequest {
-    name: string,
-    description: string,
-    alias: string,
-    public: boolean
+  /**
+   * Csoport neve
+   * @type {string}
+   */
+  name: string;
+  /**
+   * Csoport leírása
+   * @type {string}
+   */
+
+  description: string;
+  /**
+   * Csoport rövidített neve
+   * @type {string}
+   */
+  alias: string;
+  /**
+   * Csoport láthatósága (publikus?)
+   * @type {boolean}
+   */
+  public: boolean;
 }

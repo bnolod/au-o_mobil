@@ -1,9 +1,19 @@
 /**
- * @param message Üzenet
- * @param user Felhasználó adatai
+ * Chat üzenetek típusa
+ * @interface
+ * 
  */
 export interface ChatMessage {
+  /**
+   * Üzenet
+   * @type {string}
+   */
   message: string;
+  /**
+   * Felhasználó adatai
+   * @type {object}
+   * @property {string} username Felhasználó felhasználóneve
+   */
   user: {
     username: string;
   };

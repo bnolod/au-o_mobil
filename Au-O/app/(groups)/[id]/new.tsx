@@ -379,6 +379,7 @@ export default function NewGroupPost() {
                 >
                   <BottomSheetView>
                     <PostCard
+                    favorite={false}
                       user={user!}
                       reaction={'FIRE'}
                       postId={null}

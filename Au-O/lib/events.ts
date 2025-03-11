@@ -6,21 +6,22 @@ import { GroupTexts, SocialTexts, ToastMessages } from '@/constants/texts';
 import { deleteGroup, leaveGroup } from './ApiCalls/GroupApiCalls';
 import Toast from 'react-native-toast-message';
 import { router } from 'expo-router';
+import { Reactions } from '@/constants/types';
 export const eventEmitter = new EventEmitter();
 eventEmitter.setMaxListeners(1);
 /**
- * 
- * @param lines aktuális sorok száma
- * @param maxLines maximum kiírt sorok száma
- * @returns kezelt sorszám
+ * Sortörést kezelő funkció
+ * @param {number | undefined} lines aktuális sorok száma
+ * @param {number} maxLines maximum kiírt sorok száma
+ * @returns {number | undefined} kezelt sorszám
  */
 export function handleShowMore(lines: number | undefined, maxLines: number): number | undefined {
   return lines === maxLines ? undefined : maxLines;
 }
 /**
- * 
- * @param reaction reakció típusa
- * @returns keyof Reaction
+ * Reakció végpontjának lekérése
+ * @param {Reactions} reaction reakció típusa
+ * @returns {keyof Reaction} reakció típusa
  */
 export function getReactionEndpoint(reaction: 'fire' | 'heart' | 'sunglasses') {
   switch (reaction) {
@@ -33,8 +34,8 @@ export function getReactionEndpoint(reaction: 'fire' | 'heart' | 'sunglasses') {
   }
 }
 /**
- * @description Profil fül váltás kezelése
- * @param tab aktuális fül
+ * Profil fül váltás kezelése
+ * @param {'POST' | 'GROUPS' | 'SAVED' | 'GARAGE'} tab aktuális fül
  * @returns kiválasztott fül
  */
 export function handleTabSelection(tab: 'POST' | 'GROUPS' | 'SAVED' | 'GARAGE') {
@@ -42,9 +43,10 @@ export function handleTabSelection(tab: 'POST' | 'GROUPS' | 'SAVED' | 'GARAGE') 
   return tab;
 }
 /**
- * @description Csoport elhagyásának kezelése
- * @param group Csoport entitás
- * @param language Nyelv
+ * Csoport elhagyásának kezelése
+ * @async
+ * @param {Group} group Csoport entitás
+ * @param {"HU" | "EN"} language Nyelv
  */
 export async function handleLeave(group: Group, language: 'EN' | 'HU') {
   if (group.validMember) {
@@ -67,11 +69,13 @@ export async function handleLeave(group: Group, language: 'EN' | 'HU') {
 }
 
 /**
- * @description Csoport jelentkezési kérés visszavonásának kezelése
- * @param group Csoport entitás
- * @param language Nyelv
+ * Csoport jelentkezési kérés visszavonásának kezelése
+ * @async
+ * @param {group} group Csoport entitás
+ * @param {"HU" | "EN"} language Nyelv
+ * @returns {Promise<void>}
  */
-export async function revokeJoinRequest(group: Group, language: "EN" | "HU") {
+export async function revokeJoinRequest(group: Group, language: 'EN' | 'HU') {
   if (group.member) {
     Alert.alert(GroupTexts.options.revokeJoinRequest[language], GroupTexts.options.confirmRevoke[language], [
       {
@@ -91,9 +95,11 @@ export async function revokeJoinRequest(group: Group, language: "EN" | "HU") {
   }
 }
 /**
- * @description Csoport elhagyásának megerősítése
- * @param group Csoport entitás
- * @param language Nyelv
+ * Csoport elhagyásának megerősítése
+ * @param {Group} group Csoport entitás
+ * @param {"EN" | "HU"} language Nyelv 
+ * @async
+ * @returns {Promise<void>}
  */
 
 async function confirmLeave(language: 'EN' | 'HU', group: Group) {
@@ -122,9 +128,11 @@ async function confirmLeave(language: 'EN' | 'HU', group: Group) {
   });
 }
 /**
- * @description Csoport törlésének kezelése
- * @param group Csoport entitás
- * @param language Nyelv
+ * Csoport törlésének kezelése
+ * @param {Group} group Csoport entitás
+ * @param {"EN" | "HU"} language Nyelv
+ * @async
+ * @returns {Promise<void>}
  */
 
 export async function handleDeleteRequest(group: Group, language: 'EN' | 'HU') {

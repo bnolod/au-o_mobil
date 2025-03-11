@@ -1,20 +1,44 @@
-import { ImagePickerAsset } from "expo-image-picker";
+import { ImagePickerAsset } from 'expo-image-picker';
 /**
- * @description A poszt létrehozásához szükséges adatok
- * @param userId A poszt készítőjének azonosítója
- * @param description Poszt leírása
- * @param images Poszt képei
- * @param groupId Opcionális csoport azonosítója
- * @param location Poszt helyszíne
- * @param eventId Opcionális esemény azonosítója
- * @param vehicleId Opcionális jármű azonosítója
+ * A poszt létrehozásához szükséges adatok
+ * @interface
+ * @see Post
+ * @see ImagePickerAsset
  */
 export interface CreatePostRequest {
-    userId: number;
-    description: string;
-    images: ImagePickerAsset[];
-    groupId: number | null;
-    location: string;
-    eventId: number | null;
-    vehicleId: number | null;
-  }
+  /**
+   * A poszt készítőjének azonosítója
+   * @type {number}
+   */
+  userId: number;
+  /**
+   * A poszt leírása
+   * @type {string}
+   */
+  description: string;
+  /**
+   * A poszthoz tartozó képek
+   * @type {ImagePickerAsset[]}
+   */
+  images: ImagePickerAsset[];
+  /**
+   * A poszt csoport azonosítója
+   * @type {number | null}
+   */
+  groupId: number | null;
+  /**
+   * A poszthoz tartozó esemény
+   * @type {number | null}
+   */
+  eventId: number | null;
+  /**
+   * A poszt helyszíne
+   * @type {string}
+   */
+  location: string;
+  /**
+   * A poszthoz tartozó jármű azonosítója
+   * @type {number | null}
+   */
+  vehicleId: number | null;
+}

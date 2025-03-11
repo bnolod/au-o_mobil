@@ -1,18 +1,38 @@
 import { Reactions } from '@/constants/types';
 import { User } from './User';
 /**
- * @param id Azonosító
- * @param time Időbélyeg
- * @param user Feladó felhasználó
- * @param text Válasz szövege
- * @param reactedWith: Adott reakció
- * @param reactionTypeMap: Reakciós lehetőségek
+ * Válasz entitás
+ * @interface
  */
 export interface Reply {
+  /**
+   * Azonosító
+   * @type {number}
+   */
   id: number;
+  /**
+   * Adott reakció
+   * @type {null | 'FIRE' | 'HEART' | 'COOL'}
+   */
   reactedWith: null | 'FIRE' | 'HEART' | 'COOL';
+  /**
+   * Reakció lehetőségek
+   * @type {Reactions}
+   */
   reactionTypeMap: Reactions;
+  /**
+   * Időbélyeg
+   * @type {string}
+   */
   time: string;
+  /**
+   * Feladó felhasználó
+   * @type {User}
+   */
   user: User;
+  /**
+   * Válasz szövege
+   * @type {string}
+   */
   text: string;
 }

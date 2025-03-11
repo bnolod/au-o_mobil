@@ -18,7 +18,7 @@ export default function GroupDisplay() {
   }, []);
   async function fetchGroup() {
     if (id) {
-      const res = await getGroup(id as string);
+      const res = await getGroup(Number(id as string));
       if (res) {
         setGroup(res);
       } else setGroup(null);

@@ -1,13 +1,28 @@
 import { Post } from './Post';
 /**
- * @param content Posztok
- * @param pageNumber Oldalszám
- * @param pageSize Oldal tartalom száma
- * @param totalElements Összes oldalon található tartalom száma
+ * A feed tartalma
+ * @interface
  */
 export interface Feed {
+  /**
+   * A feed tartalma
+   * @type {Post[]}
+   * @see Post
+   */
   content: Post[];
+  /**
+   * Az oldalszám
+   * @type {number}
+   */
   pageNumber: number;
+  /**
+   * Az oldal tartalom száma
+   * @type {number}
+   */
   pageSize: number;
+  /**
+   * Az összes oldalon található tartalom száma
+   * @type {number}
+   */
   totalElements: number;
 }

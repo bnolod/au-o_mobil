@@ -1,25 +1,59 @@
 import { User, UserResponse } from "./User";
 /**
- * @param id Csoport azonosítója
- * @param name Csoport neve
- * @param description Csoport leírása
- * @param bannerImage Csoport kép URL
- * @param alias Csoport rövidített neve
- * @param public Csoport láthatósága
- * @param creationDate Csoport létrehozási ideje
- * @param member Tagság
- * @param validMember Tagság státusza
+ * Csoport entitás
+ * @interface
+ 
  */
 export interface Group {
+  /**
+   * Csoport azonosítója
+   * @type {number}
+   */
   id: number;
+  /**
+   * Csoport neve
+   * @type {string}
+   */
   name: string;
+  /**
+   * Csoport rövid neve
+   * @type {string}
+   */
   alias: string;
+  /**
+   * Csoport kép URL
+   * @type {string}
+   */
   bannerImage: string;
+  /**
+   * Csoport tagjainak száma
+   * @type {number}
+   */
   memberCount: number;
+  /**
+   * Csoport láthatósága
+   * @type {boolean}
+  */
   public: boolean;
+  /**
+   * Csoport létrehozásának dátuma
+   * @type {string}
+   */
   creationDate: string;
+  /**
+   * Felhasználó tagság státusza
+   * @type {boolean}
+   */
   member: boolean;
+  /**
+   * Csoport leírása
+   * @type {string}
+   */
   description: string;
+  /**
+   * Felhasználó tagság státuszának validitása
+   * @type {boolean}
+   */
   validMember : boolean;
 }
 /**
@@ -31,22 +65,44 @@ export interface GroupPost {
   groupIcon: string | null;
 }
 /**
- * @param user Felhasználó entitás
- * @param role Felhasználó jogosultságai
- * @param joinedDate Felhasználó jelentkezéési dátuma
- * @param valid Felhasználó jelentkezéési státusza
+ * Csoport entitás válasza
+ * @interface
  */
 export interface GroupMemberResponse {
+  /**
+   * Felhasználó
+   * @type {UserResponse}
+   */
   user: UserResponse;
+  /**
+   * Felhasználó jogosultságai
+   * @type {string}
+   */
   role: string;
+  /**
+   * Felhasználó jelentkezési dátuma
+   * @type {string}
+   */
   joinedDate: string;
+  /**
+   * Felhasználó jelentkezési státusza
+   * @type {boolean}
+   */
   valid: boolean
 }
 /**
- * @param group Csoport entitás
- * @param users Csoport tag lista
+ * Csoport tagok listájának válasza
+ * @interface
  */
 export interface GroupMemberListResponse {
+  /**
+   * Csoport entitás
+   * @type {Group}
+   */
   group: Group
+  /**
+   * Csoport tagok listája
+   * @type {GroupMemberResponse[]}
+   */
   users: GroupMemberResponse[]
 }

@@ -97,7 +97,8 @@ export default function Home() {
             renderItem={({ item }) => (
               <PostCard
               event={null}
-              group={null}
+              favorite={item.favorite}
+              group={item.group}
               reaction={item.reactedWith}
               user={user}
               authorProfileImg={item.user.profileImg}
