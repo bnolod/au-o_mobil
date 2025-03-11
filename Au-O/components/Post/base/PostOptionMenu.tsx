@@ -14,6 +14,7 @@ import { useWebSocket } from '@/contexts/WebSocketContext';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Toast from 'react-native-toast-message';
 import { useFocusEffect } from 'expo-router';
+import { favoritePost } from '@/lib/ApiCalls/PostApiCalls';
 export default function PostOptionModal({
   language,
   menuVisible,
@@ -22,6 +23,7 @@ export default function PostOptionModal({
   postId,
   authorId,
   userId,
+  favorite,
 }: {
   menuVisible: boolean;
   setVisible: (b: boolean) => void;
@@ -30,7 +32,18 @@ export default function PostOptionModal({
   authorId: number | null;
   colorScheme: 'light' | 'dark';
   userId: number | null;
+  favorite: boolean;
 }) {
+
+  const handleFavorite = async () => {
+    const res = await favoritePost(postId!)
+    if ( res == "added") {
+      favorite = true;
+    } else {
+      favorite = false;
+    }
+  }
+
   const isOwner = userId === authorId;
   function dismiss() {
     setVisible(false);
@@ -180,8 +193,17 @@ export default function PostOptionModal({
             </View>
           )}
           <View className="flex flex-row gap-4">
-            
+          {/* favorite ize ikon */}
+          <Button
+              className={` ${favorite? "opacity-50" : ""}`}
+              onPress={() => {
+                handleFavorite();
+              }}
+            >
+              <MaterialCommunityIcons name="bookmark" size={40} className="self-center">
 
+              </MaterialCommunityIcons>
+            </Button>
             <Button
               className=" highlight-themed button primary flex-1 "
               innerTextClassName="txl"

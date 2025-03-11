@@ -19,6 +19,7 @@ export interface Post {
   comments: Comment[];
   reactedWith: null | 'FIRE' | 'HEART' | 'COOL';
   vehicle: Car | null;
+  favorite: boolean;
 }
 export type PostType = 'USERPOST' | 'GROUPOST' | 'EVENTPOST';
 

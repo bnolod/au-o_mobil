@@ -52,3 +52,20 @@ export async function getPostById(postId: number) {
     }
     return null;
 }
+
+export async function getFavoritesOfUser(userId: number) {
+  const req = await apiFetch<Post[] | null>(`posts/favorites/user/${userId}`, 'GET', true);
+   if (req && req.status === 200) {
+     return req.data;
+   }
+   return null;
+}
+
+
+export async function favoritePost(postId: number) {
+  const req = await apiFetch<"added" | "removed">(`posts/favorite/${postId}`, 'POST', true);
+   if (req && req.status === 200) {
+     return req.data;
+   }
+   return null;
+}

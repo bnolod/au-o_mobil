@@ -31,6 +31,7 @@ import { getGroupsOfUser } from '@/lib/ApiCalls/GroupApiCalls';
 import GroupListItem from '@/components/social/groups/GroupListItem';
 import SocialCard from '@/components/social/base/SocialCard';
 import OwnGroupList from './OwnGroupsList';
+import SavedPostGrid from './SavedPostGrid';
 export default function Profile({
   user,
   language,
@@ -315,6 +316,11 @@ export default function Profile({
         {selectedTab === 'GROUPS' && (
           <View>
           <OwnGroupList userId={profile.id}/>
+          </View>
+        )}
+        {selectedTab === 'SAVED' && (
+          <View>
+          <SavedPostGrid colorScheme={colorScheme} language={language} userId={user.id} />
           </View>
         )}
       </>
