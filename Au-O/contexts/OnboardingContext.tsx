@@ -1,7 +1,22 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+/**
+ * Első képernyős funkciókért felelős context
+ * @category Contexts
+ */
 
-interface OnboardingContextProps {
+import React, { createContext, useContext, useState, ReactNode } from 'react';
+/**
+ * Első képernyős context tulajdonságai
+ * @type
+ */
+type OnboardingContextProps = {
+  /**
+   * Slide index
+   */
   index: number;
+  /**
+   * Slide index settere
+   * @param {number} index Beállítandó index
+   */
   setIndex: (index: number) => void;
 }
 

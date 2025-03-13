@@ -1,14 +1,40 @@
-// WebSocketProvider (Updated)
+/**
+ * WebSocket context 
+ * @category Contexts
+ */
+
 import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
-import * as SecureStore from 'expo-secure-store';
 import { Client } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 import { useAuthentication } from './AuthenticationContext';
-
-interface WebSocketContextType {
+/**
+ * WebSocket context tulajdonságai
+ * @type
+ */
+type WebSocketContextType = {
+  /**
+   * WebSocket üzenetek
+   * @param {string} topic A lekérdezésre kerülő topic
+   */
   messages: { [topic: string]: string[] };
+  /**
+   * Üzenetküldés funkció
+   * @callback
+   * @param topic
+   * @param message Elküldendő üzenet 
+   * @returns {void}
+   */
   sendMessage: (topic: string, message: string) => void;
+  /**
+   * Felhasználó feliratkoztatása egy topicra
+   * @param topic Topic ID
+   * @returns {void}
+   */
   subscribeToTopic: (topic: string) => void;
+  /**
+   * WebSocket kliens
+   * @type {Client | null}
+   */
   stompClient : Client | null;
 }
 
@@ -19,35 +45,34 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const [messages, setMessages] = useState<{ [topic: string]: string[] }>({});
   const [connected, setConnected] = useState(false);
   const {user} = useAuthentication();
-  const subscriptions = useRef(new Map<string, any>()); // Store subscriptions per topic
+  const subscriptions = useRef(new Map<string, any>());
 
   useEffect(() => {
-    let reconnectTimeout: NodeJS.Timeout;
     if (!user) return 
     const connectWebSocket = async () => {
       console.log('Mounting WebSocket');
-
+      let reconnectTimeout: NodeJS.Timeout;
       const socket = new SockJS(process.env.EXPO_PUBLIC_WS_URL!, null,
         { withCredentials: true } as any); // SockJS
-        console.log("socket: ",socket)
+       // console.log("socket: ",socket)
       const client = new Client({
         webSocketFactory: () => socket,
-        debug: (msg) => console.log('STOMP Debug: ' + msg),
+        // debug: (msg) => console.log('STOMP Debug: ' + msg),
         reconnectDelay: 5000,
         heartbeatIncoming: 4000,
         heartbeatOutgoing: 4000,
         onConnect: () => {
-          console.log('Connected to WebSocket');
+        //  console.log('Connected to WebSocket');
           setConnected(true);
         },
-        onStompError: (error) => console.error('STOMP Error:', error),
+        onStompError: (error) => {/*console.error('STOMP Error:', error)*/},
         onDisconnect: () => {
-          console.log('Disconnected from WebSocket');
+         // console.log('Disconnected from WebSocket');
           setConnected(false);
           attemptReconnect();
         },
         onWebSocketClose: () => {
-          console.log('WebSocket closed');
+        //  console.log('WebSocket closed');
           setConnected(false);
           attemptReconnect();
         }
@@ -71,7 +96,7 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
     return () => {
       if (stompClient) {
-        console.log('Cleaning up WebSocket connection');
+        //console.log('Cleaning up WebSocket connection');
         stompClient.deactivate();
       }
     };
@@ -88,17 +113,17 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   
       // If already subscribed, do nothing
       if (subscriptions.current.has(topic)) {
-          console.log(`Already subscribed to ${topic}`);
+          //console.log(`Already subscribed to ${topic}`);
           return;
       }
-      console.log("before: ",subscriptions)
-      console.log(`Subscribing to topic: ${topic}`);
-      console.log("after: ",subscriptions)
+     // console.log("before: ",subscriptions)
+     // console.log(`Subscribing to topic: ${topic}`);
+     // console.log("after: ",subscriptions)
   
       // Subscribe and store the subscription object
       const subscription = stompClient.subscribe(`/topic/${topic}`, (message) => {
           const data = JSON.parse(message.body);
-          console.log(`Received message on topic ${topic}:`, data.message);
+          //console.log(`Received message on topic ${topic}:`, data.message);
   
           setMessages((prevMessages) => ({
               ...prevMessages,

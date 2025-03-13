@@ -1,9 +1,26 @@
+/**
+ * Lokalizációs funkciókért felelős context
+ * @category Contexts
+ */
+
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 type Language = 'EN' | 'HU';
-
-interface LanguageContextProps {
+/**
+ * Lokalizációs context tulajdonságai
+ * @type
+ */
+type LanguageContextProps = {
+  /**
+   * Visszaadott nyelv
+   * @param {Language} language
+   */
   language: Language;
+  /**
+   * Nyelv settere
+   * @param {Language} language Beállítandó nyelv 
+   * @returns {void}
+   */
   setLanguage: (language: Language) => void;
 }
 
