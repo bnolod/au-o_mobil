@@ -1,20 +1,22 @@
-import { useEffect, useState } from 'react';
+/**
+ * Figyelmeztető modális ablak
+ * @module ui/AlertModal
+ * @category Component
+ */
 import { Modal, TouchableOpacity, View } from 'react-native';
 import ThemedText from './ThemedText';
-
+import { AlertModalProps } from './props';
+/**
+ * Értesítési modal
+ * @param {AlertModalProps} props Tulajdonságok
+ */
 export default function AlertModal({
   visible,
   onDismiss,
   title,
   text,
   buttons,
-}: {
-  visible: boolean;
-  title: string;
-  onDismiss: () => void;
-  text: string;
-  buttons: ({ text: string; className?: string; textClassName?: string; onPress: () => void } | undefined)[];
-}) {
+}: AlertModalProps) {
   return (
     <Modal visible={visible} animationType="fade" onDismiss={onDismiss} transparent={true}>
       <TouchableOpacity className="w-full h-full bg-black/50 flex items-center justify-center" onPress={onDismiss}>

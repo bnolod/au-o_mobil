@@ -1,3 +1,8 @@
+/**
+ * Poszt kép placeholder komponens
+ * @module ui/PostImageFallback
+ * @category Component
+ */
 import { ActivityIndicator } from "react-native";
 import { ImageBackground } from "expo-image";
 import { Images } from "@/lib/staticAssetExports";

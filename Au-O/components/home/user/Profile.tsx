@@ -1,3 +1,8 @@
+/**
+ * Profil oldal komponens
+ * @module home/user/Profile
+ * @category Component
+ */
 import Button from '@/components/ui/Button';
 import ThemedText from '@/components/ui/ThemedText';
 import {  TouchableOpacity, View } from 'react-native';

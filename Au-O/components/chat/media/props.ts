@@ -1,39 +1,40 @@
 /**
- * @category Component
  * @module chat/media/props
- *  A felhasználó üzenete
-*/
+ * @category Component
+ * A felhasználó üzenete
+ */
+
 /**
  * Média üzenetekhez szükséges propok
  * @interface MediaMessageProps
  */
 export interface MediaMessageProps {
+  /**
+   * Küldő-e?
+   * @type {boolean}
+   */
+  sender: boolean;
+  /**
+   * Felhasználó avatarja
+   * @type {object | null}
+   */
+  avatar: {
     /**
-     * Küldő-e?
-     * @type {boolean}
+     * Becenév
+     * @type {string}
      */
-    sender: boolean
+    nickname: string;
     /**
-     * Felhasználó avatarja
-     * @type {object | null}
+     * Profilkép
+     * @type {string | null}
      */
-    avatar: {
-        /**
-         * Becenév
-         * @type {string}
-         */
-        nickname: string
-        /**
-         * Profilkép
-         * @type {string | null}
-         */
-        profileImg: string | null
-    } | null
-    /**
-     * Színséma
-     * @type {"dark" | "light"}
-     */
-    colorScheme: "dark" | "light";
+    profileImg: string | null;
+  } | null;
+  /**
+   * Színséma
+   * @type {"dark" | "light"}
+   */
+  colorScheme: 'dark' | 'light';
 }
 /**
  * Posztot tartalmazó szükséges propok
@@ -41,12 +42,12 @@ export interface MediaMessageProps {
  * @extends MediaMessageProps
  */
 export interface PostMessageProps extends MediaMessageProps {
-    /**
-     * Poszt azonosító
-     * @type {number}
-     * @see Post
-     */
-    postId: number;
+  /**
+   * Poszt azonosító
+   * @type {number}
+   * @see Post
+   */
+  postId: number;
 }
 /**
  * Csoport meghívót tartalmazó szükséges propok
@@ -55,10 +56,10 @@ export interface PostMessageProps extends MediaMessageProps {
  * @see Group
  */
 export interface GroupInviteProps extends MediaMessageProps {
-    /**
-     * Csoport azonosító
-     * @type {number}
-     * @see Group
-     */
-    groupId: number;
+  /**
+   * Csoport azonosító
+   * @type {number}
+   * @see Group
+   */
+  groupId: number;
 }

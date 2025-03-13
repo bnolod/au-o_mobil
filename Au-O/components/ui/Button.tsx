@@ -1,3 +1,8 @@
+/**
+ * Gomb komponens
+ * @module ui/Button
+ * @category Component
+ */
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { ThemedText } from './ThemedText';
@@ -5,7 +10,9 @@ import { ButtonProps } from './props';
 import * as Haptics from 'expo-haptics';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from 'nativewind';
-
+/**
+ * @param {ButtonProps} props Tulajdonságok
+ */
 export default function Button({ variant, type, hapticFeedback, children, innerTextClassName, ...props }: ButtonProps) {
   const { colorScheme } = useColorScheme();
   const getButtonClass = (variant: ButtonProps['variant']) => {

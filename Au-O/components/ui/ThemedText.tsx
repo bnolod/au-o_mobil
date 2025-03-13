@@ -1,8 +1,14 @@
-import { ReactNode } from 'react';
+/**
+ * Színsémát alkalmazó szöveg komponens
+ * @module ui/ThemedText
+ * @category Component
+ */
 import { Text } from 'react-native';
 import { ThemedTextProps } from './props';
 
-
+/**
+ * @param {ThemedTextProps} props Tulajdonságok
+ */
 export function ThemedText({ children, className, color, ...props }: ThemedTextProps) {
   return (
     <Text

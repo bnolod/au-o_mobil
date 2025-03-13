@@ -1,7 +1,7 @@
 /**
  * GarageHeader.tsx
  * A garázs fejléce
- * @module garage/GarageHeader
+ * @module garage/base/GarageHeader
  * @category Components
  */
 

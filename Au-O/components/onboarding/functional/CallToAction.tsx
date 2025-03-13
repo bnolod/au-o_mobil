@@ -1,10 +1,19 @@
+/**
+ * Kezdőképernyő fő gomb
+ * @module onboarding/functional/CallToAction
+ * @category Components
+ */
 import { View } from 'react-native';
 import Button from '@/components/ui/Button';
 import { ThemedText } from '@/components/ui/ThemedText';
 import { Colors } from '@/constants/Colors';
 import { CallToActionTexts } from '@/constants/texts';
 import { CommonStaticElementProps } from '@/constants/types';
-
+/**
+ * @property {function} onPress Gombnyomás esemény
+ * @property {number} index Index
+ * @property {string} language Nyelv
+ */
 export default function CallToAction({
   onPress,
   index,

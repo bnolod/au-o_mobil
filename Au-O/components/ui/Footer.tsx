@@ -1,7 +1,14 @@
+/**
+ * Lábléc komponens
+ * @module ui/Footer
+ */
 import { View } from 'react-native';
 import ThemedText from './ThemedText';
 import { Images } from '@/lib/staticAssetExports';
 import { Image } from 'expo-image';
+/**
+ * @property {string} language Nyelv
+ */
 export default function Footer({ language }: { language: 'EN' | 'HU' }) {
   return (
     <View className=" w-full flex flex-col secondary pb-safe pt-3 items-center justify-center">

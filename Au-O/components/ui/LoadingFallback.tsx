@@ -1,5 +1,9 @@
+/**
+ * Töltőképernyő
+ * @module ui/LoadingFallback
+ * @category Component
+ */
 import { ActivityIndicator, View } from "react-native";
-import ThemedText from "@/components/ui/ThemedText";
 import Animated from "react-native-reanimated";
 import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "nativewind";

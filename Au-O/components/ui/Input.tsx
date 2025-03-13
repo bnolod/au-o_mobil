@@ -1,9 +1,17 @@
+/**
+ * Beviteli mező komponens
+ * @module ui/Input
+ * @category Component
+ */
 import { Keyboard, TextInput, TouchableWithoutFeedback, View } from 'react-native';
 import ThemedText from './ThemedText';
 import { useState } from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Colors } from '@/constants/Colors';
 import { InputProps } from './props';
+/**
+ * @param {InputProps} props Tulajdonságok
+ */
 export default function Input({
   label,
   containerClassName,

@@ -1,9 +1,16 @@
+/**
+ * Kereső mező
+ * @module ui/SearchBar
+ * @category Component
+ */
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useState } from 'react';
 import { Keyboard, TextInput, View } from 'react-native';
 import Button from './Button';
 import { SearchBarProps } from './props';
-
+/**
+ * @param {SearchBarProps} props Tulajdonságok
+ */
 export default function SearchBar({
   placeholder,
   onChangeText,

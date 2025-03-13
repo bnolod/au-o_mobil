@@ -1,3 +1,8 @@
+/**
+ * Poszt rács
+ * @module components/social/base/PostGrid
+ * @category Component
+ */
 import { Pressable, View } from 'react-native';
 import { router } from 'expo-router';
 import { FlashList } from '@shopify/flash-list';

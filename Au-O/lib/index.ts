@@ -32,6 +32,7 @@ import * as Events from './events';
 import * as Types from '@/constants/types';
 
 import * as components from '@/components/index'
+import * as props from '@/components/ui/props'
 
 export {
   carApi,
@@ -49,6 +50,7 @@ export {
   UserEntity,
   ImageEntity,
   FeedEntity,
+  props,
   ReplyEntity,
   ChatWSEntity,
   LatestWSEntity,

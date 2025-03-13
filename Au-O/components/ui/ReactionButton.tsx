@@ -1,8 +1,15 @@
+/**
+ * Reakciós gomb komponens
+ * @module ui/ReactionButton
+ * @category Component
+ */
 import { formatNumber } from '@/lib/functions';
 import Button from './Button';
 import ThemedText from './ThemedText';
 import { ReactionButtonProps } from './props';
-
+/**
+ * @param {ReactionButtonProps} props Tulajdonságok
+ */
 export default function ReactionButton({
   type = 'FIRE',
   count = 0,

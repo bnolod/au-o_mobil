@@ -1,3 +1,8 @@
+/**
+ * Egy szöveg szerkesztő modális ablak
+ * @module home/base/TextEditModal
+ */
+
 import { CommonStaticElementProps } from '@/constants/types';
 import { useState } from 'react';
 import {
@@ -17,6 +22,11 @@ import ThemedText from '@/components/ui/ThemedText';
 import { EditModalTexts } from '@/constants/texts';
 import { TextEditModalProps } from './props';
 
+/**
+ * 
+ * @param {TextEditModalProps} props Tulajdonságok
+ * @returns 
+ */
 export default function TextEditModal({
   initialValue,
   onSave,

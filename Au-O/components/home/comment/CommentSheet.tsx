@@ -1,3 +1,9 @@
+
+/**
+ * Kommentek megjelenítése szolgáló sheet
+ * @module home/comment/CommentSheet
+ * @category Component
+ */
 import React, { useCallback, useRef, useState } from 'react';
 import { BottomSheetFlatList, BottomSheetModal } from '@gorhom/bottom-sheet';
 
@@ -13,7 +19,9 @@ import AddCommentRow from '../comment/AddCommentRow';
 import CommentElement from '@/components/ui/CommentElement';
 import CommentsEmpty from './CommentsEmpty';
 import { CommentSheetProps } from './props';
-
+/**
+ * @param {CommentSheetProps} props
+ */
 export default function CommentSheet({
   colorScheme,
   comments,

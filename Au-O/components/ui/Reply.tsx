@@ -1,3 +1,8 @@
+/**
+ * Válaszokat megjelenítő komponens
+ * @module ui/Reply
+ * @category Component
+ */
 import { Alert, Pressable, View } from 'react-native';
 import Avatar from './Avatar';
 import ThemedText from './ThemedText';
@@ -13,6 +18,10 @@ import ReactionButton from './ReactionButton';
 import { deleteReply } from '@/lib/ApiCalls/ReplyApiCalls';
 import { addReaction } from '@/lib/ApiCalls/ReactionApiCalls';
 import { ReplyProps } from './props';
+
+/**
+ * @param {ReplyProps} props Tulajdonságok
+ */
 export default function ReplyItem({ item, language, preview, userId, authorId, onDelete }: ReplyProps) {
   const [currentReaction, setCurrentReaction] = useState<null | 'FIRE' | 'HEART' | 'COOL'>(item.reactedWith);
 

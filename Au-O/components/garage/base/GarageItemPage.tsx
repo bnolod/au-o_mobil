@@ -1,6 +1,6 @@
 /**
  * A garázs oldala
- * @module garage/GaragePage
+ * @module garage/base/GaragePage
  * @category Components
  */
 
