@@ -1,10 +1,18 @@
+/**
+ * Csoport tag megjelenítése
+ * @module social/base/MemberDisplay
+ * @category Components
+ */
 import Avatar from '@/components/ui/Avatar';
 import ThemedText from '@/components/ui/ThemedText';
 import { GroupMemberResponse } from '@/lib/entity/Group';
-import { User } from '@/lib/entity/User';
 import { router } from 'expo-router';
 import {  Alert, Platform, Pressable, View } from 'react-native';
-
+/**
+ * @property {GroupMemberResponse} u - Tag
+ * @property {boolean} authorized - Jogosultság
+ * @property {boolean} isCurrentUser - Jelenlegi felhasználó
+ */
 export default function MemberDisplay({ u, authorized, isCurrentUser }: { u: GroupMemberResponse, authorized: boolean, isCurrentUser: boolean }) {
   return (
       <Pressable onPress={isCurrentUser 

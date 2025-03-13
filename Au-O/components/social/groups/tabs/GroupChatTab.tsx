@@ -1,17 +1,20 @@
-import { View, TextInput } from 'react-native';
-import ThemedText from '@/components/ui/ThemedText';
+/**
+ * Csoport chat fül
+ * @module social/groups/tabs/GroupChatTab
+ * @category Component
+ */
+import { View } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
 import { useEffect, useState } from 'react';
-import Input from '@/components/ui/Input';
-import Button from '@/components/ui/Button';
 import { useWebSocket } from '@/contexts/WebSocketContext';
-import { Group } from '@/lib/entity/Group';
 import { useAuthentication } from '@/contexts/AuthenticationContext';
 import GroupMessage from '@/components/chat/group/GroupMessage';
 import MessageBar from '@/components/chat/base/MessageBar';
 import { GroupTabProps } from './props';
 
-
+/**
+ * @param {GroupTabProps} props Tulajdonságok
+ */
 export default function GroupChatTab({ group, language }: GroupTabProps) {
   const { messages, sendMessage, subscribeToTopic } = useWebSocket();
   const [message, setMessage] = useState<string>('');

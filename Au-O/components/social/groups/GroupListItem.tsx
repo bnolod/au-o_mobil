@@ -1,3 +1,8 @@
+/**
+ * Csoport lista elem
+ * @module social/groups/GroupListItem
+ * @category Component
+ */
 import { Pressable, View } from 'react-native';
 import ThemedText from '@/components/ui/ThemedText';
 import { CommonStaticElementProps } from '@/constants/types';
@@ -7,7 +12,11 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { formatNumber } from '@/lib/functions';
 import { Group } from '@/lib/entity/Group';
 import { ImageBackground } from 'expo-image';
-
+/**
+ * 
+ * @param {Group, () => void} props Tulajdonságok
+ * @returns 
+ */
 export default function GroupListItem({
   group,
   colorScheme,

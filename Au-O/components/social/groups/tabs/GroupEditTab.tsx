@@ -1,4 +1,9 @@
-import { Alert, ScrollView, TouchableOpacity, View } from "react-native";
+/**
+ * Csoprot szerkesztés tab
+ * @module social/groups/tabs/GroupEditTab
+ * @category Component
+ */
+import { ScrollView, TouchableOpacity, View } from "react-native";
 import { GroupTabProps } from "./props";
 import Input from "@/components/ui/Input";
 import { useState } from "react";
@@ -12,7 +17,9 @@ import { modifyGroup } from "@/lib/ApiCalls/GroupApiCalls";
 import Toast from "react-native-toast-message";
 import { GroupTexts } from "@/constants/texts";
 import { router } from "expo-router";
-
+/**
+ * @param {GroupTabProps} props
+ */
 export default function GroupEditTab({colorScheme, group, language}: GroupTabProps) {
     const [editGroup, setEditGroup] = useState<GroupEditRequest>({
         name: group.name,

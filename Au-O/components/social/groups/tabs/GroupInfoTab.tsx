@@ -2,8 +2,6 @@ import { ScrollView, View } from 'react-native';
 import ThemedText from '@/components/ui/ThemedText';
 import { GroupTabProps } from './props';
 import { FlashList } from '@shopify/flash-list';
-import UserListCard from '@/components/ui/UserListCard';
-import { Colors } from '@/constants/Colors';
 import { useAuthentication } from '@/contexts/AuthenticationContext';
 import AcceptUserTab from '../admin/AcceptUserTab';
 

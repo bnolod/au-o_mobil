@@ -1,9 +1,15 @@
+/**
+ * Poszt fejléc
+ * @module post/base/PostHeaderElement
+ */
 import Button from '../../ui/Button';
 import Avatar from '../../ui/Avatar';
 
 import PostSocialIcon from './PostSocialIcon';
 import { PostDispayElementProps } from './props';
-
+/**
+ * @param {PostDispayElementProps} props Tulajdonságok
+ */
 export default function PostHeaderElement({
   onPress,
   authorNickname,

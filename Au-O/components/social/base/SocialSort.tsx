@@ -1,3 +1,7 @@
+/**
+ * Közösségi rendezés komponens
+ * @module social/base/SocialSort
+ */
 import { View } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { CommonStaticElementProps } from '@/constants/types';
@@ -5,7 +9,9 @@ import { useState } from 'react';
 import SocialSortItem from './SocialSortItem';
 import Button from '@/components/ui/Button';
 import SheetSelection from '@/components/ui/SheetSelection';
-
+/**
+ * @param {CommonStaticElementProps} props - Tulajdonságok
+ */
 export default function SocialSort({ colorScheme, language }: CommonStaticElementProps) {
   const [selected, setSelected] = useState<any>('My Groups');
 

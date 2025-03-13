@@ -1,4 +1,9 @@
-import { Pressable, Text, TouchableWithoutFeedback, View } from 'react-native';
+/**
+ * Csoport poszt fül
+ * @module social/groups/tabs/GroupPostTab
+ * @category Component
+ */
+import { Pressable } from 'react-native';
 import ThemedText from '@/components/ui/ThemedText';
 import { FlashList } from '@shopify/flash-list';
 import NewSocial from '../../base/NewSocial';
@@ -12,6 +17,9 @@ import PostCard from '@/components/Post/Post';
 import { useAuthentication } from '@/contexts/AuthenticationContext';
 import LoadingModal from '@/components/ui/LoadingModal';
 import { GroupTexts } from '@/constants/texts';
+/**
+ * @param {GroupTabProps} props Tulajdonságok
+ */
 export default function GroupPostTab({ group, language, colorScheme }: GroupTabProps) {
   const [posts, setPosts] = useState<Post[]>([]);
   const [role, setRole] = useState<string>();

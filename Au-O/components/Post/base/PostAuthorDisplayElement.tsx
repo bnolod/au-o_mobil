@@ -1,7 +1,14 @@
+/**
+ * Poszt tulajdonos fejléc
+ * @module post/base/PostAuthorDisplayElement
+ * @category Components
+ */
 import { View } from 'react-native';
 import ThemedText from '../../ui/ThemedText';
 import { PostDispayElementProps } from './props';
-
+/**
+ * @param {PostDispayElementProps} props Tulajdonságok 
+ */
 export default function PostAuthorDisplayElement({
   authorNickname,
   authorUsername,
@@ -19,7 +26,7 @@ export default function PostAuthorDisplayElement({
           <View className='flex items-center flex-row gap-2'>
             <ThemedText className='font-bold text-lg'>{group.name || group.groupName}</ThemedText>
             <ThemedText className="tsm font-normal muted">
-              {group?.alias || group.groupAlias}
+              {group?.alias || group.groupAlias} 
             </ThemedText>
           </View>
           <ThemedText className="tsm font-normal muted ">

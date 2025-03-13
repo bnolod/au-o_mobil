@@ -1,12 +1,17 @@
+/**
+ * Poszt jármű sáv
+ * @module post/base/PostVehicleBanner
+ */
 import { getCarImage } from '@/components/graphics/cars';
 import ThemedText from '@/components/ui/ThemedText';
-import { generalTexts } from '@/constants/texts';
 import { CommonStaticElementProps } from '@/constants/types';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { Pressable, View } from 'react-native';
 import { PostVehicleBannerProps } from './props';
-
+/**
+ * @param {PostVehicleBannerProps & CommonStaticElementProps} props Tulajdonságok
+ */
 export default function PostVehicleBanner({
   preview,
   vehicle,

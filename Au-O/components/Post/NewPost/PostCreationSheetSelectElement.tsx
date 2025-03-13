@@ -1,7 +1,14 @@
+/**
+ * Poszt kiválasztás elemek
+ * @module post/NewPost/PostCreationSheetSelectElement
+ * @category Components
+ */
 import { Pressable } from 'react-native';
 import ThemedText from '@/components/ui/ThemedText';
 import { PostCreationSheetElementProps } from './props';
-
+/**
+ * @param {PostCreationSheetElementProps} props Tulajdonságok
+ */
 export default function PostCreationSheetSelectElements({
   group,
   event,

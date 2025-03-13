@@ -1,6 +1,6 @@
 /**
  * Poszt rács
- * @module components/social/base/PostGrid
+ * @module social/base/PostGrid
  * @category Component
  */
 import { Pressable, View } from 'react-native';

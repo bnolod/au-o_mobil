@@ -1,3 +1,8 @@
+/**
+ * Közösségi kártya komponens
+ * @module social/base/SocialCard
+ * @category Components
+ */
 import { View } from 'react-native';
 import ThemedText from '@/components/ui/ThemedText';
 import SocialBanner from './SocialBanner';
@@ -11,7 +16,9 @@ import { SocialCardProps } from './props';
 import { GroupTexts } from '@/constants/texts';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { joinGroup } from '@/lib/ApiCalls/GroupApiCalls';
-
+/**
+ * @param {CommonStaticElementProps & SocialCardProps} props - Tulajdonságok
+ */
 export default function SocialCard({
   language,
   colorScheme,

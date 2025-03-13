@@ -1,3 +1,8 @@
+/**
+ * Csoport opciók modal
+ * @module social/groups/GroupOptionSheet
+ * @category Component
+ */
 import Avatar from '@/components/ui/Avatar';
 import ThemedText from '@/components/ui/ThemedText';
 import { Colors } from '@/constants/Colors';
@@ -5,7 +10,6 @@ import { ChatTexts, GroupTexts, PostCreationTexts } from '@/constants/texts';
 import { CommonStaticElementProps } from '@/constants/types';
 import { useWebSocket } from '@/contexts/WebSocketContext';
 import LatestMessage from '@/lib/entitywebsock/LatestMessage';
-import { handleDelete, handleEdit, handleReport } from '@/lib/events/PostOptionEvents';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -14,10 +18,13 @@ import Toast from 'react-native-toast-message';
 import Button from '@/components/ui/Button';
 import { Group } from '@/lib/entity/Group';
 import { useFocusEffect } from 'expo-router';
-import { getGroup } from '@/lib/ApiCalls/GroupApiCalls';
 import { apiFetch } from '@/lib/apiClient';
 import { handleDeleteRequest, handleLeave, revokeJoinRequest } from '@/lib/events';
-
+/**
+ * 
+ * @param {colorScheme, isOwner, language, menuVisible, setVisible, group} props Tulajdonságok
+ * @returns 
+ */
 export default function GroupOptionSheet({
   colorScheme,
   isOwner,

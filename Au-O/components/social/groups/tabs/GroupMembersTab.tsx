@@ -1,16 +1,19 @@
-import { View } from "react-native";
-import ThemedText from "@/components/ui/ThemedText";
+/**
+ * Csoport tag fül
+ * @module social/groups/tabs/GroupMembersTab
+ * @category Component
+ */
 import { FlashList } from "@shopify/flash-list";
-import NewSocial from "../../base/NewSocial";
 import { GroupTabProps } from "./props";
 import { useEffect, useState } from "react";
-import UserListCard from "@/components/ui/UserListCard";
 import MemberDisplay from "../../base/MemberDisplay";
 import { GroupMemberListResponse } from "@/lib/entity/Group";
 import { getGroupMembers } from "@/lib/ApiCalls/GroupApiCalls";
 import Toast from "react-native-toast-message";
 import { useAuthentication } from "@/contexts/AuthenticationContext";
-
+/**
+ * @param {GroupTabProps} props Tulajdonságok
+ */
 export default function GroupMembersTab({group, language, colorScheme} : GroupTabProps) {
         const [members, setMembers] = useState<GroupMemberListResponse>();
         const {user} = useAuthentication();
