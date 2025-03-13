@@ -1,6 +1,6 @@
 /**
  * Autókhoz kapcsolódó API hívások
- * @module Au-O/lib/ApiCalls/CarApiCalls
+ * @module ApiCalls/CarApiCalls
  * @category API
  */
 
@@ -11,7 +11,7 @@ import { Post } from '../entity/Post';
 
 /**
  * Felhasználó saját garázsában található autók lekérdezése
- * @async
+ * 
  * @returns {Promise<Car[] | null>} Felhasználó saját garázsában található autók, vagy null 
  */
 export async function getOwnGarage(): Promise<Car[] | null> {
@@ -24,7 +24,7 @@ export async function getOwnGarage(): Promise<Car[] | null> {
 /**
  * Létrehoz egy új autót
  * @param {CarCreationRequest} car
- * @async  
+ *   
  * @returns {Promise<Car | null>} Az új autó, vagy null
  */
 export async function addCar(car: CarCreationRequest): Promise<Car | null> {
@@ -37,7 +37,7 @@ export async function addCar(car: CarCreationRequest): Promise<Car | null> {
 /**
  * Felhasználóhoz tartozó autók lekérdezése
  * @param {number} userId
- * @async
+ * 
  * @returns {Promise<Car[] | null>} Felhasználóhoz tartozó autók, vagy null
  */
 export async function getCarsByUserId(userId: number): Promise<Car[] | null> {
@@ -50,7 +50,7 @@ export async function getCarsByUserId(userId: number): Promise<Car[] | null> {
 /**
  * Autó részleteinek lekérdezése azonosító alapján
  * @param {number} carId 
- * @async
+ * 
  * @returns {Promise<Car | null>} Az autó részletei, vagy null
  */
 export async function getCarByCarId(carId: string): Promise<Car | null> {
@@ -65,7 +65,7 @@ export async function getCarByCarId(carId: string): Promise<Car | null> {
  * @param {number} carId 
  * @param {CarCreationRequest} car
  * @see CarCreationRequest
- * @async 
+ *  
  * @returns {Promise<boolean>} Módosítás sikeressége
  */
 export async function editCar(carId: number, car: CarCreationRequest): Promise<boolean> {
@@ -78,7 +78,7 @@ export async function editCar(carId: number, car: CarCreationRequest): Promise<b
 /**
  * Autó törlése
  * @param {number} carId Törlésre szánt autó azonosítója
- * @async
+ * 
  * @returns {Promise<boolean>} Törlés sikeressége 
  */
 export async function deleteCar(carId: number): Promise<boolean> {
@@ -90,7 +90,7 @@ export async function deleteCar(carId: number): Promise<boolean> {
 }
 /**
  * Felhasználó garázsának lekérdezése
- * @async
+ * 
  * @returns {Promise<Car[] | null>} Autók, vagy null
  */
 export async function getUserGarageById(id: number) {
@@ -101,7 +101,7 @@ export async function getUserGarageById(id: number) {
 }
 /**
  * Posztok lekérdezése az autó azonosítója alapján
- * @async
+ * 
  * @param id Autó azonosítója 
  * @returns {Promise<Post[] | null} Posztok, vagy null
  */

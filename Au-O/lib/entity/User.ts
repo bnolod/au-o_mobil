@@ -1,7 +1,7 @@
 /**
  * Felhasználó entitások
  * @category Entity
- * @module Au-O/lib/entity/User
+ * @module entity/User
  */
 
 /**

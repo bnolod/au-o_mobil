@@ -1,5 +1,7 @@
 /**
  * Chat üzenetek típusa
+ * @module entity/ChatMessage
+ * @category Websocket
  * @interface
  * 
  */

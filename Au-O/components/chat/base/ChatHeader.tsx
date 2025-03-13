@@ -1,3 +1,9 @@
+/**
+ * ChatHeader komponens
+ * @module chat/base/ChatHeader
+ * @category Components
+ */
+
 import { Pressable, View } from "react-native";
 import ThemedText from "@/components/ui/ThemedText";
 import FilterBar from "@/components/ui/FilterBar";
@@ -8,7 +14,15 @@ import { User } from "@/lib/entity/User";
 import { ChatHeaderProps } from "../props";
 import { router } from "expo-router";
 import { generalTexts } from "@/constants/texts";
-
+/**
+ * Chat fejléc komponens
+ * @property {User} user Felhasználó
+ * @property {Function} onFilterChange Szűrő változtatás
+ * @property {boolean} mainPage Főoldal
+ * @property {"HU" | "EN"} language Nyelv
+ * @see ChatHeaderProps
+ * @returns 
+ */
 export default function ChatHeader({user, onFilterChange, mainPage, language}: ChatHeaderProps) {
     return (
         <View className="pt-safe px-3 secondary rounded-b-xl">

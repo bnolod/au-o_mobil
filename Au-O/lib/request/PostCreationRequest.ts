@@ -1,7 +1,7 @@
 /**
  * Poszt létrehozásának kérésének entitása
  * @category Request
- * @module Au-O/lib/request/PostCreationRequest
+ * @module request/PostCreationRequest
  */
 
 import { ImagePickerAsset } from 'expo-image-picker';

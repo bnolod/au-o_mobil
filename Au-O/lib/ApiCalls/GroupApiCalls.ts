@@ -1,6 +1,6 @@
 /**
  * Csoportokhoz kapcsolódó API hívások
- * @module Au-O/lib/ApiCalls/GroupApiCalls
+ * @module ApiCalls/GroupApiCalls
  * @category API
  */
 
@@ -13,7 +13,7 @@ import { GroupEditRequest } from '../request/GroupEditRequest';
 
 /**
  * Csoport létrehozása
- * @async
+ * 
  * @param {GroupCreationRequest} request A csoport létrehozásához szükséges adatok
  * @returns {Promise<Group | null>} A létrehozott csoport, vagy null
  * @see Group
@@ -27,7 +27,7 @@ export async function createGroup(request: GroupCreationRequest) {
 }
 /**
  * Csoport lekérdezése
- * @async
+ * 
  * @param {number} groupId A csoport azonosítója
  * @returns {Promise<Group | null>} A csoport, vagy null
  * @see Group
@@ -41,12 +41,12 @@ export async function getGroup(groupId: number) {
 }
 /**
  * Összes csoport lekérdezése
- * @async
+ * 
  * @returns {Promise<Group[] | null>} Az összes csoport, vagy null
  * @see Group
  * @deprecated
  * 
- * @todo Feedre cserélni
+ *  Feedre cserélni
  */
 export async function getAllGroups() {
   const req = await apiFetch<Group[]>('groups/all', 'GET', true);

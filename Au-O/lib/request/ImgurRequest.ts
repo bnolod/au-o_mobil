@@ -1,7 +1,7 @@
 /**
  * Kép API elemek létrehozásának kérésének entitása
  * @category Request
- * @module Au-O/lib/request/ImgurRequest
+ * @module request/ImgurRequest
  */
 
 /**

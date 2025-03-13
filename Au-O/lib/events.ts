@@ -44,7 +44,7 @@ export function handleTabSelection(tab: 'POST' | 'GROUPS' | 'SAVED' | 'GARAGE') 
 }
 /**
  * Csoport elhagyásának kezelése
- * @async
+ * 
  * @param {Group} group Csoport entitás
  * @param {"HU" | "EN"} language Nyelv
  */
@@ -70,7 +70,7 @@ export async function handleLeave(group: Group, language: 'EN' | 'HU') {
 
 /**
  * Csoport jelentkezési kérés visszavonásának kezelése
- * @async
+ * 
  * @param {group} group Csoport entitás
  * @param {"HU" | "EN"} language Nyelv
  * @returns {Promise<void>}
@@ -98,7 +98,7 @@ export async function revokeJoinRequest(group: Group, language: 'EN' | 'HU') {
  * Csoport elhagyásának megerősítése
  * @param {Group} group Csoport entitás
  * @param {"EN" | "HU"} language Nyelv 
- * @async
+ * 
  * @returns {Promise<void>}
  */
 
@@ -131,7 +131,7 @@ async function confirmLeave(language: 'EN' | 'HU', group: Group) {
  * Csoport törlésének kezelése
  * @param {Group} group Csoport entitás
  * @param {"EN" | "HU"} language Nyelv
- * @async
+ * 
  * @returns {Promise<void>}
  */
 

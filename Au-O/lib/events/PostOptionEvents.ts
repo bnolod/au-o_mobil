@@ -1,7 +1,7 @@
 /**
  * Csoporthoz tartozó eseménykezelők
  * @category Events
- * @module Au-O/lib/events/PostOptionEvents
+ * @module events/PostOptionEvents
  */
 
 import { router } from 'expo-router';
@@ -16,7 +16,7 @@ import { deletePost } from '../ApiCalls/PostApiCalls';
  * @param {number | null} authorId A poszt szerzőjének azonosítója
  * @param {number | null} userId Az aktuális felhasználó azonosítója 
  * @param {number | null} postId A poszt azonosítója 
- * @async
+ * 
  * @returns {Promise<void>}
  */
 export async function handleEdit(authorId: number | null, userId: number | null, postId: number | null) {
@@ -26,8 +26,8 @@ export async function handleEdit(authorId: number | null, userId: number | null,
 }
 /**
  * Jelentés kezelése
- * @async
- * @todo implement
+ * 
+ *  implement
  * @returns {Promise<void>}
  */
 export async function handleReport() {
@@ -37,8 +37,8 @@ export async function handleReport() {
  * Megosztás kezelése
  * @param {number} postId A poszt azonosítója
  * @param {'HU' | 'EN'} language A felhasználó által használt nyelv
- * @async
- * @todo Implement deep links?
+ * 
+ *  Implement deep links?
  * @returns {Promise<void>}
  */
 export async function handleShare(postId: number, language: 'HU' | 'EN') {
@@ -56,7 +56,7 @@ export async function handleShare(postId: number, language: 'HU' | 'EN') {
  * @param {number | null} userId Az aktuális felhasználó azonosítója
  * @param {"HU" | "EN"} language A felhasználó preferált nyelve
  * @param  {number | null}postId A poszt azonosítója
- * @param {() => void} onDelete Törlési eseményW
+ * @param {() => void} onDelete Törlési esemény
  */
 export async function handleDelete(
   authorId: number | null,

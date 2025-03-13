@@ -1,6 +1,7 @@
 /**
  * Első képernyős funkciókért felelős context
  * @category Contexts
+ * @module contexts/OnboardingContext
  */
 
 import React, { createContext, useContext, useState, ReactNode } from 'react';
@@ -8,7 +9,7 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
  * Első képernyős context tulajdonságai
  * @type
  */
-type OnboardingContextProps = {
+export type OnboardingContextProps = {
   /**
    * Slide index
    */

@@ -32,7 +32,7 @@ export function handleFormInputChange(
 }
 /**
  * Aktuális időbélyeg mentése a SecureStore-ba
- * @async
+ * 
  * @returns {Promise<void>}
  */
 export async function setTimestamp() {
@@ -40,7 +40,7 @@ export async function setTimestamp() {
 }
 /**
  * Az aktuális időbélyeg lekérdezése a SecureStore-ból
- * @async
+ * 
  * @returns {Promise<string | null>} Időbélyeg string
  */
 export async function getTimestamp() {
@@ -81,7 +81,7 @@ export function createTimestamp() {
 }
 /**
  * Nem megfelelő képfeltöltések törlése
- * @async
+ * 
  * @param {ImageUploadResponse[]} images Képek tömbje
  * @returns {Promise<void>}
  */
@@ -97,7 +97,7 @@ export async function cleanupInvalidImageUploads(images: Image[]) {
 }
 /**
  * Kép konvertálása Base64 formátumba
- * @async
+ * 
  * @param {string} image Kép entitás URI
  * @returns {Promise<string>} Kép Base64 string
  */
@@ -109,7 +109,7 @@ export async function convertToBlob(image: string): Promise<string> {
 }
 /**
  * Egy darab Kép kiválasztása a galériából
- * @async
+ * 
  * @returns {Promise<ImagePicker.ImagePickerAsset | undefined>} Kép entitás
  */
 export async function getOneImageFromGallery() {
@@ -126,7 +126,7 @@ export async function getOneImageFromGallery() {
 }
 /**
  * Több kép kiválasztása a galériából
- * @async
+ * 
  * @param {ImagePicker.ImagePickerAsset[]} images Képek tömbje
  * @param {"HU" | "EN"} language Nyelv
  * @returns {Promise<ImagePicker.ImagePickerAsset[]>} Képek tömbje
@@ -202,7 +202,7 @@ export const searchFilter = (query: string, items: any[], attribute: any) => {
 };
 /**
  * Felhasználó entitás elmentése a SecureStore-ba
- * @async
+ * 
  * @param {User} user Felhasználó entitás
  */
 export async function saveUser(user: User) {
@@ -210,7 +210,7 @@ export async function saveUser(user: User) {
 }
 /**
  * Felhasználó entitás törlése a SecureStore-ból
- * @async
+ * 
  * @returns {Promise<void>}
  */
 export async function deleteUser() {
@@ -251,7 +251,7 @@ export function showErrorToast(title: string, message?: string) {
 }
 /**
  *  Többrészes űrlappá alakított kép feltöltésre kész elem létrehozása
- * @async
+ * 
  * @param {ImagePicker.ImagePickerAsset} element Feltöltendő kép
  * @param {string} description Kép leírása
  * @param {User} user Feltöltést kezdeményező felhasználó entitás

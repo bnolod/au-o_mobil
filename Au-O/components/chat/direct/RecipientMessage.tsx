@@ -1,10 +1,24 @@
+/**
+ * RecipientMessage.tsx
+ * A címzett üzenete
+ * @module chat/direct/RecipientMessage
+ * @category Components
+ */
 import { View } from 'react-native';
 import ThemedText from '@/components/ui/ThemedText';
 import { MessageProps } from '../props';
 import Avatar from '@/components/ui/Avatar';
 import MessagePost from '../media/MessagePost';
 import GroupInvite from '../media/GroupInvite';
-
+/**
+ * A címzett által küldött üzenet
+ * @property {string} profilePic Profilkép
+ * @property {number} id Azonosító
+ * @property {string} nickname Becenév
+ * @property {string} message Üzenet
+ * @property {boolean} isLast Utolsó
+ * @property {boolean} isFirst Első
+ */
 export default function RecipientMessage({ profilePic, id, nickname, message, isLast, isFirst, colorScheme }: MessageProps) {
    if (message.startsWith("{{POST_") && message.endsWith("_}}")) {
       return <MessagePost avatar={{

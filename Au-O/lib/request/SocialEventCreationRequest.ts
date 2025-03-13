@@ -1,7 +1,7 @@
 /**
  * Not implemented yet
  * @interface
- * @todo
+ * 
  */
 export default interface SocialEventCreationRequest {
   name: string;

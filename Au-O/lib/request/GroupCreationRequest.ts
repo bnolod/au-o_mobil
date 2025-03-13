@@ -1,7 +1,7 @@
 /**
  * Csoport létrehozásának kérésének entitása
  * @category Request
- * @module Au-O/lib/request/GroupCreationRequest
+ * @module request/GroupCreationRequest
  */
 
 /**

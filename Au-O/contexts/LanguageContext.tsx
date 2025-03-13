@@ -1,5 +1,6 @@
 /**
  * Lokalizációs funkciókért felelős context
+ * @module contexts/Language
  * @category Contexts
  */
 
@@ -9,8 +10,9 @@ type Language = 'EN' | 'HU';
 /**
  * Lokalizációs context tulajdonságai
  * @type
+ * 
  */
-type LanguageContextProps = {
+export type LanguageContextProps = {
   /**
    * Visszaadott nyelv
    * @param {Language} language

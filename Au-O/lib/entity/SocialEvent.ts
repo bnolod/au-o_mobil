@@ -1,7 +1,7 @@
 
 /**
- * @description to be implemented
- * @todo
+ *  to be implemented
+ * 
  */
 export interface SocialEvent {
   id: number;
@@ -18,8 +18,8 @@ export interface SocialEvent {
   isAttending: boolean;
 }
 /**
- * @description to be implemented
- * @todo
+ *  to be implemented
+ * 
  */
 
 export interface EventPost {

@@ -1,7 +1,7 @@
 /**
  * Autó létrehozásának kérésének entitása
  * @category Request
- * @module Au-O/lib/request/CarCreationRequest
+ * @module request/CarCreationRequest
  */
 
 import { CarType } from '../../constants/types';

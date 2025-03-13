@@ -1,3 +1,10 @@
+/**
+ * GarageHeader.tsx
+ * A garázs fejléce
+ * @module garage/GarageHeader
+ * @category Components
+ */
+
 import { View } from 'react-native';
 import ThemedText from '@/components/ui/ThemedText';
 import { CommonStaticElementProps } from '@/constants/types';
@@ -7,7 +14,12 @@ import { generalTexts } from '@/constants/texts';
 import { Car } from '@/lib/entity/Car';
 import { getCarImage } from '@/components/graphics/cars';
 import { ImageBackground } from 'expo-image';
-
+/**
+ * 
+ * @property {string} userProfilePic Felhasználói profilkép
+ * @property {Car} car Autó
+ * @returns {React.JSX.Element}
+ */
 export default function GarageHeader({
   userProfilePic,
   car,

@@ -1,4 +1,9 @@
-import PostHeaderElement from '@/components/Post/base/PostHeaderElement';
+/**
+ * MessagePost.tsx
+ * Üzenet poszt komponens
+ * @module chat/media/MessagePost
+ * @category Components
+ */
 import { getPostById } from '@/lib/ApiCalls/PostApiCalls';
 import { Post } from '@/lib/entity/Post';
 import { router } from 'expo-router';
@@ -8,8 +13,13 @@ import { PostMessageProps } from './props';
 import { Image } from 'expo-image';
 import ThemedText from '@/components/ui/ThemedText';
 import Avatar from '@/components/ui/Avatar';
-import { Images } from '@/lib/staticAssetExports';
-
+/**
+ * Poszt megosztásánál használt komponens
+ * @property {string} sender Küldő
+ * @property {string} postId Poszt azonosító
+ * @property {string} avatar Avatar
+ * @returns 
+ */
 export default function MessagePost({sender, postId, avatar }: PostMessageProps) {
   const [post, setPost] = useState<Post>();
   async function init() {

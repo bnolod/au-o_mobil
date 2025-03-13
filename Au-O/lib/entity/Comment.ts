@@ -1,7 +1,7 @@
 /**
  * Komment entitások
  * @category Entity
- * @module Au-O/lib/entity/Comment
+ * @module entity/Comment
  */
 
 import { Reactions } from '@/constants/types';

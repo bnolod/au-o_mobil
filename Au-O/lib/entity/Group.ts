@@ -1,7 +1,7 @@
 /**
  * Csoport entitások
  * @category Entity
- * @module Au-O/lib/entity/Group
+ * @module entity/Group
  */
 
 import { User, UserResponse } from "./User";

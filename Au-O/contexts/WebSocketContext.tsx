@@ -1,5 +1,6 @@
 /**
  * WebSocket context 
+ * @module contexts/WebSocketContext
  * @category Contexts
  */
 
@@ -11,7 +12,7 @@ import { useAuthentication } from './AuthenticationContext';
  * WebSocket context tulajdonságai
  * @type
  */
-type WebSocketContextType = {
+export type WebSocketContextType = {
   /**
    * WebSocket üzenetek
    * @param {string} topic A lekérdezésre kerülő topic

@@ -1,19 +1,27 @@
-import { FlashList } from '@shopify/flash-list';
+/**
+ * DirectMessagePage komponens
+ * @module chat/base/DirectMessagePage
+ * @category Components
+ */
+
 import ChatHeader from '../base/ChatHeader';
 import { DirectMessagePageProps } from '../props';
-import DirectMessageItem from './DirectMessageItem';
 import RecipientMessage from './RecipientMessage';
 import UserMessage from './UserMessage';
 import MessageBar from '../base/MessageBar';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { KeyboardAvoidingView, ScrollView, View } from 'react-native';
-import { LegacyRef, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useWebSocket } from '@/contexts/WebSocketContext';
-import { useAuthentication } from '@/contexts/AuthenticationContext';
 import { apiFetch } from '@/lib/apiClient';
 import { ChatMessage } from '@/lib/entitywebsock/ChatMessage';
-import ThemedText from '@/components/ui/ThemedText';
-
+/**
+ * Direkt üzeneteket megjelenítő komponens
+ * @property {string} language Nyelv
+ * @property {string} colorScheme Szín séma
+ * @property {User} user Felhasználó
+ * @property {User} recipient Címzett
+ * @see DirectMessagePageProps
+ */
 export default function DirectMessagePage({language, colorScheme, user, recipient }: DirectMessagePageProps) {
   // currently logged in user
   const { stompClient } = useWebSocket();

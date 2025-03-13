@@ -1,14 +1,14 @@
 /**
  * Kommentekhez kapcsolódó API hívások
- * @module Au-O/lib/ApiCalls/CommentApiCalls
+ * @module ApiCalls/CommentApiCalls
  * @category API
- */
+ */ 
 
 import { apiFetch } from '../apiClient';
 import { Comment } from '../entity/Comment';
 /**
  * Hozzáfűz egy kommentet egy poszthoz
- * @async
+ * 
  * @param {number} postId Poszt azonosítója 
  * @param {string} comment Komment szövege
  * @returns  {Promise<Comment | null>} A hozzáfűzött komment, vagy null
@@ -25,7 +25,7 @@ export async function AddCommentToPost(postId: number, comment: string): Promise
 }
 /**
  * Komment törlése
- * @async
+ * 
  * @param {string} commentId Komment azonosítója
  * @returns {Promise<boolean>} Sikeres törlés esetén true, egyébként false
  */

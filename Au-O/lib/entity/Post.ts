@@ -1,7 +1,7 @@
 /**
  * Poszt entitások
  * @category Entity
- * @module Au-O/lib/entity/Post
+ * @module entity/Post
  */
 
 import { Reactions } from '@/constants/types';

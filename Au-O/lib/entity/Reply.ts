@@ -1,7 +1,7 @@
 /**
  * Válasz entitások
  * @category Entity
- * @module Au-O/lib/entity/Reply
+ * @module entity/Reply
  */
 import { Reactions } from '@/constants/types';
 import { User } from './User';

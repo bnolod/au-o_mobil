@@ -1,14 +1,13 @@
 /**
  * Csoport szerkesztésének kérésének entitása
  * @category Request
- * @module Au-O/lib/request/GroupEditRequest
+ * @module request/GroupEditRequest
  */
 
 /**
  * Csoport szerkesztésének kérésének entitása
     * @interface
     * @see Group
-    
  */
 export interface GroupEditRequest {
   /**

@@ -1,5 +1,6 @@
 /**
  * Authentikációért felelős context
+ * @module contexts/AuthenticationContext
  * @category Contexts
  */
 
@@ -16,7 +17,7 @@ import { getUser } from '@/lib/ApiCalls/UserApiCalls';
  * Authentikációért felelős context típusa
  * @type
  */
-type AuthenticationContextType = {
+export type AuthenticationContextType = {
   /**
    * Felhasználó
    * @type {User | null | undefined}

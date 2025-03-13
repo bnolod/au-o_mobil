@@ -1,5 +1,6 @@
 /**
  * Képernyők közötti megosztott űrlapkezelésért felelős context
+ * @module contexts/FormContext
  * @category Contexts
  */
 
@@ -9,7 +10,7 @@ import { createContext, useContext, useState } from 'react';
  * Űrlap elem tulajdonságai
  * @type
  */
-type FormData = {
+export type FormData = {
   /**
    * @param {string} key Az űrap elemeinek kulcsa
    */

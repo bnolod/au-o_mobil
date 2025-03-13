@@ -1,10 +1,23 @@
-import Avatar from '@/components/ui/Avatar';
+/**
+ * UserMessage.tsx
+ * A felhasználó üzenete
+ * @module chat/direct/UserMessage
+ * @category Components
+ */
+
 import ThemedText from '@/components/ui/ThemedText';
 import { View } from 'react-native';
 import { MessageProps } from '../props';
 import MessagePost from '../media/MessagePost';
 import GroupInvite from '../media/GroupInvite';
-
+/**
+ * Saját üzenet
+ * @property {string} message Üzenet
+ * @property {boolean} isFirst Első
+ * @property {boolean} isLast Utolsó
+ * @property {string} colorScheme Színséma
+ * @returns 
+ */
 export default function UserMessage({ message, isFirst, isLast, colorScheme }: MessageProps) {
   if (message.startsWith("{{POST_") && message.endsWith("_}}")) {
     return <MessagePost avatar={null} sender colorScheme={colorScheme} postId={Number(message.split("_")[1])} />;

@@ -1,7 +1,7 @@
 /**
  * Kép entitások
  * @category Entity
- * @module Au-O/lib/entity/Image
+ * @module entity/Image
  */
 
 /**
