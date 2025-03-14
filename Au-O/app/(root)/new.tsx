@@ -31,7 +31,6 @@ import {
   cleanupInvalidImageUploads,
   createImageForm,
   handleGallery,
-  searchFilter,
 } from '@/lib/functions';
 import Toast from 'react-native-toast-message';
 import LoadingModal from '@/components/ui/LoadingModal';

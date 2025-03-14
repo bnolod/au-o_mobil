@@ -7,7 +7,6 @@ import { GroupTexts } from '@/constants/texts';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { getAllGroups } from '@/lib/ApiCalls/GroupApiCalls';
 import { Group } from '@/lib/entity/Group';
-import { setTimestamp } from '@/lib/functions';
 import { loading } from '@/lib/Validation/responses';
 import { FlashList } from '@shopify/flash-list';
 import { router } from 'expo-router';
@@ -31,18 +30,21 @@ export default function GroupFeed() {
   }, [refreshing]);
   const handleRefresh = () => {
     setRefreshing(true);
-    
+
     setTimeout(() => {
       setRefreshing(false);
     }, 1000);
   };
   return (
     <ScrollView
-    refreshControl={
-      <RefreshControl refreshing={refreshing} onRefresh={handleRefresh}>
-                        <LoadingModal colorScheme={colorScheme!} loading={refreshing} text={loading[language]} />
-      </RefreshControl>
-    } stickyHeaderHiddenOnScroll stickyHeaderIndices={[0]}>
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={handleRefresh}>
+          <LoadingModal colorScheme={colorScheme!} loading={refreshing} text={loading[language]} />
+        </RefreshControl>
+      }
+      stickyHeaderHiddenOnScroll
+      stickyHeaderIndices={[0]}
+    >
       <View className="primary rounded-b-xl">
         <RootHeader language={language} colorScheme={colorScheme!} />
         <SocialSort language={language} colorScheme={colorScheme!} />

@@ -7,7 +7,7 @@ import LoadingModal from '@/components/ui/LoadingModal';
 import SheetSelection, { SheetSelectionRef } from '@/components/ui/SheetSelection';
 import ThemedText from '@/components/ui/ThemedText';
 import { Colors } from '@/constants/Colors';
-import { PostCreationTexts, PostEditTexts, SelectionTexts } from '@/constants/texts';
+import { ButtonTexts, PostCreationTexts, PostEditTexts, SelectionTexts } from '@/constants/texts';
 import { useAuthentication } from '@/contexts/AuthenticationContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { getOwnGarage } from '@/lib/ApiCalls/CarApiCalls';
@@ -102,15 +102,15 @@ export default function EditPost() {
     return (
       <View className="flex gap-2 m-auto p-4 justify-center items-center rounded-xl bg-black/25">
         <MaterialCommunityIcons name="cloud-question" size={64} color={Colors.highlight.main} />
-        <ThemedText className="text-center text-xl">Post not found</ThemedText>
+        <ThemedText className="text-center text-xl">{PostCreationTexts.notFound[language]}</ThemedText>
         <Button variant="highlight" onPress={() => router.back()}>
-          Back
+          {ButtonTexts.back[language]}
         </Button>
       </View>
     );
   }
   if (loading) {
-    return <LoadingModal colorScheme={colorScheme!} loading={loading} text={'Loading post...'} />;
+    return <LoadingModal colorScheme={colorScheme!} loading={loading} text={PostCreationTexts.loading[language]} />;
   }
   if (post)
     return (
@@ -149,29 +149,6 @@ export default function EditPost() {
               onChangeText: (text) => setEditPostForm({ ...editPostForm, location: text }),
             }}
           />
-          {/*Platform.OS === "android" ? (
-                  <Picker
-                    selectedValue={selectedGroup}
-                    onValueChange={(itemValue) => setSelectedGroup(itemValue)}
-                  >
-                    {groups.map((group, index) => {
-                      return (
-                        <Picker.Item key={index} label={group} value={index} />
-                      );
-                    })}
-                  </Picker>
-                ) : (
-                  <TouchableOpacity
-                    className="w-full h-14 flex justify-center secondary border-2 border-highlight rounded-xl my-2"
-                    onPress={() => {
-                      //openGroupSheetIOS();
-                    }}
-                  >
-                    <ThemedText className=" text-left ml-4">
-                      {selectedGroup}
-                    </ThemedText>
-                  </TouchableOpacity>
-                )*/}
           <SheetSelection
             ref={sheet}
             placeholder={
@@ -208,7 +185,7 @@ export default function EditPost() {
                       contentFit="fill"
                       source={Images.banner_placeholder}
                     >
-                      <ThemedText className="post-edit-sheet-unset-text">Unassign vehicle</ThemedText>
+                      <ThemedText className="post-edit-sheet-unset-text">{PostCreationTexts.buttons.unassignVehicle[language]}</ThemedText>
                     </ImageBackground>
                   </Pressable>
                 </View>

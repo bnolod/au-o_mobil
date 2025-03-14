@@ -8,14 +8,13 @@ import LoadingModal from '@/components/ui/LoadingModal';
 import ThemedText from '@/components/ui/ThemedText';
 import { User } from '@/lib/entity/User';
 import Avatar from '@/components/ui/Avatar';
-import RootHeader from '@/components/home/base/RootHeader';
 
 export default function SearchPage() {
   const [loading, setLoading] = useState(true);
   const [searchResult, setSearchResult] = useState<User[]>([]);
   const { colorScheme } = useColorScheme();
   const { id } = useLocalSearchParams();
-  const searchId = Array.isArray(id) ? id[0] : id; // Ensure id is a string
+  const searchId = Array.isArray(id) ? id[0] : id;
 
   const [refreshing, setRefreshing] = useState(false);
   const handleRefresh = () => {
@@ -39,7 +38,7 @@ export default function SearchPage() {
 
   useEffect(() => {
     getSearchResult();
-  }, [searchId]); // Now re-runs when searchId changes
+  }, [searchId]);
 
   return (
     <ScrollView
@@ -69,7 +68,7 @@ export default function SearchPage() {
           <ThemedText>No users found.</ThemedText>
         )
       ) : (
-        'Loading...'
+       <LoadingModal colorScheme={colorScheme!} loading={loading}/>  
       )}
     </ScrollView>
   );

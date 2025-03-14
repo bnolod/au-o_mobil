@@ -295,7 +295,7 @@ export default function NewGroupPost() {
                               source={Images.banner_placeholder}
                             >
                               <ThemedText className="font-bold w-full mx-auto text-center text-lg p-3 rounded-xl">
-                                Unassign vehicle
+                                {PostCreationTexts.buttons.unassignVehicle[language]}
                               </ThemedText>
                             </ImageBackground>
                           </Pressable>

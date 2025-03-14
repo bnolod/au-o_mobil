@@ -4,7 +4,6 @@ import { useColorScheme } from 'nativewind';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Images } from '@/lib/staticAssetExports';
 import GarageItem from '@/components/garage/list/GarageItem';
-import ThemedText from '@/components/ui/ThemedText';
 import { useEffect, useState } from 'react';
 import { CarType } from '@/constants/types';
 import { CarCreationRequest } from '@/lib/request/CarCreationRequest';
