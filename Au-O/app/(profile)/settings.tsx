@@ -14,6 +14,7 @@ import { ScrollView } from 'react-native';
 export default function Settings() {
   const { colorScheme, setColorScheme } = useColorScheme();
   const { language, setLanguage } = useLanguage();
+  const {logout} = useAuthentication();
   const settings: SettingsOption[] = [
     {
       icon: 'account-circle-outline',
@@ -57,7 +58,7 @@ export default function Settings() {
     {
       icon: 'logout',
       onPress: () => {
-        logout();
+        logout!();
       },
       title: SettingsTexts.logout[language],
       className: 'font-bold text-red-500',

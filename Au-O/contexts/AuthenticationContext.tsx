@@ -12,6 +12,7 @@ import UserLoading from '@/components/auth/UserLoading';
 import { deleteUser, saveUser } from '@/lib/functions';
 import { User } from '@/lib/entity/User';
 import { getUser } from '@/lib/ApiCalls/UserApiCalls';
+import { logout as logoutfn } from '@/lib/apiClient';
 
 /**
  * Authentikációért felelős context típusa
@@ -113,6 +114,11 @@ export const AuthenticationProvider: React.FC<{
         <UserLoading />
       </AuthenticationContext.Provider>
     );
+  }
+
+  const logout = async() => {
+    await logoutfn();
+    setUser(null);
   }
 
   return (

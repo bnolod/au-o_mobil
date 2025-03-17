@@ -1,5 +1,5 @@
 /**
- * WebSocket context 
+ * WebSocket context
  * @module contexts/WebSocketContext
  * @category Contexts
  */
@@ -22,7 +22,7 @@ export type WebSocketContextType = {
    * Üzenetküldés funkció
    * @callback
    * @param topic
-   * @param message Elküldendő üzenet 
+   * @param message Elküldendő üzenet
    * @returns {void}
    */
   sendMessage: (topic: string, message: string) => void;
@@ -36,8 +36,8 @@ export type WebSocketContextType = {
    * WebSocket kliens
    * @type {Client | null}
    */
-  stompClient : Client | null;
-}
+  stompClient: Client | null;
+};
 
 const WebSocketContext = createContext<WebSocketContextType | undefined>(undefined);
 
@@ -45,17 +45,20 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const [stompClient, setStompClient] = useState<Client | null>(null);
   const [messages, setMessages] = useState<{ [topic: string]: string[] }>({});
   const [connected, setConnected] = useState(false);
-  const {user} = useAuthentication();
+  const { user } = useAuthentication();
   const subscriptions = useRef(new Map<string, any>());
 
   useEffect(() => {
-    if (!user) return 
+    if (!user && connected) {
+      stompClient?.forceDisconnect();
+    }
+    if (!user) return;
+
     const connectWebSocket = async () => {
       console.log('Mounting WebSocket');
       let reconnectTimeout: NodeJS.Timeout;
-      const socket = new SockJS(process.env.EXPO_PUBLIC_WS_URL!, null,
-        { withCredentials: true } as any); // SockJS
-       // console.log("socket: ",socket)
+      const socket = new SockJS(process.env.EXPO_PUBLIC_WS_URL!, null, { withCredentials: true } as any); // SockJS
+      // console.log("socket: ",socket)
       const client = new Client({
         webSocketFactory: () => socket,
         // debug: (msg) => console.log('STOMP Debug: ' + msg),
@@ -63,29 +66,30 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         heartbeatIncoming: 4000,
         heartbeatOutgoing: 4000,
         onConnect: () => {
-        //  console.log('Connected to WebSocket');
+          //  console.log('Connected to WebSocket');
           setConnected(true);
         },
-        onStompError: (error) => {/*console.error('STOMP Error:', error)*/},
+        onStompError: (error) => {
+          /*console.error('STOMP Error:', error)*/
+        },
         onDisconnect: () => {
-         // console.log('Disconnected from WebSocket');
+          // console.log('Disconnected from WebSocket');
           setConnected(false);
           attemptReconnect();
         },
         onWebSocketClose: () => {
-        //  console.log('WebSocket closed');
+          //  console.log('WebSocket closed');
           setConnected(false);
           attemptReconnect();
-        }
+        },
       });
 
       const attemptReconnect = () => {
-      console.log("Attempting to reconnect in 5 seconds...");
-      reconnectTimeout = setTimeout(() => {
-        connectWebSocket();
-      }, 5000);
-    };
-
+        console.log('Attempting to reconnect in 5 seconds...');
+        reconnectTimeout = setTimeout(() => {
+          connectWebSocket();
+        }, 5000);
+      };
 
       client.activate();
       setStompClient(client);
@@ -103,39 +107,35 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     };
   }, [user]);
 
-  
-
   const subscribeToTopic = (topic: string): void => {
-      if (!stompClient || !stompClient.connected) {
-        
-          console.error("WebSocket is not connected!");
-          return;
-      }
-  
-      // If already subscribed, do nothing
-      if (subscriptions.current.has(topic)) {
-          //console.log(`Already subscribed to ${topic}`);
-          return;
-      }
-     // console.log("before: ",subscriptions)
-     // console.log(`Subscribing to topic: ${topic}`);
-     // console.log("after: ",subscriptions)
-  
-      // Subscribe and store the subscription object
-      const subscription = stompClient.subscribe(`/topic/${topic}`, (message) => {
-          const data = JSON.parse(message.body);
-          //console.log(`Received message on topic ${topic}:`, data.message);
-  
-          setMessages((prevMessages) => ({
-              ...prevMessages,
-              [topic]: [...(prevMessages[topic] || []), data.message],
-          }));
-      });
-  
-      // Store the subscription to prevent duplicate subscriptions
-      subscriptions.current.set(topic, subscription);
+    if (!stompClient || !stompClient.connected) {
+      console.error('WebSocket is not connected!');
+      return;
+    }
+
+    // If already subscribed, do nothing
+    if (subscriptions.current.has(topic)) {
+      //console.log(`Already subscribed to ${topic}`);
+      return;
+    }
+    // console.log("before: ",subscriptions)
+    // console.log(`Subscribing to topic: ${topic}`);
+    // console.log("after: ",subscriptions)
+
+    // Subscribe and store the subscription object
+    const subscription = stompClient.subscribe(`/topic/${topic}`, (message) => {
+      const data = JSON.parse(message.body);
+      //console.log(`Received message on topic ${topic}:`, data.message);
+
+      setMessages((prevMessages) => ({
+        ...prevMessages,
+        [topic]: [...(prevMessages[topic] || []), data.message],
+      }));
+    });
+
+    // Store the subscription to prevent duplicate subscriptions
+    subscriptions.current.set(topic, subscription);
   };
-  
 
   const sendMessage = (topic: string, message: string) => {
     if (stompClient && stompClient.connected) {
@@ -149,7 +149,7 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   };
 
   return (
-    <WebSocketContext.Provider value={{stompClient, messages, sendMessage, subscribeToTopic }}>
+    <WebSocketContext.Provider value={{ stompClient, messages, sendMessage, subscribeToTopic }}>
       {children}
     </WebSocketContext.Provider>
   );
