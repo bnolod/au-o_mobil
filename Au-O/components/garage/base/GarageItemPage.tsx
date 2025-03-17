@@ -17,7 +17,7 @@ import { router } from 'expo-router';
 import { GarageItemPageProps } from './props';
 import GradientBackground from '@/components/ui/GradientBackground';
 /**
- * 
+ *
  * @property {string} colorScheme Szín séma
  * @property {boolean} isOwner Tulajdonos-e
  * @property {Car} car Autó
@@ -32,55 +32,57 @@ export default function GarageItemPage({
   language,
 }: GarageItemPageProps & CommonStaticElementProps) {
   return (
-    <ScrollView  className="garage-page">
-      
-      <GradientBackground colors={['#EF1A2D', 'transparent']}>
-      <View className="rounded-b-3xl">
-      <View className="h-64">
-
-          <View className="flex w-full ml-5 items-center">{getCarImage(car.type, colorScheme, 140 *2.1 , 85 * 3, 3)}</View>
-      </View>
-        <View className="flex flex-col pl-6 pr-2 w-full rounded-xl">
-          <View className='flex flex-row justify-between pr-6'>
-          <ThemedText className="text-6xl font-bold truncate">{car.manufacturer}</ThemedText>
-          {isOwner && (
-            <MaterialCommunityIcons
-              name="pencil"
-              className='self-center'
-              size={28}
-              color={Colors[colorScheme!].tabIconDefault}
-              onPress={() =>
-                router.push({
-                  pathname: '/(garage)/edit/[id]',
-                  params: { id: car.id },
-                })
-              }
-            />
-          )}
+    <ScrollView className="garage-page">
+      {/* <GradientBackground colors={['#EF1A2D', 'transparent']}> */}
+        <View className="py-4 flex flex-row secondary mx-5 mt-safe-offset-1 rounded-xl shadow-md shadow-[#00000066] ">
+          <View className="self-center pl-4">
+            <ThemedText className="text-3xl font-bold truncate">{car.manufacturer}</ThemedText>
+            <ThemedText className="text-2xl">{car.model}</ThemedText>
+            <View className="flex flex-row justify-between pr-6">
+              {isOwner && (
+                <MaterialCommunityIcons
+                  name="pencil"
+                  className="self-center"
+                  size={28}
+                  color={Colors[colorScheme!].text} 
+                  onPress={() =>
+                    router.push({
+                      pathname: '/(garage)/edit/[id]',
+                      params: { id: car.id },
+                    })
+                  }
+                />
+              )}
+            </View>
           </View>
-          <ThemedText className="text-4xl pl-2">{car.model}</ThemedText>
+          <View className="flex items-center self-center ml-auto">
+            {getCarImage(car.type, colorScheme, 180, 85, 3)}
+          </View>
+        </View>
 
-        </View>
-        <View className="garage-description-container pl-6 pt-2">
-        <ThemedText className=" opacity-50 text-md -mb-3">{PostCreationTexts.form.description.label[language]}</ThemedText>
-          <CollapsibleText className="text-lg ">{car.description}</CollapsibleText>
-        </View>
-      </View>
-      </GradientBackground>
-      <View className="flex flex-col px-5 ">
-        <View className="flex flex-row px-5 py-2">
+        
+      {/* </GradientBackground> */}
+      <View className="flex flex-col px-5 gap-4 my-4 ">
+        <View className="flex flex-row px-5 justify-between py-2 primary rounded-xl shadow-md shadow-[#00000066] ">
           <MaterialCommunityIcons name="horse" size={42} color={Colors[colorScheme!].text} />
-          <ThemedText className="text-2xl self-center mx-2"> 
+          <ThemedText className="text-2xl self-center mx-2">
             {car.horsepower} {generalTexts.profileAttributes.cars.horsepower[language]}
           </ThemedText>
         </View>
-        <View className="flex flex-row px-5 py-2">
+        <View className="flex flex-row px-5 justify-between py-2 primary rounded-xl shadow-md shadow-[#00000066]">
           <MaterialCommunityIcons name="engine-outline" size={42} color={Colors[colorScheme!].text} />
           <ThemedText className="text-2xl self-center mx-2">{car.displacement / 10} l</ThemedText>
         </View>
-        <View className="flex flex-row px-5 py-2">
+        <View className="flex flex-row px-5 justify-between py-2 primary rounded-xl shadow-md shadow-[#00000066]">
           <MaterialCommunityIcons name="calendar" size={42} color={Colors[colorScheme!].text} />
           <ThemedText className="text-2xl self-center mx-2">{car.productionYear}</ThemedText>
+        </View>
+
+        <View className="pt-8 pb-5 px-5 primary rounded-xl shadow-md shadow-[#00000066] ">
+          <ThemedText className=" opacity-50 text-md absolute top-0 ml-4 mt-2">
+            {PostCreationTexts.form.description.label[language]}
+          </ThemedText>
+          <CollapsibleText className="text-lg ">{car.description}</CollapsibleText>
         </View>
       </View>
 
