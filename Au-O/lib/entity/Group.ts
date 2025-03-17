@@ -84,7 +84,7 @@ export interface GroupMemberResponse {
    * Felhasználó jogosultságai
    * @type {string}
    */
-  role: string;
+  role: Status;
   /**
    * Felhasználó jelentkezési dátuma
    * @type {string}
@@ -112,3 +112,4 @@ export interface GroupMemberListResponse {
    */
   users: GroupMemberResponse[]
 }
+export type Status = "ADMIN" | "MEMBER" | "MODERATOR"

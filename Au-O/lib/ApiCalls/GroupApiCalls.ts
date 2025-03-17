@@ -6,7 +6,7 @@
 
 import { apiFetch } from '../apiClient';
 import { GroupCreationRequest } from '../request/GroupCreationRequest';
-import { Group, GroupMemberListResponse, GroupMemberResponse } from '../entity/Group';
+import { Group, GroupMemberListResponse, GroupMemberResponse, Status } from '../entity/Group';
 import { ImageStoreRequest } from '../request/ImgurRequest';
 import { Post } from '../entity/Post';
 import { GroupEditRequest } from '../request/GroupEditRequest';
@@ -249,4 +249,22 @@ export async function getGroupsOfUser(id: number) {
   console.log("data nincs")
   return null;
 
+}
+
+export async function getPendingMembers(id: number, role: Status) {
+  if (role === "MEMBER") return null;
+  const req = await apiFetch<GroupMemberResponse[]>(`groups/group/${id}/pending`, 'GET', true);
+
+  if (req && req.status === 200) {
+    return req.data;
+  }
+  return null;
+}
+export async function rejectApplication(groupId: number, userId: number) {
+  const req = await apiFetch(`groups/handleJoinRequest/${groupId}/${userId}/false`, 'POST', true);
+  return req!.status === 200;
+}
+export async function acceptApplication(groupId: number, userId: number) {
+  const req = await apiFetch(`groups/group/handleJoinRequest/${groupId}/${userId}/true`, 'POST', true);
+  return req!.status === 200;
 }

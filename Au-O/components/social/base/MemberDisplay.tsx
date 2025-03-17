@@ -15,17 +15,15 @@ import {  Alert, Platform, Pressable, View } from 'react-native';
  */
 export default function MemberDisplay({ u, authorized, isCurrentUser }: { u: GroupMemberResponse, authorized: boolean, isCurrentUser: boolean }) {
   return (
-      <Pressable onPress={isCurrentUser 
-        ?
-        authorized
-            ? () => {} :
-              () => router.push({pathname: "/(profile)/[id]", params: {id: u.user.id}}) : () => {
+      <Pressable onPress={
+        !authorized
+              ? () => router.push({pathname: "/(profile)/[id]", params: {id: u.user.id}}) : () => {
         {
-            Platform.OS === 'ios' ? Alert.alert('Authorized Actions', "@" + u.user.username, [
+   Alert.alert('Authorized Actions', "@" + u.user.username, [
                 { text: 'Cancel', onPress: () => {}, style: "cancel" },
                 { text: 'Visit Profile', onPress: () => router.push({pathname: "/(profile)/[id]", params: {id: u.user.id}}) },
                 { text: 'Remove Member', onPress: () => {} }
-            ]) : {}
+            ]) 
         }
       }} className="flex-1 flex-row flex items-center justify-between secondary rounded-xl p-1 m-2">
     <View className='flex flex-row items-center'>

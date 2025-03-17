@@ -14,7 +14,7 @@ import { useAuthentication } from "@/contexts/AuthenticationContext";
 /**
  * @param {GroupTabProps} props Tulajdonságok
  */
-export default function GroupMembersTab({group, language, colorScheme} : GroupTabProps) {
+export default function GroupMembersTab({group, status} : GroupTabProps) {
         const [members, setMembers] = useState<GroupMemberListResponse>();
         const {user} = useAuthentication();
     async function init() {
@@ -35,7 +35,7 @@ export default function GroupMembersTab({group, language, colorScheme} : GroupTa
     if (members && members.users.length > 0 && user)
     return (
         <FlashList estimatedItemSize={58} data={members.users} renderItem={({item, index}) => (
-            <MemberDisplay u={item} isCurrentUser={item.user.id === user.id} authorized={members.users.some((member) => member.user.id === user.id && user.role === "ADMIN")}/>
+            <MemberDisplay u={item} isCurrentUser={item.user.id === user.id} authorized={status !== "MEMBER"}/>
         )}
         />
     )

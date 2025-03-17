@@ -1003,8 +1003,8 @@ export const GroupTexts = {
       EN: 'Invite to group',
     },
     info: {
-      HU: 'Információ',
-      EN: 'About',
+      HU: 'Jelentkezések',
+      EN: 'Applications',
     },
     apply: {
       HU: 'Jelentkezés',
@@ -1060,6 +1060,10 @@ export const GroupTexts = {
   admin: {
     HU: 'Felhatalmazott felhasználó vagy a csopotban. Tartsd lenyomva a posztokat további műveletekért.',
     EN: 'You are an authorized user of this group. Long-press on a post for special options.',
+  },
+  verifyApplications: {
+    HU: "Jelentkezések",
+    EN: "Applications"
   },
   buttons: {
     join: {
@@ -1245,6 +1249,32 @@ export const GroupTexts = {
       },
     },
   },
+  application: {
+    reject: {
+      success: {
+        HU: "Jelentkezés elutasítva",
+        EN: "Application rejected"
+      },
+      error: {
+        HU: "Hiba a jelentkezés elutasításakor",
+        EN: "Error rejecting application"
+      }
+    },
+    accept: {
+      success: {
+        HU: "Jelentkezés elfogadva",
+        EN: "Application accepted"
+      },
+      error: {
+        HU: "Hiba a jelentkezés elfogadásakor",
+        EN: "Error accepting application"
+      }
+    },
+    noneToResolve: {
+      HU: "Jelenleg nincs függőben lévő jelentkezés",
+      EN: "There are currently no pending applications"
+    }
+  }
 };
 export const EventTexts = {
   notAvailable: {

@@ -9,7 +9,7 @@ import { Colors } from '@/constants/Colors';
 import { GroupTexts } from '@/constants/texts';
 import { useAuthentication } from '@/contexts/AuthenticationContext';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { getGroupPosts, getOwnGroups } from '@/lib/ApiCalls/GroupApiCalls';
+import { getAllGroups, getGroupPosts, getOwnGroups } from '@/lib/ApiCalls/GroupApiCalls';
 import { Group } from '@/lib/entity/Group';
 import { Post } from '@/lib/entity/Post';
 import { SocialEvent } from '@/lib/entity/SocialEvent';
@@ -30,7 +30,7 @@ export default function GroupFeed() {
   const [posts, setPosts] = useState<Post[]>();
   const { colorScheme } = useColorScheme();
   async function fetchItems() {
-    const res = await getOwnGroups();
+    const res = await getAllGroups();
     if (res) {
       setGroups(res);
     }

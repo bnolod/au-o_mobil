@@ -25,4 +25,5 @@ export interface GroupTabProps {
      * @type {"light" | "dark"}
      */
     colorScheme: "light" | "dark";
+    status: "ADMIN" | "MEMBER" | "MODERATOR"
 }

@@ -3,6 +3,7 @@
  * @module social/groups/admin/props
  * @category Props
  */
+import { GroupMemberResponse } from "@/lib/entity/Group";
 import { User } from "@/lib/entity/User";
 /**
  * Elfogadási felhasználó fül tulajdonságai
@@ -10,8 +11,13 @@ import { User } from "@/lib/entity/User";
 export interface AcceptUserTabProps {
     /**
      * Felhasználó
-     * @type {User}
-     * @see {User}
+     * @type {GroupMemberResponse}
+     * @see {GroupMemberResponse}
      */
-    user: User
+    user: GroupMemberResponse
+    /**
+     * Csoport azonosítója
+     * @type {number}
+     */
+    groupId: number
 }

@@ -23,6 +23,7 @@ import { getGroupStatus, leaveGroup } from '@/lib/ApiCalls/GroupApiCalls';
 import GroupOptionSheet from './GroupOptionSheet';
 import LoadingModal from '@/components/ui/LoadingModal';
 import GroupEditTab from './tabs/GroupEditTab';
+import { showSuccessToast } from '@/lib/functions';
 /**
  * @param {group, colorScheme, language} props Tulajdonságok
  */
@@ -35,7 +36,7 @@ export default function GroupPage({ group, colorScheme, language }: CommonStatic
   async function getStatus() {
     const res = await getGroupStatus(group.id);
     if (res) {
-
+      showSuccessToast("Your status in" + group.name + " is " + res.role)
       setStatus(res)
     }
   }
@@ -129,17 +130,7 @@ export default function GroupPage({ group, colorScheme, language }: CommonStatic
               </ThemedText>
               <ThemedText className="text-xl">Chat</ThemedText>
             </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => setSelectedTab('EVENTS')}
-              className={`button ${
-                selectedTab === 'EVENTS' ? 'highlight-themed' : 'secondary'
-              } flex flex-row gap-2 items-center justify-center`}
-            >
-              <ThemedText>
-                <MaterialCommunityIcons name="calendar-check-outline" size={24} />
-              </ThemedText>
-              <ThemedText className="text-xl">{GroupTexts.page.events[language]}</ThemedText>
-            </TouchableOpacity>
+           
             <TouchableOpacity
               onPress={() => setSelectedTab('MEMBERS')}
               className={`button ${
@@ -151,17 +142,18 @@ export default function GroupPage({ group, colorScheme, language }: CommonStatic
               </ThemedText>
               <ThemedText className="text-xl">{GroupTexts.page.members[language]}</ThemedText>
             </TouchableOpacity>
+            { status.role === "ADMIN" && 
             <TouchableOpacity
-              onPress={() => setSelectedTab('INFO')}
-              className={`button ${
-                selectedTab === 'INFO' ? 'highlight-themed' : 'secondary'
-              } flex flex-row gap-2 items-center justify-center`}
+            onPress={() => setSelectedTab('INFO')}
+            className={`button ${
+              selectedTab === 'INFO' ? 'highlight-themed' : 'secondary'
+            } flex flex-row gap-2 items-center justify-center`}
             >
               <ThemedText>
                 <MaterialCommunityIcons name="information-outline" size={24} />
               </ThemedText>
               <ThemedText className="text-xl">{GroupTexts.page.info[language]}</ThemedText>
-            </TouchableOpacity>
+            </TouchableOpacity> }
             { status.role === "ADMIN" &&
 
               <TouchableOpacity
@@ -181,12 +173,11 @@ export default function GroupPage({ group, colorScheme, language }: CommonStatic
         </ScrollView>
       </View>
       <View className=" basis-5/12">
-        {selectedTab === 'POSTS' && <GroupPostTab group={group} colorScheme={colorScheme} language={language} />}
-        {selectedTab === 'EVENTS' && <GroupEventsTab group={group} colorScheme={colorScheme} language={language} />}
-        {selectedTab === 'MEMBERS' && <GroupMembersTab group={group} colorScheme={colorScheme} language={language} />}
-        {selectedTab === 'INFO' && <GroupInfoTab group={group} colorScheme={colorScheme} language={language} />}
-        {selectedTab === 'CHAT' && <GroupChatTab colorScheme={colorScheme} language={language} group={group} />}
-        {selectedTab === 'EDIT' && status.role === "ADMIN" && <GroupEditTab colorScheme={colorScheme} language={language} group={group} />}
+        {selectedTab === 'POSTS' && <GroupPostTab group={group} status={status.role} colorScheme={colorScheme} language={language} />}
+        {selectedTab === 'MEMBERS' && <GroupMembersTab status={status.role} group={group} colorScheme={colorScheme} language={language} />}
+        {selectedTab === 'INFO' && (status.role === "ADMIN" || status.role === "MODERATOR") && <GroupInfoTab status={status.role} group={group} colorScheme={colorScheme} language={language} />}
+        {selectedTab === 'CHAT' && <GroupChatTab colorScheme={colorScheme} status={status.role} language={language} group={group} />}
+        {selectedTab === 'EDIT' && status.role === "ADMIN" && <GroupEditTab status={status.role} colorScheme={colorScheme} language={language} group={group} />}
       </View>
     </ScrollView>
   );
