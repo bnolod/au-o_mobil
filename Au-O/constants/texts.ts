@@ -289,6 +289,10 @@ export const generalTexts = {
           EN: 'My Groups',
           HU: 'Csoportjaim',
         },
+        discover: {
+          EN: 'Discover',
+          HU: 'Felfedezés',
+        }
       },
     },
   },
@@ -423,6 +427,10 @@ export const PostCreationTexts = {
     share: {
       HU: 'Megosztás',
       EN: 'Share',
+    },
+    quickshare: {
+      HU: 'Gyors küldés',
+      EN: 'Quick send',
     },
     report: {
       HU: 'Jelentés',
@@ -1111,18 +1119,17 @@ export const GroupTexts = {
   },
   placeholders: {
     name: {
-      EN: "Provide a fitting name for your new group!",
-      HU: "Adj meg egy leíró nevet a csoportodnak!"
+      EN: 'Provide a fitting name for your new group!',
+      HU: 'Adj meg egy leíró nevet a csoportodnak!',
     },
     description: {
-      HU: "Írd le, hogy pontosan miről is szól a csoportod!",
-      EN: "Tell us what your group is about"
+      HU: 'Írd le, hogy pontosan miről is szól a csoportod!',
+      EN: 'Tell us what your group is about',
     },
     alias: {
-      EN: "NEWGROUP",
-      HU: "CSOPORT"
+      EN: 'NEWGROUP',
+      HU: 'CSOPORT',
     },
-
   },
   creation: {
     name: {
@@ -1138,22 +1145,22 @@ export const GroupTexts = {
       EN: 'Save',
     },
     alias: {
-      HU: "Rövidítés",
-      EN: "Alias"
+      HU: 'Rövidítés',
+      EN: 'Alias',
     },
     visibility: {
       public: {
-        EN: "Public",
-        HU: "Nyilvános"
+        EN: 'Public',
+        HU: 'Nyilvános',
       },
       private: {
-        EN: "Private",
-        HU: "Privát"
+        EN: 'Private',
+        HU: 'Privát',
       },
     },
     banner: {
-      HU: "Csoportkép feltöltése",
-      EN: "Upload Group banner"
+      HU: 'Csoportkép feltöltése',
+      EN: 'Upload Group banner',
     },
     added: {
       header: {
@@ -1237,8 +1244,8 @@ export const EventTexts = {
     EN: 'Events will be available in a future update',
   },
   staytuned: {
-    HU: "Figyeld a frissítéseket!",
-    EN: "Stay tuned!"
+    HU: 'Figyeld a frissítéseket!',
+    EN: 'Stay tuned!',
   },
   creation: {
     placeholders: {
@@ -1267,8 +1274,8 @@ export const EventTexts = {
 };
 export const ChatTexts = {
   loading: {
-    EN: "Loading your chats",
-    HU: "Chatek betöltése"
+    EN: 'Loading your chats',
+    HU: 'Chatek betöltése',
   },
   sentPost: {
     HU: 'Posztot küldött',
@@ -1279,10 +1286,14 @@ export const ChatTexts = {
     EN: 'Invited you to a group',
   },
   messagedPosts(recipient: string) {
-    return { HU: `Poszt elküldve ${recipient} részére`, EN: `Sent post to ${recipient}` };
+    return { HU: `Poszt elküldve ${recipient} részére `, EN: `Sent post to ${recipient} ` };
   },
   sendPost: {
     HU: 'Küldés',
     EN: 'Send',
+  },
+  invite( isSender: boolean) {
+    if (isSender) return { HU: `Meghívót küldtél ide: `, EN: `You sent an invite to ` };
+    else return { HU: `Meghívót kaptál ide: `, EN: `You have been invited to join ` };
   },
 };

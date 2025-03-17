@@ -14,7 +14,7 @@ import { ImageBackground } from 'expo-image';
  */
 export default function SocialSortItem({ bannerImage, name, memberCount, onSelect, colorScheme }: SocialSortItemProps) {
   return (
-    <Pressable onPress={onSelect} className="social-sort-item-container">
+    <Pressable onPress={onSelect} className="social-sort-item-container my-2">
       <View className="social-sort-image">
         <ImageBackground
           contentFit="cover"

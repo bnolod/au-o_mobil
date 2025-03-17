@@ -19,18 +19,18 @@ import GroupInvite from '../media/GroupInvite';
  * @property {boolean} isLast Utolsó
  * @property {boolean} isFirst Első
  */
-export default function RecipientMessage({ profilePic, id, nickname, message, isLast, isFirst, colorScheme }: MessageProps) {
+export default function RecipientMessage({ profilePic, id, nickname, message, isLast, isFirst, colorScheme, language }: MessageProps) {
    if (message.startsWith("{{POST_") && message.endsWith("_}}")) {
       return <MessagePost avatar={{
         profileImg: profilePic,
         nickname: nickname,
-      }} sender={false} colorScheme={colorScheme} postId={Number(message.split("_")[1])} />;
+      }} language={language} sender={false} colorScheme={colorScheme} postId={Number(message.split("_")[1])} />;
     }
       if (message.startsWith("{{GROUP_") && message.endsWith("_}}")) {
         return <GroupInvite avatar={{
           profileImg: profilePic,
           nickname: nickname,
-        }} sender={false} colorScheme={colorScheme} groupId={Number(message.split("_")[1])} />;
+        }} sender={false} language={language} colorScheme={colorScheme} groupId={Number(message.split("_")[1])} />;
       }
   
   return (

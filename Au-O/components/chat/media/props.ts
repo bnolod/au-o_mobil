@@ -35,6 +35,12 @@ export interface MediaMessageProps {
    * @type {"dark" | "light"}
    */
   colorScheme: 'dark' | 'light';
+  /**
+   * Nyelv
+   * @type {string}
+   * 
+   */
+  language: "HU" | "EN";
 }
 /**
  * Posztot tartalmazó szükséges propok

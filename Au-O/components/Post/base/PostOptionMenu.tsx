@@ -113,7 +113,7 @@ export default function PostOptionModal({
             <ThemedText className="ml-3">
               <MaterialCommunityIcons name="send-outline" />
             </ThemedText>
-            <ThemedText className="tlg">Quick Send</ThemedText>
+            <ThemedText className="tlg">{PostCreationTexts.options.quickshare[language]}</ThemedText>
             <View className="primary w-2/3 h-0.5 bg-white" />
             </View>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} className=" p-3 secondary rounded-xl max-h-28 w-full">

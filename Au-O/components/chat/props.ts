@@ -157,7 +157,13 @@ export interface MessageProps {
      * Utolsó üzenet
      * @type {boolean}
      */
-    isLast: boolean
+    isLast: boolean,
+        /**
+     * Nyelv
+     * @type {"EN" | "HU"}
+     * @default "EN"
+     */
+        language: "EN" | "HU";
 }
 export interface MessageBarProps {
   /**

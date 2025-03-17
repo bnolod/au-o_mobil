@@ -67,7 +67,7 @@ export default function RootLayout() {
                       />
                       <Stack.Screen name="(auth)" options={{ headerShown: false, freezeOnBlur: true }} />
                       <Stack.Screen name="(groups)" options={{ headerShown: false, freezeOnBlur: true }} />
-                      <Stack.Screen name="(events)" options={{ headerShown: false, freezeOnBlur: true }} />
+                      <Stack.Screen name="(events)" options={{ headerShown: true, freezeOnBlur: true }} />
                       <Stack.Screen
                         name="(root)"
                         options={{

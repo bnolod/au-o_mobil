@@ -16,6 +16,7 @@ import { router } from 'expo-router';
 import { Colors } from '@/constants/Colors';
 import { Images } from '@/lib/staticAssetExports';
 import Button from '@/components/ui/Button';
+import { ChatTexts } from '@/constants/texts';
 /**
  * Csoport meghívás komponens
  * @property {string} sender Küldő
@@ -24,7 +25,7 @@ import Button from '@/components/ui/Button';
  * @property {string} avatar Avatar
  * @returns 
  */
-export default function GroupInvite({ sender, colorScheme, groupId, avatar }: GroupInviteProps) {
+export default function GroupInvite({ sender, colorScheme, groupId, avatar, language }: GroupInviteProps) {
   const [group, setGroup] = useState<Group | null>(null);
 
   async function fetchGroup() {
@@ -62,9 +63,9 @@ export default function GroupInvite({ sender, colorScheme, groupId, avatar }: Gr
                 onPress={() => router.push({ pathname: '/(groups)/[id]', params: { id: group.id } })}
                 className={`font-bold ${sender ? 'text-highlight' : 'text'}`}
                 >
-                You have been invited to{' '}
+                {ChatTexts.invite(sender)[language]}
               </Text>
-              <ThemedText numberOfLines={2}>{group.name}</ThemedText>
+              <ThemedText numberOfLines={2}>{" "}{group.name}</ThemedText>
             </ThemedText>
             <Button innerTextClassName='tlg' className={`button ${sender ? "highlight-themed" : "secondary"}  btn-fill`} onPress={() => router.push({ pathname: '/(groups)/[id]', params: { id: group.id } })}>
               Visit

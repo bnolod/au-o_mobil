@@ -103,6 +103,7 @@ export default function DirectMessagePage({language, colorScheme, user, recipien
             reversedList.map((item, index) =>
               item.user.username === user.username ? (
                 <UserMessage
+                language={language}
                   id={user.id}
                   key={"S_"+index}
                   profilePic={user.profileImg}
@@ -120,6 +121,8 @@ export default function DirectMessagePage({language, colorScheme, user, recipien
                 />
               ) : (
                 <RecipientMessage
+                language={language}
+
                   id={recipient.id}
                   colorScheme={colorScheme}
                   key={"R_" + index}
