@@ -3,8 +3,6 @@
 # dependencies
 node_modules/
 
-#Docs, tesztelés erejéig nem lesz feltöltve
-docs
 
 # Expo
 .expo/

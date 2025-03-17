@@ -5,7 +5,8 @@
 
 ## 📝 Tartalomjegyzék
 
-- [ 📚 Bevezetés](#bevezetés)
+- [ 📚 Bevezetés](#-bevezetés)
+- [ 🔖 Dokumentációs segítség](#-dokumentációs-segítség)
 - [ 🔗 Hasznos linkek](#-hasznos-linkek)
 - [ 💡 Termék leírása](#-termék-leírása)
 - [ ✅ Telepítési útmutató](#-telepítési-útmutató)
@@ -22,6 +23,23 @@
 Teszteld első kézből a vizsgára szeretettel készült közösségi média projektünket!
 
 Kövesd az alább található **telepítési** valamint **használati** útmutatókat, és kezdd el használni az alkalmazásunkat!
+
+## 🔖 Dokumentációs segítség
+
+- A README-n kívül az összes dokumentáció manuálisan Typedoc segítségével lett megírva.
+- A teljes dokumentációt a ./Au-O/docs/index.html fájl megnyitásával éri el.
+- A Typedoc dokumentáció tartalmazza
+  - ezt a README.md fájlt
+  - API hívások funkció dokumentációját
+  - Komponensek dokumentációját
+  - Típusok, osztályok és interfészek dokumentációját
+  - Alkalmazást lefedő kontextusok működését
+  - Entitások tulajdonságait
+  - Alkalmazásban előforduló események dokumentációit
+  - Általános funkciók dokumentációit
+
+Megjegyzés: a screenek ("oldalak") dokumentációi alább, a [✔ Featureök](#-featureok) címke alatt találhatók.
+
 
 ## 🔗 Hasznos linkek
 
@@ -46,7 +64,7 @@ Felületünk sajátossága közé tartozik első sorban a felhasználói garázs
 
 A garázs funkció kiegészíti a többi funkciót a következőkkel:
 
-- 😄Színesíti a felhasználói profilt
+- 😄 Színesíti a felhasználói profilt
   - A profilon az autóiddal osztozhatsz a reflektorfényen.
 - 🚩 Hozzárendelheted egy autódat a posztokhoz, hogy tudja mindenki, hogy mit vezetsz.
 - 📩 Elküldheted az autóidat ismerőseidnek a valós idejű chat funkcióval.
@@ -116,6 +134,27 @@ Tesztkörnyezeti indításnál (bemutatási builden standard) a kiszolgálói ol
 - Grafikák és design tervek létrehozása és megosztása: **Figma**
 
 ## 📝 Tesztelések
+<center>Megjegyzés: ez a részleg csak a MOBIL felület tesztjeire vonatkozik, kivéve ahol kifejezetten ellenkezőleg van állítva. A többi rész tesztelése elérhető a stack részének külön repójában.</center>
+
+### ⭕ Egységtesztek
+- Az egységtesztelést Jesttel oldottuk meg.
+- Teszteseteket írtunk a következő elemekre
+  - Alap funkciók (functions.ts)
+  - Többször felhasznált komponensek (components/ui-ból néhány)
+### 🔜 Statikus tesztek
+- A statikus tesztelésnek megfelel a TypeScript által biztosított type-safety, ami virtuálisan kizárja az érvénytelen típusok által dobott hibák lehetőségét.
+
+### 🔧 Manuális tesztek
+- Az alkalmazás felületét és cross-platform (Android & iOS) kompatibilitását (funkciók és kinézet egyaránt) kézzel teszteltük, biztosítva hogy a legtöbb modern eszközön gond nélkül tud futni.
+
+### 📬 API tesztek
+- Az API tesztek **megosztottak** a három komponens között. (web & mobil & backend) 
+- A frontend és backend közötti kapcsolatot test-driven development koncepciók alapján fejlesztettük.
+- Az API tesztek a Backend repóhoz csatolt Postman Collection exportjában található.
+
+### 👴 Végfelhasználói tesztek
+- Az alkalmazásunk beviteli mezőit ellenőrizzük közös validációs szabályokkal (a dokumentációját szintén a backend repóban találják)
+- Ezekre a beállításokra készültek mock elemek és tesztesetek a hibakezelésekre.
 
 # ✔ Featureok
 
