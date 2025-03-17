@@ -5,6 +5,8 @@
 
 ## 📝 Tartalomjegyzék
 
+### ✅ A Typedoc által kiegészített dokumentáció a repo [Github Pages oldalán](https://bnolod.github.io/au-o_mobil/) található.
+
 - [ 📚 Bevezetés](#-bevezetés)
 - [ 🔖 Dokumentációs segítség](#-dokumentációs-segítség)
 - [ 🔗 Hasznos linkek](#-hasznos-linkek)
