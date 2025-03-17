@@ -34,7 +34,7 @@ import * as Types from '@/constants/types';
 import * as components from '@/components/index'
 import * as props from '@/components/ui/props'
 
-/*export { //typedoc entry
+export { //typedoc entry
   carApi,
   commentApi,
   groupApi,
@@ -63,4 +63,4 @@ import * as props from '@/components/ui/props'
   Events,
   components,
   Types
-};*/
+};
