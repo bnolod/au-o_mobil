@@ -17,6 +17,7 @@ import { modifyGroup } from "@/lib/ApiCalls/GroupApiCalls";
 import Toast from "react-native-toast-message";
 import { GroupTexts } from "@/constants/texts";
 import { router } from "expo-router";
+import { showErrorToast, showSuccessToast } from "@/lib/functions";
 /**
  * @param {GroupTabProps} props
  */
@@ -30,17 +31,15 @@ export default function GroupEditTab({colorScheme, group, language}: GroupTabPro
     async function handleGroupEdit() {
         const res = await modifyGroup(group.id, editGroup)
         if (res) {
-            Toast.show({
-                type: "success",
-                text1: GroupTexts.creation.edit.success[language]
-            })
+            showSuccessToast(
+                GroupTexts.creation.edit.success[language]
+            )
             router.reload()
             return
         } 
-        else             Toast.show({
-            type: "error",
-            text1: GroupTexts.creation.edit.failed[language]
-        })
+        else showErrorToast(
+             GroupTexts.creation.edit.failed[language]
+        )
     }
     return (
         <>

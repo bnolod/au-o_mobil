@@ -69,6 +69,10 @@ export const SettingsTexts = {
     HU: 'Beállítások',
     EN: 'Settings',
   },
+  loggedInAs: {
+    HU: "Bejelentkezve mint ",
+    EN: "Logged in as "
+  },
   language: {
     HU: 'Nyelv',
     EN: 'Language',
@@ -773,7 +777,7 @@ export const SelectionTexts = {
   },
   vehicle: {
     EN: 'Select a vehicle',
-    HU: 'Válassz egy jármávet',
+    HU: 'Válassz egy járművet',
   },
 };
 export const EditModalTexts = {
@@ -993,6 +997,10 @@ export const GroupTexts = {
     events: {
       HU: 'Események',
       EN: 'Events',
+    },
+    inviteTo: {
+      HU: 'Meghívás a csoportba',
+      EN: 'Invite to group',
     },
     info: {
       HU: 'Információ',
@@ -1297,3 +1305,9 @@ export const ChatTexts = {
     else return { HU: `Meghívót kaptál ide: `, EN: `You have been invited to join ` };
   },
 };
+export const SearchTexts = {
+  results: {
+    HU: "Találatok a következőre: ",
+    EN: "Search results for: ",
+  }
+}

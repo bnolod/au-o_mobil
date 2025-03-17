@@ -80,7 +80,7 @@ export default function PostOptionModal({
   }
   const [recipients, setRecipients] = useState<LatestMessage[]>([]);
   const handleFetch = async () => {
-    console.log('Fetching active users...');
+    //console.log('Fetching active users...');
     const response = await apiFetch<LatestMessage[]>('/public/activeusers/messagelist', 'GET', true);
     if (response && response.data) {
       setRecipients(response.data);

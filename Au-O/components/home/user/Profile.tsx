@@ -13,7 +13,7 @@ import { router } from 'expo-router';
 import UserLoading from '@/components/auth/UserLoading';
 import RootHeader from '@/components/home/base/RootHeader';
 import Avatar from '@/components/ui/Avatar';
-import { generalTexts, SocialTexts, UserEditTexts } from '@/constants/texts';
+import { generalTexts, SettingsTexts, SocialTexts, UserEditTexts } from '@/constants/texts';
 import { handleTabSelection } from '@/lib/events';
 import * as ImagePicker from 'expo-image-picker';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -140,12 +140,12 @@ export default function Profile({
                 style={{}}
               >
                 <View className='flex flex-row'>
-                <ThemedText className='self-center text-xl opacity-75'>Logged in as <Text className='font-bold'>{user.username}</Text></ThemedText>
+                <ThemedText className='self-center text-xl opacity-75'>{SettingsTexts.loggedInAs[language]} <Text className='font-bold'>{user.username}</Text></ThemedText>
                 
                 </View>
                 
                 <TouchableOpacity onPress={() => router.push('/(profile)/settings')} className='flex flex-row gap-2' >
-                <ThemedText className='self-center text-xl opacity-75'>Settings</ThemedText>
+                <ThemedText className='self-center text-xl opacity-75'>{SettingsTexts.header[language]}</ThemedText>
                 <MaterialCommunityIcons name="cog-outline" size={32} color={Colors[colorScheme!].text} className='opacity-85' />
                 </TouchableOpacity>
               </View>

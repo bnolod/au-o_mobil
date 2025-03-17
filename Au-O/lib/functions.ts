@@ -205,6 +205,21 @@ export function showErrorToast(title: string, message?: string) {
     visibilityTime: 5000,
   });
 }
+
+/**
+ * Siker üzenet megjelenítése
+ * @param {string} title Cím string
+ * @param {string} message Üzenet string
+ * @returns {void}
+ */
+export function showSuccessToast(title: string, message?: string) {
+  Toast.show({
+    type: 'success',
+    text1: title,
+    text2: message,
+    visibilityTime: 5000,
+  });
+}
 /**
  *  Többrészes űrlappá alakított kép feltöltésre kész elem létrehozása
  * 

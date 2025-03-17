@@ -10,6 +10,10 @@ import { Group, GroupMemberListResponse, GroupMemberResponse } from '../entity/G
 import { ImageStoreRequest } from '../request/ImgurRequest';
 import { Post } from '../entity/Post';
 import { GroupEditRequest } from '../request/GroupEditRequest';
+import { Alert } from 'react-native';
+import { GroupTexts, SocialTexts, ToastMessages } from '@/constants/texts';
+import { showErrorToast, showSuccessToast } from '../functions';
+import { router } from 'expo-router';
 
 /**
  * Csoport létrehozása
@@ -24,6 +28,116 @@ export async function createGroup(request: GroupCreationRequest) {
     return req.data;
   }
   return null;
+}
+
+/**
+ * Csoport jelentkezési kérés visszavonásának kezelése
+ * 
+ * @param {group} group Csoport entitás
+ * @param {"HU" | "EN"} language Nyelv
+ * @returns {Promise<void>}
+ */
+export async function revokeJoinRequest(group: Group, language: 'EN' | 'HU') {
+  if (group.member) {
+    Alert.alert(GroupTexts.options.revokeJoinRequest[language], GroupTexts.options.confirmRevoke[language], [
+      {
+        text: SocialTexts.group.leave.confirmLeave[language],
+        onPress: () => {
+          confirmLeave(language, group);
+        },
+      },
+      {
+        text: GroupTexts.buttons.cancel[language],
+        onPress: () => {
+          return;
+        },
+        style: 'cancel',
+      },
+    ]);
+  }
+}
+/**
+ * Csoport elhagyásának megerősítése
+ * @param {Group} group Csoport entitás
+ * @param {"EN" | "HU"} language Nyelv 
+ * 
+ * @returns {Promise<void>}
+ */
+/**
+ * Csoport elhagyásának kezelése
+ * 
+ * @param {Group} group Csoport entitás
+ * @param {"HU" | "EN"} language Nyelv
+ */
+export async function handleLeave(group: Group, language: 'EN' | 'HU') {
+  if (group.validMember) {
+    Alert.alert(SocialTexts.group.leave.header[language], SocialTexts.group.leave.body[language], [
+      {
+        text: SocialTexts.group.leave.confirmLeave[language],
+        onPress: () => {
+          confirmLeave(language, group);
+        },
+      },
+      {
+        text: GroupTexts.buttons.cancel[language],
+        onPress: () => {
+          return;
+        },
+        style: 'cancel',
+      },
+    ]);
+  }
+}
+async function confirmLeave(language: 'EN' | 'HU', group: Group) {
+  const res = await leaveGroup(group.id);
+  if (res === 409) {
+    showErrorToast(
+
+      ToastMessages.headers.error[language],
+      ToastMessages.error.group.leave[language],
+    )
+
+    return;
+  }
+  if (res === 200) {
+    router.canGoBack() ? router.back() : router.replace({ pathname: '/(root)/(groups)/feed' });
+    showSuccessToast(
+
+       ToastMessages.headers.success[language],
+       ToastMessages.success.group.leave[language],
+    )     
+    return;
+  }
+  showErrorToast(
+     ToastMessages.headers.error[language],
+     ToastMessages.error.group.leaveReq[language],
+  );
+}
+/**
+ * Csoport törlésének kezelése
+ * @param {Group} group Csoport entitás
+ * @param {"EN" | "HU"} language Nyelv
+ * 
+ * @returns {Promise<void>}
+ */
+
+export async function handleDeleteRequest(group: Group, language: 'EN' | 'HU') {
+  Alert.alert(GroupTexts.options.delete[language], GroupTexts.options.confirmDeleteGroup[language], [
+    {
+      text: GroupTexts.options.delete[language],
+      onPress: () => {
+        deleteGroup(group.id);
+        router.replace({ pathname: '/(root)/(groups)/feed' });
+      },
+    },
+    {
+      text: GroupTexts.buttons.cancel[language],
+      onPress: () => {
+        return;
+      },
+      style: 'cancel',
+    },
+  ]);
 }
 /**
  * Csoport lekérdezése

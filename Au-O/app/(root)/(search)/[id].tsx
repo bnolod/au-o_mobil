@@ -8,10 +8,13 @@ import LoadingModal from '@/components/ui/LoadingModal';
 import ThemedText from '@/components/ui/ThemedText';
 import { User } from '@/lib/entity/User';
 import Avatar from '@/components/ui/Avatar';
+import { SearchTexts } from '@/constants/texts';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function SearchPage() {
   const [loading, setLoading] = useState(true);
   const [searchResult, setSearchResult] = useState<User[]>([]);
+  const { language } = useLanguage();
   const { colorScheme } = useColorScheme();
   const { id } = useLocalSearchParams();
   const searchId = Array.isArray(id) ? id[0] : id;
@@ -26,7 +29,7 @@ export default function SearchPage() {
     if (!searchId) return;
     try {
       if(id != ''){
-        console.log(searchId)
+        //console.log(searchId)
       const res = await searchUsers(searchId);
       setSearchResult(res ?? []);
       setLoading(false);
@@ -47,7 +50,7 @@ export default function SearchPage() {
     >
       <LoadingModal colorScheme={colorScheme!} loading={refreshing} />
       <ThemedText className="text-center">
-        Search results for <Text className="text-xl">{id}</Text>:
+        {SearchTexts.results[language]} <Text className="text-xl">{id}</Text>
       </ThemedText>
       {!loading ? (
         searchResult.length > 0 ? (
@@ -57,7 +60,7 @@ export default function SearchPage() {
               className="rounded-lg  shadow-lg p-4 my-2 flex flex-row items-center gap-4 "
               onPress={() => router.push({ pathname: '/(profile)/[id]', params: { id: user.id } })}
             >
-              <Avatar image={user.profileImg} />
+              <Avatar image={user.profileImg} nickname={user.nickname} />
               <View>
                 <ThemedText className="tlg">{user.nickname}</ThemedText>
                 <ThemedText>@{user.username}</ThemedText>

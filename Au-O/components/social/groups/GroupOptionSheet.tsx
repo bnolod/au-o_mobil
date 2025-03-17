@@ -19,7 +19,7 @@ import Button from '@/components/ui/Button';
 import { Group } from '@/lib/entity/Group';
 import { useFocusEffect } from 'expo-router';
 import { apiFetch } from '@/lib/apiClient';
-import { handleDeleteRequest, handleLeave, revokeJoinRequest } from '@/lib/events';
+import { handleDeleteRequest, handleLeave, revokeJoinRequest } from '@/lib/ApiCalls/GroupApiCalls';
 /**
  * 
  * @param {colorScheme, isOwner, language, menuVisible, setVisible, group} props Tulajdonságok
@@ -59,7 +59,7 @@ group: Group
     }
   }, [menuVisible]);
   const handleFetch = async () => {
-    console.log('Fetching active users...');
+    //console.log('Fetching active users...');
     const response = await apiFetch<LatestMessage[]>('/public/activeusers/messagelist', 'GET', true);
     if (response && response.data) {
       setRecipients(response.data);
@@ -112,7 +112,7 @@ group: Group
               <ThemedText className="ml-3">
                 <MaterialCommunityIcons name="send-outline" />
               </ThemedText>
-              <ThemedText className="tlg">Invite to Group</ThemedText>
+              <ThemedText className="tlg">{GroupTexts.page.inviteTo[language]}</ThemedText>
               <View className="primary w-2/3 h-0.5 bg-white" />
             </View>
         }
@@ -125,7 +125,7 @@ group: Group
                 {recipients.map((rec) => (
                   <Pressable
                     key={rec.username}
-                    className="flex relative gap-2 rounded-xl mt-2 flex-col items-center"
+                    className="flex justify-center relative gap-2 rounded-xl mt-2 flex-col items-center"
                     onPress={async () => {
                       if (rec && group.id) {
                         if (targets.find((t) => t === rec.username)) {
@@ -153,7 +153,7 @@ group: Group
           {targets && targets.length > 0 && (
             <Button
               disabled={targets.length > 9}
-              className=" highlight-themed button primary w-full"
+              className=" highlight-themed button items-center justify-center flex primary w-full"
               innerTextClassName="txl"
               onPress={() => {
                 for (const target of targets) {
@@ -173,7 +173,7 @@ group: Group
           {isOwner && (
              
               <Button
-                className=" highlight-themed button primary flex-1"
+                className=" highlight-themed button primary  justify-center flex-1"
                 innerTextClassName="txl"
                 onPress={() => {
                   handleDeleteRequest(group, language).then(() => {

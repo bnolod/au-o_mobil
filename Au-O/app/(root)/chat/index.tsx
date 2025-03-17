@@ -23,7 +23,7 @@ export default function DirectMessagesScreen() {
 
   
   const handleFetch = async () => {
-    console.log('Fetching active users...');
+    //console.log('Fetching active users...');
     setFetched(true)
     const response = await apiFetch('/public/activeusers/messagelist', 'GET', true);
     if (response) {
