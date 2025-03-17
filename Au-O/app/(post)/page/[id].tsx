@@ -10,6 +10,7 @@ import { PostStatusTexts } from '@/constants/texts';
 import { useAuthentication } from '@/contexts/AuthenticationContext';
 import { Post } from '@/lib/entity/Post';
 import PostPage from '@/components/Post/base/PostPage';
+import ThemedText from '@/components/ui/ThemedText';
 
 export default function PostIdPage() {
   const { user } = useAuthentication();
@@ -46,7 +47,7 @@ export default function PostIdPage() {
       ]);
     }
   }
-  if (!post && loading)
+  if (!post && loading) return <ThemedText>Loading...</ThemedText>;
   if (post !== null && user !== null && user !== undefined)
     return <PostPage colorScheme={colorScheme!} id={id} isNew={isNew} language={language} post={post} user={user} />;
 }

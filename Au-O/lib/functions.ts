@@ -157,50 +157,6 @@ export async function handleGallery(images: ImagePicker.ImagePickerAsset[], lang
   }
 }
 /**
- * Két string hasonlósági faktorát számolja ki
- * @param {string} s1 Elsődleges string
- * @param {string} s2 Másodlagos string
- * @returns {number} Hasonlósági faktor
- */
-export function getStringSimilarity(s1: string, s2: string) {
-  function editDistance(a: string, b: string) {
-    if (!a.length) return b.length;
-    if (!b.length) return a.length;
-
-    const matrix = Array(a.length + 1)
-      .fill(null)
-      .map(() => Array(b.length + 1).fill(null));
-
-    for (let i = 0; i <= a.length; i++) matrix[i][0] = i;
-    for (let j = 0; j <= b.length; j++) matrix[0][j] = j;
-
-    for (let i = 1; i <= a.length; i++) {
-      for (let j = 1; j <= b.length; j++) {
-        const cost = a[i - 1] === b[j - 1] ? 0 : 1;
-        matrix[i][j] = Math.min(matrix[i - 1][j] + 1, matrix[i][j - 1] + 1, matrix[i - 1][j - 1] + cost);
-      }
-    }
-    return matrix[a.length][b.length];
-  }
-
-  const maxLenght = Math.max(s1.length, s2.length);
-  return (maxLenght - editDistance(s1, s2)) / maxLenght;
-} //köszönöm random fickó stackoverflown
-/**
- * Szűrési funkció
- * @param {string} query Lekérdezés
- * @param {any[]} items Szűrésre szánt elemek
- * @param {any} attribute Szűrésre szánt elem attribútuma
- * @returns {any[]} Szűrt elemek tömbje
- */
-export const searchFilter = (query: string, items: any[], attribute: any) => {
-  return items
-    .map((item) => ({ item, score: getStringSimilarity(query, item[attribute].toLowerCase()) }))
-    .filter(({ score }) => score > 0.5)
-    .sort((a, b) => b.score - a.score)
-    .map(({ item }) => item);
-};
-/**
  * Felhasználó entitás elmentése a SecureStore-ba
  * 
  * @param {User} user Felhasználó entitás
