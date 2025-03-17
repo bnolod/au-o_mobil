@@ -19,9 +19,9 @@ export default function LoadingModal({
 }: LoadingModalProps & { colorScheme: 'light' | 'dark' }) {
   return (
     <Modal transparent={true} visible={loading} animationType="fade" onShow={onStart} onDismiss={onEnd}>
-      <View className="flex bg-black/40 flex-col gap-4 w-screen mx-auto h-screen absolute justify-center items-center rounded-xl p-4">
-        <View className="secondary rounded-xl p-4">
-          <ActivityIndicator size="large" color={Colors.highlight.main} />
+      <View className="flex bg-black/60 flex-col gap-4 w-screen mx-auto h-screen absolute justify-center items-center rounded-xl p-4">
+        <View className=" rounded-xl p-4">
+          <ActivityIndicator size="large" color={Colors.highlight.main+"77"} />
           {text && <ThemedText className="text-center text-lg font-bold">{text}</ThemedText>}
         </View>
       </View>

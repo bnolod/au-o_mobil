@@ -8,7 +8,7 @@ import { getPostById } from '@/lib/ApiCalls/PostApiCalls';
 import { Post } from '@/lib/entity/Post';
 import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import { PostMessageProps } from './props';
 import { Image } from 'expo-image';
 import ThemedText from '@/components/ui/ThemedText';
@@ -36,13 +36,13 @@ export default function MessagePost({sender, postId, avatar }: PostMessageProps)
   return (
     <View className='relative'>
 
-    <View className={`flex mt-1 ml-16 overflow-hidden w-2/3 ${sender ? "self-end mr-2" : "self-start ml-16"} aspect-square rounded-xl`}>
+    <View className={`flex mt-1 ml-16 overflow-hidden bg-backdrop-primary  dark:bg-backdrop-primary-dark w-2/3 ${sender ? "self-end mr-2" : "self-start ml-16"} aspect-square rounded-xl`}>
       
       {post && (
-        <>
+        <TouchableOpacity className='h-full' onPress={() => router.push({pathname: "/(post)/page/[id]", params: {id: post.postId}})}>
           <View className='flex flex-col'>
             <View className={`${sender ? "secondary" : "highlight-themed"} p-1 flex flex-row items-center gap-2`}>
-                <Avatar image={post.user.profileImg} nickname={post.user.nickname} />
+                <Avatar image={post.user.profileImg} height={12} width={12}  nickname={post.user.nickname} />
               <ThemedText className='tlg'>{post.user.username}</ThemedText>
             </View>
           </View>
@@ -57,7 +57,7 @@ export default function MessagePost({sender, postId, avatar }: PostMessageProps)
               </ThemedText>
             </ThemedText>
           </View>
-        </>
+        </TouchableOpacity>
       )}
     </View>
         {avatar && !sender &&<Avatar className='w-12 h-12 secondary absolute bottom-2' image={avatar.profileImg} nickname={avatar.nickname} />}

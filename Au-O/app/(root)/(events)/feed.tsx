@@ -9,9 +9,10 @@ export default function EventFeed() {
   const { language } = useLanguage();
   const { colorScheme } = useColorScheme();
   return (
-    <>
-      <View className="primary rounded-b-xl">
-        <RootHeader language={language} colorScheme={colorScheme!} />
+
+    <ScrollView stickyHeaderHiddenOnScroll stickyHeaderIndices={[0]}>
+      <View className="primary rounded-b-xl pt-safe-offset-0">
+        {/* <RootHeader language={language} colorScheme={colorScheme!} /> */}
         <SocialSort language={language} colorScheme={colorScheme!} />
       </View>
       <View className='flex flex-col justify-center items-center'>
@@ -22,6 +23,6 @@ export default function EventFeed() {
         {EventTexts.staytuned[language]}
       </Text>
      </View>
-    </>
+    </ScrollView>
   );
 }
