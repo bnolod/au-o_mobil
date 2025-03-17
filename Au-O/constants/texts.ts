@@ -1273,6 +1273,20 @@ export const GroupTexts = {
     noneToResolve: {
       HU: "Jelenleg nincs függőben lévő jelentkezés",
       EN: "There are currently no pending applications"
+    },
+    sudo: {
+      promote: {
+          HU: "Moderátorrá emelés",
+          EN: "Promote to moderator"
+      },
+      demote: {
+          HU: "Moderátori jogok elvétele",
+          EN: "Demote to member"
+      },
+      kick: {
+        HU: "Kirúgás a csoportból",
+        EN: "Kick from group"
+      }
     }
   }
 };

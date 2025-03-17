@@ -5,15 +5,19 @@
  */
 import Avatar from '@/components/ui/Avatar';
 import ThemedText from '@/components/ui/ThemedText';
-import { GroupMemberResponse } from '@/lib/entity/Group';
+import { GroupMemberResponse, Status } from '@/lib/entity/Group';
 import { router } from 'expo-router';
 import {  Alert, Platform, Pressable, View } from 'react-native';
+import MemberActionSheet from '../groups/admin/MemberActionSheet';
+import { CommonStaticElementProps } from '@/constants/types';
+import { useState } from 'react';
 /**
  * @property {GroupMemberResponse} u - Tag
  * @property {boolean} authorized - Jogosultság
  * @property {boolean} isCurrentUser - Jelenlegi felhasználó
  */
-export default function MemberDisplay({ u, authorized, isCurrentUser }: { u: GroupMemberResponse, authorized: boolean, isCurrentUser: boolean }) {
+export default function MemberDisplay({ u, authorized, colorScheme, language, status, groupId }: {groupId: number, u: GroupMemberResponse, authorized: boolean, isCurrentUser: boolean, status: Status } & CommonStaticElementProps) {
+  const [menuVisible, setMenuVisible] = useState(false);
   return (
       <Pressable onPress={
         !authorized
@@ -38,6 +42,7 @@ export default function MemberDisplay({ u, authorized, isCurrentUser }: { u: Gro
           <ThemedText className="tsm font-semibold">{u.joinedDate ? u.joinedDate : "2025. 03. 06"}</ThemedText>
 
       </View>
+      <MemberActionSheet groupId={groupId} setVisible={setMenuVisible} target={u} language={language} menuVisible={menuVisible} role={status} colorScheme={colorScheme}/>
     </Pressable>
   );
 }

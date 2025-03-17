@@ -268,3 +268,8 @@ export async function acceptApplication(groupId: number, userId: number) {
   const req = await apiFetch(`groups/group/handleJoinRequest/${groupId}/${userId}/true`, 'POST', true);
   return req!.status === 200;
 }
+
+export async function promoteTo(groupId: number, userId: number, role: Status) {
+  const req = await apiFetch(`groups/${groupId}/${userId}`, "PUT", true, {role})
+  return req!.status === 200
+}
