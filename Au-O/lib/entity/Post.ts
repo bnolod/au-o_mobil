@@ -1,3 +1,9 @@
+/**
+ * Poszt entitások
+ * @category Entity
+ * @module entity/Post
+ */
+
 import { Reactions } from '@/constants/types';
 import { Image } from './Image';
 import { Car } from './Car';

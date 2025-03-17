@@ -1,17 +1,46 @@
+/**
+ * Csoporthoz tartozó eseménykezelők
+ * @category Events
+ * @module events/PostOptionEvents
+ */
+
 import { router } from 'expo-router';
 import * as Clipboard from 'expo-clipboard';
 import Toast from 'react-native-toast-message';
 import { PostCreationTexts, PostStatusTexts } from '@/constants/texts';
 import { Alert } from 'react-native';
 import { deletePost } from '../ApiCalls/PostApiCalls';
+
+/**
+ * Szerkesztési kérés kezelése
+ * @param {number | null} authorId A poszt szerzőjének azonosítója
+ * @param {number | null} userId Az aktuális felhasználó azonosítója 
+ * @param {number | null} postId A poszt azonosítója 
+ * 
+ * @returns {Promise<void>}
+ */
 export async function handleEdit(authorId: number | null, userId: number | null, postId: number | null) {
   if (postId && authorId && userId && authorId === userId) {
     router.push({ pathname: '/(post)/edit/[id]', params: { id: postId.toString() } });
   }
 }
+/**
+ * Jelentés kezelése
+ * 
+ *  implement
+ * @returns {Promise<void>}
+ */
 export async function handleReport() {
   console.log('report');
 }
+/**
+ * Megosztás kezelése
+ * @param {number} postId A poszt azonosítója
+ * @param {'HU' | 'EN'} language A felhasználó által használt nyelv
+ * 
+ *  Implement deep links?
+ * @returns {Promise<void>}
+ */
 export async function handleShare(postId: number, language: 'HU' | 'EN') {
   await Clipboard.setStringAsync(postId.toString());
   Toast.show({
@@ -21,6 +50,14 @@ export async function handleShare(postId: number, language: 'HU' | 'EN') {
     visibilityTime: 2000,
   });
 }
+/**
+ * Törlési kérés kezelése
+ * @param {number | null} authorId A poszt szerzőjének azonosítója   
+ * @param {number | null} userId Az aktuális felhasználó azonosítója
+ * @param {"HU" | "EN"} language A felhasználó preferált nyelve
+ * @param  {number | null}postId A poszt azonosítója
+ * @param {() => void} onDelete Törlési esemény
+ */
 export async function handleDelete(
   authorId: number | null,
   userId: number | null,

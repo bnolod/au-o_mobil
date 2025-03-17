@@ -1,7 +1,7 @@
 import GroupPage from '@/components/social/groups/GroupPage';
 import { useColorScheme } from 'nativewind';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { ScrollView, View } from 'react-native';
+import { View } from 'react-native';
 import { useEffect, useState } from 'react';
 import { router, useLocalSearchParams } from 'expo-router';
 import LoadingModal from '@/components/ui/LoadingModal';

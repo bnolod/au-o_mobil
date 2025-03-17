@@ -1,10 +1,16 @@
+/**
+ * Tab kiválasztó komponens
+ * @module home/user/TabSelector
+ * @category Component
+ */
 import { View } from "react-native";
-import ThemedText from "@/components/ui/ThemedText";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Colors } from "@/constants/Colors";
 import { ProfileTabSelectorProps } from "./props";
 import { handleTabSelection } from "@/lib/events";
-
+/**
+ * @param {ProfileTabSelectorProps} props
+ */
 export default function ProfileTabSelector({colorScheme, selectedTab, setSelectedTab} : ProfileTabSelectorProps) {
     return (
         

@@ -8,6 +8,7 @@ test("Érvényes bejelentkezési adatok", () => {
       MOCK_validRegisterData.email,
       MOCK_validRegisterData.username,
       MOCK_validRegisterData.password,
+      MOCK_validRegisterData.nickname,
       MOCK_validRegisterData.confirmPassword,
       MOCK_validRegisterData.dateOfBirth,
       "EN"
@@ -23,6 +24,7 @@ test("Eltérő jelszavak", () => {
       MOCK_validRegisterData.email,
       MOCK_validRegisterData.username,
       MOCK_validRegisterData.password,
+      MOCK_validRegisterData.nickname,
       MOCK_validRegisterData.confirmPassword + "123",
       MOCK_validRegisterData.dateOfBirth,
       "EN"
@@ -38,6 +40,7 @@ test("Érvénytelen e-mail", () => {
       MOCK_validRegisterData.email.split("@")[0],
       MOCK_validRegisterData.username,
       MOCK_validRegisterData.password,
+      MOCK_validRegisterData.nickname,
       MOCK_validRegisterData.confirmPassword,
       MOCK_validRegisterData.dateOfBirth,
       "EN"
@@ -53,6 +56,7 @@ test("Érvénytelen felhasználónév", () => {
       MOCK_validRegisterData.email,
       "t",
       MOCK_validRegisterData.password,
+      MOCK_validRegisterData.nickname,
       MOCK_validRegisterData.confirmPassword,
       MOCK_validRegisterData.dateOfBirth,
       "EN"
@@ -68,6 +72,7 @@ test("Érvénytelen jelszó", () => {
       MOCK_validRegisterData.email,
       MOCK_validRegisterData.username,
       MOCK_validRegisterData.password.split("@")[0].toLowerCase(),
+      MOCK_validRegisterData.nickname,
       MOCK_validRegisterData.confirmPassword,
       MOCK_validRegisterData.dateOfBirth,
       "EN"

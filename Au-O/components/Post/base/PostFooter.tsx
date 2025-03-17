@@ -1,3 +1,8 @@
+/**
+ * Poszt lábléc
+ * @module post/base/PostFooter
+ * @category Component
+ */
 import ReactionButton from '@/components/ui/ReactionButton';
 import { View } from 'react-native';
 import { Text } from 'react-native';
@@ -8,6 +13,9 @@ import * as Haptics from 'expo-haptics';
 import { formatDate } from '@/lib/functions';
 import { CommonStaticElementProps } from '@/constants/types';
 import { PostFooterProps } from './props';
+/**
+ * @param {PostFooterProps & CommonStaticElementProps} props Tulajdonságok
+ */
 export default function PostFooter({
   currentReaction,
   reactionState,

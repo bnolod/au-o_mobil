@@ -1,4 +1,10 @@
 /**
+ * Felhasználó entitások
+ * @category Entity
+ * @module entity/User
+ */
+
+/**
  * Biztosított felhasználó entitás
  * @extends UserResponse
  * @interface

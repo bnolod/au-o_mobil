@@ -1,3 +1,8 @@
+/**
+ * Közösségi elem fejléc
+ * @module social/base/SocialBanner
+ * @category Components
+ */
 import { Pressable } from 'react-native';
 import ThemedText from '@/components/ui/ThemedText';
 import { Images } from '@/lib/staticAssetExports';
@@ -8,7 +13,9 @@ import { SocialBannerProps } from './props';
 import { Image, ImageBackground } from 'expo-image';
 import { Colors } from '@/constants/Colors';
 import { EventTexts, GroupTexts } from '@/constants/texts';
-
+/**
+ * @param {SocialBannerProps & CommonStaticElementProps} props - Tulajdonságok
+ */
 export default function SocialBanner({
   name,
   image,

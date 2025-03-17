@@ -37,22 +37,19 @@ export const ToastMessages = {
       leaveReq: {
         HU: 'Nem sikerült kilépni.',
         EN: 'Failed to leave group.',
-      }
-    }
+      },
+    },
   },
   success: {
     group: {
       leave: {
         HU: 'Sikeresen elhagytad a csoportot!',
         EN: 'Successfully left the group.',
-      }
-    }
-    
+      },
+    },
   },
-  info: {
-
-  }
-}
+  info: {},
+};
 export const CallToActionTexts = {
   1: {
     HU: 'Tovább',
@@ -174,9 +171,9 @@ export const AuthTexts = {
         EN: 'Nickname',
       },
       dateOfBirth: {
-        HU: "Születési dátum",
-        EN: "Date of Birth"
-      }
+        HU: 'Születési dátum',
+        EN: 'Date of Birth',
+      },
     },
     heroText: {
       HU: 'Csatlakozz hozzánk!',
@@ -235,13 +232,13 @@ export const generalTexts = {
   },
   chat: {
     messageBarPlaceholder: {
-      HU: "Írj egy üzenetet...",
-      EN: "Type a message...",
+      HU: 'Írj egy üzenetet...',
+      EN: 'Type a message...',
     },
     filterBarPlaceholder: {
-      HU: "Keress a névjegyzékben...",
-      EN: "Search your contacts...",
-    }
+      HU: 'Keress a névjegyzékben...',
+      EN: 'Search your contacts...',
+    },
   },
   following: {
     followingCount: {
@@ -289,15 +286,13 @@ export const generalTexts = {
     filters: {
       group: {
         my: {
-          EN: "My Groups",
-          HU: "Csoportjaim"
-        }
-      }
-    }
+          EN: 'My Groups',
+          HU: 'Csoportjaim',
+        },
+      },
+    },
   },
 };
-
-
 
 export const HttpErrorTexts = {
   400: {
@@ -478,8 +473,8 @@ export const PostCreationTexts = {
       EN: 'Event',
     },
     vehicle: {
-      HU: "Jármű",
-      EN: "Vehicle",
+      HU: 'Jármű',
+      EN: 'Vehicle',
     },
     location: {
       label: {
@@ -500,8 +495,20 @@ export const PostCreationTexts = {
     HU: 'Képfeltöltés',
     EN: 'Upload photos',
   },
+  notFound: {
+    HU: 'Nem találjuk a posztot',
+    EN: "We can't find the post",
+  },
+  loading: {
+    HU: 'Kis türelmet...',
+    EN: 'Just a moment...',
+  },
 
   buttons: {
+    unassignVehicle: {
+      HU: 'Jármű levétele',
+      EN: 'Unassign vehicle',
+    },
     dismiss: {
       HU: 'Vissza',
       EN: 'Dismiss',
@@ -680,7 +687,7 @@ export const CommentTexts = {
     },
   },
   replyAuthor: {
-    HU: "válasza",
+    HU: 'válasza',
     EN: "'s reply",
   },
   commentAuthor: {
@@ -749,18 +756,18 @@ export const UserEditTexts = {
 };
 export const SelectionTexts = {
   event: {
-    EN: "Select an event",
-    HU: "Válassz egy eseményt"
+    EN: 'Select an event',
+    HU: 'Válassz egy eseményt',
   },
   group: {
-    EN: "Select a group",
-    HU: "Válassz egy csoportot"
+    EN: 'Select a group',
+    HU: 'Válassz egy csoportot',
   },
   vehicle: {
-    EN: "Select a vehicle",
-    HU: "Válassz egy jármávet"
+    EN: 'Select a vehicle',
+    HU: 'Válassz egy jármávet',
   },
-}
+};
 export const EditModalTexts = {
   alert: {
     title: {
@@ -933,7 +940,7 @@ export const SocialTexts = {
       confirmLeave: {
         HU: 'Elhagyás',
         EN: 'Leave',
-      }
+      },
     },
     options: {
       header: {
@@ -943,8 +950,8 @@ export const SocialTexts = {
       revokeJoinRequest: {
         HU: 'Jelentkezés visszavonása',
         EN: 'Revoke join request',
-      }
-    }
+      },
+    },
   },
   followers: {
     selector: {
@@ -984,8 +991,8 @@ export const GroupTexts = {
       EN: 'About',
     },
     apply: {
-      HU: "Jelentkezés",
-      EN: "Apply",
+      HU: 'Jelentkezés',
+      EN: 'Apply',
     },
     memberCount: {
       HU: 'tag',
@@ -993,8 +1000,8 @@ export const GroupTexts = {
     },
     edit: {
       HU: 'Szerkesztés',
-      EN: 'Edit'
-    }
+      EN: 'Edit',
+    },
   },
   empty: {
     posts: {
@@ -1004,39 +1011,39 @@ export const GroupTexts = {
     events: {
       HU: 'A csoportnak nincsenek eseményei.',
       EN: 'This group has no events.',
-    }
+    },
   },
   actions: {
     postToGroup: {
-      EN: "Post to group",
-      HU: "Új csoportos poszt"
+      EN: 'Post to group',
+      HU: 'Új csoportos poszt',
     },
     create: {
-      EN: "Create a new Group",
-      HU: "Új csoport létrehozása"
+      EN: 'Create a new Group',
+      HU: 'Új csoport létrehozása',
     },
     application: {
       send: {
-        EN: "Apply",
-        HU: "Jelentkezés"
+        EN: 'Apply',
+        HU: 'Jelentkezés',
       },
       sent: {
-        EN: "Application sent",
-        HU: "Jelentkezés elküldve"
-      }
+        EN: 'Application sent',
+        HU: 'Jelentkezés elküldve',
+      },
     },
     visit: {
-      EN: "Visit",
-      HU: "Látogatás"
+      EN: 'Visit',
+      HU: 'Látogatás',
     },
     details: {
-      EN: "Details",
-      HU: "Részletek"
-    }
+      EN: 'Details',
+      HU: 'Részletek',
+    },
   },
   admin: {
-    HU: "Felhatalmazott felhasználó vagy a csopotban. Tartsd lenyomva a posztokat további műveletekért.",
-    EN: "You are an authorized user of this group. Long-press on a post for special options."
+    HU: 'Felhatalmazott felhasználó vagy a csopotban. Tartsd lenyomva a posztokat további műveletekért.',
+    EN: 'You are an authorized user of this group. Long-press on a post for special options.',
   },
   buttons: {
     join: {
@@ -1074,33 +1081,48 @@ export const GroupTexts = {
     newEvent: {
       HU: 'Új csoportos esemény',
       EN: 'New group event',
-    }
+    },
   },
   options: {
     edit: {
-      HU: "Csoport szerkesztése",
-      EN: "Edit Group"
+      HU: 'Csoport szerkesztése',
+      EN: 'Edit Group',
     },
     delete: {
-      HU: "Csoport törlése",
-      EN: "Delete Group"
+      HU: 'Csoport törlése',
+      EN: 'Delete Group',
     },
     confirmDeleteGroup: {
-      HU: "Biztosan ki szeretnéd törölni ezt a csoportot? Ezt nem lehet visszavonni.",
-      EN: "Are you sure you want to delete this group? This cannot be undone."
+      HU: 'Biztosan ki szeretnéd törölni ezt a csoportot? Ezt nem lehet visszavonni.',
+      EN: 'Are you sure you want to delete this group? This cannot be undone.',
     },
     leave: {
-      HU: "Csoport elhagyása",
-      EN: "Leave Group"
+      HU: 'Csoport elhagyása',
+      EN: 'Leave Group',
     },
     revokeJoinRequest: {
-      HU: "Jelentkezés visszavonása",
-      EN: "Revoke join request"
+      HU: 'Jelentkezés visszavonása',
+      EN: 'Revoke join request',
     },
     confirmRevoke: {
-      HU: "Biztosan visszavonod a jelentkezésed?",
-      EN: "Are you sure you want to revoke your join request?"
-    }
+      HU: 'Biztosan visszavonod a jelentkezésed?',
+      EN: 'Are you sure you want to revoke your join request?',
+    },
+  },
+  placeholders: {
+    name: {
+      EN: "Provide a fitting name for your new group!",
+      HU: "Adj meg egy leíró nevet a csoportodnak!"
+    },
+    description: {
+      HU: "Írd le, hogy pontosan miről is szól a csoportod!",
+      EN: "Tell us what your group is about"
+    },
+    alias: {
+      EN: "NEWGROUP",
+      HU: "CSOPORT"
+    },
+
   },
   creation: {
     name: {
@@ -1114,6 +1136,24 @@ export const GroupTexts = {
     save: {
       HU: 'Mentés',
       EN: 'Save',
+    },
+    alias: {
+      HU: "Rövidítés",
+      EN: "Alias"
+    },
+    visibility: {
+      public: {
+        EN: "Public",
+        HU: "Nyilvános"
+      },
+      private: {
+        EN: "Private",
+        HU: "Privát"
+      },
+    },
+    banner: {
+      HU: "Csoportkép feltöltése",
+      EN: "Upload Group banner"
     },
     added: {
       header: {
@@ -1137,13 +1177,13 @@ export const GroupTexts = {
     },
     edit: {
       success: {
-        HU: "Sikeres csoport szerkesztés",
-        EN: "Group edited successfully"
+        HU: 'Sikeres csoport szerkesztés',
+        EN: 'Group edited successfully',
       },
       failed: {
-        HU: "Nem sikerült szerkeszteni."
-        ,EN: "Could not edit group"
-      }
+        HU: 'Nem sikerült szerkeszteni.',
+        EN: 'Could not edit group',
+      },
     },
     deleted: {
       header: {
@@ -1187,52 +1227,62 @@ export const GroupTexts = {
           EN: 'This cannot be undone,',
           HU: 'Ezt nem lehet visszavonni.',
         },
-      }
-    }
-  }
-}
+      },
+    },
+  },
+};
 export const EventTexts = {
+  notAvailable: {
+    HU: 'Az események egy következő frissítésben válnak elérhetővé.',
+    EN: 'Events will be available in a future update',
+  },
+  staytuned: {
+    HU: "Figyeld a frissítéseket!",
+    EN: "Stay tuned!"
+  },
   creation: {
     placeholders: {
       name: {
-        EN: "Your New Event",
-        HU: "Az új eseményed"
+        EN: 'Your New Event',
+        HU: 'Az új eseményed',
       },
       description: {
-        EN: "Tell us about your event!",
-        HU: "Mesélj az eseményről!"
+        EN: 'Tell us about your event!',
+        HU: 'Mesélj az eseményről!',
       },
       location: {
-        EN: "Where will it be?",
-        HU: "Hol lesz?"
+        EN: 'Where will it be?',
+        HU: 'Hol lesz?',
       },
-      
-    }
+    },
   },
   buttons: {
     attend: {
       attendeeCount: {
-        EN: "attendee",
-        HU: "résztvevő"
-      }
-    }
-  }
-}
+        EN: 'attendee',
+        HU: 'résztvevő',
+      },
+    },
+  },
+};
 export const ChatTexts = {
+  loading: {
+    EN: "Loading your chats",
+    HU: "Chatek betöltése"
+  },
   sentPost: {
-    HU: "Posztot küldött",
-    EN: "Sent a post"
+    HU: 'Posztot küldött',
+    EN: 'Sent a post',
   },
   invited: {
-    HU: "Meghívott egy csoportba",
-    EN: "Invited you to a group"
+    HU: 'Meghívott egy csoportba',
+    EN: 'Invited you to a group',
   },
   messagedPosts(recipient: string) {
-    return {HU: `Poszt elküldve ${recipient} részére`,
-            EN: `Sent post to ${recipient}`}
+    return { HU: `Poszt elküldve ${recipient} részére`, EN: `Sent post to ${recipient}` };
   },
   sendPost: {
-    HU: "Küldés",
-    EN: "Send"
-  }
-}
+    HU: 'Küldés',
+    EN: 'Send',
+  },
+};

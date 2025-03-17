@@ -1,3 +1,8 @@
+/**
+ * Kép hiányzik
+ * @module post/base/ImageNotFound
+ * @category Components
+ */
 import { Colors } from '@/constants/Colors';
 import { CommonStaticElementProps } from '@/constants/types';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -5,7 +10,9 @@ import React from 'react';
 import { TouchableWithoutFeedback, View } from 'react-native';
 import ThemedText from '@/components/ui/ThemedText';
 import { PostCreationTexts } from '@/constants/texts';
-
+/**
+ * @param {onPress: () => void} props Tulajdonságok
+ */
 export default function ImageNotFound({
   onPress,
   colorScheme,

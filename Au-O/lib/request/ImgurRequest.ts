@@ -1,4 +1,10 @@
 /**
+ * Kép API elemek létrehozásának kérésének entitása
+ * @category Request
+ * @module request/ImgurRequest
+ */
+
+/**
  * Kép eltárolásának kérésének entitása
  * @interface
  * @see Image

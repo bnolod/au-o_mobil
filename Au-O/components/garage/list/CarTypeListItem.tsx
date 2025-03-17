@@ -1,3 +1,9 @@
+/**
+ * Autó típus kilistázási elem
+ * @module garage/list/CarTypeListItem
+ * @category Components
+ */
+
 import { Pressable, View } from 'react-native';
 import ThemedText from '@/components/ui/ThemedText';
 import { Images } from '@/lib/staticAssetExports';
@@ -5,7 +11,13 @@ import { getCarImage } from '@/components/graphics/cars';
 import { Colors } from '@/constants/Colors';
 import { CarTypeListItemProps } from './props';
 import { ImageBackground } from 'expo-image';
-
+/**
+ * Az érvényes autó típusok renderelésért felelős komponens
+ * @property {CarType} type Autó típus
+ * @property {string} colorScheme Szín séma
+ * @property {Function} onPress Kattintás esemény
+ * @returns 
+ */
 export default function CarTypeListItem({ onPress, type, colorScheme }: CarTypeListItemProps) {
   return (
     <Pressable

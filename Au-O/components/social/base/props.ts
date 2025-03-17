@@ -1,31 +1,155 @@
+/**
+ * Közösségi tulajdonságok
+ * @module social/base/props
+ * @category Props
+ */
 import { Group } from "@/lib/entity/Group";
 import { SocialEvent } from "@/lib/entity/SocialEvent";
 
+/**
+ * Új közösségi tulajdonságok
+ * @interface NewSocialProps
+ */
 export interface NewSocialProps {
-    text: string;
-    onPress?: () => void;
-  }
-  export interface SocialBannerProps {
-    name: string;
-    id: number;
-    header?: boolean;
-    image?: string;
-    type?: 'GROUP' | 'EVENT';
-    onPress?: () => void;
-    count?: number | null;
-  }
-  
+  /**
+   * Szöveg
+   * @type {string}
+   */
+  text: string;
+
+  /**
+   * Kattintási esemény
+   * @returns {void}
+   * 
+   */
+  onPress?: () => void;
+}
+
+/**
+ * Közösségi banner tulajdonságok
+ * @interface SocialBannerProps
+ */
+export interface SocialBannerProps {
+  /**
+   * Név
+   * @type {string}
+   */
+  name: string;
+
+  /**
+   * Azonosító
+   * @type {number}
+   */
+  id: number;
+
+  /**
+   * Fejléc?
+   * @type {boolean}
+   * 
+   */
+  header?: boolean;
+
+  /**
+   * Kép URL
+   * @type {string}
+   * 
+   */
+  image?: string;
+
+  /**
+   * Típus
+   * @type {'GROUP' | 'EVENT'}
+   * 
+   */
+  type?: 'GROUP' | 'EVENT';
+
+  /**
+   * Kattintási esemény
+   * @returns {void}
+   * 
+   */
+  onPress?: () => void;
+
+  /**
+   * Számláló
+   * @type {number | null}
+   * 
+   */
+  count?: number | null;
+}
+
+/**
+ * Közösségi rendezési elem tulajdonságok
+ * @interface SocialSortItemProps
+ */
 export interface SocialSortItemProps {
-    bannerImage: string | null;
-    name: string;
-    memberCount: number;
-    onSelect: () => void;
-    colorScheme: "light" | "dark";
-  }
-  export interface SocialCardProps {
-    group?: Group;
-    event?: SocialEvent;
-    preview?: 'CREATE' | 'DISPLAY' | undefined;
-    type: 'GROUP' | 'EVENT';
-    onCreatePress?: () => void;
-  }
+  /**
+   * Banner kép URL
+   * @type {string | null}
+   */
+  bannerImage: string | null;
+
+  /**
+   * Név
+   * @type {string}
+   */
+  name: string;
+
+  /**
+   * Tagok száma
+   * @type {number}
+   */
+  memberCount: number;
+
+  /**
+   * Kiválasztási esemény
+   * @returns {void}
+   */
+  onSelect: () => void;
+
+  /**
+   * Színséma
+   * @type {'light' | 'dark'}
+   */
+  colorScheme: 'light' | 'dark';
+}
+
+/**
+ * Közösségi kártya tulajdonságok
+ * @interface SocialCardProps
+ */
+export interface SocialCardProps {
+  /**
+   * Csoport
+   * @type {Group}
+   * 
+   */
+  group?: Group;
+
+  /**
+   * Esemény
+   * @type {SocialEvent}
+   * 
+   */
+  event?: SocialEvent;
+
+  /**
+   * Előnézet
+   * @type {'CREATE' | 'DISPLAY' | undefined}
+   * 
+   */
+  preview?: 'CREATE' | 'DISPLAY' | undefined;
+
+  /**
+   * Típus
+   * @type {'GROUP' | 'EVENT'}
+   */
+  type: 'GROUP' | 'EVENT';
+
+  /**
+   * Létrehozási esemény
+   * @returns {void}
+   * 
+   */
+  onCreatePress?: () => void;
+}

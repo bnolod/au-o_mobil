@@ -1,3 +1,8 @@
+/**
+ * Követői sheet
+ * @module home/user/FollowerSheet
+ * @category Component
+ */
 import { BottomSheetFlashList, BottomSheetModal } from '@gorhom/bottom-sheet';
 import UserListCard from '@/components/ui/UserListCard';
 import { CommonStaticElementProps } from '@/constants/types';
@@ -9,7 +14,10 @@ import { useState } from 'react';
 import { SocialTexts } from '@/constants/texts';
 import { User } from '@/lib/entity/User';
 import { FollowerSheetProps } from './props';
-
+/**
+ * Követő sheet
+ * @param {FollowerSheetProps} props
+ */
 export default function FollowerSheet({
   followers,
   following,

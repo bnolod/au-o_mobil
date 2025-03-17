@@ -1,4 +1,9 @@
-import { Keyboard, Platform, View } from 'react-native';
+/**
+ * Alap fejléc a főoldalhoz
+ * @module home/base/RootHeader
+ * @category Components
+ */
+import { Platform, View } from 'react-native';
 import SearchBar from '@/components/ui/SearchBar';
 import Button from '@/components/ui/Button';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -10,9 +15,13 @@ import GradientBackground from '@/components/ui/GradientBackground';
 import { Colors } from '@/constants/Colors';
 import { router } from 'expo-router';
 
+/**
+ * Alapértelmezett fejléc komponens a főoldalhoz
+ * @property {string} language Nyelv
+ * @property {string} colorScheme Szín séma
+ * @returns 
+ */
 export default function RootHeader({ language, colorScheme }: CommonStaticElementProps) {
-  
-
   return (
     <GradientBackground
       colors={[Colors[colorScheme].primary, Colors[colorScheme].secondary]}

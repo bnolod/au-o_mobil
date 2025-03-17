@@ -1,3 +1,9 @@
+/**
+ * Képekhez kapcsolódó API hívások
+ * @module ApiCalls/ImageApiCalls
+ * @category API
+ */
+
 import axios from "axios";
 import { Image } from "../entity/Image";
 

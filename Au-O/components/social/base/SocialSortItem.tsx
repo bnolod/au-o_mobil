@@ -1,10 +1,17 @@
+/**
+ * Közösségi rendezés elem tulajdonságok
+ * @module social/base/SocialSortItem
+ * @category Components
+*/
 import { Pressable, View } from 'react-native';
 import ThemedText from '@/components/ui/ThemedText';
 import { Images } from '@/lib/staticAssetExports';
 import { Colors } from '@/constants/Colors';
 import { SocialSortItemProps } from './props';
 import { ImageBackground } from 'expo-image';
-
+/**
+ * @param {SocialSortItemProps} props - Tulajdonságok
+ */
 export default function SocialSortItem({ bannerImage, name, memberCount, onSelect, colorScheme }: SocialSortItemProps) {
   return (
     <Pressable onPress={onSelect} className="social-sort-item-container">

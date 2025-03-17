@@ -1,3 +1,8 @@
+/**
+ * Csoport oldal
+ * @module social/groups/GroupPage
+ * @category Component
+ */
 import { CommonStaticElementProps } from '@/constants/types';
 import { Alert, Platform, ScrollView, TouchableOpacity, View } from 'react-native';
 import SocialBanner from '@/components/social/base/SocialBanner';
@@ -11,17 +16,16 @@ import GroupPostTab from './tabs/GroupPostTab';
 import GroupEventsTab from './tabs/GroupEventsTab';
 import GroupMembersTab from './tabs/GroupMembersTab';
 import GroupInfoTab from './tabs/GroupInfoTab';
-import { GroupTexts, PostCreationTexts, SocialTexts, ToastMessages } from '@/constants/texts';
+import { GroupTexts } from '@/constants/texts';
 import { useWebSocket } from '@/contexts/WebSocketContext';
 import GroupChatTab from './tabs/GroupChatTab';
-import { handleShare } from '@/lib/events/PostOptionEvents';
 import { getGroupStatus, leaveGroup } from '@/lib/ApiCalls/GroupApiCalls';
-import { router } from 'expo-router';
-import Toast from 'react-native-toast-message';
 import GroupOptionSheet from './GroupOptionSheet';
 import LoadingModal from '@/components/ui/LoadingModal';
 import GroupEditTab from './tabs/GroupEditTab';
-
+/**
+ * @param {group, colorScheme, language} props Tulajdonságok
+ */
 export default function GroupPage({ group, colorScheme, language }: CommonStaticElementProps & { group: Group }) {
   const [selectedTab, setSelectedTab] = useState<'POSTS' | 'EVENTS' | 'MEMBERS' | 'INFO' | 'CHAT' | 'EDIT'>('POSTS');
   const { subscribeToTopic } = useWebSocket();

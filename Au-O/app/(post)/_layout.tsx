@@ -1,4 +1,4 @@
-import { PostEditTexts, PostStatusTexts } from '@/constants/texts';
+import { PostStatusTexts } from '@/constants/texts';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Stack } from 'expo-router';
 

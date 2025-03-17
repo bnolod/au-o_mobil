@@ -1,3 +1,8 @@
+/**
+ * Komment hozzáadásához használt sor
+ * @module home/comment/AddCommentRow
+ * @category Components
+ */
 import { CommentTexts, HomeTexts } from '@/constants/texts';
 import { Keyboard, TextInput, View } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -10,7 +15,9 @@ import { AddCommentToPost } from '@/lib/ApiCalls/CommentApiCalls';
 import ApiCallButton from '@/components/ui/ApiCallButton';
 import { AddCommentRowProps } from './props';
 import { validateComment } from '@/lib/Validation/Validation';
-
+/** 
+ * @param {AddCommentRowProps} props Tulajdonságok
+ */
 export default function AddCommentRow({
   authorNickname,
   language,
@@ -24,7 +31,7 @@ export default function AddCommentRow({
     if (!validateComment(commentText, language).valid) {
       return
     }
-    const res = await AddCommentToPost(postId.toString(), commentText);
+    const res = await AddCommentToPost(postId, commentText);
     if (res) {
       setCommentText('');
       onPostComment(res);

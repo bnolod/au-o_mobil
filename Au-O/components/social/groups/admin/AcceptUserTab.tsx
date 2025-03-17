@@ -1,3 +1,8 @@
+/**
+ * Adminisztrátor által elfogadandó felhasználók megjelenítése
+ * @module social/groups/admin/AcceptUserTab
+ * @category Components
+ */
 import { Pressable, View } from 'react-native';
 import ThemedText from '@/components/ui/ThemedText';
 import Avatar from '@/components/ui/Avatar';
@@ -7,8 +12,10 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { ImageBackground } from 'expo-image';
 import { Images } from '@/lib/staticAssetExports';
 import { router } from 'expo-router';
-
-export default function AcceptUserTab({ user, language }: AcceptUserTabProps & CommonStaticElementProps) {
+/**
+ * @param {AcceptUserTabProps & CommonStaticElementProps} props - Tulajdonságok
+ */
+export default function AcceptUserTab({ user }: AcceptUserTabProps & CommonStaticElementProps) {
   return (
     <View className="w-full flex flex-row items-center justify-between gap-2 my-2 secondary rounded-xl">
       <Pressable onPress={() => router.push({pathname: "/(profile)/[id]", params: {id: user.id}})} className="flex flex-row justify-between items-center gap-2 p-3">

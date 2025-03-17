@@ -1,3 +1,8 @@
+/**
+ * Komment komponens
+ * @module ui/CommentElement
+ * @category Component
+ */
 import { Alert, Dimensions, Keyboard, Pressable, Text, TouchableOpacity, View } from 'react-native';
 import ThemedText from './ThemedText';
 import { CommonStaticElementProps, Reactions } from '@/constants/types';
@@ -20,6 +25,11 @@ import { Reply } from '@/lib/entity/Reply';
 import { addReaction } from '@/lib/ApiCalls/ReactionApiCalls';
 import { CommentElementProps } from './props';
 import { validateReply } from '@/lib/Validation/Validation';
+/**
+ * 
+ * @param {CommentElementProps & CommonStaticElementProps} props Tulajdonságok
+ * @returns 
+ */
 export default function CommentElement({
   item,
   language,

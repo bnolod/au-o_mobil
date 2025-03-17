@@ -1,3 +1,9 @@
+/**
+ * Garázs elem
+ * @module garage/list/GarageItem
+ * @category Components
+ */
+
 import { Pressable, View } from 'react-native';
 import ThemedText from '@/components/ui/ThemedText';
 import { Images } from '@/lib/staticAssetExports';
@@ -9,6 +15,16 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { generalTexts } from '@/constants/texts';
 import { GarageItemProps } from './props';
 import { ImageBackground } from 'expo-image';
+
+/**
+ * Garázsban található elemeket megjelenítő komponens
+ * @property {Car} car Autó
+ * @property {string} language Nyelv
+ * @property {string} colorScheme Szín séma
+ * @property {Function} onPress Kattintás esemény
+ * @property {Function} onSelect Kiválasztás esemény
+ * @property {boolean} isOwner Tulajdonos-e
+ */
 export default function GarageItem({
   car,
   language,

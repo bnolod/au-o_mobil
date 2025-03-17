@@ -1,7 +1,6 @@
 import Input from '@/components/ui/Input';
 import { ScrollView } from 'react-native';
 import { AuthTexts } from '@/constants/texts';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import ThemedText from '@/components/ui/ThemedText';
 import { useEffect } from 'react';
 import { useFormContext } from '@/contexts/FormContext';
@@ -9,7 +8,7 @@ import { handleFormInputChange } from '@/lib/functions';
 import { useColorScheme } from 'nativewind';
 import { useLanguage } from '@/contexts/LanguageContext';
 
-export default function Login({ route }: any) {
+export default function Login() {
   const { setFormData, getFormData } = useFormContext();
   const { language } = useLanguage();
   const { colorScheme } = useColorScheme();

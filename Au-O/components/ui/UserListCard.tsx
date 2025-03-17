@@ -1,5 +1,9 @@
+/**
+ * Felhasználói profil kártya
+ * @module ui/UserListCard
+ * @category Component
+ */
 import { CommonStaticElementProps } from '@/constants/types';
-import { User } from '@/lib/entity/User';
 import { Alert, AlertButton, Platform, Pressable, TouchableOpacity, View } from 'react-native';
 import Avatar from './Avatar';
 import ThemedText from './ThemedText';
@@ -11,7 +15,9 @@ import Toast from 'react-native-toast-message';
 import { useState } from 'react';
 import { UserListCardProps } from './props';
 import ProfileModal from './ProfileModal';
-
+/**
+ * @param {UserListCardProps & CommonStaticElementProps} props
+ */
 export default function UserListCard({
   user,
   colorScheme,

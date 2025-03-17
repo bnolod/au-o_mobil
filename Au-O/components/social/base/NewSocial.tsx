@@ -1,9 +1,16 @@
+/**
+ * Közösségi elem létrehozása
+ * @module social/base/NewSocial
+ * @category Components
+ */
 import { View } from 'react-native';
 import ThemedText from '@/components/ui/ThemedText';
 import Button from '@/components/ui/Button';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { NewSocialProps } from './props';
-
+/**
+ * @param {NewSocialProps} props - Tulajdonságok
+ */
 export default function NewSocial({ text, onPress }: NewSocialProps) {
   return (
     <Button className="new-social-button" hapticFeedback="light" onPress={onPress}>

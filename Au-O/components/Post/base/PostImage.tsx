@@ -1,9 +1,17 @@
+/**
+ * Poszt kép
+ * @module post/base/PostImage
+ * @category Components
+ */
 import { Dimensions } from 'react-native';
 import Carousel from 'react-native-reanimated-carousel';
 import PostCarouselElement from './PostCarouselElement';
 import { Image } from 'expo-image';
 import PostImageFallback from '@/components/ui/PostImageFallback';
 import { Images } from '@/lib/staticAssetExports';
+/**
+ * @param {images: string[]} props Tulajdonságok
+ */
 export default function PostImage({ images }: { images: string[] }) {
   if (images.length === 0 || images.length > 10) return <PostImageFallback />;
   if (images.length === 1)

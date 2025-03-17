@@ -1,9 +1,17 @@
+/**
+ * Poszt oldal
+ * @module post/base/PostPage
+ * @category Components
+ */
 import { CommonStaticElementProps } from "@/constants/types";
 import { Post } from "@/lib/entity/Post";
 import { View } from "react-native";
 import { User } from "@/lib/entity/User";
 
 import PostCard from "../Post";
+/**
+ * @param {CommonStaticElementProps & {id: string, isNew?: string, user: User, post: Post}} props Tulajdonságok
+ */
 export default function PostPage({id, isNew, colorScheme, language, user, post} : CommonStaticElementProps & {id: string, isNew?: string, user: User, post: Post}) {  
 
   

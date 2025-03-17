@@ -32,7 +32,7 @@ export function handleFormInputChange(
 }
 /**
  * Aktuális időbélyeg mentése a SecureStore-ba
- * @async
+ * 
  * @returns {Promise<void>}
  */
 export async function setTimestamp() {
@@ -40,7 +40,7 @@ export async function setTimestamp() {
 }
 /**
  * Az aktuális időbélyeg lekérdezése a SecureStore-ból
- * @async
+ * 
  * @returns {Promise<string | null>} Időbélyeg string
  */
 export async function getTimestamp() {
@@ -81,7 +81,7 @@ export function createTimestamp() {
 }
 /**
  * Nem megfelelő képfeltöltések törlése
- * @async
+ * 
  * @param {ImageUploadResponse[]} images Képek tömbje
  * @returns {Promise<void>}
  */
@@ -97,7 +97,7 @@ export async function cleanupInvalidImageUploads(images: Image[]) {
 }
 /**
  * Kép konvertálása Base64 formátumba
- * @async
+ * 
  * @param {string} image Kép entitás URI
  * @returns {Promise<string>} Kép Base64 string
  */
@@ -109,7 +109,7 @@ export async function convertToBlob(image: string): Promise<string> {
 }
 /**
  * Egy darab Kép kiválasztása a galériából
- * @async
+ * 
  * @returns {Promise<ImagePicker.ImagePickerAsset | undefined>} Kép entitás
  */
 export async function getOneImageFromGallery() {
@@ -126,7 +126,7 @@ export async function getOneImageFromGallery() {
 }
 /**
  * Több kép kiválasztása a galériából
- * @async
+ * 
  * @param {ImagePicker.ImagePickerAsset[]} images Képek tömbje
  * @param {"HU" | "EN"} language Nyelv
  * @returns {Promise<ImagePicker.ImagePickerAsset[]>} Képek tömbje
@@ -157,52 +157,8 @@ export async function handleGallery(images: ImagePicker.ImagePickerAsset[], lang
   }
 }
 /**
- * Két string hasonlósági faktorát számolja ki
- * @param {string} s1 Elsődleges string
- * @param {string} s2 Másodlagos string
- * @returns {number} Hasonlósági faktor
- */
-export function getStringSimilarity(s1: string, s2: string) {
-  function editDistance(a: string, b: string) {
-    if (!a.length) return b.length;
-    if (!b.length) return a.length;
-
-    const matrix = Array(a.length + 1)
-      .fill(null)
-      .map(() => Array(b.length + 1).fill(null));
-
-    for (let i = 0; i <= a.length; i++) matrix[i][0] = i;
-    for (let j = 0; j <= b.length; j++) matrix[0][j] = j;
-
-    for (let i = 1; i <= a.length; i++) {
-      for (let j = 1; j <= b.length; j++) {
-        const cost = a[i - 1] === b[j - 1] ? 0 : 1;
-        matrix[i][j] = Math.min(matrix[i - 1][j] + 1, matrix[i][j - 1] + 1, matrix[i - 1][j - 1] + cost);
-      }
-    }
-    return matrix[a.length][b.length];
-  }
-
-  const maxLenght = Math.max(s1.length, s2.length);
-  return (maxLenght - editDistance(s1, s2)) / maxLenght;
-} //köszönöm random fickó stackoverflown
-/**
- * Szűrési funkció
- * @param {string} query Lekérdezés
- * @param {any[]} items Szűrésre szánt elemek
- * @param {any} attribute Szűrésre szánt elem attribútuma
- * @returns {any[]} Szűrt elemek tömbje
- */
-export const searchFilter = (query: string, items: any[], attribute: any) => {
-  return items
-    .map((item) => ({ item, score: getStringSimilarity(query, item[attribute].toLowerCase()) }))
-    .filter(({ score }) => score > 0.5)
-    .sort((a, b) => b.score - a.score)
-    .map(({ item }) => item);
-};
-/**
  * Felhasználó entitás elmentése a SecureStore-ba
- * @async
+ * 
  * @param {User} user Felhasználó entitás
  */
 export async function saveUser(user: User) {
@@ -210,7 +166,7 @@ export async function saveUser(user: User) {
 }
 /**
  * Felhasználó entitás törlése a SecureStore-ból
- * @async
+ * 
  * @returns {Promise<void>}
  */
 export async function deleteUser() {
@@ -251,7 +207,7 @@ export function showErrorToast(title: string, message?: string) {
 }
 /**
  *  Többrészes űrlappá alakított kép feltöltésre kész elem létrehozása
- * @async
+ * 
  * @param {ImagePicker.ImagePickerAsset} element Feltöltendő kép
  * @param {string} description Kép leírása
  * @param {User} user Feltöltést kezdeményező felhasználó entitás

@@ -1,3 +1,10 @@
+/**
+ * AuthTouchables.tsx
+ * Az autentikációhoz használt gombok
+ * @module auth/AuthTouchables
+ * @category Components
+ */
+
 import { View } from 'react-native';
 import Button from '../ui/Button';
 import ThemedText from '../ui/ThemedText';
@@ -8,7 +15,12 @@ import { showErrorToast } from '@/lib/functions';
 import { useAuthentication } from '@/contexts/AuthenticationContext';
 import { validateLogin, validateRegister } from '@/lib/Validation/Validation';
 import { loginFailed } from '@/lib/Validation/responses';
-
+/**
+ * Authentikációhoz használt gombok
+ * @property {"HU" | "EN"} language Nyelv
+ * @property {"LOGIN" | "SIGNUP"} mode Bejelentkezés/Regisztráció
+ * @returns {React.JSX.Element}
+ */
 export default function AuthTouchables({ language, mode }: { language: 'HU' | 'EN'; mode: 'LOGIN' | 'SIGNUP' }) {
   const { getFormData, resetFormData } = useFormContext();
   const { login, register } = useAuthentication();

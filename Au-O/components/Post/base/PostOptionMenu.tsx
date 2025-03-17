@@ -1,3 +1,8 @@
+/**
+ * Poszt beállítás menü
+ * @module post/base/PostOptionMenu
+ * @category Components
+ */
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { ChatTexts, PostCreationTexts, PostStatusTexts, SocialTexts } from '@/constants/texts';
 import { ActionSheetIOS, Platform, Pressable, View } from 'react-native';

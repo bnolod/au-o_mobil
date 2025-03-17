@@ -1,10 +1,23 @@
+/**
+ * DirectMessage komponens
+ * @module chat/base/DirectMessage
+ * @category Components
+ */
 import { Pressable, Text, View } from 'react-native';
 import { DirectMessageItemProps } from '../props';
 import Avatar from '@/components/ui/Avatar';
 import ThemedText from '@/components/ui/ThemedText';
 import { router } from 'expo-router';
 import { ChatTexts } from '@/constants/texts';
-
+/**
+ * Közvetlen üzenetet megjelenítő komponens
+ * @property {User} user Felhasználó
+ * @property {User} latestMessage Legutóbbi üzenet
+ * @property {string} date Dátum
+ * @property {"HU" | "EN"} language Nyelv
+ * @see DirectMessageItemProps
+ * @returns 
+ */
 export default function DirectMessageItem({ user, latestMessage, date, language }: DirectMessageItemProps & {language: "HU" | "EN"}) {
   console.log('latestmessage:' + latestMessage.active);
 

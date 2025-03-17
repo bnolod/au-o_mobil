@@ -1,11 +1,9 @@
 import LoadingModal from '@/components/ui/LoadingModal';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { apiFetch } from '@/lib/apiClient';
-import { router, useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import { useColorScheme } from 'nativewind';
 import { useEffect, useState } from 'react';
-import { Alert, View } from 'react-native';
-import * as Clipboard from 'expo-clipboard';
 import { PostStatusTexts } from '@/constants/texts';
 import { useAuthentication } from '@/contexts/AuthenticationContext';
 import { Post } from '@/lib/entity/Post';
@@ -29,23 +27,6 @@ export default function GroupPostIndex() {
   useEffect(() => {
     getPost()
   }, []);
-  function showShareModal() {
-    if (Boolean(isNew)) {
-      Alert.alert(PostStatusTexts.newShare.title[language], PostStatusTexts.newShare.message[language], [
-        {
-          text: PostStatusTexts.newShare.responses.no[language],
-          style: 'cancel',
-        },
-        {
-          isPreferred: true,
-          text: PostStatusTexts.newShare.responses.yes[language],
-          onPress: async () => {
-            await Clipboard.setStringAsync(post!.postId.toString());
-          },
-        },
-      ]);
-    }
-  }
   if (!post && loading)
     return <LoadingModal colorScheme={colorScheme!} loading={loading} text={PostStatusTexts.loading[language]} />;
   if (post !== null && user !== null && user !== undefined)

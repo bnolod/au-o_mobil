@@ -1,6 +1,5 @@
 import { Keyboard, Platform, Pressable, ScrollView, TouchableOpacity, View } from 'react-native';
 import ThemedText from '@/components/ui/ThemedText';
-import { FlashList } from '@shopify/flash-list';
 import SocialCard from '@/components/social/base/SocialCard';
 import { useColorScheme } from 'nativewind';
 import { useLanguage } from '@/contexts/LanguageContext';

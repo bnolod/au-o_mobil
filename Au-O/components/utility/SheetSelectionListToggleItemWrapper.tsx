@@ -1,8 +1,16 @@
+/**
+ * Kiválasztási lista wrapper
+ * @module utility/SheetSelectionListToggleItemWrapper
+ * @category Utility
+ */
 import { Pressable, View } from 'react-native';
 import { ReactNode, useState } from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Colors } from '@/constants/Colors';
-
+/**
+ * @property {ReactNode} children Leszármazott elemek
+ * @property {Function} onPress Kattintási esemény
+ */
 export default function SheetSelectionListItemToggleWrapper({
   children,
   onPress,

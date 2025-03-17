@@ -2,13 +2,12 @@ import { Keyboard, Pressable, ScrollView, TouchableOpacity, View } from 'react-n
 import Input from '@/components/ui/Input';
 import { useColorScheme } from 'nativewind';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { Images } from '@/lib/staticAssetExports';
 import { useState } from 'react';
 import Toast from 'react-native-toast-message';
 import SocialCard from '@/components/social/base/SocialCard';
 import NewSocial from '@/components/social/base/NewSocial';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { createImageForm, getOneImageFromGallery } from '@/lib/functions';
+import { createImageForm } from '@/lib/functions';
 import { Colors } from '@/constants/Colors';
 import ThemedText from '@/components/ui/ThemedText';
 import { useAuthentication } from '@/contexts/AuthenticationContext';
@@ -18,11 +17,11 @@ import { router } from 'expo-router';
 import { createGroup } from '@/lib/ApiCalls/GroupApiCalls';
 import { GroupCreationRequest } from '@/lib/request/GroupCreationRequest';
 import { imageUpload } from '@/lib/ApiCalls/ImageApiCalls';
-import { Image } from 'expo-image';
 import { validateNewGroup } from '@/lib/Validation/Validation';
 import { groupCreated, groupFailed } from '@/lib/Validation/responses';
 import CreationHeader from '@/components/social/base/CreationHeader';
 import { openSocialGallery } from '@/components/social/base/functions';
+import { GroupTexts } from '@/constants/texts';
 export default function NewPostPage() {
   const { language } = useLanguage();
   const { user } = useAuthentication();
@@ -109,13 +108,13 @@ export default function NewPostPage() {
             description:
               newGroupForm.description.length > 0
                 ? newGroupForm.description
-                : 'Provide a fitting description for your new group.',
+                : GroupTexts.placeholders.description[language],
             member: true,
             public: newGroupForm.public,
             validMember: true,
 
             memberCount: 123,
-            name: newGroupForm.name.length > 0 ? newGroupForm.name : 'New Group',
+            name: newGroupForm.name.length > 0 ? newGroupForm.name : GroupTexts.placeholders.name[language],
           }}
         />
       </View>
@@ -123,10 +122,10 @@ export default function NewPostPage() {
         <View className="flex flex-row justify-between items-center">
           <View className="w-9/12 ml-1 self-start">
             <Input
-              label="Name"
+              label={GroupTexts.creation.name[language]}
               icon="id-card"
               TextInputProps={{
-                placeholder: 'Name',
+                placeholder: GroupTexts.placeholders.name[language],
                 value: newGroupForm.name,
                 onChangeText: (text) => setNewGroupForm({ ...newGroupForm, name: text }),
               }}
@@ -143,15 +142,15 @@ export default function NewPostPage() {
                 size={24}
                 color={Colors[colorScheme!].text}
               />
-              <ThemedText>{newGroupForm.public ? 'Public' : 'Private'}</ThemedText>
+              <ThemedText>{newGroupForm.public ? GroupTexts.creation.visibility.public[language] : GroupTexts.creation.visibility.private[language]}</ThemedText>
             </TouchableOpacity>
           </View>
         </View>
         <Input
-          label="Alias"
+          label={GroupTexts.creation.alias[language]}
           icon="bookmark-check-outline"
           TextInputProps={{
-            placeholder: 'Alias',
+            placeholder: GroupTexts.placeholders.alias[language],
             maxLength: 8,
             value: newGroupForm.alias,
 
@@ -161,10 +160,10 @@ export default function NewPostPage() {
           colorScheme={colorScheme!}
         />
         <Input
-          label="Description"
+          label={GroupTexts.creation.description[language]}
           icon="pencil-box-outline"
           TextInputProps={{
-            placeholder: 'Description',
+            placeholder: GroupTexts.placeholders.description[language],
             value: newGroupForm.description,
             multiline: true,
             numberOfLines: 4,
@@ -182,7 +181,7 @@ export default function NewPostPage() {
           <View className="absolute -left-4">
             <MaterialCommunityIcons name="image-outline" color={Colors[colorScheme!].text} size={36} />
           </View>
-          <ThemedText className="txl">Upload Banner</ThemedText>
+          <ThemedText className="txl">{GroupTexts.creation.banner[language]}</ThemedText>
         </TouchableOpacity>
         <NewSocial
           text={`Create ${newGroupForm.name.length > 0 ? newGroupForm.name : 'Group'}`}

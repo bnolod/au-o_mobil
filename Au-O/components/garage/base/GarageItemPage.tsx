@@ -1,4 +1,10 @@
-import { RefreshControl, ScrollView, View } from 'react-native';
+/**
+ * A garázs oldala
+ * @module garage/base/GaragePage
+ * @category Components
+ */
+
+import { ScrollView, View } from 'react-native';
 import ThemedText from '@/components/ui/ThemedText';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Colors } from '@/constants/Colors';
@@ -9,17 +15,21 @@ import { CommonStaticElementProps } from '@/constants/types';
 import { generalTexts, PostCreationTexts, SocialTexts } from '@/constants/texts';
 import { router } from 'expo-router';
 import { GarageItemPageProps } from './props';
-import { Images } from '@/lib/staticAssetExports';
-import { ImageBackground } from 'expo-image';
 import GradientBackground from '@/components/ui/GradientBackground';
-
+/**
+ * 
+ * @property {string} colorScheme Szín séma
+ * @property {boolean} isOwner Tulajdonos-e
+ * @property {Car} car Autó
+ * @property {Post[]} posts Posztok
+ * @property {"HU" | "EN"} language Nyelv
+ */
 export default function GarageItemPage({
   colorScheme,
   isOwner,
   car,
   posts,
   language,
-  profileImg,
 }: GarageItemPageProps & CommonStaticElementProps) {
   return (
     <ScrollView  className="garage-page">

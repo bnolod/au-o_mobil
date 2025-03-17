@@ -4,7 +4,6 @@ import { useColorScheme } from 'nativewind';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Images } from '@/lib/staticAssetExports';
 import GarageItem from '@/components/garage/list/GarageItem';
-import ThemedText from '@/components/ui/ThemedText';
 import { useEffect, useState } from 'react';
 import { CarType } from '@/constants/types';
 import { CarCreationRequest } from '@/lib/request/CarCreationRequest';
@@ -202,7 +201,7 @@ export default function editCarPage() {
         <Button
           className="button outline btn-fill btn-highlight"
           onPress={async () => {
-            const res = await editCar(id as string, {
+            const res = await editCar(Number(id as string), {
               description: editCarForm.description,
               displacement: displacement ? parseFloat(displacement.replace(',', '.')) * 10 : 1,
               horsepower: editCarForm.horsepower,
@@ -271,7 +270,7 @@ export default function editCarPage() {
                   {
                     text: SocialTexts.creation.car.prompts.delete.buttons.delete[language],
                     onPress: async () => {
-                      const res = await deleteCar(id as string);
+                      const res = await deleteCar(Number(id as string));
                       if (res) {
                         Toast.show({
                           type: 'success',

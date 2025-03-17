@@ -1,3 +1,9 @@
+/**
+ * Csoport entitások
+ * @category Entity
+ * @module entity/Group
+ */
+
 import { User, UserResponse } from "./User";
 /**
  * Csoport entitás

@@ -1,3 +1,8 @@
+/**
+ * Avatar komponens tulajdonságai
+ * @module ui/avatar
+ * @category Component
+ */
 import { AvatarProps } from './props';
 import { View } from 'react-native';
 import { Image, ImageBackground } from 'expo-image';

@@ -7,7 +7,7 @@ import { Colors } from '@/constants/Colors';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { StatusBar } from 'expo-status-bar';
 import Avatar from '@/components/ui/Avatar';
-import { Platform, Touchable, TouchableOpacity, View } from 'react-native';
+import { Platform, View } from 'react-native';
 
 export default function RootLayout() {
   const { user } = useAuthentication();
@@ -31,8 +31,6 @@ export default function RootLayout() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            //           borderTopEndRadius: 30,
-            //           borderTopStartRadius: 30,
           },
 
           tabBarActiveTintColor: colorScheme === 'light' ? Colors.highlight.light : Colors.highlight.main,

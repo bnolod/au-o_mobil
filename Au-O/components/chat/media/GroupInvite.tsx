@@ -1,18 +1,29 @@
+/**
+ * Közvetlen üzenet: Csoport meghívás komponens
+ * @module chat/media/GroupInvite
+ * @category Components
+ */
 import { View } from 'react-native';
-import { GroupMessageProps } from '../props';
 import { GroupInviteProps } from './props';
 import { useEffect, useState } from 'react';
 import { Group } from '@/lib/entity/Group';
 import { getGroup } from '@/lib/ApiCalls/GroupApiCalls';
 import Avatar from '@/components/ui/Avatar';
 import ThemedText from '@/components/ui/ThemedText';
-import { Image, ImageBackground } from 'expo-image';
+import { ImageBackground } from 'expo-image';
 import { Text } from 'react-native';
 import { router } from 'expo-router';
 import { Colors } from '@/constants/Colors';
 import { Images } from '@/lib/staticAssetExports';
 import Button from '@/components/ui/Button';
-
+/**
+ * Csoport meghívás komponens
+ * @property {string} sender Küldő
+ * @property {string} colorScheme Színválasztás
+ * @property {string} groupId Csoport azonosító
+ * @property {string} avatar Avatar
+ * @returns 
+ */
 export default function GroupInvite({ sender, colorScheme, groupId, avatar }: GroupInviteProps) {
   const [group, setGroup] = useState<Group | null>(null);
 

@@ -1,13 +1,49 @@
+/**
+ * Képernyők közötti megosztott űrlapkezelésért felelős context
+ * @module contexts/FormContext
+ * @category Contexts
+ */
+
 import { createContext, useContext, useState } from 'react';
 
-interface FormData {
+/**
+ * Űrlap elem tulajdonságai
+ * @type
+ */
+export type FormData = {
+  /**
+   * @param {string} key Az űrap elemeinek kulcsa
+   */
   [key: string]: any;
 }
-
-interface FormContextType {
+/**
+ * Context kiosztott paraméter listája
+ * @type
+ */
+type FormContextType = {
+  /**
+   * Elem tulajdonságai
+   * @type {FormData | undefined} 
+   */
   formData: FormData | undefined;
+  /**
+   * Űrlap adattag settere
+   * @param {string} formKey Űrlap azonosító kulcsa 
+   * @param {any} data Űrlapba feltöltendő adat 
+   * @returns {void}
+   */
   setFormData: (formKey: string, data: any) => void;
+  /**
+   * Űrlap adattag gettere
+   * @param {string} formKey Űrlap azonosító kulcsa 
+   * @returns {any}
+   */
   getFormData: (formKey: string) => any;
+  /**
+   * 
+   * @param {string} formKey A törlésre szánt űrlap azonosító kulcsa 
+   * @returns 
+   */
   resetFormData: (formKey: string) => void;
 }
 

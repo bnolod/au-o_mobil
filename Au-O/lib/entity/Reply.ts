@@ -1,3 +1,8 @@
+/**
+ * Válasz entitások
+ * @category Entity
+ * @module entity/Reply
+ */
 import { Reactions } from '@/constants/types';
 import { User } from './User';
 /**

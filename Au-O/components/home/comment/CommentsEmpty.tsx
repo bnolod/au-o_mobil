@@ -1,10 +1,15 @@
+/**
+ * Komment tároló üres állapotban
+ */
 import { Colors } from '@/constants/Colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { View } from 'react-native';
 import ThemedText from '@/components/ui/ThemedText';
 import { HomeTexts } from '@/constants/texts';
 import { CommonStaticElementProps } from '@/constants/types';
-
+/**
+ * @param {CommonStaticElementProps} props 
+ */
 export default function CommentsEmpty({ language, colorScheme }: CommonStaticElementProps) {
   return (
     <View className="root-comment-empty-container">

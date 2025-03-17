@@ -1,3 +1,8 @@
+/**
+ * Kezdőképernyő fejléc
+ * @module onboarding/base/Header
+ * @category Components
+ */
 import React from 'react';
 import { Dimensions, Platform, View } from 'react-native';
 import { ThemedText } from '@/components/ui/ThemedText';
@@ -8,6 +13,9 @@ import { CommonStaticElementProps } from '@/constants/types';
 import { OnboardHeaderProps } from './props';
 import { Image } from 'expo-image';
 import { Images } from '@/lib/staticAssetExports';
+/**
+ * @param {OnboardHeaderProps} props
+ */
 export default function OnboardingHeader({
   isStatic,
   onBackPress,

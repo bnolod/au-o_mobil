@@ -1,3 +1,9 @@
+/**
+ * Poszt létrehozásának kérésének entitása
+ * @category Request
+ * @module request/PostCreationRequest
+ */
+
 import { ImagePickerAsset } from 'expo-image-picker';
 /**
  * A poszt létrehozásához szükséges adatok

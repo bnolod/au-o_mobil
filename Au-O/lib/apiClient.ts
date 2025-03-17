@@ -47,7 +47,7 @@ export const login = async (request: LoginRequest): Promise<string | null> => {
   }
 };
 /**
- * @description Kitörli a helyileg tárolt felhasználói adatokat, elkezdi a kijelentkeztetési folyamatot
+ *  Kitörli a helyileg tárolt felhasználói adatokat, elkezdi a kijelentkeztetési folyamatot
  */
 export async function logout() {
   await SecureStore.deleteItemAsync('jwtToken');
@@ -79,7 +79,6 @@ export async function validateToken(token: string, path: string) {
   return validToken?.data;
 }
 /**
- * @field BaseURL-hez hozzáfűzött végpontot éri el
  * @param endpoint Lekérdezés végpontja
  * @param method HTTP-metódus kiválasztása
  * @param requiresAuth Authentikációs érvényesítők küldése
@@ -114,7 +113,7 @@ export async function apiFetch<T>(
   }
 }
 /**
- * @description Regisztráció kezelése
+ * Regisztráció kezelése
  * @param request Regisztrációs adatok
  * @returns Promise<string> token
  */
@@ -131,7 +130,7 @@ export async function handleRegister(request: RegisterRequest): Promise<string> 
 }
 
 /**
- * @description Bejelentkezés kezelése
+ *  Bejelentkezés kezelése
  * @param request Bejelentkezési adatok
  * @returns Promise<string> token
  */
@@ -166,7 +165,7 @@ export async function updateProfilePicture(imageForm: FormData) {
   return false;
 }
 /**
- * @description Keresési metódus felhasználókkal
+ *  Keresési metódus felhasználókkal
  * @param query Keresési string
  * @returns Szűrt felhasználói lista
  */
@@ -182,7 +181,7 @@ export async function searchUsers(query: string) {
   return res;
 }
 /**
- * @description Keresési metódus csoportokkal
+ *  Keresési metódus csoportokkal
  * @param query Keresési string
  * @returns Szűrt felhasználói lista
  */

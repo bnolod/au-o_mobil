@@ -1,6 +1,13 @@
+/**
+ * Szűrő sáv
+ * @module ui/FilterBar
+ * @category Component
+ */
 import { TextInput } from 'react-native';
-import Input from './Input';
 import {FilterBarProps} from './props'
+/**
+ * @param {FilterBarProps} props Tulajdonságok
+ */
 export default function FilterBar({ onChange, className, placeholder, initialValue }: FilterBarProps) {
   return (
     <TextInput

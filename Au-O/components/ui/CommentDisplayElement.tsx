@@ -1,7 +1,17 @@
+/**
+ * Komment szöveg komponens
+ * @module ui/CommentDisplayElement
+ * @category Component
+ */
 import { View } from 'react-native';
 import { Comment } from '@/lib/entity/Comment';
 import Avatar from './Avatar';
 import CollapsibleText from './CollapsibleText';
+/**
+ * 
+ * @property {Comment} item Komment
+ * @returns 
+ */
 export default function CommentDisplayElement({ item }: { item: Comment }) {
   return (
     <View className="h-20 mt-72 flex justify-center items-center flex-row w-full primary">

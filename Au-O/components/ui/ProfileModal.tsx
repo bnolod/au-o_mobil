@@ -1,5 +1,6 @@
-import { View } from 'react-native';
-import ThemedText from '@/components/ui/ThemedText';
+/**
+ * @deprecated
+ */
 import AlertModal from './AlertModal';
 
 export default function ProfileModal({

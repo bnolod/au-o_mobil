@@ -1,8 +1,15 @@
+/**
+ * Töltőképernyő modal komponens
+ * @module ui/LoadingModal
+ * @category Component
+ */
 import { Colors } from '@/constants/Colors';
 import { ActivityIndicator, Modal, View } from 'react-native';
 import ThemedText from './ThemedText';
 import { LoadingModalProps } from './props';
-
+/**
+ * @param {LoadingModalProps} props Tulajdonságok
+ */
 export default function LoadingModal({
   loading,
   text,

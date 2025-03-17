@@ -1,3 +1,9 @@
+/**
+ * Csoportokhoz kapcsolódó API hívások
+ * @module ApiCalls/GroupApiCalls
+ * @category API
+ */
+
 import { apiFetch } from '../apiClient';
 import { GroupCreationRequest } from '../request/GroupCreationRequest';
 import { Group, GroupMemberListResponse, GroupMemberResponse } from '../entity/Group';
@@ -5,6 +11,13 @@ import { ImageStoreRequest } from '../request/ImgurRequest';
 import { Post } from '../entity/Post';
 import { GroupEditRequest } from '../request/GroupEditRequest';
 
+/**
+ * Csoport létrehozása
+ * 
+ * @param {GroupCreationRequest} request A csoport létrehozásához szükséges adatok
+ * @returns {Promise<Group | null>} A létrehozott csoport, vagy null
+ * @see Group
+ */
 export async function createGroup(request: GroupCreationRequest) {
   const req = await apiFetch<Group>('groups/group', 'POST', true, request);
   if (req && req.status === 200) {
@@ -12,6 +25,13 @@ export async function createGroup(request: GroupCreationRequest) {
   }
   return null;
 }
+/**
+ * Csoport lekérdezése
+ * 
+ * @param {number} groupId A csoport azonosítója
+ * @returns {Promise<Group | null>} A csoport, vagy null
+ * @see Group
+ */
 export async function getGroup(groupId: number) {
   const req = await apiFetch<Group>('groups/group/' + groupId, 'GET', true);
   if (req && req.status === 200) {
@@ -19,8 +39,16 @@ export async function getGroup(groupId: number) {
   }
   return null;
 }
+/**
+ * Összes csoport lekérdezése
+ * 
+ * @returns {Promise<Group[] | null>} Az összes csoport, vagy null
+ * @see Group
+ * @deprecated
+ * 
+ *  Feedre cserélni
+ */
 export async function getAllGroups() {
-  //temporary
   const req = await apiFetch<Group[]>('groups/all', 'GET', true);
   if (req && req.status === 200) {
     return req.data;

@@ -65,7 +65,7 @@ export default function Home() {
 
   useEffect(() => {
     async function load() {
-      console.log('loading');
+      //console.log('loading');
       handleFetching(0);
       setCurrentPage(0);
     }

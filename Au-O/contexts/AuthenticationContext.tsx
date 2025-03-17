@@ -1,3 +1,9 @@
+/**
+ * Authentikációért felelős context
+ * @module contexts/AuthenticationContext
+ * @category Contexts
+ */
+
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import * as SecureStore from 'expo-secure-store';
 import { handleLogin as apiLogin, handleRegister as apiRegister, logout } from '@/lib/apiClient';
@@ -7,10 +13,35 @@ import { deleteUser, saveUser } from '@/lib/functions';
 import { User } from '@/lib/entity/User';
 import { getUser } from '@/lib/ApiCalls/UserApiCalls';
 
-interface AuthenticationContextType {
+/**
+ * Authentikációért felelős context típusa
+ * @type
+ */
+export type AuthenticationContextType = {
+  /**
+   * Felhasználó
+   * @type {User | null | undefined}
+   * @default undefined
+   * @see User
+   */
   user: User | null | undefined;
+  /**
+   * Bejelentkezésért felelős funkció
+   * @param request Bejelentkezési adatok
+   * @returns {Promise<boolean>} Bejelentkezés sikeressége 
+   */
   login?: (request: LoginRequest) => Promise<boolean>;
+  /**
+   * Kijelentkezésért felelős callback
+   * @callback
+   * @returns {Promise<void>}
+   */
   logout?: () => Promise<void>;
+  /**
+   * Regisztrációért felelős funkció
+   * @param request Regisztrációs adatok
+   * @returns {Promise<string>} JWT token
+   */
   register?: (request: RegisterRequest) => Promise<string>;
 }
 
@@ -21,6 +52,11 @@ export const AuthenticationProvider: React.FC<{
 }> = ({ children }) => {
   const [user, setUser] = useState<User | null | undefined>(null);
 
+  /**
+   * Regisztrációt végrehajtó funkció
+   * @param request Regisztrációs adatok
+   * @returns {Promise<string>} JWT token
+   */
   async function register(request: RegisterRequest): Promise<string> {
     try {
       const response = await apiRegister(request);
@@ -48,6 +84,11 @@ export const AuthenticationProvider: React.FC<{
     getStoredUser();
   }, []);
 
+  /**
+   * Bejelentkezést végrehajtó funkció
+   * @param request Bejelentkezési adatok
+   * @returns {Promise<string>} JWT token
+   */
   async function login(request: LoginRequest): Promise<boolean> {
     try {
       const token = await apiLogin(request);

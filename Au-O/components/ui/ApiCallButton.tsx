@@ -1,6 +1,15 @@
+/**
+ * API hívást intéző gomb, ami válaszra vár és közben letiltja a gombot, opcionális késleltetéssel
+ * @module ui/ApiCallButton
+ * @category Component
+ */
 import { TouchableOpacity, TouchableOpacityProps } from 'react-native';
 import { useState } from 'react';
-
+/**
+ * @property {TouchableOpacityProps} props Tulajdonságok
+ * @property {number} delay Késleltetés
+ * @property {() => Promise<void>} apiCall API hívás
+ */
 export default function ApiCallButton({
   apiCall,
   delay,

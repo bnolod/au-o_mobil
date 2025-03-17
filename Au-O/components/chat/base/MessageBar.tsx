@@ -1,12 +1,23 @@
-import Input from '@/components/ui/Input';
+/**
+ * Üzenet küldésére szolgáló komponens
+ * @module chat/base/MessageBar
+ * @category Components
+ */
 import { MessageBarProps } from '../props';
-import { KeyboardAvoidingView, TextInput, View } from 'react-native';
+import { TextInput, View } from 'react-native';
 import ThemedText from '@/components/ui/ThemedText';
-import Button from '@/components/ui/Button';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import ApiCallButton from '@/components/ui/ApiCallButton';
 import { generalTexts } from '@/constants/texts';
-
+/**
+ * Üzenet küldésére felületet nyújtó komponens
+ * @property {string} text Szöveg
+ * @property {Function} onSend Küldés
+ * @property {Function} onChange Változás
+ * @property {"HU" | "EN"} language Nyelv
+ * @see MessageBarProps
+ * @returns 
+ */
 export default function MessageBar({ text, onSend, onChange, language }: MessageBarProps) {
   return (
     <View className="flex flex-row w-full px-2 gap-2 mx-auto justify-between my-2">

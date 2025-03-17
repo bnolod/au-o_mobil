@@ -1,16 +1,65 @@
-import { User } from "@/lib/entity/User";
+/**
+ * @module chat/media/props
+ * @category Component
+ * A felhasználó üzenete
+ */
 
+/**
+ * Média üzenetekhez szükséges propok
+ * @interface MediaMessageProps
+ */
 export interface MediaMessageProps {
-    sender: boolean
-    avatar: {
-        nickname: string
-        profileImg: string | null
-    } | null
-    colorScheme: "dark" | "light";
+  /**
+   * Küldő-e?
+   * @type {boolean}
+   */
+  sender: boolean;
+  /**
+   * Felhasználó avatarja
+   * @type {object | null}
+   */
+  avatar: {
+    /**
+     * Becenév
+     * @type {string}
+     */
+    nickname: string;
+    /**
+     * Profilkép
+     * @type {string | null}
+     */
+    profileImg: string | null;
+  } | null;
+  /**
+   * Színséma
+   * @type {"dark" | "light"}
+   */
+  colorScheme: 'dark' | 'light';
 }
+/**
+ * Posztot tartalmazó szükséges propok
+ * @interface MessageProps
+ * @extends MediaMessageProps
+ */
 export interface PostMessageProps extends MediaMessageProps {
-    postId: number;
+  /**
+   * Poszt azonosító
+   * @type {number}
+   * @see Post
+   */
+  postId: number;
 }
+/**
+ * Csoport meghívót tartalmazó szükséges propok
+ * @interface GroupInviteProps
+ * @extends MediaMessageProps
+ * @see Group
+ */
 export interface GroupInviteProps extends MediaMessageProps {
-    groupId: number;
+  /**
+   * Csoport azonosító
+   * @type {number}
+   * @see Group
+   */
+  groupId: number;
 }

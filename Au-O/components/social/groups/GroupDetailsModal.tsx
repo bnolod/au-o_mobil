@@ -1,7 +1,13 @@
+/**
+ * Csoport részlet modal
+ * @module social/groups/GroupDetailsModal
+ * @category Component */
 import { Modal, TouchableOpacity, View } from "react-native";
 import ThemedText from "@/components/ui/ThemedText";
 import { Group } from "@/lib/entity/Group";
-
+/**
+ * @param {boolean} visible Látható
+ */
 export default function GroupDetailsModal({visible, group}: {visible: boolean, group: Group}) {
     return (
         <Modal visible={visible}>

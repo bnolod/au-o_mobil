@@ -1,3 +1,8 @@
+/**
+ * Poszt kártya tulajdonságai
+ * @module components/Post/props
+ * @category Components
+ */
 import { Reactions } from '@/constants/types';
 import { Car } from '@/lib/entity/Car';
 import { Image } from '@/lib/entity/Image';
@@ -5,7 +10,10 @@ import { User } from '@/lib/entity/User';
 import { Comment } from '@/lib/entity/Comment';
 import { Group } from '@/lib/entity/Group';
 import { SocialEvent } from '@/lib/entity/SocialEvent';
-
+/**
+ * Poszt kártya elemek
+ * @interface
+ */
 export interface PostCardProps {
   favorite: boolean;
   postId: number | null;

@@ -1,9 +1,18 @@
-import { ReactNode, useState } from 'react';
+/**
+ * Összecsukható szöveg komponens
+ * @module ui/CollapsibleText
+ * @category Component
+ */
+import { useState } from 'react';
 import ThemedText from './ThemedText';
 import { handleShowMore } from '@/lib/events';
-import { TextProps } from 'react-native';
 import * as Haptics from 'expo-haptics';
 import {CollapsibleTextProps} from './props';
+/**
+ * 
+ * @param {CollapsibleTextProps} props Tulajdonságok
+ * @returns 
+ */
 export default function CollapsibleText({
   restrictedLineCount = 3,
   children,

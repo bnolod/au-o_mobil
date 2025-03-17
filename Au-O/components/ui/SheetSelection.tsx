@@ -1,3 +1,8 @@
+/**
+ * Kiválasztó panel
+ * @module ui/SheetSelection
+ * @category Component
+ */
 import { BottomSheetFlashList, BottomSheetModal } from '@gorhom/bottom-sheet';
 import React, { forwardRef, ReactNode, useImperativeHandle, useRef, useState } from 'react';
 import Button from './Button';
@@ -7,7 +12,6 @@ import ThemedText from './ThemedText';
 import { Keyboard, View } from 'react-native';
 import { Colors } from '@/constants/Colors';
 import { CommonStaticElementProps } from '@/constants/types';
-import FilterBar from './FilterBar';
 
 export interface SheetSelectionRef {
   dismissSheet: () => void;

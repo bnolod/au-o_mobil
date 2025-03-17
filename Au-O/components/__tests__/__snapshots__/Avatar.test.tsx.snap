@@ -1,12 +1,42 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Avatar kép megjelenik 1`] = `
-<Image
+<View
   className="w-14 h-14 undefined rounded-full"
-  source={
-    {
-      "uri": "https://via.placeholder.com/150",
+>
+  <ViewManagerAdapter_ExpoImage
+    borderRadius={400}
+    containerViewRef={"[React.ref]"}
+    contentFit="cover"
+    contentPosition={
+      {
+        "left": "50%",
+        "top": "50%",
+      }
     }
-  }
-/>
+    height="100%"
+    nativeViewRef={"[React.ref]"}
+    onError={[Function]}
+    onLoad={[Function]}
+    onLoadStart={[Function]}
+    onProgress={[Function]}
+    placeholder={[]}
+    source={
+      [
+        {
+          "uri": "https://via.placeholder.com/150",
+        },
+      ]
+    }
+    style={
+      {
+        "borderRadius": 400,
+        "height": "100%",
+        "width": "100%",
+      }
+    }
+    transition={null}
+    width="100%"
+  />
+</View>
 `;

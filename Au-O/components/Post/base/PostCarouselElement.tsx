@@ -1,9 +1,16 @@
+/**
+ * Poszt kép elem
+ * @module post/base/PostCarouselElement
+ * @category Components
+ */
 import { Image } from 'expo-image';
 import ThemedText from '../../ui/ThemedText';
 import React from 'react';
 import { PostCarouselElementProps } from '@/constants/types';
-import PostImageFallback from '@/components/ui/PostImageFallback';
 import { Images } from '@/lib/staticAssetExports';
+/**
+ * @param {PostCarouselElementProps} props Tulajdonságok
+ */
 export default function PostCarouselElement({ images, index }: PostCarouselElementProps) {
   return (
     <>
