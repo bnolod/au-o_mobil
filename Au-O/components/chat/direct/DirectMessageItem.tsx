@@ -19,7 +19,7 @@ import { ChatTexts } from '@/constants/texts';
  * @returns 
  */
 export default function DirectMessageItem({ user, latestMessage, date, language }: DirectMessageItemProps & {language: "HU" | "EN"}) {
-  console.log('latestmessage:' + latestMessage.active);
+  //console.log('latestmessage:' + latestMessage.active);
 
   return (
     <Pressable

@@ -4,7 +4,7 @@
  * @category Component
  */
 import { FlashList } from "@shopify/flash-list";
-import { GroupTabProps } from "./props";
+import { GroupTabProps, ProtectedGroupTabProps } from "./props";
 import { useEffect, useState } from "react";
 import MemberDisplay from "../../base/MemberDisplay";
 import { GroupMemberListResponse } from "@/lib/entity/Group";
@@ -14,7 +14,7 @@ import { useAuthentication } from "@/contexts/AuthenticationContext";
 /**
  * @param {GroupTabProps} props Tulajdonságok
  */
-export default function GroupMembersTab({group, status, colorScheme, language} : GroupTabProps) {
+export default function GroupMembersTab({group, status, colorScheme, language} : ProtectedGroupTabProps) {
         const [members, setMembers] = useState<GroupMemberListResponse>();
         const {user} = useAuthentication();
     async function init() {

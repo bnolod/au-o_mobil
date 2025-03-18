@@ -25,5 +25,8 @@ export interface GroupTabProps {
      * @type {"light" | "dark"}
      */
     colorScheme: "light" | "dark";
+}
+export interface ProtectedGroupTabProps extends GroupTabProps {
     status: "ADMIN" | "MEMBER" | "MODERATOR"
+
 }

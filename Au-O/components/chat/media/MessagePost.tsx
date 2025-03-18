@@ -26,7 +26,7 @@ export default function MessagePost({sender, postId, avatar }: PostMessageProps)
     const res = await getPostById(postId);
     if (res) {
       setPost(res);
-      console.log(res);
+      //console.log(res);
     }
   }
   useEffect(() => {

@@ -79,7 +79,7 @@ export default function PostCard({
       }
     }
   }
-  console.log(group?.alias)
+  //console.log(group?.alias)
   return (
     <>
       <View className={isDeleted ? 'hidden' : 'post-container my-3 flex flex-col justify-items-center align-middle items-center primary rounded-lg overflow-hidden'}>
@@ -161,7 +161,7 @@ export default function PostCard({
         </Pressable>
 
         <PostFooter
-      
+      authorProfileImg={authorProfileImg}
           authorId={authorId!}
           authorNickname={authorNickname!}
           authorUsername={authorUsername}

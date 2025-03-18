@@ -33,7 +33,7 @@ export default function DirectMessagePage({language, colorScheme, user, recipien
     if (!user || !recipient) return;
     const response = await apiFetch(`messages/user/${recipient.username}`, 'GET', true);
     if (response) {
-      console.log('response: ', response);
+      //console.log('response: ', response);
       const data = response.data as ChatMessage[];
       setMessages(data);
     }
@@ -60,8 +60,8 @@ export default function DirectMessagePage({language, colorScheme, user, recipien
         const incomingMessage = JSON.parse(msg.body) as ChatMessage;
         // Filter messages to include only those exchanged with recipient
           setMessages((prev) => [incomingMessage, ...prev]);
-          console.log('message received: ', incomingMessage);
-          console.log('messages: ', messages);
+          //console.log('message received: ', incomingMessage);
+          //console.log('messages: ', messages);
         
       });
     }
@@ -74,8 +74,8 @@ export default function DirectMessagePage({language, colorScheme, user, recipien
 
   // Send a message to the friend.
   const sendMessage = () => {
-    console.log('message sending');
-    console.log(message);
+    //console.log('message sending');
+    //console.log(message);
     if (stompClient && message.trim() !== '' && user) {
       const targetedMessage = { username: recipient.username, message };
       stompClient.publish({

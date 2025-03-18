@@ -10,12 +10,12 @@ import { useWebSocket } from '@/contexts/WebSocketContext';
 import { useAuthentication } from '@/contexts/AuthenticationContext';
 import GroupMessage from '@/components/chat/group/GroupMessage';
 import MessageBar from '@/components/chat/base/MessageBar';
-import { GroupTabProps } from './props';
+import { GroupTabProps, ProtectedGroupTabProps } from './props';
 
 /**
  * @param {GroupTabProps} props Tulajdonságok
  */
-export default function GroupChatTab({ group, language }: GroupTabProps) {
+export default function GroupChatTab({ group, language }: ProtectedGroupTabProps) {
   const { messages, sendMessage, subscribeToTopic } = useWebSocket();
   const [message, setMessage] = useState<string>('');
   const {user} = useAuthentication()

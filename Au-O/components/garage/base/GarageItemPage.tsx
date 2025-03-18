@@ -35,14 +35,10 @@ export default function GarageItemPage({
     <ScrollView className="garage-page">
       {/* <GradientBackground colors={['#EF1A2D', 'transparent']}> */}
       <View className="py-4 flex flex-row secondary mx-5 mt-safe-offset-1 rounded-xl shadow-md shadow-[#00000066] ">
-        <View className="self-center pl-4">
-          <ThemedText className="text-3xl font-bold truncate">{car.manufacturer}</ThemedText>
-          <ThemedText className="text-2xl">{car.model}</ThemedText>
-          <View className="flex flex-row justify-between pr-6">
             {isOwner && (
               <MaterialCommunityIcons
                 name="pencil"
-                className="self-center"
+                className="self-center absolute z-50 aspect-square highlight-themed p-1 rounded-xl muted top-2 right-2"
                 size={28}
                 color={Colors[colorScheme!].text}
                 onPress={() =>
@@ -53,6 +49,10 @@ export default function GarageItemPage({
                 }
               />
             )}
+        <View className="self-center pl-4">
+          <ThemedText className="text-3xl font-bold truncate">{car.manufacturer}</ThemedText>
+          <ThemedText className="text-2xl">{car.model}</ThemedText>
+          <View className="flex flex-row justify-between pr-6">
           </View>
         </View>
         <View className="flex items-center self-center ml-auto">{getCarImage(car.type, colorScheme, 180, 85, 3)}</View>

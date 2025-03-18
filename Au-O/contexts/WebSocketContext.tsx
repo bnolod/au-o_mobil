@@ -85,7 +85,7 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       });
 
       const attemptReconnect = () => {
-        console.log('Attempting to reconnect in 5 seconds...');
+        //console.log('Attempting to reconnect in 5 seconds...');
         reconnectTimeout = setTimeout(() => {
           connectWebSocket();
         }, 5000);

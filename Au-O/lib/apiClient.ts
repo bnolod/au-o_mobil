@@ -65,7 +65,6 @@ export async function validateToken(token: string, path: string) {
   const validToken = await apiFetch<string>('auth/authenticate', 'POST', true, {
     token,
   });
-  console.log('token validation');
 
   if (!validToken?.data) {
     if (path === '/onboarding' || path === '/login' || path === '/register') {

@@ -208,7 +208,7 @@ export default function newCar() {
             }
           }}
           innerTextClassName="text-xl font-bold"
-          className="button highlight btn-fill"
+          className="button highlight-themed btn-fill"
         >
           {SocialTexts.creation.car.save[language]}
         </Button>

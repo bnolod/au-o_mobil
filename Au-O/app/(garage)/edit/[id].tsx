@@ -175,7 +175,7 @@ export default function editCarPage() {
                 keyboardType: 'number-pad',
                 value: editCarForm.horsepower + '',
                 onChangeText: (text) => {
-                  console.log('text');
+                  //console.log('text');
                   setEditCarForm({
                     ...editCarForm,
                     horsepower: !parseInt(text) ? 0 : parseInt(text),
@@ -201,7 +201,7 @@ export default function editCarPage() {
           </View>
         </View>
         <Button
-          className="button outline btn-fill btn-highlight"
+          className="button outline btn-fill highlight-themed"
           onPress={async () => {
             const res = await editCar(Number(id as string), {
               description: editCarForm.description,
@@ -231,7 +231,8 @@ export default function editCarPage() {
         </Button>
         <View className="w-10/12 my-3 justify-between flex mx-auto flex-row gap-2 ">
           <Button
-            className="button outline btn-highlight"
+          innerTextClassName='txl'
+            className="button  secondary outline btn-highlight"
             onPress={async () => {
               Alert.alert(SocialTexts.creation.car.prompts.discard[language], '', [
                 {
@@ -255,7 +256,8 @@ export default function editCarPage() {
             {SocialTexts.creation.car.prompts.cancel[language]}
           </Button>
           <Button
-            className="button border-2 border-highlight"
+            className="button border-2 secondary border-highlight"
+            innerTextClassName='txl'
             onPress={async () => {
               Alert.alert(
                 SocialTexts.creation.car.prompts.delete.header[language],
