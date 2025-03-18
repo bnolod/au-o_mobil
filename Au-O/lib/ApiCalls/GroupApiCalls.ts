@@ -273,3 +273,7 @@ export async function promoteTo(groupId: number, userId: number, role: Status) {
   const req = await apiFetch(`groups/${groupId}/${userId}`, "PUT", true, {role})
   return req!.status === 200
 }
+export async function kickUser(groupId: number, userId: number) {
+  const req = await apiFetch(`groups/${groupId}/${userId}`, "DELETE", true)
+  return req!.status === 200
+}

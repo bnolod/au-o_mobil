@@ -1,4 +1,4 @@
-import { PostCreationTexts } from '@/constants/texts';
+import { GroupTexts, PostCreationTexts } from '@/constants/texts';
 import * as SecureStore from 'expo-secure-store';
 import * as FileSystem from 'expo-file-system';
 import * as ImagePicker from 'expo-image-picker';
@@ -7,6 +7,7 @@ import { User } from './entity/User';
 import { Group } from './entity/Group';
 import { SocialEvent } from './entity/SocialEvent';
 import { Image } from './entity/Image';
+import { Alert } from 'react-native';
 
 /**
  * 

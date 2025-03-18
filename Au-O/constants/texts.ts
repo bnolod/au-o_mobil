@@ -224,6 +224,14 @@ export const AuthTexts = {
   },
 };
 export const generalTexts = {
+  success: {
+    HU: 'Siker!',
+    EN: 'Success!',
+  },
+  error: {
+    HU: 'Valami nem jó!',
+    EN: 'Something went wrong!',
+  },
   followers: {
     followerCount: {
       EN: 'follower',
@@ -1286,6 +1294,36 @@ export const GroupTexts = {
       kick: {
         HU: "Kirúgás a csoportból",
         EN: "Kick from group"
+      },
+      status: {
+        failed: {
+          promote: {
+            HU: "Nem sikerült előléptetni a felhasználót",
+            EN: "Failed to promote user"
+          },
+          demote: {
+            HU: "Nem sikerült a felhasználó jogainak elvétele",
+            EN: "Failed to demote user"
+          },
+          kick: {
+            HU: "Nem sikerült kirúgni a felhasználót",
+            EN: "Failed to kick user"
+          }
+        },
+        success: {
+          promote: {
+            HU: "Felhasználó előléptetve",
+            EN: "User promoted"
+          },
+          demote: {
+            HU: "Felhasználó jogai elvéve",
+            EN: "User demoted"
+          },
+          kick: {
+            HU: "Felhasználó kirúgva",
+            EN: "User kicked"
+          }
+        }
       }
     }
   }
