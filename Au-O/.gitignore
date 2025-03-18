@@ -2,6 +2,8 @@
 
 # dependencies
 node_modules/
+# Dokumentáció buildelése külön branchre költözött
+docs
 
 .vscode
 # Expo
