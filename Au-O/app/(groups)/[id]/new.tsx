@@ -220,7 +220,7 @@ export default function NewGroupPost() {
                     colorScheme={colorScheme!}
                     containerClassName="rounded-xl"
                   />
-                  <View className="w-11/12 mb-4">
+{/*                   <View className="w-11/12 mb-4">
                     <ThemedText className="text-lg">
                       <MaterialCommunityIcons name="calendar-account-outline" size={19} />{' '}
                       {PostCreationTexts.form.event[language]}
@@ -232,6 +232,7 @@ export default function NewGroupPost() {
                       language={language}
                       
                       FlashListProps={{
+                        keyExtractor
                         data: [{ title: 'Event 1', date: '2022.12.12' }],
                         renderItem: ({ item }) => (
                           <PostCreationSheetSelectElements
@@ -246,8 +247,8 @@ export default function NewGroupPost() {
                           <FilterBar placeholder="Search events" onChange={(text: string) => {}} />
                         ),
                       }}
-                    />
-                  </View>
+                    /> 
+                  </View>*/}
                 </View>
                 <View className="w-11/12 mb-4 mx-auto">
                   <ThemedText className="text-lg">
@@ -267,6 +268,8 @@ export default function NewGroupPost() {
                     colorScheme={colorScheme!}
                     FlashListProps={{
                       data: cars,
+                      keyExtractor: (item) => item.id.toString(),
+                      estimatedItemSize: 97,
                       ListHeaderComponent: () => (
                         <View>
                           <Button

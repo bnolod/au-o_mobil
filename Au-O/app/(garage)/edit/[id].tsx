@@ -146,6 +146,8 @@ export default function editCarPage() {
           placeholder={typeof editCarForm.type === 'string' ? editCarForm.type : 'SEDAN'}
           language={language}
           FlashListProps={{
+            keyExtractor: (item) => item,
+            estimatedItemSize: 50,
             data: ['SEDAN', 'COUPE', 'GRANDCOUPE', 'HATCH', 'KOMBI', 'CABRIOLET', 'PICKUP', 'ROADSTER', 'SUV'],
             renderItem: ({ item }) => (
               <CarTypeListItem

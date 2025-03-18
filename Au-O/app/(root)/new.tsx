@@ -251,32 +251,6 @@ export default function NewPost() {
                   colorScheme={colorScheme!}
                   containerClassName="rounded-xl"
                 />
-                  <View className="w-11/12 mb-4">
-                    <ThemedText className="text-lg">
-                      <MaterialCommunityIcons name="calendar-account-outline" size={19} />{' '}
-                      {PostCreationTexts.form.event[language]}
-                    </ThemedText>
-
-                    <SheetSelection
-                      colorScheme={colorScheme!}
-                      placeholder={selectedEvent ? "Event" : SelectionTexts.event[language]}
-                      language={language}
-                      FlashListProps={{
-                        data: [{ title: 'Event 1', date: '2022.12.12' }],
-                        renderItem: ({ item, index }) => (
-                          <PostCreationSheetSelectElements
-                            onPress={() => console.log(item.title)}
-                            event={{ title: item.title }}
-                            title={item.title}
-                          />
-                        ),
-                        estimatedItemSize: 50,
-                        ListHeaderComponent: () => (
-                          <FilterBar placeholder="Search events" onChange={(text: string) => {}} />
-                        ),
-                      }}
-                    />
-                  </View>
                 </View>
                 <View className='w-11/12 mb-4 mx-auto'>
                 <ThemedText className="text-lg">
@@ -299,6 +273,7 @@ export default function NewPost() {
                   FlashListProps={{
                     data: cars,
                     estimatedItemSize: 120,
+                    keyExtractor: (item) => item.id.toString(),
                     ListHeaderComponent: () => (
                       <View>
                         <Button
@@ -363,8 +338,8 @@ export default function NewPost() {
                   containerClassName="rounded-xl"
                 />
                 <Button
-                  className="highlight button btn-fill"
-                  innerTextClassName="tlg"
+                  className="highlight-themed button btn-fill"
+                  innerTextClassName="txl"
                   type="fill"
                   style={{ marginTop: 20 }}
                   hapticFeedback="light"
@@ -436,7 +411,7 @@ export default function NewPost() {
                   <Button
                     onPress={handleSubmit}
                     innerTextClassName="txl"
-                    className=" my-2 p-2 highlight button btn-fill"
+                    className=" my-2 p-2 highlight-themed button btn-fill"
                   >
                     {PostCreationTexts.buttons.post[language]}
                   </Button>

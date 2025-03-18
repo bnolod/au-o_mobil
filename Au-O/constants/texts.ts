@@ -871,6 +871,10 @@ export const SocialTexts = {
         EN: 'Starring in',
         HU: 'Megjelenik itt',
       },
+      carHasNoPosts: {
+        EN: "This car does not appear in any posts.",
+        HU: "Ez az autó nem szerepel egyetlen posztban sem.",
+      },
       added: {
         header: {
           EN: 'Car added',

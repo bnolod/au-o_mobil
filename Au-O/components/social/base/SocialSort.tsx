@@ -35,6 +35,8 @@ export default function SocialSort({items, colorScheme, language, onSelect }: {i
       <SheetSelection
       ref={SocialSheetRef}
       FlashListProps={{
+        estimatedItemSize: 98,
+
           data: items,
           ListHeaderComponent: () => (
             <View className='flex flex-row h-16 gap-4 mx-2'>

@@ -41,7 +41,6 @@ export default function GroupChatTab({ group, language }: GroupTabProps) {
       { user &&
       <FlashList
       data={chatMessages}
-      
       estimatedItemSize={58}
       renderItem={({item}) => (
         <GroupMessage

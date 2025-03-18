@@ -34,33 +34,30 @@ export default function GarageItemPage({
   return (
     <ScrollView className="garage-page">
       {/* <GradientBackground colors={['#EF1A2D', 'transparent']}> */}
-        <View className="py-4 flex flex-row secondary mx-5 mt-safe-offset-1 rounded-xl shadow-md shadow-[#00000066] ">
-          <View className="self-center pl-4">
-            <ThemedText className="text-3xl font-bold truncate">{car.manufacturer}</ThemedText>
-            <ThemedText className="text-2xl">{car.model}</ThemedText>
-            <View className="flex flex-row justify-between pr-6">
-              {isOwner && (
-                <MaterialCommunityIcons
-                  name="pencil"
-                  className="self-center"
-                  size={28}
-                  color={Colors[colorScheme!].text} 
-                  onPress={() =>
-                    router.push({
-                      pathname: '/(garage)/edit/[id]',
-                      params: { id: car.id },
-                    })
-                  }
-                />
-              )}
-            </View>
-          </View>
-          <View className="flex items-center self-center ml-auto">
-            {getCarImage(car.type, colorScheme, 180, 85, 3)}
+      <View className="py-4 flex flex-row secondary mx-5 mt-safe-offset-1 rounded-xl shadow-md shadow-[#00000066] ">
+        <View className="self-center pl-4">
+          <ThemedText className="text-3xl font-bold truncate">{car.manufacturer}</ThemedText>
+          <ThemedText className="text-2xl">{car.model}</ThemedText>
+          <View className="flex flex-row justify-between pr-6">
+            {isOwner && (
+              <MaterialCommunityIcons
+                name="pencil"
+                className="self-center"
+                size={28}
+                color={Colors[colorScheme!].text}
+                onPress={() =>
+                  router.push({
+                    pathname: '/(garage)/edit/[id]',
+                    params: { id: car.id },
+                  })
+                }
+              />
+            )}
           </View>
         </View>
+        <View className="flex items-center self-center ml-auto">{getCarImage(car.type, colorScheme, 180, 85, 3)}</View>
+      </View>
 
-        
       {/* </GradientBackground> */}
       <View className="flex flex-col px-5 gap-4 my-4 ">
         <View className="flex flex-row px-5 justify-between py-2 primary rounded-xl shadow-md shadow-[#00000066] ">
@@ -92,6 +89,13 @@ export default function GarageItemPage({
       </ThemedText>
 
       {posts.length > 0 && <PostGrid colorScheme={colorScheme!} language={language} posts={posts} />}
+      {!posts ||
+        (posts.length === 0 && (
+          <View className="flex flex-col gap-2 items-center my-6">
+            <MaterialCommunityIcons name="car-brake-alert" size={128} color={Colors.highlight[colorScheme]} />
+            <ThemedText>{SocialTexts.creation.car.carHasNoPosts[language]}{' '}</ThemedText>
+          </View>
+        ))}
     </ScrollView>
   );
 }

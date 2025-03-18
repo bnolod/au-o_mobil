@@ -81,6 +81,7 @@ export default function Home() {
         {post && post.length > 0 ? (
         <TapGestureHandler onGestureEvent={() => console.log('tapped')}>
           <FlashList
+          
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={handleRefresh}>
                 <LoadingModal colorScheme={colorScheme!} loading={refreshing} text={loading[language]} />

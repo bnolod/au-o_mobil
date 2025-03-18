@@ -32,7 +32,7 @@ export default function GroupMembersTab({group, status, colorScheme, language} :
     useEffect(() => {
         init()
     }, [])
-    if (members && members.users.length > 0 && user)
+    if (members && members.users && members.users.length > 0 && user)
     return (
         <FlashList estimatedItemSize={58} data={members.users} renderItem={({item, index}) => (
             <MemberDisplay groupId={group.id} status={status} colorScheme={colorScheme} language={language} u={item} isCurrentUser={item.user.id === user.id} authorized={status !== "MEMBER"}/>

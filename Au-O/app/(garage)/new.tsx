@@ -125,7 +125,10 @@ export default function newCar() {
           ref={sheet}
           placeholder={typeof newCarForm.type === 'string' ? newCarForm.type : 'SEDAN'}
           language={language}
+          
           FlashListProps={{
+            estimatedItemSize: 98,
+            keyExtractor: (item) => item,
             data: ['SEDAN', 'COUPE', 'GRANDCOUPE', 'HATCH', 'KOMBI', 'CABRIOLET', 'PICKUP', 'ROADSTER', 'SUV'],
             renderItem: ({ item }) => (
               <CarTypeListItem

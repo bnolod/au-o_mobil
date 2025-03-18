@@ -85,7 +85,7 @@ export default function DirectMessagesScreen() {
     return (
       <>
         <ChatHeader language={language} mainPage user={user} onFilterChange={() => {}}/>
-        <FlashList bounces={false} data={latestMessages} renderItem={(item) => (<DirectMessageItem language={language} user={user} latestMessage={item.item}  date={new Date().toDateString()}/>)} />
+        <FlashList keyExtractor={(item) => item.id.toString()} estimatedItemSize={83} bounces={false} data={latestMessages} renderItem={(item) => (<DirectMessageItem language={language} user={user} latestMessage={item.item}  date={new Date().toDateString()}/>)} />
       </>
     );
 }

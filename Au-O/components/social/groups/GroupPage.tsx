@@ -13,7 +13,6 @@ import CollapsibleText from '@/components/ui/CollapsibleText';
 import { useEffect, useState } from 'react';
 import { Group, GroupMemberResponse } from '@/lib/entity/Group';
 import GroupPostTab from './tabs/GroupPostTab';
-import GroupEventsTab from './tabs/GroupEventsTab';
 import GroupMembersTab from './tabs/GroupMembersTab';
 import GroupInfoTab from './tabs/GroupInfoTab';
 import { GroupTexts } from '@/constants/texts';

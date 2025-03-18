@@ -83,7 +83,7 @@ export default function GroupFeed() {
       </View>
       {groups && groups.length > 0 && !selected && (
         <FlashList
-          estimatedFirstItemOffset={250}
+          estimatedItemSize={254}
           data={groups}
           keyExtractor={(item) => item.id + ''}
           renderItem={({ item }) => (

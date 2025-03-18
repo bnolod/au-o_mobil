@@ -162,33 +162,41 @@ export default function EditPost() {
             key={car ? car.model : '0'}
             FlashListProps={{
               data: cars,
-
+              estimatedItemSize: 97,
+              keyExtractor: (item) => item.id.toString(),
               ListHeaderComponent: () => (
-                <View>
-                  <Button onPress={() => sheet.current?.dismissSheet()} className="button highlight-themed outline">
-                    Close
-                  </Button>
-
-                  <Pressable
-                    className="post-edit-sheet-unset-car"
-                    onPress={() => {
-                      sheet.current?.dismissSheet();
-                      setCar(null);
-                      setEditPostForm({
-                        ...editPostForm,
-                        vehicleId: null,
-                      });
-                    }}
-                  >
-                    <ImageBackground
-                      className="post-edit-sheet-unset-background"
-                      contentFit="fill"
-                      source={Images.banner_placeholder}
-                    >
-                      <ThemedText className="post-edit-sheet-unset-text">{PostCreationTexts.buttons.unassignVehicle[language]}</ThemedText>
-                    </ImageBackground>
-                  </Pressable>
-                </View>
+<View>
+                          <Button
+                            onPress={() => sheet.current?.dismissSheet()}
+                            className="button highlight-themed outline"
+                          >
+                            Close
+                          </Button>
+                          <Pressable
+                            className="w-11/12 my-2 mx-auto rounded-l overflow-hidden flex justify-center items-center"
+                            onPress={() => {
+                              sheet.current?.dismissSheet();
+                              setCar(null);
+                              setEditPostForm({
+                                ...editPostForm,
+                                vehicleId: null,
+                              });
+                            }}
+                          >
+                            <ImageBackground
+                              style={{
+                                width: '100%',
+                                borderRadius: 12,
+                                backgroundColor: Colors[colorScheme!].secondary,
+                              }}
+                              source={Images.banner_placeholder}
+                            >
+                              <ThemedText className="font-bold w-full mx-auto text-center text-lg p-3 rounded-xl">
+                                {PostCreationTexts.buttons.unassignVehicle[language]}
+                              </ThemedText>
+                            </ImageBackground>
+                          </Pressable>
+                        </View>
               ),
               renderItem: ({ item }) => (
                 <Pressable

@@ -24,6 +24,8 @@ export default function SettingsAside({
   return (
     <View>
       <FlashList
+      estimatedItemSize={60}
+      keyExtractor={(item) => item.title}
         data={availableSettings}
         renderItem={({ item }) => {
           return (
