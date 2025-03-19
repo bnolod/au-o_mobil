@@ -7,7 +7,7 @@ import { SettingsTexts } from '@/constants/texts';
 import { useAuthentication } from '@/contexts/AuthenticationContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { logout } from '@/lib/apiClient';
-import { Redirect } from 'expo-router';
+import { Redirect, router } from 'expo-router';
 import { useColorScheme } from 'nativewind';
 import { ScrollView } from 'react-native';
 
@@ -52,7 +52,7 @@ export default function Settings() {
     },
     {
       icon: 'progress-question',
-      onPress: () => {},
+      onPress: () => {router.push({pathname: "/(settings)/about"})},
       title: SettingsTexts.about[language],
     },
     {

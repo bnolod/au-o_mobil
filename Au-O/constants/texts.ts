@@ -83,6 +83,29 @@ export const SettingsTexts = {
       EN: "About",
     }
   },
+  aboutPage: {
+    allRights: {
+      HU: 'Minden jog fenntartva',
+      EN: 'All rights reserved',
+    },
+    madeBy: {
+      EN: "Made by",
+      HU: "Készítették",
+    },
+    repositories: {
+      HU: 'GitHub repók',
+      EN: 'GitHub repositories',
+    },
+    documentation: {
+      HU: "Dokumentáció",
+      EN: "Documentation",
+    },
+    design: {
+      HU: "UI Design fájlok",
+    EN: "UI Design files",
+    }
+  },
+  
   header: {
     HU: 'Beállítások',
     EN: 'Settings',
