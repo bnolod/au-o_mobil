@@ -137,13 +137,9 @@ export default function NewPost() {
         });
         setImages([]);
         router.replace('/(root)/home');
-        router.push({
-          pathname: '/(post)/page/[id]',
-          params: { id: storeRes.postId as string, isNew: 'true' },
-        });
       } else {
         Toast.show({
-          type: 'error',
+          type: 'error', 
           text1: PostCreationTexts.imageUploadErrorAlert[language],
         });
       }
@@ -383,6 +379,7 @@ export default function NewPost() {
               >
                 <BottomSheetView>
                   <PostCard
+
                     user={user!}
                     favorite={false}
                     reaction={'FIRE'}

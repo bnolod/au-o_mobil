@@ -15,7 +15,6 @@ import { kickUser, promoteTo } from '@/lib/ApiCalls/GroupApiCalls';
 import { showErrorToast, showSuccessToast } from '@/lib/functions';
 import { router } from 'expo-router';
 import Avatar from '@/components/ui/Avatar';
-import { MemberDisplayView } from '../../base/MemberDisplay';
 export default function MemberActionSheet({
   role,
   target,

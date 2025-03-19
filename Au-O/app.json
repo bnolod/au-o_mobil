@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/auo-icon.png",
-    "backgroundColor": "#EF1A2DC",
+    "backgroundColor": "#EF1A2D",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -15,7 +15,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/auo-logo.png",
-        "backgroundColor": "#EF1A2DC"
+        "backgroundColor": "#EF1A2D"
       },
       "package": "com.anonymous.AuO"
     },

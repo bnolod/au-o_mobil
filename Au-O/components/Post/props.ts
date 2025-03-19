@@ -34,6 +34,7 @@ export interface PostCardProps {
   reactions: Reactions;
   vehicle: Car | null;
   comments: Comment[];
+  isNew?: boolean;
   language: 'EN' | 'HU';
   colorScheme: 'light' | 'dark';
 }

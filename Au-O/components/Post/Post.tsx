@@ -11,10 +11,10 @@ import React from 'react';
 import ThemedText from '../ui/ThemedText';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useState } from 'react';
-import { getPostType } from '@/lib/functions';
+import { ConfirmDialog, getPostType } from '@/lib/functions';
 import PostHeaderElement from './base/PostHeaderElement';
 import PostAuthorDisplayElement from './base/PostAuthorDisplayElement';
-import { HomeTexts, PostCreationTexts } from '@/constants/texts';
+import { generalTexts, HomeTexts, PostCreationTexts, PostStatusTexts } from '@/constants/texts';
 import { router } from 'expo-router';
 import TapCountWrapper from '../utility/TapCountWrapper';
 import PostImage from './base/PostImage';
@@ -41,6 +41,7 @@ export default function PostCard({
   reactions,
   language,
   allowOptions,
+  isNew,
   colorScheme,
   favorite,
   postId,
@@ -79,10 +80,30 @@ export default function PostCard({
       }
     }
   }
-  //console.log(group?.alias)
+
+  function showShareModal() {
+    ConfirmDialog(
+      () => {
+        setMenuVisible(true);
+      },
+      PostStatusTexts.newShare.title[language],
+      PostStatusTexts.newShare.message[language],
+      language
+    );
+  }
+
+  if (isNew) {
+    showShareModal();
+  }
   return (
     <>
-      <View className={isDeleted ? 'hidden' : 'post-container my-3 flex flex-col justify-items-center align-middle items-center primary rounded-lg overflow-hidden'}>
+      <View
+        className={
+          isDeleted
+            ? 'hidden'
+            : 'post-container my-3 flex flex-col justify-items-center align-middle items-center primary rounded-lg overflow-hidden'
+        }
+      >
         <View className="flex flex-row py-2 px-2 secondary">
           <View className="post-header">
             <PostHeaderElement
@@ -117,17 +138,30 @@ export default function PostCard({
             />
           </View>
           <View className="post-options self-center">
-            <PostOptionModal colorScheme={colorScheme} setVisible={setMenuVisible} language={language} menuVisible={menuVisible} authorId={authorId} postId={postId} userId={user.id} favorite={favorite}/>
-             <MaterialCommunityIcons
+            <PostOptionModal
+              colorScheme={colorScheme}
+              setVisible={setMenuVisible}
+              language={language}
+              menuVisible={menuVisible}
+              authorId={authorId}
+              postId={postId}
+              userId={user.id}
+              favorite={favorite}
+            />
+            <MaterialCommunityIcons
               name="dots-horizontal"
-              className='pr-6'
+              className="pr-6"
               size={24}
               color={colorScheme === 'dark' ? 'white' : 'black'}
-              onPress={() => {setMenuVisible(true)}}
+              onPress={() => {
+                setMenuVisible(true);
+              }}
             />
           </View>
         </View>
-        <Pressable onLongPress={allowOptions === true || allowOptions === undefined ? () => setMenuVisible(true) : () => {}}>
+        <Pressable
+          onLongPress={allowOptions === true || allowOptions === undefined ? () => setMenuVisible(true) : () => {}}
+        >
           <TapCountWrapper
             onDoubleTap={async () => {
               await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
@@ -161,7 +195,7 @@ export default function PostCard({
         </Pressable>
 
         <PostFooter
-      authorProfileImg={authorProfileImg}
+          authorProfileImg={authorProfileImg}
           authorId={authorId!}
           authorNickname={authorNickname!}
           authorUsername={authorUsername}

@@ -89,20 +89,6 @@ export default function GroupPage({ group, colorScheme, language }: CommonStatic
               <Button className="button py-0 background mr-0 basis-2/12  items-center justify-center">
                 <MaterialCommunityIcons
                   onPress={() =>
-                    /*Platform.OS === 'ios'
-                    ? () => {
-                        //IOS
-                        Alert.alert(SocialTexts.group.options.header[language], group.name, [
-                          group.validMember
-                            ? { text: SocialTexts.group.leave.confirmLeave[language], onPress: () => handleLeave() }
-                            : { text: SocialTexts.group.options.revokeJoinRequest[language], onPress: () => console.log('Join request revoked') },
-                          { text: GroupTexts.buttons.cancel[language], onPress: () => {}, style: 'cancel' },
-                          { text: PostCreationTexts.options.share[language], onPress: () => handleShare(group.id, language) },
-                        ]);
-                      }
-                    : () => {
-                        //TODO: ANDROID
-                      }*/
                     setOptionSheetShown(true)
                   }
                   name="dots-horizontal"
@@ -117,7 +103,6 @@ export default function GroupPage({ group, colorScheme, language }: CommonStatic
           </View>
             {group.member &&
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              member
             <View className="flex h-16 flex-row gap-4 px-4 py-2">
                <TouchableOpacity
                 onPress={() => setSelectedTab('POSTS')}
