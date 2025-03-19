@@ -6,7 +6,7 @@
     "orientation": "portrait",
     "icon": "./assets/images/auo-icon.png",
     "backgroundColor": "#EF1A2D",
-    "scheme": "myapp",
+    "scheme": "auo",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
@@ -14,10 +14,10 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/auo-logo.png",
+        "foregroundImage": "./assets/images/auo-icon.png",
         "backgroundColor": "#EF1A2D"
       },
-      "package": "com.anonymous.AuO"
+      "package": "com.auo.app"
     },
     "web": {
       "bundler": "metro",
@@ -29,8 +29,9 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/auo-splash.png",
-          "resizeMode": "cover"
+          "image": "./assets/images/auo-logo.png",
+          "resizeMode": "contain",
+          "backgroundColor": "#EF1A2D"
         }
       ],
       "expo-secure-store"
