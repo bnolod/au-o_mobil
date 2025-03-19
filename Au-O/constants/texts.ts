@@ -65,6 +65,24 @@ export const CallToActionTexts = {
   },
 };
 export const SettingsTexts = {
+  pages: {
+    personal: {
+      HU: "Személyes adatok",
+      EN: "Personal Information",
+    },
+    saved: {
+      HU: "Elmentett posztok",
+      EN: "Saved Posts",
+    },
+    savedHeader: {
+      HU: "Az elmentett posztjaidat a profilod alatt is megtalálod.",
+      EN: "You can also find your saved posts under your profile.",
+    },
+    about: {
+      HU: "Rólunk",
+      EN: "About",
+    }
+  },
   header: {
     HU: 'Beállítások',
     EN: 'Settings',

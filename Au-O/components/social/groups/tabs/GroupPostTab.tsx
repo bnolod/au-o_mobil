@@ -83,8 +83,7 @@ export default function GroupPostTab({ group, language, colorScheme }: GroupTabP
           {GroupTexts.admin[language]}
         </ThemedText>
       )}
-      {
-        group.public ? group.validMember : group.member &&
+      {group.validMember &&
         <NewSocial
         onPress={() => router.replace({ pathname: '/(groups)/[id]/new', params: { id: group.id } })}
         text={GroupTexts.actions.postToGroup[language]}
