@@ -6,7 +6,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { ChatTexts, PostCreationTexts, PostStatusTexts, SocialTexts } from '@/constants/texts';
 import { ActionSheetIOS, Platform, Pressable, View } from 'react-native';
-import { handleDelete, handleEdit, handleReport, handleShare } from '@/lib/events/PostOptionEvents';
+import { handleReport } from '@/lib/events/PostOptionEvents';
 import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
 import { Colors } from '@/constants/Colors';
 import { ScrollView } from 'react-native';

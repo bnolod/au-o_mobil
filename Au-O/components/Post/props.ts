@@ -21,6 +21,7 @@ export interface PostCardProps {
   preview?: boolean;
   user: User;
   authorId: number | null;
+  isAuthorized?: boolean;
   group: Group | null;
   authorProfileImg: string;
   event: SocialEvent | null;

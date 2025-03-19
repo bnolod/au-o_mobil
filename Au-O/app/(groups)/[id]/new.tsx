@@ -62,6 +62,8 @@ export default function NewGroupPost() {
   async function handleSubmit() {
     setLoading(true);
     if (!validateUserPost(newPostForm.description, newPostForm.location, images, language).valid) {
+      console.log('invalid');
+      setLoading(false);
       return
     }
     const uploadedImages: ImageUploadResponse[] = [];

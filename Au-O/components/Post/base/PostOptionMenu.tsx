@@ -18,7 +18,7 @@ import Button from '@/components/ui/Button';
 import { useWebSocket } from '@/contexts/WebSocketContext';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Toast from 'react-native-toast-message';
-import { useFocusEffect } from 'expo-router';
+import { router, useFocusEffect } from 'expo-router';
 import { favoritePost } from '@/lib/ApiCalls/PostApiCalls';
 import SheetDismissModal from '@/components/ui/SheetDismissModal';
 export default function PostOptionModal({
@@ -26,6 +26,7 @@ export default function PostOptionModal({
   menuVisible,
   setVisible,
   colorScheme,
+  isAuthorized,
   postId,
   authorId,
   userId,
@@ -33,6 +34,7 @@ export default function PostOptionModal({
 }: {
   menuVisible: boolean;
   setVisible: (b: boolean) => void;
+  isAuthorized?: boolean;
   language: 'EN' | 'HU';
   postId: number | null;
   authorId: number | null;
@@ -169,8 +171,8 @@ export default function PostOptionModal({
               {ChatTexts.sendPost[language]}
             </Button>
           )}
-          {isOwner && (
           <View className="flex flex-row gap-4">
+          {isOwner && (
               <Button
                 className=" highlight-themed button primary flex-1"
                 innerTextClassName="txl"
@@ -181,18 +183,23 @@ export default function PostOptionModal({
               >
                 {PostCreationTexts.options.edit[language]}
               </Button>
-              <Button
+            )}
+              {
+                (isAuthorized || isOwner) &&
+                <Button
                 className=" highlight-themed button primary flex-1"
                 innerTextClassName="txl"
                 onPress={() => {
                   dismiss();
-                  handleDelete(authorId, userId, language, postId);
+                  handleDelete( language, postId, () => {
+                    router.canGoBack() ? router.back() : router.replace('/');
+                  });
                 }}
               >
                 {PostCreationTexts.deletePost[language]}
               </Button>
+              }
             </View>
-          )}
           <View className="flex flex-row gap-4">
           {/* favorite ize ikon */}
           <Button

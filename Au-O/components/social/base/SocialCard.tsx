@@ -115,7 +115,7 @@ export default function SocialCard({
                             },
                           });
                         else
-                        if (group?.validMember) {
+
 
                           router.push({
                             pathname: `/(groups)/[id]`,
@@ -123,7 +123,7 @@ export default function SocialCard({
                               id: item.id,
                             },
                           });
-                        }
+                        
                         
                       }
                     : () => {}

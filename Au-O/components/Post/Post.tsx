@@ -30,6 +30,7 @@ export default function PostCard({
   authorNickname,
   authorId,
   authorProfileImg,
+  isAuthorized,
   event,
   group,
   authorUsername,
@@ -144,6 +145,7 @@ export default function PostCard({
               language={language}
               menuVisible={menuVisible}
               authorId={authorId}
+              isAuthorized={isAuthorized}
               postId={postId}
               userId={user.id}
               favorite={favorite}

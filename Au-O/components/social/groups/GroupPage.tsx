@@ -4,7 +4,7 @@
  * @category Component
  */
 import { CommonStaticElementProps } from '@/constants/types';
-import { Alert, Platform, ScrollView, TouchableOpacity, View } from 'react-native';
+import { Alert, Platform, RefreshControl, ScrollView, TouchableOpacity, View } from 'react-native';
 import SocialBanner from '@/components/social/base/SocialBanner';
 import Button from '@/components/ui/Button';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -22,7 +22,6 @@ import { getGroupStatus, leaveGroup } from '@/lib/ApiCalls/GroupApiCalls';
 import GroupOptionSheet from './GroupOptionSheet';
 import LoadingModal from '@/components/ui/LoadingModal';
 import GroupEditTab from './tabs/GroupEditTab';
-import { showErrorToast, showSuccessToast } from '@/lib/functions';
 /**
  * @param {group, colorScheme, language} props Tulajdonságok
  */
@@ -31,6 +30,14 @@ export default function GroupPage({ group, colorScheme, language }: CommonStatic
   const { subscribeToTopic } = useWebSocket();
   const [status, setStatus] = useState<GroupMemberResponse>();
   const [optionSheetShown, setOptionSheetShown] = useState(false);
+const [refreshing,setRefresh] = useState(false);
+const handleRefresh = () => {
+  setRefresh(true);
+
+  setTimeout(() => {
+    setRefresh(false);
+  }, 1000);
+};
 
   async function getStatus() {
     if (group.member) {
@@ -49,11 +56,16 @@ export default function GroupPage({ group, colorScheme, language }: CommonStatic
     return () => {
       // Cleanup any subscriptions here if needed
     };
-  }, [group.id]);
+  }, [group.id, refreshing]);
   if (!group) return <LoadingModal colorScheme={colorScheme} loading={!group} />;
   else
     return (
-      <ScrollView className="pb-safe-offset-96">
+      <ScrollView className="pb-safe-offset-96"
+      refreshControl={
+        <RefreshControl onRefresh={handleRefresh} refreshing={refreshing}>
+                    <LoadingModal colorScheme={colorScheme!} loading={refreshing} />
+                  </RefreshControl>
+      }>
         <View className="">
           <SocialBanner
             header

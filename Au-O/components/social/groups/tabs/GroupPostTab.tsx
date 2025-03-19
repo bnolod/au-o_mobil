@@ -61,6 +61,7 @@ export default function GroupPostTab({ group, language, colorScheme }: GroupTabP
             authorNickname={item.user.nickname}
             authorProfileImg={item.user.profileImg}
             colorScheme={colorScheme}
+isAuthorized={role === 'ADMIN' || role === 'MODERATOR'}
             comments={item.comments}
             date={new Date(item.dateOfCreation).toLocaleDateString()}
             description={item.text}
