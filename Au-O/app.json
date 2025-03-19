@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/auo-icon.png",
-    "backgroundColor": "#EF1A2D",
+    "backgroundColor": "#1B1B1B",
     "scheme": "auo",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,

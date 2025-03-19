@@ -20,6 +20,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Toast from 'react-native-toast-message';
 import { useFocusEffect } from 'expo-router';
 import { favoritePost } from '@/lib/ApiCalls/PostApiCalls';
+import SheetDismissModal from '@/components/ui/SheetDismissModal';
 export default function PostOptionModal({
   language,
   menuVisible,
@@ -93,6 +94,8 @@ export default function PostOptionModal({
     }, [stompClient])
   );
   return (
+    <>
+    <SheetDismissModal onDismiss={dismiss} visible={menuVisible}/>
     <BottomSheetModal
       enableOverDrag={false}
       enableDismissOnClose
@@ -222,5 +225,6 @@ export default function PostOptionModal({
         </View>
       </BottomSheetView>
     </BottomSheetModal>
+    </>
   );
 }

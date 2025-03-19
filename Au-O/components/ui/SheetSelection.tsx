@@ -9,9 +9,11 @@ import Button from './Button';
 import { BottomSheetFlashListProps } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetScrollable/BottomSheetFlashList';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import ThemedText from './ThemedText';
-import { Keyboard, View } from 'react-native';
+import { Keyboard, Pressable, View } from 'react-native';
 import { Colors } from '@/constants/Colors';
 import { CommonStaticElementProps } from '@/constants/types';
+import { Portal } from '@gorhom/portal';
+import SheetDismissModal from './SheetDismissModal';
 
 export interface SheetSelectionRef {
   dismissSheet: () => void;
@@ -54,6 +56,7 @@ const SheetSelection = forwardRef<
   
   return (
     <>
+          <SheetDismissModal onDismiss={dismissSheet} visible={sheetState}/>
       <Button
         className="button flex items-center w-full btn-fill h-16 secondary justify-between flex-row"
         onPress={toggleSheet}

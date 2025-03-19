@@ -22,6 +22,7 @@ import { router, useFocusEffect } from 'expo-router';
 import { favoritePost } from '@/lib/ApiCalls/PostApiCalls';
 import { deleteCar } from '@/lib/ApiCalls/CarApiCalls';
 import { ConfirmDialog, showSuccessToast } from '@/lib/functions';
+import SheetDismissModal from '@/components/ui/SheetDismissModal';
 export default function VehicleShareSheet({
   language,
   menuVisible,
@@ -80,6 +81,8 @@ export default function VehicleShareSheet({
     }, [stompClient])
   );
   return (
+    <>
+      <SheetDismissModal onDismiss={dismiss} visible={menuVisible}/>
     <BottomSheetModal
       enableOverDrag={false}
       enableDismissOnClose
@@ -211,5 +214,6 @@ export default function VehicleShareSheet({
         </View>
       </BottomSheetView>
     </BottomSheetModal>
+    </>
   );
 }

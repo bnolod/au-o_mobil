@@ -337,7 +337,7 @@ export default function NewGroupPost() {
                   containerClassName="rounded-xl"
                 />
                 <Button
-                  className="highlight button btn-fill"
+                  className="highlight-themed button btn-fill"
                   innerTextClassName="tlg"
                   type="fill"
                   style={{ marginTop: 20 }}
@@ -405,7 +405,7 @@ export default function NewGroupPost() {
                       event={null}
                       group={group}
                     />
-                    <Button onPress={handleSubmit} innerTextClassName="txl" className=" my-2 p-2 highlight button btn-fill">
+                    <Button onPress={handleSubmit} innerTextClassName="txl" className=" my-2 p-2 highlight-themed button btn-fill">
                       {PostCreationTexts.buttons.post[language]}
                     </Button>
                     <Button

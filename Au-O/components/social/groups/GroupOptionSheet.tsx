@@ -20,6 +20,7 @@ import { Group } from '@/lib/entity/Group';
 import { useFocusEffect } from 'expo-router';
 import { apiFetch } from '@/lib/apiClient';
 import { handleDeleteRequest, handleLeave, revokeJoinRequest } from '@/lib/ApiCalls/GroupApiCalls';
+import SheetDismissModal from '@/components/ui/SheetDismissModal';
 /**
  * 
  * @param {colorScheme, isOwner, language, menuVisible, setVisible, group} props Tulajdonságok
@@ -92,6 +93,8 @@ group: Group
   const canInvite = (isOwner) || (group.validMember && group.public) 
   //csak authorized felhasználó tud privát csoportba inviteolni, nyilvános csoportba a valid felhasználók tudnak.
   return (
+    <>
+    <SheetDismissModal onDismiss={dismiss} visible={menuVisible}/>
     <BottomSheetModal
       enableOverDrag={false}
       enableDismissOnClose
@@ -173,7 +176,7 @@ group: Group
           {isOwner && (
              
               <Button
-                className=" highlight-themed button primary  justify-center flex-1"
+                className=" highlight-themed button primary btn-fill w-full  justify-center"
                 innerTextClassName="txl"
                 onPress={() => {
                   handleDeleteRequest(group, language).then(() => {
@@ -220,5 +223,6 @@ group: Group
         </View>
       </BottomSheetView>
     </BottomSheetModal>
+    </>
   );
 }

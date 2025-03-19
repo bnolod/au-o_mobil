@@ -86,11 +86,14 @@ export default function GroupPage({ group, colorScheme, language }: CommonStatic
                 menuVisible={optionSheetShown}
                 setVisible={setOptionSheetShown}
               />
-              <Button className="button py-0 background mr-0 basis-2/12  items-center justify-center">
+
+              <Button className={`button py-0 background mr-0 basis-2/12  items-center justify-center ${group.member && status ? '' : 'opacity-0'}`}>
                 <MaterialCommunityIcons
-                  onPress={() =>
-                    setOptionSheetShown(true)
-                  }
+                  onPress={() => {
+                    if (group.member && status) {
+                      setOptionSheetShown(true);
+                    }
+                  }}
                   name="dots-horizontal"
                   size={32}
                   color={colorScheme === 'light' ? 'black' : 'white'}
@@ -101,91 +104,91 @@ export default function GroupPage({ group, colorScheme, language }: CommonStatic
               {group.description}
             </CollapsibleText>
           </View>
-            {group.member &&
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <View className="flex h-16 flex-row gap-4 px-4 py-2">
-               <TouchableOpacity
-                onPress={() => setSelectedTab('POSTS')}
-                className={`button ${
-                  selectedTab === 'POSTS' ? 'highlight-themed' : 'secondary'
-                } flex flex-row gap-2 items-center justify-center`}
-              >
-                <ThemedText>
-                  <MaterialCommunityIcons name="cards-outline" size={24} />
-                </ThemedText>
-                <ThemedText className="text-xl">{GroupTexts.page.posts[language]}</ThemedText>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => setSelectedTab('CHAT')}
-                className={`button ${
-                  selectedTab === 'CHAT' ? 'highlight-themed' : 'secondary'
-                } flex flex-row gap-2 items-center justify-center`}
-              >
-                <ThemedText>
-                  <MaterialCommunityIcons name="chat-outline" size={24} />
-                </ThemedText>
-                <ThemedText className="text-xl">Chat</ThemedText>
-              </TouchableOpacity>
+          {group.member && (
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              <View className="flex h-16 flex-row gap-4 px-4 py-2">
+                <TouchableOpacity
+                  onPress={() => setSelectedTab('POSTS')}
+                  className={`button ${
+                    selectedTab === 'POSTS' ? 'highlight-themed' : 'secondary'
+                  } flex flex-row gap-2 items-center justify-center`}
+                >
+                  <ThemedText>
+                    <MaterialCommunityIcons name="cards-outline" size={24} />
+                  </ThemedText>
+                  <ThemedText className="text-xl">{GroupTexts.page.posts[language]}</ThemedText>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => setSelectedTab('CHAT')}
+                  className={`button ${
+                    selectedTab === 'CHAT' ? 'highlight-themed' : 'secondary'
+                  } flex flex-row gap-2 items-center justify-center`}
+                >
+                  <ThemedText>
+                    <MaterialCommunityIcons name="chat-outline" size={24} />
+                  </ThemedText>
+                  <ThemedText className="text-xl">Chat</ThemedText>
+                </TouchableOpacity>
 
-              <TouchableOpacity
-                onPress={() => setSelectedTab('MEMBERS')}
-                className={`button ${
-                  selectedTab === 'MEMBERS' ? 'highlight-themed' : 'secondary'
-                } flex flex-row gap-2 items-center justify-center`}
-              >
-                <ThemedText>
-                  <MaterialCommunityIcons name="account-group-outline" size={24} />
-                </ThemedText>
-                <ThemedText className="text-xl">{GroupTexts.page.members[language]}</ThemedText>
-              </TouchableOpacity>
-              {group.member && status && status.role === 'ADMIN' && (
                 <TouchableOpacity
-                  onPress={() => setSelectedTab('INFO')}
+                  onPress={() => setSelectedTab('MEMBERS')}
                   className={`button ${
-                    selectedTab === 'INFO' ? 'highlight-themed' : 'secondary'
+                    selectedTab === 'MEMBERS' ? 'highlight-themed' : 'secondary'
                   } flex flex-row gap-2 items-center justify-center`}
                 >
                   <ThemedText>
-                    <MaterialCommunityIcons name="information-outline" size={24} />
+                    <MaterialCommunityIcons name="account-group-outline" size={24} />
                   </ThemedText>
-                  <ThemedText className="text-xl">{GroupTexts.page.info[language]}</ThemedText>
+                  <ThemedText className="text-xl">{GroupTexts.page.members[language]}</ThemedText>
                 </TouchableOpacity>
-              )}
-              {group.member && status && status.role === 'ADMIN' && (
-                <TouchableOpacity
-                  onPress={() => setSelectedTab('EDIT')}
-                  className={`button ${
-                    selectedTab === 'EDIT' ? 'highlight-themed' : 'secondary'
-                  } flex flex-row gap-2 items-center justify-center`}
-                >
-                  <ThemedText>
-                    <MaterialCommunityIcons name="wrench-outline" size={24} />
-                  </ThemedText>
-                  <ThemedText className="text-xl">{GroupTexts.page.edit[language]}</ThemedText>
-                </TouchableOpacity>
-              )}
-            </View>
-          </ScrollView>
-            }
+                {group.member && status && status.role === 'ADMIN' && (
+                  <TouchableOpacity
+                    onPress={() => setSelectedTab('INFO')}
+                    className={`button ${
+                      selectedTab === 'INFO' ? 'highlight-themed' : 'secondary'
+                    } flex flex-row gap-2 items-center justify-center`}
+                  >
+                    <ThemedText>
+                      <MaterialCommunityIcons name="information-outline" size={24} />
+                    </ThemedText>
+                    <ThemedText className="text-xl">{GroupTexts.page.info[language]}</ThemedText>
+                  </TouchableOpacity>
+                )}
+                {group.member && status && status.role === 'ADMIN' && (
+                  <TouchableOpacity
+                    onPress={() => setSelectedTab('EDIT')}
+                    className={`button ${
+                      selectedTab === 'EDIT' ? 'highlight-themed' : 'secondary'
+                    } flex flex-row gap-2 items-center justify-center`}
+                  >
+                    <ThemedText>
+                      <MaterialCommunityIcons name="wrench-outline" size={24} />
+                    </ThemedText>
+                    <ThemedText className="text-xl">{GroupTexts.page.edit[language]}</ThemedText>
+                  </TouchableOpacity>
+                )}
+              </View>
+            </ScrollView>
+          )}
         </View>
         <View className=" basis-5/12">
-          {selectedTab === 'POSTS' && (
-            <GroupPostTab group={group} colorScheme={colorScheme} language={language} />
+          {selectedTab === 'POSTS' && <GroupPostTab group={group} colorScheme={colorScheme} language={language} />}
+
+          {group.member && status && selectedTab === 'MEMBERS' && (
+            <GroupMembersTab status={status.role} group={group} colorScheme={colorScheme} language={language} />
           )}
-          
-              {group.member && status && selectedTab === 'MEMBERS' && (
-                <GroupMembersTab status={status.role} group={group} colorScheme={colorScheme} language={language} />
-              )}
-              { group.member && status && selectedTab === 'INFO' && (status.role === 'ADMIN' || status.role === 'MODERATOR') && (
-                <GroupInfoTab status={status.role} group={group} colorScheme={colorScheme} language={language} />
-              )}
+          {group.member &&
+            status &&
+            selectedTab === 'INFO' &&
+            (status.role === 'ADMIN' || status.role === 'MODERATOR') && (
+              <GroupInfoTab status={status.role} group={group} colorScheme={colorScheme} language={language} />
+            )}
           {group.member && status && selectedTab === 'CHAT' && (
             <GroupChatTab colorScheme={colorScheme} status={status.role} language={language} group={group} />
           )}
           {group.member && status && selectedTab === 'EDIT' && status.role === 'ADMIN' && (
             <GroupEditTab status={status.role} colorScheme={colorScheme} language={language} group={group} />
           )}
-  
         </View>
       </ScrollView>
     );

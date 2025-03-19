@@ -149,7 +149,7 @@ export default function TextEditModal({
                   setValue('');
                 }}
               >
-                <ThemedText className='button highlight btn-fill text-center'>
+                <ThemedText className='button highlight-themed btn-fill text-center'>
                   {EditModalTexts.save[language]}
                 </ThemedText>
               </TouchableWithoutFeedback>

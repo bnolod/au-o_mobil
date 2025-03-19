@@ -4,6 +4,7 @@ import { useFonts } from 'expo-font';
 import { router, Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
+import {PortalProvider} from '@gorhom/portal';
 import 'react-native-reanimated';
 import './globals.css';
 import { useColorScheme } from 'nativewind';
@@ -57,6 +58,8 @@ export default function RootLayout() {
               <FormProvider>
                 <GestureHandlerRootView>
                   <BottomSheetModalProvider>
+                  <PortalProvider>
+
                     <Stack initialRouteName="onboarding">
                       <Stack.Screen
                         name="onboarding"
@@ -64,7 +67,7 @@ export default function RootLayout() {
                           headerShown: false,
                           navigationBarHidden: true,
                         }}
-                      />
+                        />
                       <Stack.Screen name="(auth)" options={{ headerShown: false, freezeOnBlur: true }} />
                       <Stack.Screen name="(groups)" options={{ headerShown: false, freezeOnBlur: true }} />
                       <Stack.Screen name="(events)" options={{ headerShown: true, freezeOnBlur: true }} />
@@ -76,18 +79,19 @@ export default function RootLayout() {
                           gestureEnabled: true,
                           navigationBarColor: Colors[colorScheme!].secondary,
                         }}
-                      />
+                        />
                       <Stack.Screen name="(post)" options={{ headerShown: false, freezeOnBlur: true }} />
                       <Stack.Screen name="(profile)" options={{ headerShown: false, freezeOnBlur: true }} />
                       <Stack.Screen name="(garage)" options={{ headerShown: false, freezeOnBlur: true }} />
                     </Stack>
+                </PortalProvider>
                   </BottomSheetModalProvider>
                 </GestureHandlerRootView>
                 <Toast
                   /*config={{
                     success: (props) => (
                       <BaseToast
-                        style={{
+                      style={{
                           backgroundColor: Colors[colorScheme!].primary,
                         }}
                         text1Style={{
