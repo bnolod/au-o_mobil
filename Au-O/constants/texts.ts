@@ -825,6 +825,10 @@ export const SelectionTexts = {
     EN: 'Select an event',
     HU: 'Válassz egy eseményt',
   },
+  close: {
+    EN: 'Close',
+    HU: 'Bezárás',
+  },
   group: {
     EN: 'Select a group',
     HU: 'Válassz egy csoportot',
@@ -1463,5 +1467,9 @@ export const SearchTexts = {
   results: {
     HU: "Találatok a következőre: ",
     EN: "Search results for: ",
+  },
+  nothing: {
+    HU: "Nem találtunk semmit...",
+    EN: "We couldn't find anything...",
   }
 }

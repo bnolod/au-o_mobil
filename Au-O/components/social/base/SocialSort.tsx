@@ -18,7 +18,7 @@ import BottomSheet from '@gorhom/bottom-sheet';
  */
 export default function SocialSort({items, colorScheme, language, onSelect }: {items: (SocialEvent | Group)[] | undefined, onSelect: (selected: SocialEvent | Group | undefined | null) => void} & CommonStaticElementProps) {
   
-  const [selected, setSelected] = useState<SocialEvent | Group | undefined | null>(undefined);
+  const [selected, setSelected] = useState<SocialEvent | Group | undefined | null>(items && items.length > 0 ? undefined : null);
   useEffect(() => {
     SocialSheetRef.current?.dismissSheet()
     onSelect(selected);
