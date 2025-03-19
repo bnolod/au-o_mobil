@@ -112,12 +112,18 @@ export default function PostCard({
               authorUsername={authorUsername}
               authorNickname={authorNickname}
               colorScheme={colorScheme}
-              onPress={() => {
+              onPress={postType === "USER" ? () => {
                 router.push({
                   pathname: '/(profile)/[id]',
                   params: { id: authorId! },
                 });
-              }}
+              } : postType === "GROUP" ? () => {
+                
+                router.push({
+                  pathname: '/(groups)/[id]',
+                  params: { id: group!.id },
+                });
+              } : () => {}}
               postType={postType}
               event={event}
               group={group}
