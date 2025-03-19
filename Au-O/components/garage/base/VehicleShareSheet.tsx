@@ -1,6 +1,6 @@
 /**
- * Poszt beállítás menü
- * @module post/base/PostOptionMenu
+ * Autó beállítás menü
+ * @module garage/base/VehicleShareSheet
  * @category Components
  */
 import React, { useCallback, useEffect, useRef, useState } from 'react';
@@ -18,38 +18,26 @@ import Button from '@/components/ui/Button';
 import { useWebSocket } from '@/contexts/WebSocketContext';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Toast from 'react-native-toast-message';
-import { useFocusEffect } from 'expo-router';
+import { router, useFocusEffect } from 'expo-router';
 import { favoritePost } from '@/lib/ApiCalls/PostApiCalls';
-export default function PostOptionModal({
+import { deleteCar } from '@/lib/ApiCalls/CarApiCalls';
+import { ConfirmDialog, showSuccessToast } from '@/lib/functions';
+export default function VehicleShareSheet({
   language,
   menuVisible,
   setVisible,
+  isOwner,
   colorScheme,
-  postId,
-  authorId,
-  userId,
-  favorite,
+  carId,
 }: {
   menuVisible: boolean;
   setVisible: (b: boolean) => void;
   language: 'EN' | 'HU';
-  postId: number | null;
-  authorId: number | null;
+  carId: number | null;
   colorScheme: 'light' | 'dark';
-  userId: number | null;
-  favorite: boolean;
+  isOwner: boolean;
 }) {
 
-  const handleFavorite = async () => {
-    const res = await favoritePost(postId!)
-    if ( res == "added") {
-      setIsFavorite(true);
-    } else {
-      setIsFavorite(false);
-    }
-  }
-
-  const isOwner = userId === authorId;
   function dismiss() {
     setVisible(false);
     ref.current?.dismiss();
@@ -65,13 +53,12 @@ export default function PostOptionModal({
       dismiss();
     }
   }, [menuVisible]);
-  const [isFavorite, setIsFavorite] = useState<boolean>(favorite);
   const ref = useRef<BottomSheetModal>(null);
   const [targets, setTargets] = useState<string[]>([]);
   const { stompClient } = useWebSocket();
-  async function handlePostSend(username: string, postId: number) {
+  async function handlePostSend(username: string, carId: number) {
     if (stompClient) {
-      const targetedMessage = { username, message: `{{POST_${postId}_}}` };
+      const targetedMessage = { username, message: `{{VEHICLE_${carId}_}}` };
       stompClient.publish({
         destination: '/app/chat/user/',
         body: JSON.stringify(targetedMessage),
@@ -123,7 +110,7 @@ export default function PostOptionModal({
                   key={rec.username}
                   className="flex relative gap-2 rounded-xl mt-2 flex-col items-center"
                   onPress={async () => {
-                    if (rec && postId) {
+                    if (rec && carId) {
                       if (targets.find((t) => t === rec.username)) {
                         setTargets(targets.filter((t) => t !== rec.username));
                       } else setTargets([...targets, rec.username]);
@@ -153,7 +140,7 @@ export default function PostOptionModal({
               innerTextClassName="txl"
               onPress={() => {
                 for (const target of targets) {
-                  handlePostSend(target, postId!);
+                  handlePostSend(target, carId!);
                 }
                 setTargets([]);
                 dismiss();
@@ -171,36 +158,38 @@ export default function PostOptionModal({
               <Button
                 className=" highlight-themed button primary flex-1"
                 innerTextClassName="txl"
-                onPress={() => {
+                onPress={ async () => {
                   dismiss();
-                  handleEdit(authorId, userId, postId);
+                  if (carId) {
+                    router.push({
+                      pathname: "/(garage)/edit/[id]",
+                      params: { id: carId }
+                    })
+                  }
                 }}
               >
-                {PostCreationTexts.options.edit[language]}
+                {SocialTexts.edit.car[language]}
               </Button>
               <Button
                 className=" highlight-themed button primary flex-1"
                 innerTextClassName="txl"
-                onPress={() => {
+                onPress={ async () => {
                   dismiss();
-                  handleDelete(authorId, userId, language, postId);
+                  if (carId) {
+                    ConfirmDialog(async () => {
+                      const res = await deleteCar(carId)
+                      if (res) {
+                        showSuccessToast(SocialTexts.creation.car.deleted.header[language], SocialTexts.creation.car.deleted.body[language]);
+                      }
+                    }, SocialTexts.creation.car.prompts.delete.header[language], SocialTexts.creation.car.prompts.delete.body[language]);
+                  }
                 }}
               >
-                {PostCreationTexts.deletePost[language]}
+                {SocialTexts.creation.car.prompts.delete.buttons.delete[language]}
               </Button>
             </View>
           )}
           <View className="flex flex-row gap-4">
-          {/* favorite ize ikon */}
-          <Button
-              onPress={() => {
-                handleFavorite();
-              }}
-            >
-              <MaterialCommunityIcons name={isFavorite ? "bookmark" : "bookmark-outline"} size={40} className="self-center" color={isFavorite? Colors.highlight.main : Colors.dark.text}>
-
-              </MaterialCommunityIcons>
-            </Button>
             <Button
               className=" highlight-themed button primary flex justify-center flex-1 "
               innerTextClassName="txl self-center"

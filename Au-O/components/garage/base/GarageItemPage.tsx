@@ -15,7 +15,9 @@ import { CommonStaticElementProps } from '@/constants/types';
 import { generalTexts, PostCreationTexts, SocialTexts } from '@/constants/texts';
 import { router } from 'expo-router';
 import { GarageItemPageProps } from './props';
-import GradientBackground from '@/components/ui/GradientBackground';
+import Button from '@/components/ui/Button';
+import VehicleShareSheet from './VehicleShareSheet';
+import { useState } from 'react';
 /**
  *
  * @property {string} colorScheme Szín séma
@@ -31,8 +33,10 @@ export default function GarageItemPage({
   posts,
   language,
 }: GarageItemPageProps & CommonStaticElementProps) {
+  const [visible, setVisible] = useState(false);
   return (
     <ScrollView className="garage-page">
+    <VehicleShareSheet  isOwner={isOwner} carId={car.id} colorScheme={colorScheme} language={language} menuVisible={visible} setVisible={setVisible}/>
       {/* <GradientBackground colors={['#EF1A2D', 'transparent']}> */}
       <View className="py-4 flex flex-row secondary mx-5 mt-safe-offset-1 rounded-xl shadow-md shadow-[#00000066] ">
             {isOwner && (
@@ -81,6 +85,10 @@ export default function GarageItemPage({
           </ThemedText>
           <CollapsibleText className="text-lg ">{car.description}</CollapsibleText>
         </View>
+        <Button onPress={() => {setVisible(true)}} hapticFeedback='light' className='button secondary w-full ' innerTextClassName='txl text-center p-2'>
+        {isOwner && SocialTexts.creation.car.prompts.options[language]}
+          {!isOwner && PostCreationTexts.options.share[language]}
+        </Button>
       </View>
 
       <View className="divider" />

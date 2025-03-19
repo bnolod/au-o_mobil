@@ -1,6 +1,6 @@
 /**
- * Poszt beállítás menü
- * @module post/base/PostOptionMenu
+ * Csoport tag beállítás menü
+ * @module social/groups/admin/MemberActionTab
  * @category Components
  */
 import React, { useEffect, useRef } from 'react';

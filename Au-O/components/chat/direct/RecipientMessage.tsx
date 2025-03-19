@@ -10,6 +10,7 @@ import { MessageProps } from '../props';
 import Avatar from '@/components/ui/Avatar';
 import MessagePost from '../media/MessagePost';
 import GroupInvite from '../media/GroupInvite';
+import VehicleCard from '../media/VehicleCard';
 /**
  * A címzett által küldött üzenet
  * @property {string} profilePic Profilkép
@@ -32,6 +33,9 @@ export default function RecipientMessage({ profilePic, id, nickname, message, is
           nickname: nickname,
         }} sender={false} language={language} colorScheme={colorScheme} groupId={Number(message.split("_")[1])} />;
       }
+      if (message.startsWith("{{VEHICLE_") && message.endsWith("_}}")) {
+          return <VehicleCard sender={false} language={language} colorScheme={colorScheme} vehicleId={Number(message.split("_")[1])} />;
+        }
   
   return (
     <View className="flex flex-row  items-end gap-2">

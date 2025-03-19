@@ -1,3 +1,9 @@
+/**
+ * Csoport tagság fül
+ * @module social/groups/tabs/GroupInfoTab
+ * @category Component
+ */
+
 import { ScrollView, View } from 'react-native';
 import ThemedText from '@/components/ui/ThemedText';
 import { GroupTabProps, ProtectedGroupTabProps } from './props';

@@ -1,4 +1,4 @@
-import { GroupTexts, PostCreationTexts } from '@/constants/texts';
+import { generalTexts, GroupTexts, PostCreationTexts } from '@/constants/texts';
 import * as SecureStore from 'expo-secure-store';
 import * as FileSystem from 'expo-file-system';
 import * as ImagePicker from 'expo-image-picker';
@@ -261,4 +261,26 @@ export function formatNumber(number: number, language?: 'HU' | 'EN') {
     i++;
   }
   return formatted >= 100 ? Math.round(formatted) + suffix[lang][i] : formatted.toFixed(1) + suffix[lang][i];
+}
+/**
+ * Megerősítési dialógus megjelenítése
+ * @param {() => void} onConfirm Megerősítési gomb eseménye
+ * @param {string?} title Dialógus főcíme (opcionális)
+ * @param {string?} message Dialógus üzenet a törzsben
+ * @param {"HU" | "EN"} language UI nyelv
+ * @param {() => void} onCancel Visszavonás eseménye 
+ */
+export function ConfirmDialog(onConfirm: () => void, title?: string, message?: string, language?: "HU" | "EN", onCancel?: () => void ) {
+  Alert.alert(title || generalTexts.areYouSure[language || "EN"], message || "", [
+    {
+      text: generalTexts.responses.no[language || "EN"],
+      style: 'cancel',
+      isPreferred: true,
+      onPress: onCancel ? onCancel : () => {return}
+    },
+    {
+      text: generalTexts.responses.yes[language || "EN"],
+      onPress: onConfirm
+    }
+  ])
 }

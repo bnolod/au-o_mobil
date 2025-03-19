@@ -6,7 +6,7 @@ import { useColorScheme } from 'nativewind';
 import { useEffect, useState } from 'react';
 import { Alert, View } from 'react-native';
 import * as Clipboard from 'expo-clipboard';
-import { PostStatusTexts } from '@/constants/texts';
+import { generalTexts, PostStatusTexts } from '@/constants/texts';
 import { useAuthentication } from '@/contexts/AuthenticationContext';
 import { Post } from '@/lib/entity/Post';
 import PostPage from '@/components/Post/base/PostPage';
@@ -34,12 +34,12 @@ export default function PostIdPage() {
     if (Boolean(isNew)) {
       Alert.alert(PostStatusTexts.newShare.title[language], PostStatusTexts.newShare.message[language], [
         {
-          text: PostStatusTexts.newShare.responses.no[language],
+          text: generalTexts.responses.no[language],
           style: 'cancel',
         },
         {
           isPreferred: true,
-          text: PostStatusTexts.newShare.responses.yes[language],
+          text: generalTexts.responses.yes[language],
           onPress: async () => {
             await Clipboard.setStringAsync(post!.postId.toString());
           },

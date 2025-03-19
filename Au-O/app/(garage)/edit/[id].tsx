@@ -232,7 +232,7 @@ export default function editCarPage() {
         <View className="w-10/12 my-3 justify-between flex mx-auto flex-row gap-2 ">
           <Button
           innerTextClassName='txl'
-            className="button  secondary outline btn-highlight"
+            className="button  secondary btn-fill outline btn-highlight"
             onPress={async () => {
               Alert.alert(SocialTexts.creation.car.prompts.discard[language], '', [
                 {
@@ -254,44 +254,6 @@ export default function editCarPage() {
             }}
           >
             {SocialTexts.creation.car.prompts.cancel[language]}
-          </Button>
-          <Button
-            className="button border-2 secondary border-highlight"
-            innerTextClassName='txl'
-            onPress={async () => {
-              Alert.alert(
-                SocialTexts.creation.car.prompts.delete.header[language],
-                SocialTexts.creation.car.prompts.delete.body[language],
-
-                [
-                  {
-                    text: SocialTexts.creation.car.prompts.delete.buttons.cancel[language],
-                    onPress: () => {
-                      return;
-                    },
-                    isPreferred: true,
-                  },
-                  {
-                    text: SocialTexts.creation.car.prompts.delete.buttons.delete[language],
-                    onPress: async () => {
-                      const res = await deleteCar(Number(id as string));
-                      if (res) {
-                        Toast.show({
-                          type: 'success',
-                          text1: SocialTexts.creation.car.deleted.header[language],
-                          text2: SocialTexts.creation.car.deleted.body[language],
-                        });
-                        router.back();
-                      }
-                    },
-                    isPreferred: false,
-                    style: 'destructive',
-                  },
-                ]
-              );
-            }}
-          >
-            {SocialTexts.creation.car.deleted.button[language]}
           </Button>
         </View>
       </Pressable>

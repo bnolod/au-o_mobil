@@ -224,6 +224,20 @@ export const AuthTexts = {
   },
 };
 export const generalTexts = {
+  areYouSure: {
+    HU: 'Biztos vagy benne?',
+    EN: 'Are you sure?',
+  },
+  responses: {
+    no: {
+      EN: 'No',
+      HU: 'Nem',
+    },
+    yes: {
+      EN: 'Yes',
+      HU: 'Igen',
+    },
+  },
   success: {
     HU: 'Siker!',
     EN: 'Success!',
@@ -645,16 +659,7 @@ export const PostStatusTexts = {
       EN: 'Congratulations on your new post! Would you like to share it?',
       HU: 'Gratulálok az új posztodhoz! Szeretnéd megosztani?',
     },
-    responses: {
-      no: {
-        EN: 'No',
-        HU: 'Nem',
-      },
-      yes: {
-        EN: 'Yes',
-        HU: 'Igen',
-      },
-    },
+    
   },
 };
 export const CommentTexts = {
@@ -924,6 +929,11 @@ export const SocialTexts = {
             HU: 'Szerkesztés',
           },
         },
+        options: {
+          EN: "Options",
+          HU: "Műveletek",
+        },
+        
         cancel: {
           EN: 'Discard edit',
           HU: 'Elvetés',
@@ -995,6 +1005,12 @@ export const SocialTexts = {
       EN: 'Following',
     },
   },
+  edit: {
+    car: {
+      HU: 'Autó szerkesztése',
+      EN: 'Edit car',
+    }
+  }
 };
 export const GroupTexts = {
   page: {
@@ -1378,6 +1394,17 @@ export const ChatTexts = {
   invited: {
     HU: 'Meghívott egy csoportba',
     EN: 'Invited you to a group',
+  },
+  sentCar( isSender: boolean) {
+    if (isSender) return {
+
+      HU: "Megosztottál egy autót",
+      EN: "You shared a car",
+    }
+    return {
+      HU: "Megosztott egy autót",
+      EN: "Shared a car",
+    }
   },
   messagedPosts(recipient: string) {
     return { HU: `Poszt elküldve ${recipient} részére `, EN: `Sent post to ${recipient} ` };
