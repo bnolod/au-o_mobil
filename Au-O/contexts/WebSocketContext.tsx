@@ -25,7 +25,7 @@ export type WebSocketContextType = {
    * @param message Elküldendő üzenet
    * @returns {void}
    */
-  sendMessage: (topic: string, message: string) => void;
+  sendMessage: (topic: string, message: any) => void;
   /**
    * Felhasználó feliratkoztatása egy topicra
    * @param topic Topic ID
@@ -137,11 +137,15 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     subscriptions.current.set(topic, subscription);
   };
 
-  const sendMessage = (topic: string, message: string) => {
+  const sendMessage = (topic: string, message: any) => {
     if (stompClient && stompClient.connected) {
+      console.log(`Sending message to ${topic}:`, message);
       stompClient.publish({
         destination: `/app/${topic}`,
-        body: JSON.stringify({ message }),
+        body: JSON.stringify({ 
+          message: message.message,
+          groupId: message.groupId,
+         }),
       });
     } else {
       console.error('WebSocket is not connected!');

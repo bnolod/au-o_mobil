@@ -34,7 +34,10 @@ export default function RecipientMessage({ profilePic, id, nickname, message, is
         }} sender={false} language={language} colorScheme={colorScheme} groupId={Number(message.split("_")[1])} />;
       }
       if (message.startsWith("{{VEHICLE_") && message.endsWith("_}}")) {
-          return <VehicleCard sender={false} language={language} colorScheme={colorScheme} vehicleId={Number(message.split("_")[1])} />;
+          return <VehicleCard avatar={{
+            profileImg: profilePic,
+            nickname: nickname,
+          }} sender={false} language={language} colorScheme={colorScheme} vehicleId={Number(message.split("_")[1])} />;
         }
   
   return (
