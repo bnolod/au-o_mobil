@@ -3,6 +3,7 @@
  * @module chat/props
  * @category Components
  */
+import { GroupMessageType } from '@/lib/entity/GroupMessage';
 import { User } from '@/lib/entity/User';
 import LatestMessage from '@/lib/entitywebsock/LatestMessage';
 /**
@@ -24,9 +25,9 @@ export interface GroupMessageProps {
   sender: User;
   /**
    * Üzenet
-   * @type {string}
+   * @type {GroupMessageType}
    */
-  message: string;
+  message: GroupMessageType;
   /**
    * Dátum
    * @type {string}

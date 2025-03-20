@@ -14,6 +14,7 @@ import { Alert } from 'react-native';
 import { GroupTexts, SocialTexts, ToastMessages } from '@/constants/texts';
 import { showErrorToast, showSuccessToast } from '../functions';
 import { router } from 'expo-router';
+import { GroupMessageType } from '../entity/GroupMessage';
 
 /**
  * Csoport létrehozása
@@ -276,4 +277,13 @@ export async function promoteTo(groupId: number, userId: number, role: Status) {
 export async function kickUser(groupId: number, userId: number) {
   const req = await apiFetch(`groups/${groupId}/${userId}`, "DELETE", true)
   return req!.status === 200
+}
+
+export async function getGroupMessages(groupId: number) {
+  const res = await apiFetch<GroupMessageType[]>(`/groups/group/${groupId}/messages`, "GET", true)
+  console.log(res)
+  if (res && res.data) {
+    return res.data
+  }
+  return null
 }
