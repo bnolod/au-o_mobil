@@ -47,7 +47,7 @@ export default function Settings() {
     },
     {
       icon: 'bookmark-outline',
-      onPress: () => {},
+      onPress: () => { router.push({pathname: "/(settings)/saved"}) },
       title: SettingsTexts.savedPosts[language],
     },
     {

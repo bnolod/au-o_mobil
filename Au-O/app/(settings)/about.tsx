@@ -16,7 +16,8 @@ export default function AboutPage() {
         <View className="flex items-center gap-2">
           <Image
             source={colorScheme === 'light' ? Images.logo_black : Images.logo_white}
-            style={{ width: 150, height: 75, resizeMode: 'contain' }}
+            style={{ width: 150, height: 75 }}
+            contentFit='contain'
           />
           <View>
             <ThemedText className="txl text-center">2025 © Au-O</ThemedText>

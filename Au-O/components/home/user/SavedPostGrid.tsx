@@ -44,5 +44,5 @@ export default function SavedPostGrid({
     return <LoadingModal colorScheme={colorScheme} loading />;
   }
 
-  return <PostGrid colorScheme={colorScheme} language={language} posts={posts!}></PostGrid>;
+  return <PostGrid colorScheme={colorScheme} language={language} posts={posts!}/>;
 }

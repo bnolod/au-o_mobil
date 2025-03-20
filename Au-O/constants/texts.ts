@@ -780,6 +780,21 @@ export const CommentTexts = {
   },
 };
 export const UserEditTexts = {
+  labels: {
+    nickname: {
+      HU: "Becenév",
+      EN: "Nickname",
+    },
+    bio: {
+      HU: "Bio",
+      EN: "Bio",
+    },
+    password: {
+      HU: "Jelszó",
+      EN: "Password"
+    
+    }
+  },
   header: {
     HU: 'Tartsd lenyomva a mezőt a szerkesztéshez',
     EN: 'Press and hold a field to edit its contents.',
