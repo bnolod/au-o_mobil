@@ -28,7 +28,7 @@ export default function UserMessage({ message, isFirst, isLast, colorScheme, lan
     return <GroupInvite avatar={null} language={language} sender colorScheme={colorScheme} groupId={Number(message.split("_")[1])} />;
   }
   if (message.startsWith("{{VEHICLE_") && message.endsWith("_}}")) {
-    return <VehicleCard sender language={language} colorScheme={colorScheme} vehicleId={Number(message.split("_")[1])} />;
+    return <VehicleCard avatar={null} sender language={language} colorScheme={colorScheme} vehicleId={Number(message.split("_")[1])} />;
   }
   return (
     <>
