@@ -12,9 +12,10 @@ import { Colors } from '@/constants/Colors';
 import { router } from 'expo-router';
 import { unfollowUser, removeFollow } from '@/lib/ApiCalls/UserApiCalls';
 import Toast from 'react-native-toast-message';
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { UserListCardProps } from './props';
 import ProfileModal from './ProfileModal';
+import { User } from '@/lib/entity/User';
 /**
  * @param {UserListCardProps & CommonStaticElementProps} props
  */
@@ -109,7 +110,7 @@ export default function UserListCard({
     return (
       <>
       <Pressable
-        className="flex-row items-center w-full p-2 justify-center primary"
+       
         onPress={() => {
           dismissSheet();
           router.push({
@@ -120,15 +121,8 @@ export default function UserListCard({
           });
         }}
         >
-        <View className="flex-1 flex-row flex items-center ml-2">
-          <Avatar image={user.profileImg } nickname={user.nickname} />
-          <View className="ml-2">
-            <ThemedText className="text-base font-bold">{user.nickname}</ThemedText>
-            <ThemedText className="tsm">@{user.username}</ThemedText>
-          </View>
-        </View>
-        <View className="flex-row items-center">
-          <TouchableOpacity>
+        <UserListCardDisplay user={user}>
+        <TouchableOpacity>
             <MaterialCommunityIcons
               onPress={() => {
                 Platform.OS === "ios" ? Alert.alert(user.username, '', buttons[+isOwner]) : setModalVisible((prev) => !prev);
@@ -138,9 +132,27 @@ export default function UserListCard({
               color={Colors[colorScheme].text}
               />
           </TouchableOpacity>
-        </View>
+          </UserListCardDisplay>
       </Pressable>
       <ProfileModal isOwner={isOwner} type={type} visible={modalVisible} onDismiss={() => setModalVisible((vis) => !vis)} />
               </>
     );
+}
+
+export function UserListCardDisplay({user, children}: {user: User, children?: ReactNode}) {
+  return (
+
+    <View className="flex-row items-center w-full p-2 justify-center">
+  <View className="flex-1 flex-row flex items-center ml-2">
+          <Avatar image={user.profileImg } nickname={user.nickname} />
+          <View className="ml-2">
+            <ThemedText className="text-base font-bold">{user.nickname}</ThemedText>
+            <ThemedText className="tsm">@{user.username}</ThemedText>
+          </View>
+        </View>
+        <View className="flex-row items-center">
+          {children}
+        </View>
+              </View>
+)
 }

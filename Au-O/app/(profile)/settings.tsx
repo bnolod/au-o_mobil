@@ -18,7 +18,7 @@ export default function Settings() {
   const settings: SettingsOption[] = [
     {
       icon: 'account-circle-outline',
-      onPress: () => {},
+      onPress: () => { router.push({pathname: "/(settings)/personal"}) },
       title: SettingsTexts.personal[language],
     },
     {

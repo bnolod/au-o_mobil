@@ -332,6 +332,10 @@ export const generalTexts = {
       EN: 'Username',
       HU: 'Felhasználónév',
     },
+    dateOfSignup: {
+      EN: "You are a member since",
+      HU: "Regisztráció dátuma",
+    },
     nickname: {
       EN: 'Nickname',
       HU: 'Becenév',

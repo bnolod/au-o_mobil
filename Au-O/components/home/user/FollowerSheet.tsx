@@ -64,6 +64,8 @@ export default function FollowerSheet({
         </View>
       )}
       renderItem={({ item }) => (
+        <View className='primary m-1 rounded-xl'>
+
         <UserListCard
           isOwner={isOwner}
           dismissSheet={dismissSheet}
@@ -71,7 +73,8 @@ export default function FollowerSheet({
           type={data === followers ? 'follower' : 'following'}
           colorScheme={colorScheme}
           language={language}
-        />
+          />
+          </View>
       )}
     />
   );
