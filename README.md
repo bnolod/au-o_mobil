@@ -5,7 +5,7 @@
 
 ## 📝 Tartalomjegyzék
 
-### ✅ A Typedoc által kiegészített dokumentáció a repo [Github Pages oldalán](https://bnolod.github.io/au-o_mobil/) található.
+### ✅ A Typedoc által kiegészített fejlesztői dokumentáció a repo [Github Pages oldalán](https://bnolod.github.io/au-o_mobil/) található.
 
 - [ 📚 Bevezetés](#-bevezetés)
 - [ 🔖 Dokumentációs segítség](#-dokumentációs-segítség)
@@ -73,17 +73,34 @@ A garázs funkció kiegészíti a többi funkciót a következőkkel:
 
 ## ✅ Telepítési útmutató
 
-Szükséges a futtatáshoz
+> [!WARNING]
+> Az alkalmazás API kulcsokat használ. Ezek nem kerültek fel nyilvánosan a repóba, a beadott .zip fájlban található környezeti változókat tartalmazó fájlban (.env & .env.example) meg vannak adva. Legyenek szívesek ne maxolják ki a kulcsaimat
 
-- [NodeJs](https://nodejs.org/en/download)
+#### Szükséges a futtatáshoz
+
+- [Node.js](https://nodejs.org/en/download)
 - [Expo Go mobil app](https://expo.dev/go)
 - A backend sikeres futtatása, ami [ebben](https://github.com/bnolod/au-o_backend) a repóban található.
+
+
+### FONTOS! KÖRNYEZETI VÁLTOZÓK!
+
+- Git repóból történő klónozás esetén szükség van API kulcsokra és egyéb környezeti változókra.
+- A beadott .zip fájl tartalmazza az előre bekonfigurált API kulcsokat, viszont módosítás nélkül **nem lesz elérhető a backend.**
+- Megfelelő működés biztosítása érdekében szükség van egy **vezeték nélküli hálózatra, valamint egy mobil eszközre.**
+- Lépések:
+  - Fizikai mobil (iOS vagy Android) eszköz használatával
+  - > ipconfig
+    - -> Wireless LAN adapter Wi-Fi / IPv4 Address beállítása (továbbiakban IP)
+    - .env 
+        - EXPO_PUBLIC_AXIOS_BASE_URL = http://IP:8000/api/v1
+        - EXPO_PUBLIC_WS_URL = http://IP:8000/ws
+        - EXPO_PUBLIC_IMGUR_CLIENT_ID **NEM TALÁLHATÓ MEG EBBEN A REPÓBAN, KIZÁRÓLAG A BEADOTT .ZIP FÁJLBA TÖMÖRÍTETT KÖRNYEZETBEN!!!**
+  - Fontos, hogy a mobil eszköz ugyanazon a vezeték nélküli hálózatra legyen kapcsolódva, mint a programot futtató számítógép.
 
 > A lépések után elindul az app
 >
 > Parancssor:
->
-> `git clone <repo_link>`
 >
 > `cd /Au-O/`
 >
@@ -93,7 +110,10 @@ Szükséges a futtatáshoz
 >
 > Bescanneljük a QR kódot, ami megnyitja az expo mobil appban.
 
+#### Megjegyzés
+Az Expo Go egy korlátozott sandbox környezet ami inkább tesztelésre alkalmas. Első indítás alkalmával előfordulhatnak layout shiftek. Ha Androidon futtatjuk, érdemesebb a csatolt .apk fájlt használni futtatásra. iOS esetén nincs lehetőség teljesen natív futtatásra az Expo Go-n kívül, mivel ahhoz fejlesztői jogosultság kell.
 ## ❓ Használati útmutató
+
 
 ### 🔐 Regisztráció és bejelentkezés
 
@@ -101,7 +121,8 @@ Szükséges a futtatáshoz
   - Ez a részleg bemutatja az alkalmazásunkat, valamint annak különleges funkcióit.
 - Ezután standard bejelentkezési/regisztrációs képernyők bejelentkezhet a felhasználó. (`/(auth)/[login vagy register]`)
   - Itt a felhasználónak meg kell adnia **érvényes** regisztrációs vagy bejelentkezési adatokat, hogy tovább engedje az alkalmazás.
-  - A validációs módszerekért látogass el a **fejlesztői dokumentációink** oldalára. //TODO FEJLESZTŐI DOKUMENTÁCIÓ
+  - A validációs módszerek definiálva vannak a backend repo root mappájában található Validációs szabályok.md fájlban.
+    - Ezeket a szabályokat alkalmaztuk egységesen, itt az Au-O/lib/Validation mappában találjuk ezeket a szabályokat.
 - Miután a felhasználó sikeresen, visszaigazoltan bejelentkezett, a kiszolgáló oldal érvényesíti az adatokat és hitelesített adatokkal átirányítja a felhasználói felület alap elrendezésére - **/(root)/ layout**
   - Ez a felület biztosít a felhasználónak navigációs lehetőségeket, egy alsó navigációs sáv formájában.
     - Ezekről az útvonalakról a [🔖 Felhasználói élmény](#🔖-felhasználói-élmény) szekcióban olvashat tovább.

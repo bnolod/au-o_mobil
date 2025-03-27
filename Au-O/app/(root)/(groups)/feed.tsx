@@ -27,12 +27,21 @@ export default function GroupFeed() {
   const [refreshing, setRefreshing] = useState(false);
   const [selected, setSelected] = useState<Group | SocialEvent | undefined | null>(undefined);
   const [groups, setGroups] = useState<Group[]>();
+  const [displayedGroups, setDisplayedGroups] = useState<Group[]>();
   const [posts, setPosts] = useState<Post[]>();
   const { colorScheme } = useColorScheme();
   async function fetchItems() {
     const res = await getAllGroups();
     if (res) {
       setGroups(res);
+      if (selected === undefined) {
+        const ownGroups: Group[] = res.filter((g) => g.validMember)
+        setDisplayedGroups(ownGroups);
+      }
+      if (selected === null) {
+        const unrelatedGroups: Group[] = res.filter((g) => !g.validMember)
+        setDisplayedGroups(unrelatedGroups);
+      }
     }
   }
   async function fetchGroupPosts() {
@@ -46,10 +55,12 @@ export default function GroupFeed() {
     fetchItems();
     fetchGroupPosts();
     if (selected === null || selected === undefined) {
+      setDisplayedGroups([]);
       setPosts([]);
     }
     if (selected !== null && selected !== undefined) {
       setGroups([]);
+      setDisplayedGroups([]);
     }
   }, [refreshing, selected]);
   const handleRefresh = () => {
@@ -75,16 +86,16 @@ export default function GroupFeed() {
           onSelect={(s) => {
             setSelected(s);
           }}
-          items={groups}
+          items={groups?.filter((g) => g.validMember) || []}
           language={language}
           colorScheme={colorScheme!}
         />
         <NewSocial text={GroupTexts.actions.create[language]} onPress={() => router.push('/(groups)/new')} />
       </View>
-      {groups && groups.length > 0 && !selected && (
+      {groups && displayedGroups && displayedGroups.length > 0 && groups.length > 0 && !selected && (
         <FlashList
-          estimatedFirstItemOffset={250}
-          data={groups}
+          estimatedItemSize={254}
+          data={groups.filter((g) => g.validMember) || []}
           keyExtractor={(item) => item.id + ''}
           renderItem={({ item }) => (
             <SocialCard type="GROUP" group={item} colorScheme={colorScheme!} language={language} />

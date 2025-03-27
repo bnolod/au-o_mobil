@@ -242,7 +242,8 @@ export default function editCarPage() {
                 {
                   text: SocialTexts.creation.car.prompts.discardTexts.confirm[language],
                   onPress: () => {
-                    router.back();
+                    router.canGoBack() ? router.back() :
+                    router.replace("/");
                   },
                   isPreferred: false,
                   style: 'destructive',

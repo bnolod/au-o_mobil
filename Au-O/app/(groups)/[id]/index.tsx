@@ -26,7 +26,8 @@ export default function GroupDisplay() {
   }
   if (group === undefined) return <LoadingModal loading colorScheme={colorScheme!} />;
   if (group === null) {
-    router.back();
+    router.canGoBack() ?
+    router.back() : router.replace({pathname: "/(root)/(groups)/feed"});
   }
   if (group)
     return (
