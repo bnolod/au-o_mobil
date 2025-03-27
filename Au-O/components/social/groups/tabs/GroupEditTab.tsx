@@ -4,7 +4,7 @@
  * @category Component
  */
 import { ScrollView, TouchableOpacity, View } from "react-native";
-import { GroupTabProps } from "./props";
+import { GroupTabProps, ProtectedGroupTabProps } from "./props";
 import Input from "@/components/ui/Input";
 import { useState } from "react";
 import Button from "@/components/ui/Button";
@@ -21,7 +21,7 @@ import { showErrorToast, showSuccessToast } from "@/lib/functions";
 /**
  * @param {GroupTabProps} props
  */
-export default function GroupEditTab({colorScheme, group, language}: GroupTabProps) {
+export default function GroupEditTab({colorScheme, group, language}: ProtectedGroupTabProps) {
     const [editGroup, setEditGroup] = useState<GroupEditRequest>({
         name: group.name,
         description: group.description,

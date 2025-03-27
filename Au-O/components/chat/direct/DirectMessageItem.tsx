@@ -19,7 +19,7 @@ import { ChatTexts } from '@/constants/texts';
  * @returns 
  */
 export default function DirectMessageItem({ user, latestMessage, date, language }: DirectMessageItemProps & {language: "HU" | "EN"}) {
-  console.log('latestmessage:' + latestMessage.active);
+  //console.log('latestmessage:' + latestMessage.active);
 
   return (
     <Pressable
@@ -44,8 +44,9 @@ export default function DirectMessageItem({ user, latestMessage, date, language 
             {user.username == latestMessage.message.user.username && (
               <Text className="font-bold dark:text-highlight text-highlight-light">You: </Text>
             )}
-            {latestMessage.message.message.startsWith("{{POST") ? "📷 " + ChatTexts.sentPost[language] :
-            latestMessage.message.message.startsWith("{{GROUP") ? "🥳 " + ChatTexts.invited[language] : latestMessage.message.message}
+            {latestMessage.message.message.startsWith("{{POST_") ? "📷 " + ChatTexts.sentPost[language] :
+            latestMessage.message.message.startsWith("{{GROUP_") ? "🥳 " + ChatTexts.invited[language] 
+            : latestMessage.message.message.startsWith("{{VEHICLE_") ? "🏎 " + ChatTexts.sentCar(user.id === latestMessage.id)[language] : latestMessage.message.message}
           </ThemedText>
         </View>
       </View>

@@ -31,8 +31,9 @@ export default function GarageList({
     <FlashList
       ListEmptyComponent={<NoPostsFound language={language} />}
       data={cars}
-      style={{ padding: 10 }}
+      contentContainerStyle={{ padding: 10 }}
       estimatedItemSize={99}
+      keyExtractor={(item) => item.id.toString()}
       contentContainerClassName="pb-24"
       renderItem={({ item }) => (
         <GarageItem

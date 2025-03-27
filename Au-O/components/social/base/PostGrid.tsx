@@ -11,27 +11,27 @@ import { router } from 'expo-router';
 import { MasonryFlashList } from '@shopify/flash-list';
 import NoPostsFound from '@/components/Post/base/NoPostsFound';
 import { CommonStaticElementProps } from '@/constants/types';
-import { Colors } from '@/constants/Colors';
 import { Post } from '@/lib/entity/Post';
 import { Image } from 'expo-image';
 import { Image as RNImage } from 'react-native';
+import { Colors } from '@/constants/Colors';
 
 export default function PostGrid({ colorScheme, language, posts }: { posts: Post[] } & CommonStaticElementProps) {
   return (
     <View className="mt-4">
       <MasonryFlashList
-        estimatedItemSize={250} // Estimates item sizes for smoother rendering
+        estimatedItemSize={250}
         keyExtractor={(item) => item.postId + '_'}
         ListEmptyComponent={() => <NoPostsFound language={language} />}
         data={posts && posts.length > 0 ? [...posts].sort((a, b) => new Date(b.dateOfCreation).getTime() - new Date(a.dateOfCreation).getTime()) : []}
         renderItem={({ item }) => <PostItem item={item} colorScheme={colorScheme} />}
-        numColumns={2} // Masonry effect with 2 columns
+        numColumns={2}
       />
     </View>
   );
 }
 
-function PostItem({ item, colorScheme }: { item: Post; colorScheme: string }) {
+function PostItem({ item, colorScheme }: { item: Post; colorScheme: "light" | "dark" }) {
   const [imageSize, setImageSize] = useState<{ width: number; height: number } | null>(null);
   const imageUrl = item.images[0]?.url;
 
@@ -53,7 +53,7 @@ function PostItem({ item, colorScheme }: { item: Post; colorScheme: string }) {
           })
         }
         style={{
-          shadowColor: Colors[colorScheme!].background,
+          shadowColor: Colors[colorScheme].background,
           shadowOffset: { width: 1, height: 5 },
           shadowOpacity: 0.5,
           shadowRadius: 5,

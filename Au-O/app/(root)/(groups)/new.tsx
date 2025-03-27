@@ -153,7 +153,8 @@ export default function NewPostPage() {
             placeholder: GroupTexts.placeholders.alias[language],
             maxLength: 8,
             value: newGroupForm.alias,
-
+autoCapitalize: "characters",
+autoComplete: "off",
             onChangeText: (text) =>
               setNewGroupForm({ ...newGroupForm, alias: text.toUpperCase().replace(/[^A-Z]/g, '') }),
           }}

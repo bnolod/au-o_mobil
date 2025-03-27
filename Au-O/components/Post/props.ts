@@ -21,6 +21,7 @@ export interface PostCardProps {
   preview?: boolean;
   user: User;
   authorId: number | null;
+  isAuthorized?: boolean;
   group: Group | null;
   authorProfileImg: string;
   event: SocialEvent | null;
@@ -34,6 +35,7 @@ export interface PostCardProps {
   reactions: Reactions;
   vehicle: Car | null;
   comments: Comment[];
+  isNew?: boolean;
   language: 'EN' | 'HU';
   colorScheme: 'light' | 'dark';
 }

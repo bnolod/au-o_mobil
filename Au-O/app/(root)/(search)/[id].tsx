@@ -10,6 +10,8 @@ import { User } from '@/lib/entity/User';
 import Avatar from '@/components/ui/Avatar';
 import { SearchTexts } from '@/constants/texts';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Colors } from '@/constants/Colors';
 
 export default function SearchPage() {
   const [loading, setLoading] = useState(true);
@@ -46,11 +48,12 @@ export default function SearchPage() {
   return (
     <ScrollView
       refreshControl={<RefreshControl onRefresh={handleRefresh} refreshing={refreshing} />}
-      className="primary mx-auto w-full pt-safe-offset-4"
+      className="background mx-auto w-full"
     >
+      
       <LoadingModal colorScheme={colorScheme!} loading={refreshing} />
-      <ThemedText className="text-center">
-        {SearchTexts.results[language]} <Text className="text-xl">{id}</Text>
+      <ThemedText className="primary rounded-b-xl pt-safe-offset-4 pb-3 text-center txl">
+        {SearchTexts.results[language]} <ThemedText className="text-xl">{id}</ThemedText>
       </ThemedText>
       {!loading ? (
         searchResult.length > 0 ? (
@@ -68,7 +71,14 @@ export default function SearchPage() {
             </Pressable>
           ))
         ) : (
-          <ThemedText>No users found.</ThemedText>
+          <View className='flex gap-2 items-center justify-center rounded-xl secondary w-1/2 mx-auto mt-8 p-3 aspect-square'>
+            <ThemedText>
+              <MaterialCommunityIcons name='magnify-close' size={128} color={Colors.highlight[colorScheme!]} />
+            </ThemedText>
+            <ThemedText className='txl text-center mt-2'>
+              {SearchTexts.nothing[language]}
+            </ThemedText>
+          </View>
         )
       ) : (
        <LoadingModal colorScheme={colorScheme!} loading={loading}/>  

@@ -10,6 +10,8 @@ import { View } from 'react-native';
 import { MessageProps } from '../props';
 import MessagePost from '../media/MessagePost';
 import GroupInvite from '../media/GroupInvite';
+import VehicleCard from '../media/VehicleCard';
+import Animated from 'react-native-reanimated';
 /**
  * Saját üzenet
  * @property {string} message Üzenet
@@ -25,9 +27,18 @@ export default function UserMessage({ message, isFirst, isLast, colorScheme, lan
   if (message.startsWith("{{GROUP_") && message.endsWith("_}}")) {
     return <GroupInvite avatar={null} language={language} sender colorScheme={colorScheme} groupId={Number(message.split("_")[1])} />;
   }
+  if (message.startsWith("{{VEHICLE_") && message.endsWith("_}}")) {
+    return <VehicleCard avatar={null} sender language={language} colorScheme={colorScheme} vehicleId={Number(message.split("_")[1])} />;
+  }
   return (
     <>
-      <View className="flex flex-row-reverse items-end gap-2 pr-2">
+      <Animated.View style={{
+        display: "flex",
+        flexDirection: "row-reverse",
+        alignItems: "flex-end",
+        gap: 2,
+        paddingRight: 2,
+      }} className={`flex flex-row-reverse items-end gap-2 pr-2`}>
         <View
           className={`secondary p-2 
             rounded-l-[2rem] rounded-r-md py-3 px-4 mt-1  max-w-[58%]
@@ -36,7 +47,7 @@ export default function UserMessage({ message, isFirst, isLast, colorScheme, lan
         >
           <ThemedText className="text-xl leading-tight">{message}</ThemedText>
         </View>
-      </View>
+      </Animated.View>
     </>
   );
 }

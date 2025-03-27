@@ -80,7 +80,7 @@ export default function GroupFeed() {
       stickyHeaderHiddenOnScroll
       stickyHeaderIndices={[0]}
     >
-      <View className="primary rounded-b-xl">
+      <View className="primary  rounded-b-xl">
         <RootHeader language={language} colorScheme={colorScheme!} />
         <SocialSort
           onSelect={(s) => {

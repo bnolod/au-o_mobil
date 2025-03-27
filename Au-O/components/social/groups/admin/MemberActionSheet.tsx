@@ -1,6 +1,6 @@
 /**
- * Poszt beállítás menü
- * @module post/base/PostOptionMenu
+ * Csoport tag beállítás menü
+ * @module social/groups/admin/MemberActionTab
  * @category Components
  */
 import React, { useEffect, useRef } from 'react';
@@ -14,6 +14,8 @@ import { GroupMemberResponse, Status } from '@/lib/entity/Group';
 import { kickUser, promoteTo } from '@/lib/ApiCalls/GroupApiCalls';
 import { showErrorToast, showSuccessToast } from '@/lib/functions';
 import { router } from 'expo-router';
+import Avatar from '@/components/ui/Avatar';
+import MemberDisplayView from '../../base/MemberDisplayView';
 export default function MemberActionSheet({
   role,
   target,
@@ -21,7 +23,8 @@ export default function MemberActionSheet({
   setVisible,
   colorScheme,
   language,
-  groupId
+  groupId,
+  isCurrentUser
 }: {
   role: Status;
   target: GroupMemberResponse;
@@ -30,6 +33,7 @@ export default function MemberActionSheet({
   menuVisible: boolean;
   groupId: number,
   setVisible: (b: boolean) => void;
+  isCurrentUser: boolean;
 }) {
   function dismiss() {
     setVisible(false);
@@ -77,13 +81,9 @@ export default function MemberActionSheet({
     >
       <BottomSheetView>
         <View className="flex flex-col primary p-3 min-h-[25rem] gap-4 justify-end pb-safe-offset-1 w-full">
-          <View className="flex flex-col w-full items-center mb-auto justify-between gap-3">
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              className=" p-3 secondary rounded-xl max-h-28 w-full"
-            >
-              <View className="flex flex-row items-center gap-4">
+          <MemberDisplayView isCurrentUser={isCurrentUser} u={target} authorized={true} colorScheme={colorScheme} language={language} status={role} groupId={groupId} />
+          <View className="flex flex-col w-full items-center mb-auto justify-between gap-4">
+
                 {target.role === 'MEMBER' && role === 'ADMIN' && (
                   <Button onPress={async () => {
                     const req = await promoteTo(groupId, target.user.id, 'MODERATOR')
@@ -97,7 +97,7 @@ export default function MemberActionSheet({
                       dismiss()
                       return
                     }
-                }} className="button secondary">{GroupTexts.application.sudo.promote[language]}</Button>
+                }} className="button secondary btn-fill" innerTextClassName='txl'>{GroupTexts.application.sudo.promote[language]}</Button>
             )}
                 {target.role === 'MODERATOR' && role === 'ADMIN' && (
                     <Button onPress={async () => {
@@ -113,19 +113,17 @@ export default function MemberActionSheet({
                         dismiss()
                         return
                       }
-                  }} className="button secondary">{GroupTexts.application.sudo.demote[language]}</Button>
+                  }} className="button secondary btn-fill">{GroupTexts.application.sudo.demote[language]}</Button>
                 )}
                 {target.role === 'MEMBER' && role !== 'MEMBER' && (
-                  <Button className="button secondary" onPress={handleKick}>{GroupTexts.application.sudo.kick[language]}</Button>
+                  <Button className="button secondary btn-fill" innerTextClassName='txl' onPress={handleKick}>{GroupTexts.application.sudo.kick[language]}</Button>
                 )} {/* moderátor nem rúghat ki vele egy jogosultságú tagot */}
                 {target.role === 'MODERATOR' && role === 'ADMIN' && (
-                  <Button className="button secondary" onPress={handleKick}>{GroupTexts.application.sudo.kick[language]}</Button>
+                  <Button className="button secondary btn-fill" innerTextClassName='txl' onPress={handleKick}>{GroupTexts.application.sudo.kick[language]}</Button>
                 )}
-                <Button className='secondary button' onPress={() => {dismiss(); router.replace({pathname: "/(profile)/[id]", params: {id: target.user.id}})}}>{GroupTexts.actions.visit[language]}</Button>
-                <Button className='secondary button border border-highlight-light dark:border-highlight-dark' onPress={() => dismiss()}>{PostCreationTexts.cancel[language]}</Button>
+                <Button className='button secondary btn-fill' innerTextClassName='txl' onPress={() => {dismiss(); router.replace({pathname: "/(profile)/[id]", params: {id: target.user.id}})}}>{GroupTexts.actions.visit[language]}</Button>
+                <Button className='button secondary btn-fill border border-highlight-light dark:border-highlight-dark' innerTextClassName='txl' onPress={() => dismiss()}>{PostCreationTexts.cancel[language]}</Button>
               </View>
-            </ScrollView>
-          </View>
         </View>
       </BottomSheetView>
     </BottomSheetModal>

@@ -146,6 +146,8 @@ export default function editCarPage() {
           placeholder={typeof editCarForm.type === 'string' ? editCarForm.type : 'SEDAN'}
           language={language}
           FlashListProps={{
+            keyExtractor: (item) => item,
+            estimatedItemSize: 50,
             data: ['SEDAN', 'COUPE', 'GRANDCOUPE', 'HATCH', 'KOMBI', 'CABRIOLET', 'PICKUP', 'ROADSTER', 'SUV'],
             renderItem: ({ item }) => (
               <CarTypeListItem
@@ -173,7 +175,7 @@ export default function editCarPage() {
                 keyboardType: 'number-pad',
                 value: editCarForm.horsepower + '',
                 onChangeText: (text) => {
-                  console.log('text');
+                  //console.log('text');
                   setEditCarForm({
                     ...editCarForm,
                     horsepower: !parseInt(text) ? 0 : parseInt(text),
@@ -199,7 +201,7 @@ export default function editCarPage() {
           </View>
         </View>
         <Button
-          className="button outline btn-fill btn-highlight"
+          className="button outline btn-fill highlight-themed"
           onPress={async () => {
             const res = await editCar(Number(id as string), {
               description: editCarForm.description,
@@ -229,7 +231,8 @@ export default function editCarPage() {
         </Button>
         <View className="w-10/12 my-3 justify-between flex mx-auto flex-row gap-2 ">
           <Button
-            className="button outline btn-highlight"
+          innerTextClassName='txl'
+            className="button  secondary btn-fill outline btn-highlight"
             onPress={async () => {
               Alert.alert(SocialTexts.creation.car.prompts.discard[language], '', [
                 {
@@ -252,43 +255,6 @@ export default function editCarPage() {
             }}
           >
             {SocialTexts.creation.car.prompts.cancel[language]}
-          </Button>
-          <Button
-            className="button border-2 border-highlight"
-            onPress={async () => {
-              Alert.alert(
-                SocialTexts.creation.car.prompts.delete.header[language],
-                SocialTexts.creation.car.prompts.delete.body[language],
-
-                [
-                  {
-                    text: SocialTexts.creation.car.prompts.delete.buttons.cancel[language],
-                    onPress: () => {
-                      return;
-                    },
-                    isPreferred: true,
-                  },
-                  {
-                    text: SocialTexts.creation.car.prompts.delete.buttons.delete[language],
-                    onPress: async () => {
-                      const res = await deleteCar(Number(id as string));
-                      if (res) {
-                        Toast.show({
-                          type: 'success',
-                          text1: SocialTexts.creation.car.deleted.header[language],
-                          text2: SocialTexts.creation.car.deleted.body[language],
-                        });
-                        router.back();
-                      }
-                    },
-                    isPreferred: false,
-                    style: 'destructive',
-                  },
-                ]
-              );
-            }}
-          >
-            {SocialTexts.creation.car.deleted.button[language]}
           </Button>
         </View>
       </Pressable>

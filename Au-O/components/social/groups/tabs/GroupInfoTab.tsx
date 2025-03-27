@@ -1,6 +1,12 @@
+/**
+ * Csoport tagság fül
+ * @module social/groups/tabs/GroupInfoTab
+ * @category Component
+ */
+
 import { ScrollView, View } from 'react-native';
 import ThemedText from '@/components/ui/ThemedText';
-import { GroupTabProps } from './props';
+import { GroupTabProps, ProtectedGroupTabProps } from './props';
 import { FlashList } from '@shopify/flash-list';
 import { useAuthentication } from '@/contexts/AuthenticationContext';
 import AcceptUserTab from '../admin/AcceptUserTab';
@@ -12,7 +18,7 @@ import { GroupMemberResponse } from '@/lib/entity/Group';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Colors } from '@/constants/Colors';
 
-export default function GroupInfoTab({ group, language, colorScheme, status }: GroupTabProps) {
+export default function GroupInfoTab({ group, language, colorScheme, status }: ProtectedGroupTabProps) {
   const {user} = useAuthentication()
   const [applications, setApplications] = useState<GroupMemberResponse[]>([]);
 

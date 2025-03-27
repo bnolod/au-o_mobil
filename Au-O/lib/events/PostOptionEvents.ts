@@ -59,13 +59,10 @@ export async function handleShare(postId: number, language: 'HU' | 'EN') {
  * @param {() => void} onDelete Törlési esemény
  */
 export async function handleDelete(
-  authorId: number | null,
-  userId: number | null,
   language: 'HU' | 'EN',
   postId: number | null,
   onDelete?: () => void
 ) {
-  if (authorId && userId && authorId === userId) {
     Alert.alert('Post deletion', 'Are you sure you want to delete this post?', [
       {
         text: PostStatusTexts.deletePrompt.buttons.cancel[language],
@@ -82,6 +79,7 @@ export async function handleDelete(
               text1: PostStatusTexts.deletePrompt.success[language],
             });
             onDelete && onDelete();
+            
           } else {
             Toast.show({
               type: 'error',
@@ -92,4 +90,3 @@ export async function handleDelete(
       },
     ]);
   }
-}

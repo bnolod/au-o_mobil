@@ -4,7 +4,7 @@
  * @category Component
  */
 import { FlashList } from "@shopify/flash-list";
-import { GroupTabProps } from "./props";
+import { GroupTabProps, ProtectedGroupTabProps } from "./props";
 import { useEffect, useState } from "react";
 import MemberDisplay from "../../base/MemberDisplay";
 import { GroupMemberListResponse } from "@/lib/entity/Group";
@@ -14,7 +14,7 @@ import { useAuthentication } from "@/contexts/AuthenticationContext";
 /**
  * @param {GroupTabProps} props Tulajdonságok
  */
-export default function GroupMembersTab({group, status, colorScheme, language} : GroupTabProps) {
+export default function GroupMembersTab({group, status, colorScheme, language} : ProtectedGroupTabProps) {
         const [members, setMembers] = useState<GroupMemberListResponse>();
         const {user} = useAuthentication();
     async function init() {
@@ -32,7 +32,7 @@ export default function GroupMembersTab({group, status, colorScheme, language} :
     useEffect(() => {
         init()
     }, [])
-    if (members && members.users.length > 0 && user)
+    if (members && members.users && members.users.length > 0 && user)
     return (
         <FlashList estimatedItemSize={58} data={members.users} renderItem={({item, index}) => (
             <MemberDisplay groupId={group.id} status={status} colorScheme={colorScheme} language={language} u={item} isCurrentUser={item.user.id === user.id} authorized={status !== "MEMBER"}/>

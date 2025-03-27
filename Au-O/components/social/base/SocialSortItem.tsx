@@ -12,26 +12,32 @@ import { ImageBackground } from 'expo-image';
 /**
  * @param {SocialSortItemProps} props - Tulajdonságok
  */
-export default function SocialSortItem({ bannerImage, name, memberCount, onSelect, colorScheme }: SocialSortItemProps) {
+export default function SocialSortItem({ bannerImage, name, memberCount, onSelect, colorScheme, alias }: SocialSortItemProps) {
   return (
     <Pressable onPress={onSelect} className="social-sort-item-container my-2">
       <View className="social-sort-image">
         <ImageBackground
           contentFit="cover"
-          style={{ flex: 1 }}
-          source={bannerImage !== null ? bannerImage : Images.banner_placeholder}
-        />
+          style={{ flex: 1, display: "flex", justifyContent: "center" }}
+          source={bannerImage ? bannerImage :  Images.banner_placeholder}
+        >
+          {
+            !bannerImage &&
+            <ThemedText className="txl font-black ml-2">{alias?.toUpperCase()}</ThemedText>
+          }
+        </ImageBackground>
       </View>
       <View
-        className="social-sort-item-data"
+        className=" h-full flex  justify-center gap-2 "
         style={{
-          shadowColor: Colors[colorScheme].secondary,
+          boxShadow: `0px 0px 15px 30px ${Colors[colorScheme].secondary}`,
+          /* shadowColor: Colors[colorScheme].secondary,
           shadowOffset: {
-            width: -20,
+            width: -10,
             height: 0,
           },
           shadowOpacity: 1,
-          shadowRadius: 10,
+          shadowRadius: 0, */
         }}
       >
         <ThemedText className="text-2xl">{name}</ThemedText>

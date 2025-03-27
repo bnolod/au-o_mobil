@@ -29,6 +29,7 @@ export default function OwnGroupList(props: OwnGroupListProps) {
 
   return (
     <FlashList
+    estimatedItemSize={236}
       data={groups}
       renderItem={({ item }) => <SocialCard type="GROUP" group={item} colorScheme={'dark'} language={'HU'} />}
     />

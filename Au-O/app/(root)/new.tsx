@@ -137,13 +137,9 @@ export default function NewPost() {
         });
         setImages([]);
         router.replace('/(root)/home');
-        router.push({
-          pathname: '/(post)/page/[id]',
-          params: { id: storeRes.postId as string, isNew: 'true' },
-        });
       } else {
         Toast.show({
-          type: 'error',
+          type: 'error', 
           text1: PostCreationTexts.imageUploadErrorAlert[language],
         });
       }
@@ -251,32 +247,6 @@ export default function NewPost() {
                   colorScheme={colorScheme!}
                   containerClassName="rounded-xl"
                 />
-                  <View className="w-11/12 mb-4">
-                    <ThemedText className="text-lg">
-                      <MaterialCommunityIcons name="calendar-account-outline" size={19} />{' '}
-                      {PostCreationTexts.form.event[language]}
-                    </ThemedText>
-
-                    <SheetSelection
-                      colorScheme={colorScheme!}
-                      placeholder={selectedEvent ? "Event" : SelectionTexts.event[language]}
-                      language={language}
-                      FlashListProps={{
-                        data: [{ title: 'Event 1', date: '2022.12.12' }],
-                        renderItem: ({ item, index }) => (
-                          <PostCreationSheetSelectElements
-                            onPress={() => console.log(item.title)}
-                            event={{ title: item.title }}
-                            title={item.title}
-                          />
-                        ),
-                        estimatedItemSize: 50,
-                        ListHeaderComponent: () => (
-                          <FilterBar placeholder="Search events" onChange={(text: string) => {}} />
-                        ),
-                      }}
-                    />
-                  </View>
                 </View>
                 <View className='w-11/12 mb-4 mx-auto'>
                 <ThemedText className="text-lg">
@@ -299,13 +269,14 @@ export default function NewPost() {
                   FlashListProps={{
                     data: cars,
                     estimatedItemSize: 120,
+                    keyExtractor: (item) => item.id.toString(),
                     ListHeaderComponent: () => (
                       <View>
                         <Button
                           onPress={() => sheet.current?.dismissSheet()}
                           className="button btn-fill highlight-themed outline"
                           >
-                          Close
+                          {SelectionTexts.close[language]}
                         </Button>
                         <Pressable
                           className="w-11/12 my-2 mx-auto rounded-l overflow-hidden flex justify-center items-center"
@@ -323,7 +294,7 @@ export default function NewPost() {
                             source={Images.banner_placeholder}
                             >
                             <ThemedText className="font-bold w-full mx-auto text-center text-lg p-3 rounded-xl">
-                              Unassign vehicle
+                              {PostCreationTexts.buttons.unassignVehicle[language]}
                             </ThemedText>
                           </ImageBackground>
                         </Pressable>
@@ -363,8 +334,8 @@ export default function NewPost() {
                   containerClassName="rounded-xl"
                 />
                 <Button
-                  className="highlight button btn-fill"
-                  innerTextClassName="tlg"
+                  className="highlight-themed button btn-fill"
+                  innerTextClassName="txl"
                   type="fill"
                   style={{ marginTop: 20 }}
                   hapticFeedback="light"
@@ -408,6 +379,7 @@ export default function NewPost() {
               >
                 <BottomSheetView>
                   <PostCard
+
                     user={user!}
                     favorite={false}
                     reaction={'FIRE'}
@@ -436,7 +408,7 @@ export default function NewPost() {
                   <Button
                     onPress={handleSubmit}
                     innerTextClassName="txl"
-                    className=" my-2 p-2 highlight button btn-fill"
+                    className=" my-2 p-2 highlight-themed button btn-fill"
                   >
                     {PostCreationTexts.buttons.post[language]}
                   </Button>

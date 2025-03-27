@@ -112,6 +112,11 @@ export interface SocialSortItemProps {
    * @type {'light' | 'dark'}
    */
   colorScheme: 'light' | 'dark';
+  /**
+   * Alias
+   * @type {string | undefined}
+   */
+  alias?: string; 
 }
 
 /**

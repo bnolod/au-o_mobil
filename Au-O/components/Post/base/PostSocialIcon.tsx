@@ -12,12 +12,14 @@ import { Colors } from '@/constants/Colors';
 export default function PostSocialIcon({
   colorScheme,
   icon,
+  onPress,
 }: {
+  onPress?: () => void;
   colorScheme: 'light' | 'dark';
   icon: keyof typeof MaterialCommunityIcons.glyphMap;
 }) {
   return (
-    <TouchableOpacity className="post-header-social-container">
+    <TouchableOpacity onPress={onPress} className="post-header-social-container">
       <MaterialCommunityIcons name={icon} size={32} color={Colors[colorScheme].text} />
     </TouchableOpacity>
   );

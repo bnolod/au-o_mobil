@@ -238,6 +238,7 @@ export default function CommentElement({
               <FlashList
                 estimatedItemSize={100}
                 data={renderedReplies}
+                keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item }) => (
                   <ReplyItem
                     preview={preview}

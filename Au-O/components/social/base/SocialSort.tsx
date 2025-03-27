@@ -17,14 +17,14 @@ import BottomSheet from '@gorhom/bottom-sheet';
  * @param {CommonStaticElementProps} props - Tulajdonságok
  */
 export default function SocialSort({items, colorScheme, language, onSelect }: {items: (SocialEvent | Group)[] | undefined, onSelect: (selected: SocialEvent | Group | undefined | null) => void} & CommonStaticElementProps) {
-  if (!items) return null;
   
-  const [selected, setSelected] = useState<SocialEvent | Group | undefined | null>(undefined);
+  const [selected, setSelected] = useState<SocialEvent | Group | undefined | null>(items && items.length > 0 ? undefined : null);
   useEffect(() => {
     SocialSheetRef.current?.dismissSheet()
     onSelect(selected);
   }, [selected])
   const SocialSheetRef = useRef<SheetSelectionRef>(null);
+  if (!items) return null;
   return (
     <View className="social-sort">
       <Button className="social-sort-button">
@@ -35,6 +35,8 @@ export default function SocialSort({items, colorScheme, language, onSelect }: {i
       <SheetSelection
       ref={SocialSheetRef}
       FlashListProps={{
+        estimatedItemSize: 98,
+
           data: items,
           ListHeaderComponent: () => (
             <View className='flex flex-row h-16 gap-4 mx-2'>
@@ -49,8 +51,9 @@ export default function SocialSort({items, colorScheme, language, onSelect }: {i
           renderItem: ({ item }: {item: Group | SocialEvent}) => (
             <SocialSortItem
               bannerImage={item.bannerImage}
+              alias={(item as Group).alias}
               name={item.name}
-              memberCount={0}
+              memberCount={(item as Group).memberCount || (item as SocialEvent).attendees || 0}
               onSelect={() => setSelected(item)}
               colorScheme={colorScheme}
             />

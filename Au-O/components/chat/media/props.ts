@@ -69,3 +69,7 @@ export interface GroupInviteProps extends MediaMessageProps {
    */
   groupId: number;
 }
+export interface VehicleMediaProps extends MediaMessageProps {
+  vehicleId: number;
+  
+}

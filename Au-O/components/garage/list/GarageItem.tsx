@@ -82,7 +82,8 @@ export default function GarageItem({
               });
             }}
           >
-            <MaterialCommunityIcons name="pencil-outline" size={24} color={Colors[colorScheme].text} />
+
+              <MaterialCommunityIcons name="pencil-outline" size={24} color={Colors[colorScheme].text} />
           </Pressable>
         )}
       </Pressable>

@@ -65,6 +65,47 @@ export const CallToActionTexts = {
   },
 };
 export const SettingsTexts = {
+  pages: {
+    personal: {
+      HU: "Személyes adatok",
+      EN: "Personal Information",
+    },
+    saved: {
+      HU: "Elmentett posztok",
+      EN: "Saved Posts",
+    },
+    savedHeader: {
+      HU: "Az elmentett posztjaidat a profilod alatt is megtalálod.",
+      EN: "You can also find your saved posts under your profile.",
+    },
+    about: {
+      HU: "Rólunk",
+      EN: "About",
+    }
+  },
+  aboutPage: {
+    allRights: {
+      HU: 'Minden jog fenntartva',
+      EN: 'All rights reserved',
+    },
+    madeBy: {
+      EN: "Made by",
+      HU: "Készítették",
+    },
+    repositories: {
+      HU: 'GitHub repók',
+      EN: 'GitHub repositories',
+    },
+    documentation: {
+      HU: "Dokumentáció",
+      EN: "Documentation",
+    },
+    design: {
+      HU: "UI Design fájlok",
+    EN: "UI Design files",
+    }
+  },
+  
   header: {
     HU: 'Beállítások',
     EN: 'Settings',
@@ -224,6 +265,20 @@ export const AuthTexts = {
   },
 };
 export const generalTexts = {
+  areYouSure: {
+    HU: 'Biztos vagy benne?',
+    EN: 'Are you sure?',
+  },
+  responses: {
+    no: {
+      EN: 'No',
+      HU: 'Nem',
+    },
+    yes: {
+      EN: 'Yes',
+      HU: 'Igen',
+    },
+  },
   success: {
     HU: 'Siker!',
     EN: 'Success!',
@@ -276,6 +331,10 @@ export const generalTexts = {
     username: {
       EN: 'Username',
       HU: 'Felhasználónév',
+    },
+    dateOfSignup: {
+      EN: "You are a member since",
+      HU: "Regisztráció dátuma",
     },
     nickname: {
       EN: 'Nickname',
@@ -645,16 +704,7 @@ export const PostStatusTexts = {
       EN: 'Congratulations on your new post! Would you like to share it?',
       HU: 'Gratulálok az új posztodhoz! Szeretnéd megosztani?',
     },
-    responses: {
-      no: {
-        EN: 'No',
-        HU: 'Nem',
-      },
-      yes: {
-        EN: 'Yes',
-        HU: 'Igen',
-      },
-    },
+    
   },
 };
 export const CommentTexts = {
@@ -734,6 +784,21 @@ export const CommentTexts = {
   },
 };
 export const UserEditTexts = {
+  labels: {
+    nickname: {
+      HU: "Becenév",
+      EN: "Nickname",
+    },
+    bio: {
+      HU: "Bio",
+      EN: "Bio",
+    },
+    password: {
+      HU: "Jelszó",
+      EN: "Password"
+    
+    }
+  },
   header: {
     HU: 'Tartsd lenyomva a mezőt a szerkesztéshez',
     EN: 'Press and hold a field to edit its contents.',
@@ -778,6 +843,10 @@ export const SelectionTexts = {
   event: {
     EN: 'Select an event',
     HU: 'Válassz egy eseményt',
+  },
+  close: {
+    EN: 'Close',
+    HU: 'Bezárás',
   },
   group: {
     EN: 'Select a group',
@@ -871,6 +940,10 @@ export const SocialTexts = {
         EN: 'Starring in',
         HU: 'Megjelenik itt',
       },
+      carHasNoPosts: {
+        EN: "This car does not appear in any posts.",
+        HU: "Ez az autó nem szerepel egyetlen posztban sem.",
+      },
       added: {
         header: {
           EN: 'Car added',
@@ -920,6 +993,11 @@ export const SocialTexts = {
             HU: 'Szerkesztés',
           },
         },
+        options: {
+          EN: "Options",
+          HU: "Műveletek",
+        },
+        
         cancel: {
           EN: 'Discard edit',
           HU: 'Elvetés',
@@ -991,6 +1069,12 @@ export const SocialTexts = {
       EN: 'Following',
     },
   },
+  edit: {
+    car: {
+      HU: 'Autó szerkesztése',
+      EN: 'Edit car',
+    }
+  }
 };
 export const GroupTexts = {
   page: {
@@ -1375,6 +1459,17 @@ export const ChatTexts = {
     HU: 'Meghívott egy csoportba',
     EN: 'Invited you to a group',
   },
+  sentCar( isSender: boolean) {
+    if (isSender) return {
+
+      HU: "Megosztottál egy autót",
+      EN: "You shared a car",
+    }
+    return {
+      HU: "Megosztott egy autót",
+      EN: "Shared a car",
+    }
+  },
   messagedPosts(recipient: string) {
     return { HU: `Poszt elküldve ${recipient} részére `, EN: `Sent post to ${recipient} ` };
   },
@@ -1391,5 +1486,9 @@ export const SearchTexts = {
   results: {
     HU: "Találatok a következőre: ",
     EN: "Search results for: ",
+  },
+  nothing: {
+    HU: "Nem találtunk semmit...",
+    EN: "We couldn't find anything...",
   }
 }

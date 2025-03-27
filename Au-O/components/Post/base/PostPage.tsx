@@ -12,7 +12,7 @@ import PostCard from "../Post";
 /**
  * @param {CommonStaticElementProps & {id: string, isNew?: string, user: User, post: Post}} props Tulajdonságok
  */
-export default function PostPage({id, isNew, colorScheme, language, user, post} : CommonStaticElementProps & {id: string, isNew?: string, user: User, post: Post}) {  
+export default function PostPage({id, isNew, colorScheme, language, user, post} : CommonStaticElementProps & {id: string, isNew?: boolean, user: User, post: Post}) {  
 
   
 
@@ -22,6 +22,7 @@ export default function PostPage({id, isNew, colorScheme, language, user, post} 
             favorite={post.favorite}
             user={user!}
             group={post.group}
+            isNew={isNew || false}
             event={null}
             reaction={post.reactedWith}
             authorId={post.user.id}
