@@ -85,22 +85,28 @@ A garázs funkció kiegészíti a többi funkciót a következőkkel:
 - A backend sikeres futtatása, ami [ebben](https://github.com/bnolod/au-o_backend) a repóban található.
 
 
-### FONTOS! KÖRNYEZETI VÁLTOZÓK!
+# FONTOS ‼
 
 - Git repóból történő klónozás esetén szükség van API kulcsokra és egyéb környezeti változókra.
-- A beadott .zip fájl tartalmazza az előre bekonfigurált API kulcsokat, viszont módosítás nélkül **nem lesz elérhető a backend.**
-- Megfelelő működés biztosítása érdekében szükség van egy **vezeték nélküli hálózatra, valamint egy mobil eszközre.**
-- Lépések:
-  - Fizikai mobil (iOS vagy Android) eszköz használatával
-  - > ipconfig
-    - -> Wireless LAN adapter Wi-Fi / IPv4 Address beállítása (továbbiakban IP)
+- Az .apk fájl elérhető, és tartalmazza az applikáció teljes funkcionalitását, viszont IP problémák miatt **nem fog tudni kommunikálni a backenddel.**
+- Az applikáció futtatását mindenképpen az Expo Go applikáció használatával javasoljuk.
+- **Minden esetben**
+    - API kulcs igénylése
+        - Imgur fiók létrehozása, bejelentkezés
+        - https://api.imgur.com/oauth2/addclient -> új applikáció regisztrálása (pl. AuO néven)
+        - Client ID kimásolása, és .env fájlban az `EXPO_PUBLIC_IMGUR_CLIENT_ID=` után bemásolása
+    - IP cím bekonfigurálása
+        -  - > ipconfig
+        - -> Wi-Fi esetén `Wireless LAN adapter Wi-Fi / IPv4 Address`, Ethernet esetén `Ethernet adapter Ethernet -> IPv4 Address` beállítása (továbbiakban IP)
     - .env 
-        - EXPO_PUBLIC_AXIOS_BASE_URL = http://IP:8000/api/v1
-        - EXPO_PUBLIC_WS_URL = http://IP:8000/ws
-        - EXPO_PUBLIC_IMGUR_CLIENT_ID **NEM TALÁLHATÓ MEG EBBEN A REPÓBAN, KIZÁRÓLAG A BEADOTT .ZIP FÁJLBA TÖMÖRÍTETT KÖRNYEZETBEN!!!**
-  - Fontos, hogy a mobil eszköz ugyanazon a vezeték nélküli hálózatra legyen kapcsolódva, mint a programot futtató számítógép.
+        - EXPO_PUBLIC_AXIOS_BASE_URL=http://IP:8000/api/v1
+        - EXPO_PUBLIC_WS_URL=http://IP:8000/ws
+        - EXPO_PUBLIC_IMGUR_CLIENT_ID=(lásd: fentebb)
+- **Fizikai készülékkel**
+- Megfelelő működés biztosítása érdekében szükség van egy **vezeték nélküli hálózatra, egy vezeték nélküli hálózatra csatlakozó számítógépre, valamint egy mobil (Android, vagy iOS) eszközre.**
+- Fontos, hogy a mobil eszköz ugyanazon a vezeték nélküli hálózatra legyen kapcsolódva, mint a programot futtató számítógép.
 
-> A lépések után elindul az app
+> A konfiguráció után elindul az app
 >
 > Parancssor:
 >
@@ -110,10 +116,24 @@ A garázs funkció kiegészíti a többi funkciót a következőkkel:
 >
 > `npx expo start -c`
 >
-> Bescanneljük a QR kódot, ami megnyitja az expo mobil appban.
-
+> Bescanneljük a QR kódot, ami megnyitja az Expo Go mobil appban.
+- **Android emulátorral**
+- Android Studio projektként megnyitjuk a projektet
+- A fent leírt lépéseket szintén el kell végezni.
+- Nincs szükség WLAN kapcsolatra.
+- Virtuális készülék elindítása (ideálisan API 35)
+> A konfiguráció után
+>
+> Parancssor:
+>
+> `cd /Au-O/`
+>
+> `npm i`
+>
+> `npx expo start -c --android`
+>
 #### Megjegyzés
-Az Expo Go egy korlátozott sandbox környezet ami inkább tesztelésre alkalmas. Első indítás alkalmával előfordulhatnak layout shiftek. Ha Androidon futtatjuk, érdemesebb a csatolt .apk fájlt használni futtatásra. iOS esetén nincs lehetőség teljesen natív futtatásra az Expo Go-n kívül, mivel ahhoz fejlesztői jogosultság kell.
+Az Expo Go egy korlátozott sandbox környezet ami inkább tesztelésre alkalmas. Első indítás alkalmával előfordulhatnak layout shiftek.
 ## ❓ Használati útmutató
 
 
