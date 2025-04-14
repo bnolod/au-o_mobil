@@ -173,7 +173,7 @@ Tesztkörnyezeti indításnál (bemutatási builden standard) a kiszolgálói ol
 
 ### 🔧 Manuális tesztek
 - Az alkalmazás felületét és cross-platform (Android & iOS) kompatibilitását (funkciók és kinézet egyaránt) kézzel teszteltük, biztosítva hogy a legtöbb modern eszközön gond nélkül tud futni.
-    - **Eredmény:** megteszi 👌
+    - **Eredmény:** a gép forog, az alkotó pihen 👌
 
 ### 📬 API tesztek
 - Az API tesztek **megosztottak** a három komponens között. (web & mobil & backend) 
@@ -269,7 +269,10 @@ Tesztkörnyezeti indításnál (bemutatási builden standard) a kiszolgálói ol
     - Ha nyilvános, kilistázza a felhasználó által elmentett bejegyzéseket.
 
 ## ‼ Egyéb funkciók
-
+- Kétnyelvűség
+    - Az applikáció minden felhasználó interfész eleme támogatja a magyar, illetve angol nyelvet.
+- Színséma-állítás
+    - Az applikáció alapból sötét módban indul, a felhasználó megváltoztathatja ezt a beállítások menüben. 
 - Keresés
   - A felhasználó akármire rá tud keresni - profilra, csoportokra valamint posztokra.
 - Más felhasználó profiljának megtekintése
