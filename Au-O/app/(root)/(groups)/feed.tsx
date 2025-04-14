@@ -63,6 +63,10 @@ export default function GroupFeed() {
       setDisplayedGroups([]);
     }
   }, [refreshing, selected]);
+
+  useEffect(() => {
+      console.log("currently displayed:", displayedGroups)
+      }, [displayedGroups])
   const handleRefresh = () => {
     setRefreshing(true);
 
@@ -86,7 +90,7 @@ export default function GroupFeed() {
           onSelect={(s) => {
             setSelected(s);
           }}
-          items={groups?.filter((g) => g.validMember) || []}
+          items={displayedGroups || []}
           language={language}
           colorScheme={colorScheme!}
         />
@@ -95,7 +99,7 @@ export default function GroupFeed() {
       {groups && displayedGroups && displayedGroups.length > 0 && groups.length > 0 && !selected && (
         <FlashList
           estimatedItemSize={254}
-          data={groups.filter((g) => g.validMember) || []}
+          data={displayedGroups || []}
           keyExtractor={(item) => item.id + ''}
           renderItem={({ item }) => (
             <SocialCard type="GROUP" group={item} colorScheme={colorScheme!} language={language} />
@@ -105,7 +109,7 @@ export default function GroupFeed() {
       
       {posts && selected && (
         <FlashList
-          estimatedFirstItemOffset={250}
+          estimatedItemSize={250}
           ListEmptyComponent={() => (
             <View className="flex justify-center items-center self-center pt-24">
               <MaterialCommunityIcons name="post-outline" color={Colors.highlight[colorScheme!]} size={128} />

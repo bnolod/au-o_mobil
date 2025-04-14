@@ -58,6 +58,7 @@ export default function Home() {
     setTimestamp(
       new Date(new Date(new Date().toISOString()).getTime() + 60 * 60 * 1000).toISOString().slice(0, -1) + '1234'
     );
+console.log("refreshing")
     setTimeout(() => {
       setRefreshing(false);
     }, 1000);
@@ -124,7 +125,7 @@ export default function Home() {
         </TapGestureHandler>
           ) : (
             <View className={'flex-1  items-center justify-center m-auto'}>
-            <NoPostsFound language={language} />
+            <NoPostsFound language={language} onRefresh={handleRefresh} />
           </View>
         )}
       </>
