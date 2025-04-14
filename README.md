@@ -5,7 +5,7 @@
 
 ## 📝 Tartalomjegyzék
 
-### ✅ A Typedoc által kiegészített fejlesztői dokumentáció a repo [Github Pages oldalán](https://bnolod.github.io/au-o_mobil/) található.
+### ✅ Fejlesztői dokumentáció - A Typedoc által kiegészített fejlesztői dokumentáció a repo [Github Pages oldalán](https://bnolod.github.io/au-o_mobil/) található.
 
 - [ 📚 Bevezetés](#-bevezetés)
 - [ 🔖 Dokumentációs segítség](#-dokumentációs-segítség)
@@ -29,7 +29,8 @@ Kövesd az alább található **telepítési** valamint **használati** útmutat
 ## 🔖 Dokumentációs segítség
 
 - A README-n kívül az összes dokumentáció manuálisan Typedoc segítségével lett megírva.
-- A teljes dokumentációt a ./Au-O/docs/index.html fájl megnyitásával éri el.
+- Ez a fájl tartalmazza a fejlesztői, felhasználói, valamint tesztelési dokumentációt.
+- A teljes fejlesztői dokumentációt a ./Au-O/docs/index.html fájl megnyitásával éri el.
 - A Typedoc dokumentáció tartalmazza
   - ezt a README.md fájlt
   - API hívások funkció dokumentációját
@@ -52,6 +53,7 @@ Megjegyzés: a screenek ("oldalak") dokumentációi alább, a [✔ Featureök](#
 
 💎 Az elsődleges design koncepciókat, valamint prezentációt Figma felületen terveztük, a külön oldalak alább elérhetők.
 
+- [📈 Projekt tab](https://github.com/users/bnolod/projects/4/views/1)
 - [💻 Asztali web](https://www.figma.com/design/j9NffYp8ruYwC6iuz0Sgnp/Desktop?node-id=0-1&t=Eszh1sA2oioWKFlm-1)
 - [📱 Mobil](https://www.figma.com/design/GDRSmJy5sZxZp7PKZ4rmtD/Mobil?t=QY6xjWNAz19yVUjy-1)
 - [⚡ Koncepció](https://www.figma.com/board/7v2i3Ps0qUoqlQQjlErx8S/Koncepci%C3%B3?t=QY6xjWNAz19yVUjy-1)
@@ -127,7 +129,7 @@ Az Expo Go egy korlátozott sandbox környezet ami inkább tesztelésre alkalmas
   - Ez a felület biztosít a felhasználónak navigációs lehetőségeket, egy alsó navigációs sáv formájában.
     - Ezekről az útvonalakról a [🔖 Felhasználói élmény](#🔖-felhasználói-élmény) szekcióban olvashat tovább.
   - Itt található az alkalmazás főoldala, itt találkozik a felhasználó posztokkal, amit a többi felhasználó tett közzé.
-### 💯 Javasolt ellenőrzési UX flow
+### 💯 Javasolt ellenőrzési UX flow (felhasználói dokumentáció)
 Tesztkörnyezeti indításnál (bemutatási builden standard) a kiszolgálói oldal DataLoader osztálya előre feltölti az adatbázist, hogy pontos felhasználói tapasztalatot tudjon szimulálni.
 #### Általános funkciók
 - Regisztráció
@@ -164,20 +166,24 @@ Tesztkörnyezeti indításnál (bemutatási builden standard) a kiszolgálói ol
 - Teszteseteket írtunk a következő elemekre
   - Alap funkciók (functions.ts)
   - Többször felhasznált komponensek (components/ui-ból néhány)
+      - **Eredmény** 100% pass 
 ### 🔜 Statikus tesztek
 - A statikus tesztelésnek megfelel a TypeScript által biztosított type-safety, ami virtuálisan kizárja az érvénytelen típusok által dobott hibák lehetőségét.
+    - **Eredmény:** Az alkalmazás funkciói teljesen típusbiztosak, így kizárva a type mismatch lehetőségét.
 
 ### 🔧 Manuális tesztek
 - Az alkalmazás felületét és cross-platform (Android & iOS) kompatibilitását (funkciók és kinézet egyaránt) kézzel teszteltük, biztosítva hogy a legtöbb modern eszközön gond nélkül tud futni.
+    - **Eredmény:** megteszi 👌
 
 ### 📬 API tesztek
 - Az API tesztek **megosztottak** a három komponens között. (web & mobil & backend) 
 - A frontend és backend közötti kapcsolatot test-driven development koncepciók alapján fejlesztettük.
 - Az API tesztek a Backend repóhoz csatolt Postman Collection exportjában található.
-
+    - **Eredmény:** minden felhasznált endpoint elérhetősége és visszaadott értéke le lett tesztelve 
 ### 👴 Végfelhasználói tesztek
 - Az alkalmazásunk beviteli mezőit ellenőrizzük közös validációs szabályokkal (a dokumentációját szintén a backend repóban találják)
 - Ezekre a beállításokra készültek mock elemek és tesztesetek a hibakezelésekre.
+    - **Eredmény:** minden validálásra szoruló mező ellenőrzésre kerül beküldés előtt, az esetleges hibákról a felhasználó tisztán értesül.
 
 # ✔ Featureok
 
