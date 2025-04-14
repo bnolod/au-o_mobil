@@ -88,7 +88,7 @@ A garázs funkció kiegészíti a többi funkciót a következőkkel:
 # FONTOS ‼
 
 - Git repóból történő klónozás esetén szükség van API kulcsokra és egyéb környezeti változókra.
-- Az .apk fájl elérhető, és tartalmazza az applikáció teljes funkcionalitását, viszont IP problémák miatt **nem fog tudni kommunikálni a backenddel.**
+- Az .apk fájl elérhető a Releases tab alatt, és tartalmazza az applikáció teljes funkcionalitását, viszont IP problémák miatt **nem fog tudni kommunikálni a backenddel.**
 - Az applikáció futtatását mindenképpen az Expo Go applikáció használatával javasoljuk.
 - **Minden esetben**
     - API kulcs igénylése
