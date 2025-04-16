@@ -199,15 +199,27 @@ Tesztkörnyezeti indításnál (bemutatási builden standard) a kiszolgálói ol
 - Az API tesztek **megosztottak** a három komponens között. (web & mobil & backend) 
 - A frontend és backend közötti kapcsolatot test-driven development koncepciók alapján fejlesztettük.
 - Az API tesztek a Backend repóhoz csatolt Postman Collection exportjában található.
-    - **Eredmény:** minden felhasznált endpoint elérhetősége és visszaadott értéke le lett tesztelve 
+    - **Eredmény:** minden felhasznált endpoint elérhetősége és visszaadott értéke le lett tesztelve
+  
 ### 👴 Végfelhasználói tesztek
 - Az alkalmazásunk beviteli mezőit ellenőrizzük közös validációs szabályokkal (a dokumentációját szintén a backend repóban találják)
 - Ezekre a beállításokra készültek mock elemek és tesztesetek a hibakezelésekre.
     - **Eredmény:** minden validálásra szoruló mező ellenőrzésre kerül beküldés előtt, az esetleges hibákról a felhasználó tisztán értesül.
 
+### 🔃 End-to-end tesztek
+- Az alkalmazást **manuális E2E** tesztekkel fejlesztettük (test-driven development)
+    - reszponzivitás különböző kijelzőméretű készüléken
+    - funkcionalitás iOS és Android környezetekben - fizikai és emulált készülékeken egyaránt
+    - megfelelő UX fizikai készülékeken
+    - kommunikáció a kiszolgálói végpontokkal
+    - valid és invalid adatok tesztelése
+    - hiba esetén a felhasználó értesül.
+- A folyamatos tesztelés, az applikáció skálája, és a manuális tesztelés adta precizitás miatt az automatizált E2E teszteket manuális E2E tesztekre cseréltük.
+    - **Eredmény: ** kifejlesztett applikáció, biztos UX elvek alapjára felépítve 
+
 # ✔ Featureok
 
-## 🔖 Felhasználói élmény
+## 🔖 Felhasználói dokumentáció/UX
 
 ### 🔽 Letöltéskor
 
@@ -228,8 +240,6 @@ Tesztkörnyezeti indításnál (bemutatási builden standard) a kiszolgálói ol
 - Email vagy felhasználónév, és jelszó alapján.
 
 ---
-
-`be van lépve felhasználó:`
 
 ## 🗺 Navigáció
 
