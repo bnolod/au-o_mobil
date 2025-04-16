@@ -170,13 +170,22 @@ export async function getAllGroups() {
   }
   return null;
 }
-
+/**
+ * Saját csoportok lekérdezése
+ * @returns {Promise<Group[] | null>} Az összes csoport, vagy null
+ */
 export async function getOwnGroups() {
   const req = await apiFetch<Group[]>('groups/own', 'GET', true);
   if (req && req.status === 200) return req.data;
   else return null;
 }
-
+/**
+ * Csoport jelentkezés vagy elutasítás
+ * @param groupId Csoport ID
+ * @param userId Felhasználó ID
+ * @param accept Elfogadás vagy elutasítás
+ * @returns {Promise<Group | null>} A csoport, vagy null
+ */
 export async function handleJoinRequest(groupId: number, userId: number, accept: boolean) {
   const req = await apiFetch('groups/handleJoinRequest/' + groupId + '/' + userId + '/' + accept, 'POST', true);
   if (req && req.status === 200) {
@@ -184,6 +193,10 @@ export async function handleJoinRequest(groupId: number, userId: number, accept:
   }
   return null;
 }
+/**
+ * Csoport jelentkezés visszavonása
+ * @returns {Promise<Group | null>} A csoport, vagy null
+ */
 export async function revokeRequest() {
   const req = await apiFetch('groups/revokeRequest', 'POST', true);
   if (req && req.status === 200) {
@@ -191,6 +204,13 @@ export async function revokeRequest() {
   }
   return null;
 }
+/**
+ * Csoport poszt létrehozás
+ * @param groupId Csoport ID
+ * @param post Csoport poszt
+ * @returns {Promise<Post | null>} A létrehozott poszt, vagy null
+ * @see Post
+ */
 export async function postToGroup(groupId: number, post: ImageStoreRequest) {
   const req = await apiFetch<Post>(`groups/group/${groupId}/post`, 'POST', true, post);
   if (req && req.status === 200) {
@@ -198,6 +218,11 @@ export async function postToGroup(groupId: number, post: ImageStoreRequest) {
   }
   return null;
 }
+/**
+ * Csoport törlése
+ * @param groupId Csoport ID
+ * @returns {Promise<boolean>} Csoport törlésének sikeressége
+ */
 export async function deleteGroup(groupId: number) {
   const req = await apiFetch('groups/group/' + groupId, 'DELETE', true);
   if (req && req.status === 200) {
@@ -205,6 +230,12 @@ export async function deleteGroup(groupId: number) {
   }
   return false;
 }
+/**
+ * Jelentkezés csoportba
+ * @param groupId Csoport ID
+ * @returns {Promise<Group | null>} A csoport, vagy null
+ * @see Group
+ */
 export async function joinGroup(groupId: number) {
   const req = await apiFetch('groups/group/' + groupId + '/join', 'POST', true);
   if (req && req.status === 200) {
@@ -212,15 +243,32 @@ export async function joinGroup(groupId: number) {
   }
   return null;
 }
+/**
+ * Csoport elhagyása
+ * @param groupId Csoport ID
+ * @returns {Promise<number>} HTTP státusz kód
+ */
 export async function leaveGroup(groupId: number) {
   const req = await apiFetch('groups/group/' + groupId + '/leave', 'POST', true);
   return req!.status;
 }
+/**
+ * Csoport tagjainak lekérdezése
+ * @param groupId Csoport ID
+ * @returns {Promise<GroupMemberListResponse | null>} Csoport tagjai, vagy null
+ * @see GroupMemberListResponse
+ */
 export async function getGroupMembers(groupId: number) {
   const req = await apiFetch<GroupMemberListResponse>(`groups/group/${groupId}/members`, 'GET', true);
   if (req) return req
 
 }
+/**
+ * Csoport státuszának lekérdezése
+ * @param groupId Csoport ID
+ * @returns {Promise<GroupMemberResponse | null>} Csoport státusza, vagy null
+ * @see GroupMemberResponse
+ */
 export async function getGroupStatus(groupId: number) {
   const req = await apiFetch<GroupMemberResponse>('groups/group/' + groupId + '/status', 'GET', true);
   if (req && req.status === 200) {
@@ -228,10 +276,23 @@ export async function getGroupStatus(groupId: number) {
   }
   return null;
 }
+/**
+ * Csoport módosítása
+ * @param groupId Csoport ID
+ * @param request Csoport módosítási kérés
+ * @returns {Promise<boolean>} Módosítás sikeressége
+ * @see GroupEditRequest
+ */
 export async function modifyGroup(groupId: number, request: GroupEditRequest) {
   const req = await apiFetch<Group>(`groups/group/${groupId}`, "PUT", true, request )
   return req!.status === 200
 }
+/**
+ * Csoport posztok lekérdezése
+ * @param id Csoport ID
+ * @returns {Promise<Post[] | null>} Csoport posztok, vagy null
+ * @see Post
+ */
 export async function getGroupPosts(id: number) {
   const req = await apiFetch<Post[]>(`groups/group/${id}/posts`, 'GET', true);
   if (req && req.status === 200) {
@@ -240,7 +301,11 @@ export async function getGroupPosts(id: number) {
   return null;
 
 }
-
+/**
+ * Felhasználó csoportjainak lekérdezése
+ * @param id Csoport ID
+ * @returns {Promise<Group[] | null>} Csoportok, vagy null
+ */
 export async function getGroupsOfUser(id: number) {
   const req = await apiFetch<Group[]>(`groups/user/${id}`, 'GET', true);
   if (req && req.status === 200) {
@@ -251,7 +316,13 @@ export async function getGroupsOfUser(id: number) {
   return null;
 
 }
-
+/**
+ * Csoporthoz tartozó függőben lévő tagok lekérdezése
+ * @param id Csoport azonosító
+ * @param role Csoport role
+ * @returns {Promise<GroupMemberResponse[] | null>} Visszatér a csoport tagjaival, vagy null
+ * @see GroupMemberResponse
+ */
 export async function getPendingMembers(id: number, role: Status) {
   if (role === "MEMBER") return null;
   const req = await apiFetch<GroupMemberResponse[]>(`groups/group/${id}/pending`, 'GET', true);
@@ -261,24 +332,57 @@ export async function getPendingMembers(id: number, role: Status) {
   }
   return null;
 }
+/**
+ * Felhasználó jelentkezésének visszautasítása
+ * @param groupId Csoport azonosító
+ * @param userId Felhhasználó azonosító
+ * @returns {Promise<boolean>} Visszautasítás sikeressége
+ * @see Group
+ */
 export async function rejectApplication(groupId: number, userId: number) {
   const req = await apiFetch(`groups/handleJoinRequest/${groupId}/${userId}/false`, 'POST', true);
   return req!.status === 200;
 }
+/**
+ * Felhasználó jelentkezésének elfogadása
+ * @param groupId Csoport azonosító
+ * @param userId Felhhasználó azonosító
+ * @returns {Promise<boolean>} Elfogadás sikeressége
+ * @see Group
+ */
 export async function acceptApplication(groupId: number, userId: number) {
   const req = await apiFetch(`groups/group/handleJoinRequest/${groupId}/${userId}/true`, 'POST', true);
   return req!.status === 200;
 }
-
+/**
+ * Felhasználó szerepkörének előléptetése
+ * @param groupId Csoport azonosító
+ * @param userId Felhhasználó azonosító
+ * @param role Új szerepkör
+ * @returns {Promise<boolean>} Promóció sikeressége
+ * @see Group
+ */
 export async function promoteTo(groupId: number, userId: number, role: Status) {
   const req = await apiFetch(`groups/${groupId}/${userId}`, "PUT", true, {role})
   return req!.status === 200
 }
+/**
+ * Felhasználó eltávolítása a csoportból
+ * @param groupId Csoport azonosító
+ * @param userId Felhhasználó azonosító
+ * @returns {Promise<boolean>} Eltávolítás sikeressége
+ * @see Group
+ */
 export async function kickUser(groupId: number, userId: number) {
   const req = await apiFetch(`groups/${groupId}/${userId}`, "DELETE", true)
   return req!.status === 200
 }
-
+/**
+ * Csoport üzenetek lekérdezése
+ * @param groupId Csoport azonosító
+ * @returns {Promise<GroupMessageType[] | null>} Csoport üzenetek, vagy null
+ * @see GroupMessageType
+ */
 export async function getGroupMessages(groupId: number) {
   const res = await apiFetch<GroupMessageType[]>(`/groups/group/${groupId}/messages`, "GET", true)
   console.log(res)
