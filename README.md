@@ -76,7 +76,7 @@ A garázs funkció kiegészíti a többi funkciót a következőkkel:
 ## ✅ Telepítési útmutató
 
 > [!WARNING]
-> Az alkalmazás API kulcsokat használ. Ezek nem kerültek fel nyilvánosan a repóba, a beadott .zip fájlban található környezeti változókat tartalmazó fájlban (.env & .env.example) meg vannak adva. Legyenek szívesek ne maxolják ki a kulcsaimat
+> Az alkalmazás Imgur API kliens ID-t használ. Ez nem került fel nyilvánosan a repóba, saját kliens ID igényléséről alább olvashatnak.
 
 #### Szükséges a futtatáshoz
 
@@ -90,7 +90,7 @@ A garázs funkció kiegészíti a többi funkciót a következőkkel:
 - Git repóból történő klónozás esetén szükség van API kulcsokra és egyéb környezeti változókra.
 - Az .apk fájl elérhető a Releases tab alatt, és tartalmazza az applikáció teljes funkcionalitását, viszont IP problémák miatt **nem fog tudni kommunikálni a backenddel.**
 - Az applikáció futtatását mindenképpen az Expo Go applikáció használatával javasoljuk.
-- **Minden esetben**
+- **Minden esetben** 
     - API kulcs igénylése
         - Imgur fiók létrehozása, bejelentkezés
         - https://api.imgur.com/oauth2/addclient -> új applikáció regisztrálása (pl. AuO néven)
